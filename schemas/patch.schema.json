@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mdes-peer-program-atlas.local/schemas/patch.schema.json",
+  "title": "CorpusPatch",
+  "type": "object",
+  "required": ["patch_metadata", "changes"],
+  "additionalProperties": false,
+  "properties": {
+    "patch_metadata": {
+      "type": "object",
+      "required": ["created_at", "created_by", "source_corpus_name"],
+      "additionalProperties": false,
+      "properties": {
+        "created_at": { "type": "string" },
+        "created_by": { "type": "string" },
+        "source_corpus_name": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["program_id", "path", "old_value", "new_value"],
+        "additionalProperties": false,
+        "properties": {
+          "program_id": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "old_value": true,
+          "new_value": true,
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

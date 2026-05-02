@@ -1,0 +1,362 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mdes-peer-program-atlas.local/schemas/program_draft.schema.json",
+  "title": "Program (ingest draft)",
+  "type": "object",
+  "required": [
+    "program_id",
+    "base_url",
+    "atlas_ingest",
+    "identity",
+    "positioning",
+    "duration",
+    "degree_cost",
+    "curriculum",
+    "verification"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "program_id": { "type": "string", "minLength": 1 },
+    "base_url": { "type": "string", "minLength": 1 },
+    "atlas_ingest": {
+      "type": "object",
+      "required": ["stage", "updated_at"],
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "type": "string",
+          "enum": [
+            "skeleton",
+            "positioning",
+            "duration",
+            "degree_cost",
+            "curriculum",
+            "curriculum_courses",
+            "identity",
+            "verification",
+            "complete"
+          ]
+        },
+        "updated_at": { "type": "string" }
+      }
+    },
+    "identity": { "$ref": "#/$defs/identity" },
+    "positioning": { "$ref": "#/$defs/positioning" },
+    "duration": { "$ref": "#/$defs/duration" },
+    "degree_cost": { "$ref": "#/$defs/degreeCost" },
+    "curriculum": { "$ref": "#/$defs/curriculum" },
+    "verification": { "$ref": "#/$defs/verification" }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": [
+        "url",
+        "llm_title",
+        "llm_summary",
+        "retrieved_date"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "minLength": 1 },
+        "llm_title": {
+          "type": "string",
+          "description": "Short human-readable label for this URL (e.g. Program 'About' page)."
+        },
+        "llm_summary": { "type": "string" },
+        "retrieved_date": { "type": "string" }
+      }
+    },
+    "derivationNote": {
+      "type": "object",
+      "required": ["derived_feature", "source_url", "note"],
+      "additionalProperties": false,
+      "properties": {
+        "derived_feature": { "type": "string" },
+        "source_url": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "location": {
+      "type": "object",
+      "required": ["country", "state_or_region"],
+      "additionalProperties": false,
+      "properties": {
+        "country": { "type": ["string", "null"] },
+        "state_or_region": { "type": ["string", "null"] }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "required": [
+        "institution_name",
+        "program_name",
+        "credential_name",
+        "degree_type",
+        "host_academic_units",
+        "host_academic_model",
+        "location",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "institution_name": { "type": ["string", "null"] },
+        "program_name": { "type": ["string", "null"] },
+        "credential_name": { "type": ["string", "null"] },
+        "degree_type": { "type": ["string", "null"] },
+        "host_academic_units": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "host_academic_model": { "type": ["string", "null"] },
+        "location": { "$ref": "#/$defs/location" },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source" }
+        }
+      }
+    },
+    "positioning": {
+      "type": "object",
+      "required": ["derived_features", "sources", "derivation_notes"],
+      "additionalProperties": false,
+      "properties": {
+        "derived_features": {
+          "type": "object",
+          "required": [
+            "positioning_summary",
+            "positioning_tags"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "positioning_summary": { "type": ["string", "null"] },
+            "positioning_tags": {
+              "type": "array",
+              "items": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source" }
+        },
+        "derivation_notes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/derivationNote" }
+        }
+      }
+    },
+    "duration": {
+      "type": "object",
+      "required": ["derived_features", "sources", "derivation_notes"],
+      "additionalProperties": false,
+      "properties": {
+        "derived_features": {
+          "type": "object",
+          "required": [
+            "length_in_berkeley_semesters",
+            "duration_category"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "length_in_berkeley_semesters": {
+              "type": ["integer", "null"],
+              "minimum": 0
+            },
+            "duration_category": { "type": ["string", "null"] }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source" }
+        },
+        "derivation_notes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/derivationNote" }
+        }
+      }
+    },
+    "degreeCost": {
+      "type": "object",
+      "required": ["derived_features", "sources", "derivation_notes"],
+      "additionalProperties": false,
+      "properties": {
+        "derived_features": {
+          "type": "object",
+          "required": [
+            "base_currency",
+            "exchange_rate_to_usd",
+            "exchange_rate_date",
+            "comparison_cost_usd",
+            "total_degree_cost_base_currency_single",
+            "total_degree_cost_base_currency_domestic_or_resident",
+            "total_degree_cost_base_currency_international_or_nonresident",
+            "comparison_cost_method",
+            "cost_basis"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "base_currency": { "type": ["string", "null"] },
+            "exchange_rate_to_usd": { "type": ["number", "null"] },
+            "exchange_rate_date": { "type": ["string", "null"] },
+            "comparison_cost_usd": { "type": ["number", "null"] },
+            "total_degree_cost_base_currency_single": {
+              "type": ["number", "null"]
+            },
+            "total_degree_cost_base_currency_domestic_or_resident": {
+              "type": ["number", "null"]
+            },
+            "total_degree_cost_base_currency_international_or_nonresident": {
+              "type": ["number", "null"]
+            },
+            "comparison_cost_method": { "type": ["string", "null"] },
+            "cost_basis": { "type": ["string", "null"] }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source" }
+        },
+        "derivation_notes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/derivationNote" }
+        }
+      }
+    },
+    "coreCourse": {
+      "type": "object",
+      "required": [
+        "course_id",
+        "course_title",
+        "units_or_credits",
+        "normalized_unit_weight",
+        "sequence_position",
+        "primary_type",
+        "secondary_type",
+        "course_summary",
+        "source_url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "course_id": { "type": "string" },
+        "course_title": { "type": "string" },
+        "units_or_credits": { "type": ["number", "null"] },
+        "normalized_unit_weight": { "type": ["number", "null"] },
+        "sequence_position": { "type": ["integer", "null"] },
+        "primary_type": { "type": ["string", "null"] },
+        "secondary_type": { "type": ["string", "null"] },
+        "course_summary": { "type": ["string", "null"] },
+        "source_url": { "type": ["string", "null"] }
+      }
+    },
+    "electiveRequirement": {
+      "type": "object",
+      "required": [
+        "requirement_name",
+        "requirement_description",
+        "units_or_credits",
+        "normalized_unit_weight",
+        "primary_type",
+        "secondary_type",
+        "course_summary",
+        "source_url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "requirement_name": { "type": ["string", "null"] },
+        "requirement_description": { "type": ["string", "null"] },
+        "units_or_credits": { "type": ["number", "null"] },
+        "normalized_unit_weight": { "type": ["number", "null"] },
+        "primary_type": { "type": ["string", "null"] },
+        "secondary_type": { "type": ["string", "null"] },
+        "course_summary": { "type": ["string", "null"] },
+        "source_url": { "type": ["string", "null"] }
+      }
+    },
+    "curriculum": {
+      "type": "object",
+      "required": [
+        "derived_features",
+        "core_courses",
+        "elective_requirements",
+        "sources",
+        "derivation_notes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "derived_features": {
+          "type": "object",
+          "required": [
+            "has_required_core",
+            "has_structured_electives",
+            "has_open_electives",
+            "has_required_studio_sequence",
+            "has_required_thesis_or_capstone",
+            "has_internship_or_professional_practice_requirement",
+            "total_units_or_credits",
+            "unit_system",
+            "sequencedness",
+            "curriculum_summary"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "has_required_core": { "type": ["boolean", "null"] },
+            "has_structured_electives": { "type": ["boolean", "null"] },
+            "has_open_electives": { "type": ["boolean", "null"] },
+            "has_required_studio_sequence": { "type": ["boolean", "null"] },
+            "has_required_thesis_or_capstone": { "type": ["boolean", "null"] },
+            "has_internship_or_professional_practice_requirement": {
+              "type": ["boolean", "null"]
+            },
+            "total_units_or_credits": { "type": ["number", "null"] },
+            "unit_system": { "type": ["string", "null"] },
+            "sequencedness": { "type": ["string", "null"] },
+            "curriculum_summary": { "type": ["string", "null"] }
+          }
+        },
+        "core_courses": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/coreCourse" }
+        },
+        "elective_requirements": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/electiveRequirement" }
+        },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source" }
+        },
+        "derivation_notes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/derivationNote" }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "status",
+        "verified_by",
+        "verified_date",
+        "verification_scope",
+        "verification_notes",
+        "fields_needing_review"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "type": ["string", "null"] },
+        "verified_by": { "type": ["string", "null"] },
+        "verified_date": { "type": ["string", "null"] },
+        "verification_scope": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "verification_notes": { "type": ["string", "null"] },
+        "fields_needing_review": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "id": "highly_sequenced",
+      "label": "Highly sequenced",
+      "description": "A large majority of required curriculum items (especially core courses) have an official semester or term placement in degree-plan materials—not only a broad year label.",
+      "rules": [
+        "Operational rule: among required courses (or plan rows) you can list from evidence, compute the share that name a **specific semester or term** (e.g. Fall Year 1, Spring Year 2). If **roughly two-thirds (≈67%) or more** have that level of placement, prefer **highly_sequenced**."
+      ]
+    },
+    {
+      "id": "partially_sequenced",
+      "label": "Partially sequenced",
+      "description": "Meaningful sequencing (e.g. a prescribed first-year core or prerequisites) but a substantial portion of required or listed courses lack an explicit semester/term in the materials you have, or placement stops at year-level.",
+      "rules": [
+        "If **fewer than ~two-thirds** of enumerated required items show a **specific term** (many are only \"Year 1 core\", placeholders, or undated catalog lines), prefer **partially_sequenced** over highly_sequenced.",
+        "Also use partially_sequenced when only **some** threads are term-mapped while others are intentionally open across terms."
+      ]
+    },
+    {
+      "id": "flexible",
+      "label": "Flexible",
+      "description": "Minimal prescribed term-by-term sequencing for required work; students choose timing across terms within broad requirements.",
+      "rules": [
+        "Use when evidence shows few or no required courses pinned to particular semesters, beyond generic credit progress rules."
+      ]
+    }
+  ]
+}

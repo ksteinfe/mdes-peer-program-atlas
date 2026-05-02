@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": "interdisciplinary",
+      "label": "Interdisciplinary",
+      "description": "Positioning emphasizes cross-disciplinary work."
+    },
+    {
+      "id": "stem_adjacent",
+      "label": "STEM-adjacent",
+      "description": "Emphasizes work adjacent to engineering, computing, or sciences."
+    },    
+    {
+      "id": "professional",
+      "label": "Professional",
+      "description": "Emphasizes industry readiness, studios, and professional skills."
+    },
+    {
+      "id": "research",
+      "label": "Research",
+      "description": "Emphasizes academic research trajectories and scholarly output."
+    },
+    {
+      "id": "social_impact",
+      "label": "Social Impact",
+      "description": "Emphasizes public interest, equity, sustainability, or civic contexts."
+    },
+    {
+      "id": "physical_making",
+      "label": "Physical Making",
+      "description": "Emphasizes physical making, fabrication, or production."
+    },
+    {
+      "id": "digital",
+      "label": "Digital",
+      "description": "Emphasizes digital products, services, platforms, or apps."
+    },
+    {
+      "id": "ui_ux",
+      "label": "UI/UX",
+      "description": "Emphasizes user interface and user experience design."
+    }
+  ]
+}

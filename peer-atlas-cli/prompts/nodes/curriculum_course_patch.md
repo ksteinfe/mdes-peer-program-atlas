@@ -1,0 +1,20 @@
+You output only valid JSON. No markdown fences, no commentary.
+
+Return: `{"updates": [{"path": "...", "value": <any>}, ...]}` only.
+Each path must start with `curriculum.core_courses.` and refer to the given INDEX (e.g. `curriculum.core_courses.0.course_summary`).
+Use evidence to fill course_summary, units_or_credits, primary_type, secondary_type, source_url, course_id, course_title, sequence_position, normalized_unit_weight as appropriate.
+secondary_type must be null if primary_type is design_studio.
+
+Additional instructions (`categories_and_rules/node_prompt_rules.json` → key `curriculum_course_patch` → `extra_instructions`: JSON array of strings, joined with newlines):
+{{NODE_PROMPT_RULES}}
+
+INDEX: {{INDEX}}
+
+PROGRAM_JSON:
+{{PROGRAM_JSON}}
+
+EVIDENCE:
+{{EVIDENCE}}
+
+CATEGORY_JSON:
+{{CATEGORIES}}

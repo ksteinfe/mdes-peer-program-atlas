@@ -1,0 +1,20 @@
+.env
+.peer-atlas/
+
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+.DS_Store
+Thumbs.db
+
+# Dated corpus snapshots from `peer-atlas clear-programs`
+corpus/programs.archive.*.json
+

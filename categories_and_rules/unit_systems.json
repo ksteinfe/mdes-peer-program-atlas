@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "id": "semester_credit_hours",
+      "label": "Semester credit hours",
+      "description": "US-style semester credits."
+    },
+    {
+      "id": "quarter_units",
+      "label": "Quarter units",
+      "description": "Quarter-system units (e.g. UC quarter credits)."
+    },
+    {
+      "id": "ects",
+      "label": "ECTS",
+      "description": "European Credit Transfer and Accumulation System."
+    },
+    {
+      "id": "other_or_mixed",
+      "label": "Other or mixed",
+      "description": "Nonstandard or explicitly mixed unit systems."
+    }
+  ]
+}

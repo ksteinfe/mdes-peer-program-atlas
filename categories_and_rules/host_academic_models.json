@@ -1,0 +1,54 @@
+{
+  "items": [
+    {
+      "id": "engineering_design_shared_hosted",
+      "label": "Engineering + Design",
+      "description": "Program is administratively housed in both engineering and design units."
+    },
+    {
+      "id": "engineering_arts_shared_hosted",
+      "label": "Engineering + Arts",
+      "description": "Program is administratively housed in both engineering and arts units."
+    },    
+    {
+      "id": "engineering_business_shared_hosted",
+      "label": "Engineering + Business",
+      "description": "Program is administratively housed in both engineering and business units."
+    },  
+    {
+      "id": "design_business_shared_hosted",
+      "label": "Design + Business",
+      "description": "Program is administratively housed in both design and business units."
+    },         
+    {
+      "id": "engineering_hosted",
+      "label": "Engineering",
+      "description": "Administered by an engineering school or college."
+    },    
+    {
+      "id": "design_hosted",
+      "label": "Design",
+      "description": "Administered by a design school or college."
+    },
+    {
+      "id": "arts_hosted",
+      "label": "Arts / Humanities",
+      "description": "Administered by a unit in arts, humanities, or fine arts."
+    },
+    {
+      "id": "business_hosted",
+      "label": "Business / Management",
+      "description": "Administered by a unit in business or management."
+    },
+    {
+      "id": "computing_hosted",
+      "label": "CS / Information Technology",
+      "description": "Administered by a unit in computer science or information technology."
+    },    
+    {
+      "id": "unknown",
+      "label": "Unknown",
+      "description": "Academic unit is not clearly associated with any known categories."
+    }
+  ]
+}

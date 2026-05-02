@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": "short",
+      "label": "Less than 2 semesters",
+      "description": "Program length is less than two standard academic semesters."
+    },
+    {
+      "id": "two_semesters",
+      "label": "Two semesters",
+      "description": "Roughly two standard academic semesters."
+    },
+    {
+      "id": "three_semesters",
+      "label": "Three semesters",
+      "description": "Roughly three standard academic semesters."
+    },
+    {
+      "id": "four_semesters",
+      "label": "Four semesters",
+      "description": "Roughly four standard academic semesters."
+    },
+    {
+      "id": "four_plus_semesters",
+      "label": "Four or more semesters",
+      "description": "Extended programs spanning more than four standard academic semesters."
+    },    
+    {
+      "id": "variable_or_custom",
+      "label": "Variable or custom",
+      "description": "Duration is student-paced, modular, or not expressed in standard terms."
+    }
+  ]
+}

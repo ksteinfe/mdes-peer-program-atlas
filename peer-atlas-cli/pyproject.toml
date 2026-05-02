@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "peer-atlas-cli"
+version = "0.1.0"
+description = "CLI for MDes Peer Program Atlas corpus"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "click>=8.1",
+  "python-dotenv>=1.0",
+  "jsonschema>=4.20",
+  "httpx>=0.27",
+  "playwright>=1.49",
+  "rich>=13.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+peer-atlas = "peer_atlas_cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["peer_atlas_cli*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

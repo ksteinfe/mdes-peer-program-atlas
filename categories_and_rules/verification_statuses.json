@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "id": "llm_extracted",
+      "label": "LLM extracted",
+      "description": "Populated primarily by automated extraction; needs human review."
+    },
+    {
+      "id": "human_reviewed",
+      "label": "Human reviewed",
+      "description": "A human has reviewed the stated scope."
+    },
+    {
+      "id": "needs_sources",
+      "label": "Needs sources",
+      "description": "Key claims lack adequate source linkage."
+    },
+    {
+      "id": "stale",
+      "label": "Stale",
+      "description": "Sources or figures are likely out of date."
+    }
+  ]
+}

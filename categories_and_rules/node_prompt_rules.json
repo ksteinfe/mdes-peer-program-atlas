@@ -1,0 +1,43 @@
+{
+  "identity": {
+    "extra_instructions": []
+  },
+  "positioning": {
+    "extra_instructions": [
+      "Apply each **positioning_tags** id **only** when EVIDENCE (or a source you cite that appears in EVIDENCE) **explicitly** states or clearly implies that positioning theme for **this** program.",
+      "Do **not** add a tag from general knowledge, rankings, geography, or stereotypes when the text does not support it.",
+      "When in doubt, **leave the tag out**; use **derivation_notes** to explain what was considered and omitted for lack of direct support."
+    ]
+  },
+  "duration": {
+    "extra_instructions": []
+  },
+  "degree_cost": {
+    "extra_instructions": [
+      "Every **derivation_notes[]** entry must be a JSON object with **exactly** three keys, all strings: **derived_feature** (which `degree_cost.derived_features` field the note supports), **source_url**, **note**. No extra keys. Missing **derived_feature** breaks the corpus schema.",
+      "Example: {\"derived_feature\":\"total_degree_cost_base_currency_single\",\"source_url\":\"https://design.berkeley.edu/admissions/program-fees-funding\",\"note\":\"medium — used program fee table; excludes SHIP and possible cohort add-ons.\"}",
+      "Example: {\"derived_feature\":\"cost_basis\",\"source_url\":\"https://grad.berkeley.edu/admissions/application-process/cost/\",\"note\":\"Set cost_basis to tuition_only; graduate division page frames estimates without binding program-level COA total.\"}",
+      "- **Totals and estimates:** Be willing to use a **total degree cost** (or domestic/international split) when the evidence gives an explicit **program-level estimate** (e.g. \"total tuition and fees for the degree,\" \"approximate cost of attendance,\" a stated range with a clear midpoint, or a table row that is clearly the full-program total). Prefer the document's own figure over leaving null when that figure is clearly labeled as an estimate or total for the program.",
+      "- When you infer a total by **combining** components (per-unit × minimum units, or summing fee lines) or when the source is ambiguous, still populate numeric fields if reasonable, but add **derivation_notes** entries that state **how certain** you are (e.g. \"high — explicit total on official page,\" \"medium — inferred from per-semester subtotals,\" \"low — partial page text; figure may exclude campus fees\"). If you rely on a stated estimate in the source, say so and name the uncertainty (scope, year, resident vs non-resident). Each such explanation must still use the three-key shape with **derived_feature** set to the field you are justifying.",
+      "- If no defensible total exists even after flexible interpretation, leave cost fields null and explain in derivation_notes."
+    ]
+  },
+  "curriculum": {
+    "extra_instructions": [
+      "**sequencedness (highly vs partially):** from official degree-plan or program-design evidence, count **required** courses/plan rows you can name; use the **share that specify an exact semester or term** (not only \"Year 1\"). **highly_sequenced** when **≈67%+** are term-specific; **partially_sequenced** when a substantial minority lack term-level dates. Corpus anchors: **Berkeley MDes** → highly_sequenced; **Berkeley MIMS** → partially_sequenced (see `categories_and_rules/sequencedness.json` rules).",
+      "Use **design_studio** only when that row's **normalized_unit_weight** is strictly greater than **1.15** (studio-weight courses). If the weight is 1.15 or less, or unknown/null, do **not** use design_studio—use **design_methods_systems** (or another better-fitting type) instead. The same rule applies to **secondary_type**.",
+      "For **elective_requirements[]** rows, **primary_type** must be a **course_types** id from CATEGORY_JSON (same vocabulary as core_courses.primary_type). Pick the best-matching type for that bucket (e.g. technology, entrepreneurship, open_or_other). The **design_studio** type applies only when **normalized_unit_weight** is strictly greater than **1.15**; otherwise prefer **design_methods_systems** or another type."
+    ]
+  },
+  "curriculum_course_patch": {
+    "extra_instructions": [
+      "Classify this **one** course using evidence and CATEGORY_JSON **course_types**: pick the best **primary_type**, and **secondary_type** only when a second label clearly applies and **primary_type** is not design_studio.",
+      "Prefer specific types (technology, human_factors, history_theory_positioning, design_methods_systems, etc.) over **open_or_other** when the catalog copy fits.",
+      "**design_studio** vs weight: assign **design_studio** only when **normalized_unit_weight** is strictly greater than **1.15**; at 1.15 or below, or when weight is unknown/null, do **not** use design_studio—use **design_methods_systems** (or another appropriate type) for primary or secondary. A studio-sounding title alone is not enough at low weight.",
+      "**secondary_type** must be null whenever **primary_type** is design_studio."
+    ]
+  },
+  "verification": {
+    "extra_instructions": []
+  }
+}

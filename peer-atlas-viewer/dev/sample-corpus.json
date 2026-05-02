@@ -1,0 +1,93 @@
+{
+  "corpus_metadata": {
+    "version": 1,
+    "description": "Dev sample"
+  },
+  "programs": [
+    {
+      "program_id": "sample_program",
+      "base_url": "https://sample.edu/",
+      "identity": {
+        "institution_name": "Sample University",
+        "program_name": "Sample MDes",
+        "credential_name": "MDes",
+        "degree_type": "MDes",
+        "host_academic_units": [
+          "Design"
+        ],
+        "host_academic_model": "standalone_design_school",
+        "location": {
+          "country": "United States",
+          "state_or_region": ""
+        },
+        "sources": [
+          {
+            "url": "https://sample.edu/",
+            "llm_title": "Home",
+            "llm_summary": "",
+            "retrieved_date": ""
+          }
+        ]
+      },
+      "positioning": {
+        "derived_features": {
+          "positioning_summary": "",
+          "positioning_tags": [
+            "open_or_other"
+          ]
+        },
+        "sources": [],
+        "derivation_notes": []
+      },
+      "duration": {
+        "derived_features": {
+          "length_in_berkeley_semesters": null,
+          "duration_category": "variable_or_custom"
+        },
+        "sources": [],
+        "derivation_notes": []
+      },
+      "degree_cost": {
+        "derived_features": {
+          "base_currency": "",
+          "exchange_rate_to_usd": null,
+          "exchange_rate_date": "",
+          "comparison_cost_usd": null,
+          "total_degree_cost_base_currency_single": null,
+          "total_degree_cost_base_currency_domestic_or_resident": null,
+          "total_degree_cost_base_currency_international_or_nonresident": null,
+          "comparison_cost_method": "",
+          "cost_basis": "not_estimated"
+        },
+        "sources": [],
+        "derivation_notes": []
+      },
+      "curriculum": {
+        "derived_features": {
+          "has_required_core": null,
+          "has_structured_electives": null,
+          "has_open_electives": null,
+          "has_required_studio_sequence": null,
+          "has_required_thesis_or_capstone": null,
+          "has_internship_or_professional_practice_requirement": null,
+          "total_units_or_credits": null,
+          "unit_system": "semester_credit_hours",
+          "sequencedness": "flexible",
+          "curriculum_summary": ""
+        },
+        "core_courses": [],
+        "elective_requirements": [],
+        "sources": [],
+        "derivation_notes": []
+      },
+      "verification": {
+        "status": "llm_extracted",
+        "verified_by": "",
+        "verified_date": "",
+        "verification_scope": [],
+        "verification_notes": "",
+        "fields_needing_review": []
+      }
+    }
+  ]
+}

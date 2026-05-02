@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MDes Peer Program Atlas — Viewer</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>MDes Peer Program Atlas</h1>
+    <p class="lede">Local corpus browser. Load JSON, inspect programs, export patch files.</p>
+  </header>
+
+  <section class="toolbar">
+    <button type="button" id="btn-load-corpus" class="file-label">
+      Load corpus…
+    </button>
+    <input
+      id="file-corpus"
+      type="file"
+      accept=".json,application/json"
+      hidden
+      aria-hidden="true"
+    />
+    <button type="button" id="btn-sample">Load sample</button>
+    <input id="filter" type="search" placeholder="Filter institution / program / id…" />
+    <span id="status" class="status" role="status"></span>
+  </section>
+
+  <main class="layout">
+    <section class="panel" aria-labelledby="table-title">
+      <h2 id="table-title">Programs</h2>
+      <div class="table-wrap">
+        <table id="program-table">
+          <thead>
+            <tr>
+              <th scope="col">Program ID</th>
+              <th scope="col">Institution</th>
+              <th scope="col">Program</th>
+              <th scope="col">Degree type</th>
+              <th scope="col">Country</th>
+              <th scope="col">State / region</th>
+              <th scope="col">Host model</th>
+              <th scope="col">Positioning tags</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Berkeley sem.</th>
+              <th scope="col">Cost USD</th>
+              <th scope="col">Verification</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel drilldown" aria-labelledby="detail-title">
+      <h2 id="detail-title">Program detail</h2>
+      <p id="detail-empty" class="muted">Select a program row.</p>
+      <div id="detail-root" hidden></div>
+      <div id="patch-actions" class="patch-actions" hidden>
+        <h3>Patch queue</h3>
+        <button type="button" id="btn-queue-reviewed">Queue: verification → human_reviewed</button>
+        <ul id="patch-queue" class="patch-queue"></ul>
+        <div class="patch-meta">
+          <label>Created by <input id="meta-by" type="text" placeholder="Initials" /></label>
+          <label>Notes <input id="meta-notes" type="text" /></label>
+        </div>
+        <button type="button" id="btn-export-patch">Download patch JSON</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

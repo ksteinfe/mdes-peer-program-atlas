@@ -1,0 +1,51 @@
+{
+  "items": [
+    {
+      "id": "design_studio",
+      "label": "Design studio",
+      "description": "A project-based studio course that normally carries larger curricular weight than other courses.",
+      "rules": [
+        "Use only when the course is clearly a project-based studio.",
+        "Do not classify a course as design_studio merely because it includes a project.",
+        "Use design_studio only when normalized_unit_weight is strictly greater than 1.15; at 1.15 or below (or when weight is unknown), use design_methods_systems instead.",
+        "Design studio can never be hybrid.",
+        "If primary_type is design_studio, secondary_type must be null."
+      ]
+    },
+    {
+      "id": "human_factors",
+      "label": "Human factors",
+      "description": "Courses focused on people, communities, users, behavior, culture, social context, design research, ethnography, ergonomics, or human-centered design."
+    },
+    {
+      "id": "technology",
+      "label": "Technology",
+      "description": "Courses focused on technical design methods, computational tools, software, hardware, fabrication, sensors, AI, robotics, CAD, optimization, or technologies used in the design itself."
+    },
+    {
+      "id": "history_theory_positioning",
+      "label": "History, theory, and positioning",
+      "description": "Courses focused on design history, design theory, critical theory, contemporary issues, ethics, politics, movements, disciplinary framing, or colloquia."
+    },
+    {
+      "id": "rhetoric_storytelling_presentation",
+      "label": "Rhetoric, storytelling, and presentation",
+      "description": "Courses focused on writing, presenting, communicating, documenting, exhibiting, pitching, or narrating design work."
+    },
+    {
+      "id": "design_methods_systems",
+      "label": "Design methods and systems",
+      "description": "Courses focused on design process, structured methods, systems thinking, strategy, problem framing, research synthesis, service design methods, participatory design, systems mapping, or design frameworks."
+    },
+    {
+      "id": "entrepreneurship",
+      "label": "Entrepreneurship",
+      "description": "Courses focused on venture creation, innovation management, commercialization, markets, business models, product-market fit, leadership, startup practice, or go-to-market strategy."
+    },
+    {
+      "id": "open_or_other",
+      "label": "Open or other",
+      "description": "Use when a course or elective slot is broad, unspecified, intentionally flexible, or does not clearly map to one of the defined types."
+    }
+  ]
+}

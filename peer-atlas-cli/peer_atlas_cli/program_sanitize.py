@@ -134,7 +134,7 @@ def migrate_course_source_id_to_url(program: dict[str, Any]) -> None:
     cur = program.get("curriculum")
     if not isinstance(cur, dict):
         return
-    for key in ("core_courses", "elective_requirements"):
+    for key in ("core_courses",):
         rows = cur.get(key)
         if not isinstance(rows, list):
             continue
@@ -150,6 +150,136 @@ def migrate_course_source_id_to_url(program: dict[str, Any]) -> None:
                 row["source_url"] = mapped
 
 
+def normalize_core_course_learning_outcomes(program: dict[str, Any]) -> None:
+    """Ensure each curriculum.core_courses row has learning_outcomes: string[]."""
+    cur = program.get("curriculum")
+    if not isinstance(cur, dict):
+        return
+    rows = cur.get("core_courses")
+    if not isinstance(rows, list):
+        return
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        lo = row.get("learning_outcomes")
+        if lo is None or not isinstance(lo, list):
+            row["learning_outcomes"] = []
+            continue
+        out: list[str] = []
+        for x in lo:
+            if x is None:
+                continue
+            s = str(x).strip()
+            if s:
+                out.append(s)
+        row["learning_outcomes"] = out
+
+
+def normalize_curriculum_electives(cur: dict[str, Any]) -> None:
+    """
+    Ensure curriculum uses ``elective_requirements`` (string) + ``elective_courses`` (array).
+
+    Migrates legacy ``elective_requirements`` as an array of structured objects into
+    a human-readable string plus simplified ``elective_courses`` rows.
+    """
+    if not isinstance(cur, dict):
+        return
+    er = cur.get("elective_requirements")
+    if isinstance(er, list):
+        texts: list[str] = []
+        slots: list[dict[str, Any]] = []
+        for row in er:
+            if not isinstance(row, dict):
+                continue
+            name = str(row.get("requirement_name") or "").strip()
+            desc = str(row.get("requirement_description") or "").strip()
+            summ = str(row.get("course_summary") or "").strip()
+            if name and desc:
+                texts.append(f"{name}: {desc}")
+            elif name:
+                texts.append(name)
+            elif desc:
+                texts.append(desc)
+            elif summ:
+                texts.append(summ)
+            cid = (
+                name
+                or str(row.get("primary_type") or "").strip()
+                or "Elective"
+            )[:200]
+            u = row.get("units_or_credits")
+            nu = row.get("normalized_unit_weight")
+            slots.append(
+                {
+                    "course_id": cid or "Elective",
+                    "units_or_credits": u
+                    if isinstance(u, (int, float))
+                    else None,
+                    "normalized_unit_weight": nu
+                    if isinstance(nu, (int, float))
+                    else None,
+                }
+            )
+        cur["elective_requirements"] = "; ".join(texts) if texts else ""
+        cur["elective_courses"] = slots
+    elif isinstance(er, str):
+        if not isinstance(cur.get("elective_courses"), list):
+            cur["elective_courses"] = []
+    else:
+        cur["elective_requirements"] = ""
+        if not isinstance(cur.get("elective_courses"), list):
+            cur["elective_courses"] = []
+    ec = cur.get("elective_courses")
+    if not isinstance(ec, list):
+        cur["elective_courses"] = []
+        ec = cur["elective_courses"]
+    for row in ec:
+        if not isinstance(row, dict):
+            continue
+        cid = str(row.get("course_id") or "Elective").strip()[:200] or "Elective"
+        row["course_id"] = cid
+        row.setdefault("units_or_credits", None)
+        row.setdefault("normalized_unit_weight", None)
+    if not isinstance(cur.get("elective_requirements"), str):
+        cur["elective_requirements"] = ""
+
+
+def normalize_curriculum_electives_in_program(program: dict[str, Any]) -> None:
+    cur = program.get("curriculum")
+    if isinstance(cur, dict):
+        normalize_curriculum_electives(cur)
+
+
+def coalesce_curriculum_subtree_from_llm(cur: dict[str, Any]) -> None:
+    """
+    Fix common LLM curriculum mistakes before JSON Schema validation.
+
+    - Maps stray ``course_type`` → ``primary_type`` when needed and drops
+      ``course_type`` (schema uses ``primary_type`` / ``secondary_type`` only).
+    - Migrates / normalizes electives (``elective_requirements`` string +
+      ``elective_courses`` array).
+    - Ensures required nullable keys exist on ``core_courses`` rows.
+    """
+    if not isinstance(cur, dict):
+        return
+    normalize_curriculum_electives(cur)
+    for row in cur.get("core_courses") or []:
+        if not isinstance(row, dict):
+            continue
+        wrong = row.pop("course_type", None)
+        pt = row.get("primary_type")
+        if (pt is None or (isinstance(pt, str) and not pt.strip())) and isinstance(
+            wrong, str
+        ) and wrong.strip():
+            row["primary_type"] = wrong.strip()
+        row.setdefault("units_or_credits", None)
+        row.setdefault("normalized_unit_weight", None)
+        row.setdefault("secondary_type", None)
+        row.setdefault("learning_outcomes", [])
+        if row.get("primary_type") == "design_studio":
+            row["secondary_type"] = None
+
+
 def ensure_course_source_urls(program: dict[str, Any], base_url: str) -> None:
     """Set missing curriculum row source_url to program base_url (draft-friendly)."""
     u = (base_url or "").strip()
@@ -158,7 +288,7 @@ def ensure_course_source_urls(program: dict[str, Any], base_url: str) -> None:
     cur = program.get("curriculum")
     if not isinstance(cur, dict):
         return
-    for key in ("core_courses", "elective_requirements"):
+    for key in ("core_courses",):
         rows = cur.get(key)
         if not isinstance(rows, list):
             continue

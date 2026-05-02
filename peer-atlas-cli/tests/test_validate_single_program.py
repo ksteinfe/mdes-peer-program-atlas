@@ -10,9 +10,10 @@ from peer_atlas_cli.schema_validation import validate_single_program
 def test_validate_single_program_flags_bad_elective_shape() -> None:
     root = find_repo_root()
     program = build_ingest_skeleton("x", "https://example.edu/")
-    set_ingest_stage(program, "curriculum")
-    program["curriculum"]["elective_requirements"] = [
-        {"requirement_type": "x", "count": 1, "description": "d", "allowed_types": []}
+    set_ingest_stage(program, "complete")
+    program["curriculum"]["elective_courses"] = [
+        {"course_id": "Open Elective", "units_or_credits": 3, "normalized_unit_weight": "not-a-number"}
     ]
     errs = validate_single_program(root, program)
-    assert any("elective_requirements" in e for e in errs)
+    joined = " ".join(errs).lower()
+    assert errs and ("elective" in joined or "normalized_unit_weight" in joined)

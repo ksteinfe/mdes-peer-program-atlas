@@ -5,6 +5,25 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
+# Keep in lockstep with `schemas/program_draft.schema.json` → `properties.atlas_ingest.properties.stage.enum`.
+# Any new `set_ingest_stage(..., "…")` value must be added here and in that enum (CI checks via test).
+ATLAS_INGEST_STAGES: frozenset[str] = frozenset(
+    {
+        "skeleton",
+        "positioning",
+        "duration",
+        "degree_cost",
+        "curriculum",
+        "curriculum_overview",
+        "curriculum_courses",
+        "curriculum_course_research",
+        "curriculum_course_llm",
+        "identity",
+        "verification",
+        "complete",
+    }
+)
+
 
 def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -71,7 +90,8 @@ def build_ingest_skeleton(program_id: str, base_url: str) -> dict[str, Any]:
                 "curriculum_summary": None,
             },
             "core_courses": [],
-            "elective_requirements": [],
+            "elective_requirements": "",
+            "elective_courses": [],
             "sources": [],
             "derivation_notes": [],
         },
@@ -87,6 +107,12 @@ def build_ingest_skeleton(program_id: str, base_url: str) -> dict[str, Any]:
 
 
 def set_ingest_stage(program: dict[str, Any], stage: str) -> None:
+    if stage not in ATLAS_INGEST_STAGES:
+        raise ValueError(
+            f"atlas_ingest.stage {stage!r} is not allowed. "
+            "Add it to ATLAS_INGEST_STAGES in program_skeleton.py and to "
+            "schemas/program_draft.schema.json (atlas_ingest.properties.stage.enum)."
+        )
     program["atlas_ingest"] = {"stage": stage, "updated_at": _iso_now()}
 
 

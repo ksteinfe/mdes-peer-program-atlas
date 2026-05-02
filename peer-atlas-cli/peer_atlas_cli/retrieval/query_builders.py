@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+import re
 from typing import Any
 
 INGEST_NODE_ORDER = [
     "positioning",
     "duration",
     "degree_cost",
-    "curriculum",
+    "curriculum_overview",
     "identity",
     "verification",
 ]
@@ -56,6 +57,12 @@ def queries_for_node(
             f"{label} MDes course requirements catalog",
             f"{label} studio thesis credits units",
         ]
+    if node == "curriculum_overview":
+        return [
+            f"{label} degree plan curriculum map required courses by term",
+            f"{label} program structure core sequence official",
+            f"{label} graduate curriculum course list overview",
+        ]
     if node == "identity":
         return [
             f"{label} official degree name credential",
@@ -71,6 +78,18 @@ def queries_for_node(
     return [label]
 
 
+def _looks_like_generic_core_placeholder(course_title: str, course_id: str) -> bool:
+    """True when overview left a vague label — Tavily needs degree-plan queries, not 'Core course 2'."""
+    t = (course_title or "").strip().lower()
+    if "placeholder" in t:
+        return True
+    if re.match(r"^core course \d+$", t):
+        return True
+    if re.match(r"^course \d+$", t):
+        return True
+    return False
+
+
 def queries_for_core_course(
     program: dict[str, Any],
     course_title: str,
@@ -84,7 +103,26 @@ def queries_for_core_course(
     cid = (course_id or "").strip()
     q1 = f"{base} {ct} syllabus course description".strip()
     q2 = f"{base} {cid} catalog".strip() if cid else q1
-    out = [q1, q2]
+    out: list[str] = []
+    if _looks_like_generic_core_placeholder(ct, cid):
+        label = f"{inst} {pname}".strip() or pname or inst
+        out.extend(
+            [
+                f"{label} required core courses degree requirements catalog",
+                f"{label} core curriculum course list units",
+                f"{label} first year core information courses".strip(),
+            ]
+        )
+    out.extend([q1, q2])
     if seed_url:
         out.append(f"{ct} {inst} graduate course".strip())
-    return [q for q in out if q]
+    # Dedupe while preserving order
+    seen: set[str] = set()
+    uniq: list[str] = []
+    for q in out:
+        q = (q or "").strip()
+        if not q or q in seen:
+            continue
+        seen.add(q)
+        uniq.append(q)
+    return uniq

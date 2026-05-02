@@ -31,7 +31,10 @@
             "duration",
             "degree_cost",
             "curriculum",
+            "curriculum_overview",
             "curriculum_courses",
+            "curriculum_course_research",
+            "curriculum_course_llm",
             "identity",
             "verification",
             "complete"
@@ -234,7 +237,8 @@
         "primary_type",
         "secondary_type",
         "course_summary",
-        "source_url"
+        "source_url",
+        "learning_outcomes"
       ],
       "additionalProperties": false,
       "properties": {
@@ -246,31 +250,21 @@
         "primary_type": { "type": ["string", "null"] },
         "secondary_type": { "type": ["string", "null"] },
         "course_summary": { "type": ["string", "null"] },
-        "source_url": { "type": ["string", "null"] }
+        "source_url": { "type": ["string", "null"] },
+        "learning_outcomes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
       }
     },
-    "electiveRequirement": {
+    "electiveCourseLite": {
       "type": "object",
-      "required": [
-        "requirement_name",
-        "requirement_description",
-        "units_or_credits",
-        "normalized_unit_weight",
-        "primary_type",
-        "secondary_type",
-        "course_summary",
-        "source_url"
-      ],
+      "required": ["course_id", "units_or_credits", "normalized_unit_weight"],
       "additionalProperties": false,
       "properties": {
-        "requirement_name": { "type": ["string", "null"] },
-        "requirement_description": { "type": ["string", "null"] },
+        "course_id": { "type": "string" },
         "units_or_credits": { "type": ["number", "null"] },
-        "normalized_unit_weight": { "type": ["number", "null"] },
-        "primary_type": { "type": ["string", "null"] },
-        "secondary_type": { "type": ["string", "null"] },
-        "course_summary": { "type": ["string", "null"] },
-        "source_url": { "type": ["string", "null"] }
+        "normalized_unit_weight": { "type": ["number", "null"] }
       }
     },
     "curriculum": {
@@ -279,6 +273,7 @@
         "derived_features",
         "core_courses",
         "elective_requirements",
+        "elective_courses",
         "sources",
         "derivation_notes"
       ],
@@ -319,8 +314,12 @@
           "items": { "$ref": "#/$defs/coreCourse" }
         },
         "elective_requirements": {
+          "type": ["string", "null"],
+          "description": "Human-readable summary of how electives work (policy text)."
+        },
+        "elective_courses": {
           "type": "array",
-          "items": { "$ref": "#/$defs/electiveRequirement" }
+          "items": { "$ref": "#/$defs/electiveCourseLite" }
         },
         "sources": {
           "type": "array",

@@ -154,27 +154,15 @@ def validate_program_categories(
         if nuw is not None and not isinstance(nuw, (int, float)):
             p(f"curriculum.core_courses[{i}].normalized_unit_weight must be number or null")
 
-    for i, e in enumerate(cur.get("elective_requirements") or []):
-        pt_raw = e.get("primary_type")
-        if pt_raw is None or not str(pt_raw).strip():
-            if not draft:
-                p(f"curriculum.elective_requirements[{i}].primary_type invalid")
-            continue
-        pt = str(pt_raw)
-        if pt not in course_ids:
-            p(f"curriculum.elective_requirements[{i}].primary_type invalid")
-        st = e.get("secondary_type")
-        if st is not None and str(st) not in course_ids:
-            p(f"curriculum.elective_requirements[{i}].secondary_type invalid")
-        if pt == "design_studio" and st is not None:
-            p(
-                f"curriculum.elective_requirements[{i}]: design_studio must have secondary_type null"
-            )
-        nuw = e.get("normalized_unit_weight")
+    for i, e in enumerate(cur.get("elective_courses") or []):
+        nuw = e.get("normalized_unit_weight") if isinstance(e, dict) else None
         if nuw is not None and not isinstance(nuw, (int, float)):
             p(
-                f"curriculum.elective_requirements[{i}].normalized_unit_weight must be number or null"
+                f"curriculum.elective_courses[{i}].normalized_unit_weight must be number or null"
             )
+        u = e.get("units_or_credits") if isinstance(e, dict) else None
+        if u is not None and not isinstance(u, (int, float)):
+            p(f"curriculum.elective_courses[{i}].units_or_credits must be number or null")
 
     return errors
 

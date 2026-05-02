@@ -76,7 +76,8 @@
           "curriculum_summary": ""
         },
         "core_courses": [],
-        "elective_requirements": [],
+        "elective_requirements": "",
+        "elective_courses": [],
         "sources": [],
         "derivation_notes": []
       },

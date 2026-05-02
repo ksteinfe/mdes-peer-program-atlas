@@ -7,7 +7,7 @@ Output a single JSON object matching the program schema. Use only allowed catego
 - degree_cost.derived_features.cost_basis
 - curriculum.derived_features.unit_system and sequencedness
 - curriculum.core_courses[].primary_type and secondary_type (secondary_type null if primary_type is design_studio)
-- curriculum.elective_requirements[].primary_type and secondary_type
+- curriculum.elective_courses[] entries have no course_types fields; only course_id, units_or_credits, normalized_unit_weight
 - verification.status — set to "llm_extracted"
 
 Rules:

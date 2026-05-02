@@ -12,4 +12,4 @@ Entry point: `peer-atlas`. `clear-programs` archives `corpus/programs.json` to `
 
 **Ingest LLM:** each node and each curriculum course patch retries up to **3** times if the merged program fails JSON Schema, feeding schema errors back to the model. On failure, stderr shows a short summary; set **`PEER_ATLAS_LLM_DEBUG=1`** for full raw + parsed dumps.
 
-During evidence gathering, stderr lists **Tavily/seed URLs** to fetch, then each page as **`fetch: cache <url>`** (disk TTL cache) or **`fetch: network <url>`** (live Playwright/httpx).
+During evidence gathering, stderr lists how many URLs are **queued** for the node (after Tavily + dedupe), then each page actually retrieved as **`fetch: cache <url>`** (disk TTL cache) or **`fetch: network <url>`** (live Playwright/httpx). A **cumulative character budget** per node can stop the loop early, so you may see fewer `fetch:` lines than queued URLs; a follow-up line explains when remaining URLs were skipped.

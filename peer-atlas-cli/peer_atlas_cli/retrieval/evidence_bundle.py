@@ -3,9 +3,15 @@
 from __future__ import annotations
 
 import pathlib
+from urllib.parse import urlparse
+
 from collections.abc import Callable
 from typing import Any
 
+from peer_atlas_cli.retrieval.evidence_relevance import (
+    dedupe_hits_preserve_order,
+    rank_hits_for_program,
+)
 from peer_atlas_cli.retrieval.fetch_cached import fetch_url_text_cached
 from peer_atlas_cli.retrieval.query_builders import queries_for_node
 from peer_atlas_cli.retrieval.tavily_search import search_urls
@@ -44,6 +50,25 @@ def gather_evidence_for_node(
     """
     queries = queries_for_node(node, program, seed_url=seed_url, user_query=user_query)
     hits: list[dict[str, Any]] = []
+    seed_host = ""
+    if seed_url:
+        try:
+            seed_host = (urlparse(seed_url).hostname or "").lower().removeprefix("www.")
+        except ValueError:
+            seed_host = ""
+
+    if node == "curriculum_overview" and seed_host and queries:
+        try:
+            hits.extend(
+                search_urls(
+                    queries[0],
+                    max_results=max_results_per_query,
+                    include_domains=[seed_host],
+                )
+            )
+        except Exception:
+            pass
+
     for q in queries:
         try:
             hits.extend(
@@ -52,17 +77,32 @@ def gather_evidence_for_node(
         except Exception:
             continue
 
+    hits = rank_hits_for_program(
+        hits,
+        program,
+        seed_url=seed_url,
+        user_query=user_query,
+        strict_anchor_filter=(node == "curriculum_overview"),
+    )
     urls = _dedupe_urls([h["url"] for h in hits])[:max_urls_total]
     if seed_url and normalize_url(seed_url) not in {normalize_url(u) for u in urls}:
         urls.insert(0, seed_url)
 
     if trace is not None and urls:
-        trace(f"evidence: will fetch {len(urls)} source URL(s)")
+        trace(
+            f"evidence: queueing {len(urls)} source URL(s); "
+            f"char budget {budget_chars} (up to {max_chars_per_url} chars per URL)"
+        )
 
     parts: list[str] = []
     used = 0
-    for url in urls:
+    for i, url in enumerate(urls):
         if used >= budget_chars:
+            if trace is not None and i < len(urls):
+                trace(
+                    f"evidence: not fetching remaining {len(urls) - i} URL(s) "
+                    f"(char budget {budget_chars} reached)"
+                )
             break
         try:
             text = fetch_url_text_cached(
@@ -124,8 +164,19 @@ def gather_evidence_for_queries(
     budget_chars: int = 32_000,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
+    program: dict[str, Any] | None = None,
+    user_query: str = "",
+    extra_anchor_phrases: list[str] | None = None,
+    strict_anchor_filter: bool = False,
 ) -> str:
-    """Ad-hoc evidence from explicit query strings (e.g. per core course)."""
+    """
+    Ad-hoc evidence from explicit query strings (e.g. per core course).
+
+    Omit ``program`` for **per-course** research: hits are only deduped by URL,
+    so registrar / catalog pages that do not mention the program name stay
+    eligible. Pass ``program`` (+ optional anchors / strict) only for bundles
+    where every hit should stay on-program (not the default for course search).
+    """
     hits: list[dict[str, Any]] = []
     for q in queries:
         q = (q or "").strip()
@@ -135,17 +186,36 @@ def gather_evidence_for_queries(
             hits.extend(search_urls(q, max_results=max_results_per_query))
         except Exception:
             continue
+    if program is not None:
+        hits = rank_hits_for_program(
+            hits,
+            program,
+            seed_url=seed_url,
+            user_query=user_query,
+            strict_anchor_filter=strict_anchor_filter,
+            extra_anchor_phrases=extra_anchor_phrases,
+        )
+    else:
+        hits = dedupe_hits_preserve_order(hits)
     urls = _dedupe_urls([h["url"] for h in hits])[:max_urls_total]
     if seed_url:
         urls = _dedupe_urls([seed_url] + urls)[:max_urls_total]
 
     if trace is not None and urls:
-        trace(f"evidence: will fetch {len(urls)} source URL(s)")
+        trace(
+            f"evidence: queueing {len(urls)} source URL(s); "
+            f"char budget {budget_chars} (up to {max_chars_per_url} chars per URL)"
+        )
 
     parts: list[str] = []
     used = 0
-    for url in urls:
+    for i, url in enumerate(urls):
         if used >= budget_chars:
+            if trace is not None and i < len(urls):
+                trace(
+                    f"evidence: not fetching remaining {len(urls) - i} URL(s) "
+                    f"(char budget {budget_chars} reached)"
+                )
             break
         try:
             text = fetch_url_text_cached(

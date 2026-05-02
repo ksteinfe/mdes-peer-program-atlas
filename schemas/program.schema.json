@@ -216,7 +216,8 @@
         "primary_type",
         "secondary_type",
         "course_summary",
-        "source_url"
+        "source_url",
+        "learning_outcomes"
       ],
       "additionalProperties": false,
       "properties": {
@@ -228,31 +229,21 @@
         "primary_type": { "type": "string" },
         "secondary_type": { "type": ["string", "null"] },
         "course_summary": { "type": "string" },
-        "source_url": { "type": "string", "minLength": 1 }
+        "source_url": { "type": "string", "minLength": 1 },
+        "learning_outcomes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
       }
     },
-    "electiveRequirement": {
+    "electiveCourseLite": {
       "type": "object",
-      "required": [
-        "requirement_name",
-        "requirement_description",
-        "units_or_credits",
-        "normalized_unit_weight",
-        "primary_type",
-        "secondary_type",
-        "course_summary",
-        "source_url"
-      ],
+      "required": ["course_id", "units_or_credits", "normalized_unit_weight"],
       "additionalProperties": false,
       "properties": {
-        "requirement_name": { "type": "string" },
-        "requirement_description": { "type": "string" },
+        "course_id": { "type": "string" },
         "units_or_credits": { "type": ["number", "null"] },
-        "normalized_unit_weight": { "type": ["number", "null"] },
-        "primary_type": { "type": "string" },
-        "secondary_type": { "type": ["string", "null"] },
-        "course_summary": { "type": "string" },
-        "source_url": { "type": "string", "minLength": 1 }
+        "normalized_unit_weight": { "type": ["number", "null"] }
       }
     },
     "curriculum": {
@@ -261,6 +252,7 @@
         "derived_features",
         "core_courses",
         "elective_requirements",
+        "elective_courses",
         "sources",
         "derivation_notes"
       ],
@@ -301,8 +293,12 @@
           "items": { "$ref": "#/$defs/coreCourse" }
         },
         "elective_requirements": {
+          "type": "string",
+          "description": "Human-readable summary of how electives work (policy text)."
+        },
+        "elective_courses": {
           "type": "array",
-          "items": { "$ref": "#/$defs/electiveRequirement" }
+          "items": { "$ref": "#/$defs/electiveCourseLite" }
         },
         "sources": {
           "type": "array",

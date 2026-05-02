@@ -8,7 +8,7 @@
     {
       "id": "quarter_units",
       "label": "Quarter units",
-      "description": "Quarter-system units (e.g. UC quarter credits)."
+      "description": "US-style quarter-system units."
     },
     {
       "id": "ects",

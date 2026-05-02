@@ -24,6 +24,8 @@ def search_urls(
     *,
     max_results: int = 5,
     timeout: float = 30.0,
+    include_domains: list[str] | None = None,
+    exclude_domains: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     """
     Return Tavily results: each dict has url, title, content (snippet), optional score.
@@ -35,6 +37,10 @@ def search_urls(
         "search_depth": "basic",
         "include_answer": False,
     }
+    if include_domains:
+        payload["include_domains"] = [d.strip() for d in include_domains if d and str(d).strip()]
+    if exclude_domains:
+        payload["exclude_domains"] = [d.strip() for d in exclude_domains if d and str(d).strip()]
     with httpx.Client(timeout=timeout) as client:
         r = client.post(TAVILY_SEARCH_URL, json=payload)
         r.raise_for_status()

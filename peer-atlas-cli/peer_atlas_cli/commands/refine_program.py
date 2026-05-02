@@ -15,7 +15,13 @@ from peer_atlas_cli.json_paths import set_path
 from peer_atlas_cli.llm_client import get_client, parse_json_response
 from peer_atlas_cli.llm_reporting import echo_llm_raw_and_parsed
 from peer_atlas_cli.program_merge import append_derivation_notes, extend_fields_needing_review
-from peer_atlas_cli.program_sanitize import normalize_derivation_notes, normalize_sources, strip_legacy_source_id_fields
+from peer_atlas_cli.program_sanitize import (
+    normalize_core_course_learning_outcomes,
+    normalize_curriculum_electives_in_program,
+    normalize_derivation_notes,
+    normalize_sources,
+    strip_legacy_source_id_fields,
+)
 from peer_atlas_cli.prompt_loader import load_prompt, render_template
 from peer_atlas_cli.repo_root import find_repo_root
 from peer_atlas_cli.retrieval.evidence_bundle import gather_evidence_for_node
@@ -126,10 +132,12 @@ def refine_program_cmd(program_id: str, instruction: str, scope: str | None) -> 
     if isinstance(extras, list):
         extend_fields_needing_review(prog, [str(x) for x in extras])
 
+    normalize_curriculum_electives_in_program(prog)
     recompute_normalized_unit_weights(prog)
 
     strip_legacy_source_id_fields(prog)
     normalize_sources(prog)
+    normalize_core_course_learning_outcomes(prog)
     normalize_derivation_notes(prog, default_source_url=str(prog.get("base_url") or ""))
 
     errs = validate_corpus(root, corpus)

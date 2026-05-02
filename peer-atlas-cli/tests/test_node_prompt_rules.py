@@ -10,8 +10,8 @@ def test_load_node_prompt_rules_joins_list_strings() -> None:
     root = find_repo_root()
     text = load_node_prompt_rules(root, "degree_cost")
     assert "derived_feature" in text
-    assert "Totals and estimates" in text
-    assert "defensible total" in text
+    assert "comparison_cost_usd" in text
+    assert "tuition-and-fees" in text
     parts = text.split("\n")
     assert len(parts) >= 6
     assert all(p.strip() for p in parts)

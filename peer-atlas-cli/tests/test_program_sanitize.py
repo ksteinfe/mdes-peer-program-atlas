@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
-from peer_atlas_cli.program_sanitize import normalize_derivation_notes, normalize_sources
+from peer_atlas_cli.program_sanitize import (
+    coalesce_curriculum_subtree_from_llm,
+    normalize_core_course_learning_outcomes,
+    normalize_derivation_notes,
+    normalize_sources,
+)
 
 
 def test_normalize_derivation_notes_coerces_strings() -> None:
@@ -45,3 +50,62 @@ def test_normalize_sources_new_shape() -> None:
     assert s["llm_summary"] == "About the program."
     assert s["retrieved_date"] == "2026-05-02"
     assert s["llm_title"] == "About mdes"
+
+
+def test_normalize_core_course_learning_outcomes() -> None:
+    p = {
+        "curriculum": {
+            "core_courses": [
+                {},
+                {"learning_outcomes": "not a list"},
+                {"learning_outcomes": ["  a  ", "", "b"]},
+            ]
+        }
+    }
+    normalize_core_course_learning_outcomes(p)
+    rows = p["curriculum"]["core_courses"]
+    assert rows[0]["learning_outcomes"] == []
+    assert rows[1]["learning_outcomes"] == []
+    assert rows[2]["learning_outcomes"] == ["a", "b"]
+
+
+def test_coalesce_curriculum_subtree_from_llm() -> None:
+    cur = {
+        "derived_features": {},
+        "core_courses": [
+            {
+                "course_id": "x",
+                "course_title": "Y",
+                "course_type": "design_methods_systems",
+                "sequence_position": 1,
+                "course_summary": "s",
+                "source_url": "https://example.edu/",
+            }
+        ],
+        "elective_requirements": [
+            {
+                "requirement_name": "Elective",
+                "requirement_description": "d",
+                "primary_type": "open_or_other",
+                "course_summary": "c",
+                "source_url": "https://example.edu/",
+            }
+        ],
+        "sources": [],
+        "derivation_notes": [],
+    }
+    coalesce_curriculum_subtree_from_llm(cur)
+    core = cur["core_courses"][0]
+    assert "course_type" not in core
+    assert core["primary_type"] == "design_methods_systems"
+    assert core["units_or_credits"] is None
+    assert core["normalized_unit_weight"] is None
+    assert core["secondary_type"] is None
+    assert core["learning_outcomes"] == []
+    assert isinstance(cur["elective_requirements"], str)
+    assert "Elective" in cur["elective_requirements"]
+    ec = cur["elective_courses"]
+    assert len(ec) == 1
+    assert ec[0]["course_id"] == "Elective"
+    assert ec[0]["units_or_credits"] is None
+    assert ec[0]["normalized_unit_weight"] is None

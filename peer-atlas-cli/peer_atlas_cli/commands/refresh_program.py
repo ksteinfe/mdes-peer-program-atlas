@@ -19,7 +19,13 @@ from peer_atlas_cli.program_merge import (
     extend_fields_needing_review,
     merge_sources_keep_existing,
 )
-from peer_atlas_cli.program_sanitize import normalize_derivation_notes, normalize_sources, strip_legacy_source_id_fields
+from peer_atlas_cli.program_sanitize import (
+    normalize_core_course_learning_outcomes,
+    normalize_curriculum_electives_in_program,
+    normalize_derivation_notes,
+    normalize_sources,
+    strip_legacy_source_id_fields,
+)
 from peer_atlas_cli.prompt_loader import load_prompt, render_template
 from peer_atlas_cli.repo_root import find_repo_root
 from peer_atlas_cli.retrieval.fetch_cached import fetch_url_text_cached
@@ -137,10 +143,12 @@ def refresh_program_cmd(program_id: str, overwrite_human_reviewed: bool) -> None
     if isinstance(extras, list):
         extend_fields_needing_review(merged, [str(x) for x in extras])
 
+    normalize_curriculum_electives_in_program(merged)
     recompute_normalized_unit_weights(merged)
 
     strip_legacy_source_id_fields(merged)
     normalize_sources(merged)
+    normalize_core_course_learning_outcomes(merged)
     normalize_derivation_notes(
         merged, default_source_url=str(merged.get("base_url") or "")
     )

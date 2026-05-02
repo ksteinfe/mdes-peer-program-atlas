@@ -18,6 +18,7 @@ from peer_atlas_cli.llm_nodes import (
     INGEST_MAIN_NODES,
     LLMSchemaValidationError,
     run_curriculum_course_patch,
+    run_curriculum_overview_step,
     run_node_step,
 )
 from peer_atlas_cli.llm_reporting import echo_llm_raw_and_parsed, echo_validation_errors
@@ -28,6 +29,8 @@ from peer_atlas_cli.program_skeleton import (
 )
 from peer_atlas_cli.program_sanitize import (
     ensure_course_source_urls,
+    normalize_core_course_learning_outcomes,
+    normalize_curriculum_electives_in_program,
     normalize_derivation_notes,
     normalize_sources,
     strip_legacy_source_id_fields,
@@ -70,6 +73,8 @@ def _sanitize_before_validate(program: dict[str, Any]) -> None:
             err=True,
         )
     ensure_course_source_urls(program, base)
+    normalize_core_course_learning_outcomes(program)
+    normalize_curriculum_electives_in_program(program)
 
 
 @click.command("add-program")
@@ -86,9 +91,9 @@ def _sanitize_before_validate(program: dict[str, Any]) -> None:
 @click.option(
     "--max-courses",
     default=8,
-    type=int,
+    type=click.IntRange(0, None),
     show_default=True,
-    help="Max core_courses rows to run per-course evidence patches.",
+    help="Max core_courses rows to run per-course evidence patches (0 = all rows).",
 )
 @click.option(
     "--dry-run",
@@ -171,8 +176,8 @@ def add_program_cmd(
         click.echo(f"  {msg}", err=True)
 
     for node in INGEST_MAIN_NODES:
-        if node == "curriculum":
-            set_ingest_stage(program, "curriculum")
+        if node == "curriculum_overview":
+            set_ingest_stage(program, "curriculum_overview")
             click.echo(f"--- Node: {node} ---", err=True)
             evidence = gather_evidence_for_node(
                 node,
@@ -186,11 +191,10 @@ def add_program_cmd(
             )
             raw = ""
             try:
-                click.echo("Calling LLM …", err=True)
-                raw = run_node_step(
+                click.echo("Calling LLM (curriculum overview) …", err=True)
+                raw = run_curriculum_overview_step(
                     client=client,
                     program=program,
-                    node=node,
                     evidence=evidence,
                     categories_json=cat_json,
                     repo_root=root,
@@ -214,14 +218,20 @@ def add_program_cmd(
                 sys.exit(1)
             set_ingest_stage(program, "curriculum_courses")
             courses = (program.get("curriculum") or {}).get("core_courses") or []
-            for i in range(min(len(courses), max(0, max_courses))):
-                click.echo(f"  curriculum patch course index {i} …", err=True)
+            # Per-course Tavily + LLM patch applies only to core_courses[].
+            # elective_requirements (string) + elective_courses[] are filled by the curriculum_overview LLM from program policy text only (no per-slot research).
+            n_courses = len(courses)
+            if max_courses > 0:
+                n_courses = min(n_courses, max_courses)
+            for i in range(n_courses):
+                click.echo(f"  curriculum course index {i} …", err=True)
                 cq = queries_for_core_course(
                     program,
                     str(courses[i].get("course_title") or ""),
                     str(courses[i].get("course_id") or ""),
                     seed_url=url,
                 )
+                set_ingest_stage(program, "curriculum_course_research")
                 ev_c = gather_evidence_for_queries(
                     cq,
                     repo_root=root,
@@ -230,6 +240,11 @@ def add_program_cmd(
                     report=fetch_warn,
                     trace=trace_source,
                 )
+                click.echo(
+                    f"  research done for core course index {i} ({len(cq)} queries).",
+                    err=True,
+                )
+                set_ingest_stage(program, "curriculum_course_llm")
                 try:
                     run_curriculum_course_patch(
                         client=client,

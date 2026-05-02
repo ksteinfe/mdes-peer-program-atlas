@@ -15,7 +15,13 @@ from peer_atlas_cli.curriculum_units import recompute_normalized_unit_weights
 from peer_atlas_cli.json_paths import set_path
 from peer_atlas_cli.llm_client import get_client, parse_json_response
 from peer_atlas_cli.program_merge import append_derivation_notes, extend_fields_needing_review
-from peer_atlas_cli.program_sanitize import normalize_derivation_notes, normalize_sources, strip_legacy_source_id_fields
+from peer_atlas_cli.program_sanitize import (
+    normalize_core_course_learning_outcomes,
+    normalize_curriculum_electives_in_program,
+    normalize_derivation_notes,
+    normalize_sources,
+    strip_legacy_source_id_fields,
+)
 from peer_atlas_cli.prompt_loader import load_prompt, render_template
 from peer_atlas_cli.repo_root import find_repo_root
 from peer_atlas_cli.retrieval.fetch_cached import fetch_url_text_cached
@@ -51,9 +57,6 @@ def _paths_for_program(program: dict[str, Any], category_keys: list[str]) -> lis
             for i, _ in enumerate(cur.get("core_courses") or []):
                 out.append(f"curriculum.core_courses[{i}].primary_type")
                 out.append(f"curriculum.core_courses[{i}].secondary_type")
-            for i, _ in enumerate(cur.get("elective_requirements") or []):
-                out.append(f"curriculum.elective_requirements[{i}].primary_type")
-                out.append(f"curriculum.elective_requirements[{i}].secondary_type")
         elif key == "verification_statuses":
             out.append("verification.status")
     return out
@@ -165,11 +168,14 @@ def reevaluate_categories_cmd(category_keys: tuple[str, ...], refresh_sources: b
         if isinstance(extras, list):
             extend_fields_needing_review(prog, [str(x) for x in extras])
 
+        normalize_curriculum_electives_in_program(prog)
         recompute_normalized_unit_weights(prog)
 
     for prog in programs_list(corpus):
         strip_legacy_source_id_fields(prog)
         normalize_sources(prog)
+        normalize_curriculum_electives_in_program(prog)
+        normalize_core_course_learning_outcomes(prog)
         normalize_derivation_notes(prog, default_source_url=str(prog.get("base_url") or ""))
 
     errs = validate_corpus(root, corpus)

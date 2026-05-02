@@ -5,7 +5,7 @@
       "label": "Highly sequenced",
       "description": "A large majority of required curriculum items (especially core courses) have an official semester or term placement in degree-plan materials—not only a broad year label.",
       "rules": [
-        "Operational rule: among required courses (or plan rows) you can list from evidence, compute the share that name a **specific semester or term** (e.g. Fall Year 1, Spring Year 2). If **roughly two-thirds (≈67%) or more** have that level of placement, prefer **highly_sequenced**."
+        "Operational rule: among required courses (or plan rows) you can list from evidence, compute the share that name a **specific semester or term** (e.g. Fall Year 1, Spring Year 2). If **roughly one-half (50%) or more** have that level of placement, prefer **highly_sequenced**."
       ]
     },
     {

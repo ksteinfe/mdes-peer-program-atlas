@@ -10,6 +10,7 @@ from typing import Any
 from peer_atlas_cli.categories import load_node_prompt_rules
 from peer_atlas_cli.json_paths import set_path
 from peer_atlas_cli.llm_client import LLMClient, parse_json_response
+from peer_atlas_cli.program_sanitize import coalesce_curriculum_subtree_from_llm
 from peer_atlas_cli.prompt_loader import load_prompt, render_template
 from peer_atlas_cli.repo_root import find_repo_root
 from peer_atlas_cli.schema_validation import validate_single_program
@@ -37,7 +38,7 @@ INGEST_MAIN_NODES: tuple[str, ...] = (
     "positioning",
     "duration",
     "degree_cost",
-    "curriculum",
+    "curriculum_overview",
     "identity",
     "verification",
 )
@@ -102,6 +103,8 @@ def run_node_step(
         subtree = parsed.get(node)
         if not isinstance(subtree, dict):
             raise ValueError(f"LLM value for {node!r} must be an object")
+        if node == "curriculum":
+            coalesce_curriculum_subtree_from_llm(subtree)
         program[node] = copy.deepcopy(subtree)
 
         if repo_root is None:
@@ -121,6 +124,75 @@ def run_node_step(
             base_user
             + "\n\nYour previous answer was rejected by the corpus JSON Schema. "
             f"Return ONLY a JSON object with the single top-level key {node!r} "
+            "and a fixed subtree. Issues (fix all that apply):\n"
+            + "\n".join(last_errors[:40])
+        )
+
+
+def run_curriculum_overview_step(
+    *,
+    client: LLMClient,
+    program: dict[str, Any],
+    evidence: str,
+    categories_json: str,
+    system: str = "You output only valid JSON. No prose.",
+    repo_root: pathlib.Path | None = None,
+    max_llm_attempts: int = 3,
+) -> str:
+    """
+    First curriculum pass: LLM returns only top-level ``curriculum`` subtree
+    (overview + placeholder core rows). Replaces ``program[\"curriculum\"]``.
+    """
+    tmpl = load_prompt("nodes/curriculum_overview.md")
+    program_json = json.dumps(program, indent=2, ensure_ascii=False)
+    base_user = render_template(
+        tmpl,
+        PROGRAM_JSON=program_json,
+        EVIDENCE=evidence,
+        CATEGORIES=categories_json,
+        NODE_PROMPT_RULES=_node_prompt_rules_text(
+            "curriculum_overview", repo_root
+        ),
+    )
+    user = base_user
+    last_raw = ""
+    last_errors: list[str] = []
+
+    for attempt in range(max(1, max_llm_attempts)):
+        raw = client.complete(system=system, user=user)
+        last_raw = raw
+        parsed = parse_json_response(raw)
+        if not isinstance(parsed, dict):
+            raise ValueError("LLM JSON must be an object")
+        keys = set(parsed.keys())
+        if keys != {"curriculum"}:
+            raise ValueError(
+                "LLM must return only top-level key 'curriculum'; "
+                f"got {sorted(keys)!r}"
+            )
+        subtree = parsed.get("curriculum")
+        if not isinstance(subtree, dict):
+            raise ValueError("LLM value for 'curriculum' must be an object")
+        coalesce_curriculum_subtree_from_llm(subtree)
+        program["curriculum"] = copy.deepcopy(subtree)
+
+        if repo_root is None:
+            return raw
+
+        last_errors = validate_single_program(repo_root, program)
+        if not last_errors:
+            return raw
+
+        if attempt + 1 >= max_llm_attempts:
+            raise LLMSchemaValidationError(
+                f"schema validation failed after {max_llm_attempts} LLM attempt(s)",
+                raw=last_raw,
+                errors=last_errors,
+            )
+        user = (
+            base_user
+            + "\n\nYour previous answer was rejected by the corpus JSON Schema. "
+            "Return ONLY a JSON object with the single top-level key \"curriculum\" "
             "and a fixed subtree. Issues (fix all that apply):\n"
             + "\n".join(last_errors[:40])
         )

@@ -9,6 +9,8 @@ from peer_atlas_cli.corpus_io import load_corpus
 from peer_atlas_cli.repo_root import find_repo_root
 from peer_atlas_cli.schema_validation import validate_corpus
 
+from tests.corpus_fixtures import minimal_valid_corpus
+
 
 def test_validate_corpus_clean() -> None:
     root = find_repo_root()
@@ -18,7 +20,7 @@ def test_validate_corpus_clean() -> None:
 
 def test_validate_duplicate_program_id() -> None:
     root = find_repo_root()
-    corpus = load_corpus(root)
+    corpus = minimal_valid_corpus()
     dup = json.loads(json.dumps(corpus["programs"][0]))
     corpus["programs"].append(dup)
     errs = validate_corpus(root, corpus)
@@ -27,7 +29,7 @@ def test_validate_duplicate_program_id() -> None:
 
 def test_apply_merge_patch_in_memory() -> None:
     root = find_repo_root()
-    corpus = json.loads(json.dumps(load_corpus(root)))
+    corpus = json.loads(json.dumps(minimal_valid_corpus()))
     pid = corpus["programs"][0]["program_id"]
     old_status = corpus["programs"][0]["verification"]["status"]
     patch = {

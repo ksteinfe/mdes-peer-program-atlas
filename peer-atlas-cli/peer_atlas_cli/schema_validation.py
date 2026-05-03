@@ -163,16 +163,6 @@ def validate_program_categories(
         if nuw is not None and not isinstance(nuw, (int, float)):
             p(f"curriculum.core_courses[{i}].normalized_unit_weight must be number or null")
 
-    for i, e in enumerate(cur.get("elective_courses") or []):
-        nuw = e.get("normalized_unit_weight") if isinstance(e, dict) else None
-        if nuw is not None and not isinstance(nuw, (int, float)):
-            p(
-                f"curriculum.elective_courses[{i}].normalized_unit_weight must be number or null"
-            )
-        u = e.get("units_or_credits") if isinstance(e, dict) else None
-        if u is not None and not isinstance(u, (int, float)):
-            p(f"curriculum.elective_courses[{i}].units_or_credits must be number or null")
-
     return errors
 
 

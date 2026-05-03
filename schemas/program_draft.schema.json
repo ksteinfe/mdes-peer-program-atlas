@@ -6,8 +6,9 @@
   "required": [
     "program_id",
     "base_url",
+    "date_added",
+    "date_updated",
     "atlas_ingest",
-    "sources",
     "llm_rationales",
     "identity",
     "positioning",
@@ -20,6 +21,16 @@
   "properties": {
     "program_id": { "type": "string", "minLength": 1 },
     "base_url": { "type": "string", "minLength": 1 },
+    "date_added": {
+      "type": "string",
+      "minLength": 1,
+      "description": "UTC when first added (ISO 8601)."
+    },
+    "date_updated": {
+      "type": "string",
+      "minLength": 1,
+      "description": "UTC of last modification during ingest (ISO 8601)."
+    },
     "atlas_ingest": {
       "type": "object",
       "required": ["stage", "updated_at"],
@@ -27,8 +38,9 @@
       "properties": {
         "stage": {
           "type": "string",
-          "enum": [
+            "enum": [
             "skeleton",
+            "search_context",
             "positioning",
             "duration",
             "degree_cost",
@@ -45,9 +57,18 @@
         "updated_at": { "type": "string" }
       }
     },
-    "sources": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/source" }
+    "atlas_search_context": {
+      "type": "object",
+      "description": "Draft-only: Tavily query hints from seed URL LLM; stripped before publish.",
+      "additionalProperties": false,
+      "properties": {
+        "official_program_label": { "type": "string" },
+        "short_institution": { "type": "string" },
+        "degree_subject_keywords": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
     },
     "llm_rationales": {
       "type": "array",
@@ -61,33 +82,22 @@
     "verification": { "$ref": "#/$defs/verification" }
   },
   "$defs": {
-    "source": {
+    "llmRationale": {
       "type": "object",
       "required": [
-        "url",
+        "feature",
+        "source_url",
+        "note",
         "llm_title",
-        "llm_summary",
         "retrieved_date"
       ],
       "additionalProperties": false,
       "properties": {
-        "url": { "type": "string", "minLength": 1 },
-        "llm_title": {
-          "type": "string",
-          "description": "Short human-readable label for this URL (e.g. Program 'About' page)."
-        },
-        "llm_summary": { "type": "string" },
-        "retrieved_date": { "type": "string" }
-      }
-    },
-    "llmRationale": {
-      "type": "object",
-      "required": ["feature", "source_url", "note"],
-      "additionalProperties": false,
-      "properties": {
         "feature": { "type": ["string", "null"] },
         "source_url": { "type": ["string", "null"] },
-        "note": { "type": ["string", "null"] }
+        "note": { "type": ["string", "null"] },
+        "llm_title": { "type": ["string", "null"] },
+        "retrieved_date": { "type": ["string", "null"] }
       }
     },
     "identity": {
@@ -185,14 +195,19 @@
         }
       }
     },
-    "electiveCourseLite": {
+    "curriculumElectives": {
       "type": "object",
-      "required": ["course_id"],
+      "required": ["summary", "estimated_elective_course_count"],
       "additionalProperties": false,
       "properties": {
-        "course_id": { "type": "string" },
-        "units_or_credits": { "type": ["number", "null"] },
-        "normalized_unit_weight": { "type": ["number", "null"] }
+        "summary": {
+          "type": "string",
+          "description": "Concise human-readable description of elective structure (not machine-readable constraints)."
+        },
+        "estimated_elective_course_count": {
+          "type": ["integer", "null"],
+          "description": "Rough integer count of elective courses/slots for visualization."
+        }
       }
     },
     "curriculum": {
@@ -203,8 +218,7 @@
         "curriculum_summary",
         "offers_specialization",
         "core_courses",
-        "elective_requirements",
-        "elective_courses"
+        "electives"
       ],
       "additionalProperties": false,
       "properties": {
@@ -219,14 +233,7 @@
           "type": "array",
           "items": { "$ref": "#/$defs/coreCourse" }
         },
-        "elective_requirements": {
-          "type": ["string", "null"],
-          "description": "Human-readable summary of how electives work (policy text)."
-        },
-        "elective_courses": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/electiveCourseLite" }
-        }
+        "electives": { "$ref": "#/$defs/curriculumElectives" }
       }
     },
     "verification": {

@@ -18,6 +18,7 @@ CATEGORY_FILES = {
 
 RULES_DIR = "categories_and_rules"
 NODE_PROMPT_RULES_BUNDLE = "node_prompt_rules.json"
+TAVILY_SEARCH_GUIDANCE_FILE = "tavily_search_guidance.json"
 
 
 def load_categories(repo_root: pathlib.Path) -> dict[str, dict[str, Any]]:
@@ -38,6 +39,18 @@ def ids_for(category_key: str, categories: dict[str, dict[str, Any]]) -> set[str
 
 def categories_payload_for_prompt(categories: dict[str, dict[str, Any]]) -> str:
     return json.dumps(categories, indent=2, ensure_ascii=False)
+
+
+def load_tavily_search_guidance(repo_root: pathlib.Path) -> dict[str, Any]:
+    """Load Tavily query templates from ``categories_and_rules/tavily_search_guidance.json``."""
+    path = repo_root / RULES_DIR / TAVILY_SEARCH_GUIDANCE_FILE
+    if not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    return data if isinstance(data, dict) else {}
 
 
 def load_node_prompt_rules(repo_root: pathlib.Path, node_key: str) -> str:

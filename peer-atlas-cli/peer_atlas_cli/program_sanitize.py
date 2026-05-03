@@ -9,10 +9,7 @@ from typing import Any
 _LEGACY_FEATURE_PREFIXES: tuple[tuple[str, str], ...] = (
     ("duration.derived_features.", "duration."),
     ("degree_cost.derived_features.", "degree_cost."),
-    ("curriculum.derived_features.", "curriculum."),
 )
-
-
 def _upgrade_feature_path(s: str) -> str:
     out = str(s or "")
     for old, new in _LEGACY_FEATURE_PREFIXES:
@@ -20,10 +17,60 @@ def _upgrade_feature_path(s: str) -> str:
     return out
 
 
+def _title_from_url(url: str) -> str:
+    path = [p for p in urlparse(url).path.strip("/").split("/") if p]
+    tail = path[-1].replace("-", " ").replace("_", " ") if path else "home"
+    return (tail[:1].upper() + tail[1:120]) if tail else "Web source"
+
+
+def _rationale_source_urls_seen(root_lr: list[Any]) -> set[str]:
+    out: set[str] = set()
+    for r in root_lr:
+        if not isinstance(r, dict):
+            continue
+        u = str(r.get("source_url") or "").strip()
+        if u:
+            out.add(u)
+    return out
+
+
+def bibliography_dict_to_rationale(
+    raw: dict[str, Any],
+    *,
+    feature: str = "",
+) -> dict[str, Any]:
+    """
+    Map a legacy bibliography object (``url``, ``llm_title``, ``llm_summary``,
+    ``retrieved_date``) onto one ``llmRationale`` row (``note`` holds summary text).
+    """
+    d = dict(raw)
+    d.pop("direct_text", None)
+    d.pop("notes", None)
+    d.pop("source_id", None)
+    url = str(d.get("url") or d.get("source_url") or "").strip()
+    title = str(d.get("llm_title") or "").strip()
+    if url and not title:
+        title = _title_from_url(url)[:200]
+    summ = d.get("llm_summary")
+    summ_s = "" if summ is None else str(summ)
+    rd = d.get("retrieved_date")
+    rd_s = "" if rd is None else str(rd)
+    return {
+        "feature": str(feature or ""),
+        "source_url": url,
+        "note": summ_s,
+        "llm_title": title[:200] if title else "",
+        "retrieved_date": rd_s,
+    }
+
+
 def migrate_record_canonical_shape(program: dict[str, Any]) -> None:
     """
     In-place migration: ``derivation_notes`` → ``llm_rationales`` (``feature`` key),
-    ``identity.sources`` → top-level ``sources``, flatten ``derived_features`` on nodes.
+    ``identity.sources`` → ``llm_rationales`` bibliography rows, flatten ``derived_features`` on
+    positioning / duration / degree_cost,
+    and hoist nested ``curriculum.sources`` / ``curriculum.derivation_notes`` to the
+    program top level.
     Safe to call multiple times.
     """
     if not isinstance(program, dict):
@@ -51,25 +98,25 @@ def migrate_record_canonical_shape(program: dict[str, Any]) -> None:
             elif "feature" in item:
                 item["feature"] = _upgrade_feature_path(str(item.get("feature", "")))
 
-    root_src = program.get("sources")
-    if not isinstance(root_src, list):
-        program["sources"] = []
-        root_src = program["sources"]
-
     ident = program.get("identity")
     if isinstance(ident, dict) and "sources" in ident:
         legacy_src = ident.pop("sources")
+        root_lr = program.setdefault("llm_rationales", [])
+        if not isinstance(root_lr, list):
+            program["llm_rationales"] = []
+            root_lr = program["llm_rationales"]
         if isinstance(legacy_src, list):
-            seen = {s.get("url") for s in root_src if isinstance(s, dict)}
+            seen = _rationale_source_urls_seen(root_lr)
             for s in legacy_src:
                 if not isinstance(s, dict):
                     continue
-                u = s.get("url")
-                if u and u not in seen:
-                    root_src.append(dict(s))
+                r = bibliography_dict_to_rationale(s, feature="identity.citation")
+                u = r["source_url"]
+                if u and u in seen:
+                    continue
+                if u:
                     seen.add(u)
-
-    program.setdefault("sources", [])
+                root_lr.append(r)
 
     _hoist_derived_features(
         program, "positioning", ("positioning_summary", "positioning_tags")
@@ -89,11 +136,8 @@ def migrate_record_canonical_shape(program: dict[str, Any]) -> None:
             "total_degree_cost_base_currency",
         ),
     )
-    _hoist_derived_features(
-        program,
-        "curriculum",
-        ("unit_system", "sequencedness", "curriculum_summary"),
-    )
+
+    hoist_curriculum_sources_and_derivation_notes_to_program(program)
 
 
 def _hoist_derived_features(
@@ -111,6 +155,61 @@ def _hoist_derived_features(
     block.pop("derived_features", None)
 
 
+def hoist_curriculum_sources_and_derivation_notes_to_program(
+    program: dict[str, Any],
+) -> None:
+    """
+    Move ``curriculum.sources`` into top-level ``llm_rationales`` (dedupe by
+    ``source_url``) and ``curriculum.derivation_notes`` / legacy
+    ``curriculum.llm_rationales`` into top-level ``llm_rationales``. Removes those
+    keys from ``curriculum``.
+    """
+    if not isinstance(program, dict):
+        return
+    cur = program.get("curriculum")
+    if not isinstance(cur, dict):
+        return
+    base_u = str(program.get("base_url") or "").strip()
+    root_lr = program.setdefault("llm_rationales", [])
+    if not isinstance(root_lr, list):
+        program["llm_rationales"] = []
+        root_lr = program["llm_rationales"]
+
+    nested_lr = cur.pop("llm_rationales", None)
+    if isinstance(nested_lr, list):
+        for item in nested_lr:
+            if isinstance(item, dict):
+                coerced = coerce_llm_rationale_object(
+                    item, default_source_url=base_u
+                )
+                if coerced is not None:
+                    root_lr.append(coerced)
+
+    notes = cur.pop("derivation_notes", None)
+    if isinstance(notes, list):
+        for item in notes:
+            if isinstance(item, dict):
+                coerced = coerce_llm_rationale_object(
+                    item, default_source_url=base_u
+                )
+                if coerced is not None:
+                    root_lr.append(coerced)
+
+    srcs = cur.pop("sources", None)
+    if isinstance(srcs, list) and srcs:
+        seen = _rationale_source_urls_seen(root_lr)
+        for s in srcs:
+            if not isinstance(s, dict):
+                continue
+            r = bibliography_dict_to_rationale(s, feature="curriculum.citation")
+            u = r["source_url"]
+            if u and u in seen:
+                continue
+            if u:
+                seen.add(u)
+            root_lr.append(r)
+
+
 def normalize_program_layout(program: dict[str, Any]) -> None:
     """
     Hoist nested ``llm_rationales`` / ``sources`` into canonical top-level shape, and
@@ -123,17 +222,13 @@ def normalize_program_layout(program: dict[str, Any]) -> None:
     if not isinstance(root_lr, list):
         program["llm_rationales"] = []
         root_lr = program["llm_rationales"]
-    root_src = program.get("sources")
-    if not isinstance(root_src, list):
-        program["sources"] = []
-        root_src = program["sources"]
 
     ident = program.setdefault("identity", {})
     if not isinstance(ident, dict):
         program["identity"] = {}
         ident = program["identity"]
 
-    for sec in ("positioning", "duration", "degree_cost", "curriculum"):
+    for sec in ("positioning", "duration", "degree_cost"):
         block = program.get(sec)
         if not isinstance(block, dict):
             continue
@@ -143,14 +238,22 @@ def normalize_program_layout(program: dict[str, Any]) -> None:
                 root_lr.extend(nested)
         srcs = block.pop("sources", None)
         if isinstance(srcs, list) and srcs:
-            seen = {s.get("url") for s in root_src if isinstance(s, dict)}
+            seen = _rationale_source_urls_seen(root_lr)
             for s in srcs:
                 if not isinstance(s, dict):
                     continue
-                u = s.get("url")
-                if u and u not in seen:
-                    root_src.append(dict(s))
+                r = bibliography_dict_to_rationale(s, feature=f"{sec}.citation")
+                u = r["source_url"]
+                if u and u in seen:
+                    continue
+                if u:
                     seen.add(u)
+                root_lr.append(r)
+
+    # Hoist nested curriculum bibliography / notes to program top level (canonical shape).
+    cur_block = program.get("curriculum")
+    if isinstance(cur_block, dict):
+        hoist_curriculum_sources_and_derivation_notes_to_program(program)
 
     if isinstance(ident, dict):
         loc = ident.get("location")
@@ -184,6 +287,7 @@ def normalize_program_layout(program: dict[str, Any]) -> None:
 
     cur = program.get("curriculum")
     if isinstance(cur, dict):
+        cur.pop("derived_features", None)
         for k in (
             "has_required_core",
             "has_structured_electives",
@@ -192,64 +296,78 @@ def normalize_program_layout(program: dict[str, Any]) -> None:
             "has_required_thesis_or_capstone",
             "has_internship_or_professional_practice_requirement",
             "total_units_or_credits",
+            "core_units_or_credits",
+            "elective_units_or_credits",
+            "typical_elective_units_or_credits",
+            "average_required_course_or_slot_units",
         ):
             cur.pop(k, None)
         if "offers_specialization" not in cur:
             cur["offers_specialization"] = False
-        elif cur.get("offers_specialization") is not None and not isinstance(
-            cur.get("offers_specialization"), bool
-        ):
-            cur["offers_specialization"] = False
+        else:
+            os_ = cur.get("offers_specialization")
+            if os_ is None:
+                pass
+            elif isinstance(os_, bool):
+                pass
+            else:
+                cur["offers_specialization"] = False
         cur.pop("evidence_curriculum_summary", None)
 
 
-def normalize_sources(program: dict[str, Any]) -> int:
+def finalize_top_level_sources_into_rationales(program: dict[str, Any]) -> int:
     """
-    Ensure each top-level source has only url, llm_title, llm_summary, retrieved_date.
-    Drops legacy keys (direct_text, notes, source_id). Derives llm_title from the
-    URL path when missing. Returns count of sources that gained a generated title.
+    Convert legacy top-level ``sources[]`` into ``llm_rationales`` rows, then remove
+    ``sources``. Returns how many rows were appended.
     """
-    fixed = 0
     migrate_record_canonical_shape(program)
-    srcs = program.get("sources")
-    if not isinstance(srcs, list):
-        return fixed
-    new_list: list[Any] = []
+    srcs = program.pop("sources", None)
+    if not isinstance(srcs, list) or not srcs:
+        return 0
+    root_lr = program.setdefault("llm_rationales", [])
+    if not isinstance(root_lr, list):
+        program["llm_rationales"] = []
+        root_lr = program["llm_rationales"]
+    seen = _rationale_source_urls_seen(root_lr)
+    added = 0
     for s in srcs:
         if not isinstance(s, dict):
-            new_list.append(s)
             continue
-        d = dict(s)
-        d.pop("direct_text", None)
-        d.pop("notes", None)
-        d.pop("source_id", None)
-        url = str(d.get("url") or "").strip()
-        title = str(d.get("llm_title") or "").strip()
-        if url and not title:
-            path = [p for p in urlparse(url).path.strip("/").split("/") if p]
-            tail = path[-1].replace("-", " ").replace("_", " ") if path else "home"
-            title = (tail[:1].upper() + tail[1:120]) if tail else "Web source"
-            fixed += 1
-        summ = d.get("llm_summary")
-        if summ is None:
-            summ_s = ""
-        else:
-            summ_s = str(summ)
-        rd = d.get("retrieved_date")
-        if rd is None:
-            rd_s = ""
-        else:
-            rd_s = str(rd)
-        new_list.append(
-            {
-                "url": url,
-                "llm_title": title[:200] if title else "",
-                "llm_summary": summ_s,
-                "retrieved_date": rd_s,
-            }
-        )
-    program["sources"] = new_list
-    return fixed
+        r = bibliography_dict_to_rationale(s, feature="program.citation")
+        u = r["source_url"]
+        if u and u in seen:
+            continue
+        if u:
+            seen.add(u)
+        root_lr.append(r)
+        added += 1
+    return added
+
+
+def append_bibliography_dicts_as_rationales(
+    program: dict[str, Any],
+    items: list[Any],
+    *,
+    feature: str = "ingest.citation",
+) -> None:
+    """Append legacy-shaped bibliography dicts as ``llm_rationales`` rows (dedupe by URL)."""
+    if not items:
+        return
+    root_lr = program.setdefault("llm_rationales", [])
+    if not isinstance(root_lr, list):
+        program["llm_rationales"] = []
+        root_lr = program["llm_rationales"]
+    seen = _rationale_source_urls_seen(root_lr)
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        r = bibliography_dict_to_rationale(item, feature=feature)
+        u = r["source_url"]
+        if u and u in seen:
+            continue
+        if u:
+            seen.add(u)
+        root_lr.append(r)
 
 
 def coerce_llm_rationale_object(
@@ -258,8 +376,9 @@ def coerce_llm_rationale_object(
     default_source_url: str = "",
 ) -> dict[str, Any] | None:
     """
-    Map LLM / legacy keys onto the corpus ``llmRationale`` shape: only ``feature``,
-    ``source_url``, and ``note`` (no ``rationale``, ``reason``, etc.).
+    Map LLM / legacy keys onto the corpus ``llmRationale`` shape: ``feature``,
+    ``source_url``, ``note``, ``llm_title``, ``retrieved_date`` (no ``rationale``,
+    ``reason``, etc.).
     """
     if not isinstance(item, dict):
         return None
@@ -282,15 +401,29 @@ def coerce_llm_rationale_object(
                 break
     if note is not None and not isinstance(note, str):
         note = str(note)
+    note_s = "" if note is None else str(note).strip()
+    if not note_s:
+        ls = d.get("llm_summary")
+        if ls is not None:
+            note_s = str(ls).strip()
     su = d.get("source_url")
     if su is None or (isinstance(su, str) and not su.strip()):
         su = d.get("url") or base
     if su is not None and not isinstance(su, str):
         su = str(su)
+    su_s = str(su).strip() if su else ""
+    lt = d.get("llm_title")
+    lt_s = "" if lt is None else str(lt).strip()
+    if su_s and not lt_s:
+        lt_s = _title_from_url(su_s)[:200]
+    rd = d.get("retrieved_date")
+    rd_s = "" if rd is None else str(rd)
     return {
         "feature": "" if feat is None else str(feat),
-        "source_url": str(su).strip() if su else "",
-        "note": "" if note is None else str(note).strip(),
+        "source_url": su_s,
+        "note": note_s,
+        "llm_title": lt_s[:200] if lt_s else "",
+        "retrieved_date": rd_s,
     }
 
 
@@ -309,18 +442,28 @@ def normalize_llm_rationales(program: dict[str, Any], *, default_source_url: str
     new_list: list[Any] = []
     for item in arr:
         if isinstance(item, str):
+            b = base.strip()
             new_list.append(
                 {
                     "feature": "",
-                    "source_url": base,
+                    "source_url": b,
                     "note": item,
+                    "llm_title": _title_from_url(b)[:200] if b else "",
+                    "retrieved_date": "",
                 }
             )
             fixed += 1
         elif isinstance(item, dict):
             coerced = coerce_llm_rationale_object(item, default_source_url=base)
             if coerced is not None:
-                if set(item.keys()) - {"feature", "source_url", "note"}:
+                allowed = {
+                    "feature",
+                    "source_url",
+                    "note",
+                    "llm_title",
+                    "retrieved_date",
+                }
+                if set(item.keys()) - allowed:
                     fixed += 1
                 new_list.append(coerced)
         else:
@@ -334,7 +477,7 @@ normalize_derivation_notes = normalize_llm_rationales
 
 
 def strip_legacy_source_id_fields(program: dict[str, Any]) -> None:
-    """Remove deprecated source_id from top-level source objects (URL is the id)."""
+    """Remove deprecated source_id from legacy top-level ``sources`` (before finalize)."""
     migrate_record_canonical_shape(program)
     srcs = program.get("sources")
     if not isinstance(srcs, list):
@@ -345,7 +488,7 @@ def strip_legacy_source_id_fields(program: dict[str, Any]) -> None:
 
 
 def migrate_course_source_id_to_url(program: dict[str, Any]) -> None:
-    """Map legacy curriculum source_id to source_url using program.sources when possible."""
+    """Map legacy curriculum source_id to source_url using top-level ``sources`` when present."""
     migrate_record_canonical_shape(program)
     id_to_url: dict[str, str] = {}
     for s in program.get("sources") or []:
@@ -355,6 +498,15 @@ def migrate_course_source_id_to_url(program: dict[str, Any]) -> None:
         sid = str(s.get("source_id") or "")
         if u and sid:
             id_to_url[sid] = u
+    ident = program.get("identity")
+    if isinstance(ident, dict):
+        for s in ident.get("sources") or []:
+            if not isinstance(s, dict):
+                continue
+            u = str(s.get("url") or "")
+            sid = str(s.get("source_id") or "")
+            if u and sid:
+                id_to_url[sid] = u
     cur = program.get("curriculum")
     if not isinstance(cur, dict):
         return
@@ -399,76 +551,55 @@ def normalize_core_course_learning_outcomes(program: dict[str, Any]) -> None:
         row["learning_outcomes"] = out
 
 
+def _coerce_estimated_elective_count(v: Any) -> int | None:
+    if v is None:
+        return None
+    if isinstance(v, bool):
+        return None
+    if isinstance(v, str):
+        s = v.strip()
+        if not s:
+            return None
+        try:
+            return int(s)
+        except ValueError:
+            return None
+    if isinstance(v, int) and not isinstance(v, bool):
+        return v
+    if isinstance(v, float) and not isinstance(v, bool):
+        if v != v:  # NaN
+            return None
+        return int(round(v))
+    return None
+
+
 def normalize_curriculum_electives(cur: dict[str, Any]) -> None:
     """
-    Ensure curriculum uses ``elective_requirements`` (string) + ``elective_courses`` (array).
+    Ensure curriculum uses ``electives`` (summary + estimated count only).
 
-    Migrates legacy ``elective_requirements`` as an array of structured objects into
-    a human-readable string plus simplified ``elective_courses`` rows.
+    Drops deprecated ``elective_requirements`` / ``elective_courses`` if present.
     """
     if not isinstance(cur, dict):
         return
-    er = cur.get("elective_requirements")
-    if isinstance(er, list):
-        texts: list[str] = []
-        slots: list[dict[str, Any]] = []
-        for row in er:
-            if not isinstance(row, dict):
-                continue
-            name = str(row.get("requirement_name") or "").strip()
-            desc = str(row.get("requirement_description") or "").strip()
-            summ = str(row.get("course_summary") or "").strip()
-            if name and desc:
-                texts.append(f"{name}: {desc}")
-            elif name:
-                texts.append(name)
-            elif desc:
-                texts.append(desc)
-            elif summ:
-                texts.append(summ)
-            cid = (
-                name
-                or str(row.get("primary_type") or "").strip()
-                or "Elective"
-            )[:200]
-            u = row.get("units_or_credits")
-            nu = row.get("normalized_unit_weight")
-            slots.append(
-                {
-                    "course_id": cid or "Elective",
-                    "units_or_credits": u
-                    if isinstance(u, (int, float))
-                    else None,
-                    "normalized_unit_weight": nu
-                    if isinstance(nu, (int, float))
-                    else None,
-                }
-            )
-        cur["elective_requirements"] = "; ".join(texts) if texts else ""
-        cur["elective_courses"] = slots
-    elif isinstance(er, str):
-        if not isinstance(cur.get("elective_courses"), list):
-            cur["elective_courses"] = []
-    else:
-        cur["elective_requirements"] = ""
-        if not isinstance(cur.get("elective_courses"), list):
-            cur["elective_courses"] = []
-    ec = cur.get("elective_courses")
-    if not isinstance(ec, list):
-        cur["elective_courses"] = []
-        ec = cur["elective_courses"]
-    for row in ec:
-        if not isinstance(row, dict):
-            continue
-        cid = str(row.get("course_id") or "Elective").strip()[:200] or "Elective"
-        row["course_id"] = cid
-        row.setdefault("units_or_credits", None)
-        row.setdefault("normalized_unit_weight", None)
-    if not isinstance(cur.get("elective_requirements"), str):
-        cur["elective_requirements"] = ""
+    cur.pop("elective_requirements", None)
+    cur.pop("elective_courses", None)
+    el = cur.get("electives")
+    if not isinstance(el, dict):
+        el = {}
+    summary = el.get("summary")
+    if not isinstance(summary, str):
+        summary = str(summary or "")
+    cur["electives"] = {
+        "summary": summary.strip(),
+        "estimated_elective_course_count": _coerce_estimated_elective_count(
+            el.get("estimated_elective_course_count")
+        ),
+    }
+    cur.pop("derived_features", None)
 
 
 def normalize_curriculum_electives_in_program(program: dict[str, Any]) -> None:
+    hoist_curriculum_sources_and_derivation_notes_to_program(program)
     cur = program.get("curriculum")
     if isinstance(cur, dict):
         normalize_curriculum_electives(cur)
@@ -480,19 +611,24 @@ def coalesce_curriculum_subtree_from_llm(cur: dict[str, Any]) -> None:
 
     - Maps stray ``course_type`` → ``primary_type`` when needed and drops
       ``course_type`` (schema uses ``primary_type`` / ``secondary_type`` only).
-    - Migrates / normalizes electives (``elective_requirements`` string +
-      ``elective_courses`` array).
+    - If the model nested ``unit_system`` / ``sequencedness`` / ``curriculum_summary``
+      inside a legacy ``derived_features`` blob, lifts them to the curriculum root
+      and drops ``derived_features``.
+    - Normalizes ``electives``; strips any leftover ``derived_features``.
     - Ensures required nullable keys exist on ``core_courses`` rows.
     """
     if not isinstance(cur, dict):
         return
     cur.pop("evidence_curriculum_summary", None)
-    df = cur.get("derived_features")
+    df = cur.pop("derived_features", None)
     if isinstance(df, dict):
         for k in ("unit_system", "sequencedness", "curriculum_summary"):
-            if k in df:
-                cur[k] = df[k]
-        cur.pop("derived_features", None)
+            if k not in df:
+                continue
+            picked = df[k]
+            prev = cur.get(k)
+            if prev is None or (isinstance(prev, str) and not str(prev).strip()):
+                cur[k] = picked
     normalize_curriculum_electives(cur)
     for row in cur.get("core_courses") or []:
         if not isinstance(row, dict):
@@ -513,7 +649,11 @@ def coalesce_curriculum_subtree_from_llm(cur: dict[str, Any]) -> None:
         if row.get("primary_type") == "design_studio":
             row["secondary_type"] = None
     ospec = cur.get("offers_specialization")
-    if not isinstance(ospec, bool):
+    if ospec is True or ospec is False:
+        cur["offers_specialization"] = ospec
+    elif ospec is None:
+        cur["offers_specialization"] = None
+    else:
         cur["offers_specialization"] = False
 
 

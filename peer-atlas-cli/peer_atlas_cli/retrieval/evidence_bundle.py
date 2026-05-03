@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from peer_atlas_cli.llm_client import LLMClient
 
+from peer_atlas_cli.cli_progress import cli_short_url
 from peer_atlas_cli.retrieval.evidence_gathering_pipeline import (
     filter_hits_web_documents_only,
     is_non_web_document_url,
@@ -28,6 +29,11 @@ from peer_atlas_cli.retrieval.host_scope import (
 from peer_atlas_cli.retrieval.query_builders import queries_for_node
 from peer_atlas_cli.retrieval.tavily_search import search_urls
 from peer_atlas_cli.retrieval.url_normalize import normalize_url
+
+# Tavily ``max_results`` per query for ingest nodes (positioning, duration, etc.).
+DEFAULT_MAX_RESULTS_PER_QUERY_NODE = 10
+# Narrower cap for per–core-course Tavily runs (several queries per row).
+CORE_COURSE_MAX_RESULTS_PER_QUERY = 5
 
 
 def _dedupe_urls(urls: list[str]) -> list[str]:
@@ -78,11 +84,18 @@ def _evidence_urls_and_hits_for_node(
     *,
     seed_url: str,
     user_query: str,
-    max_results_per_query: int = 5,
-    max_urls_total: int = 8,
+    max_results_per_query: int = DEFAULT_MAX_RESULTS_PER_QUERY_NODE,
+    max_urls_total: int = 15,
+    repo_root: pathlib.Path | None = None,
 ) -> tuple[list[str], list[dict[str, Any]]]:
     """Tavily search (domain-scoped) + ranking; returns ``(urls, ranked_hits)`` (no fetch)."""
-    queries = queries_for_node(node, program, seed_url=seed_url, user_query=user_query)
+    queries = queries_for_node(
+        node,
+        program,
+        seed_url=seed_url,
+        user_query=user_query,
+        repo_root=repo_root,
+    )
     hits: list[dict[str, Any]] = []
 
     for q in queries:
@@ -139,8 +152,9 @@ def resolve_evidence_urls_for_node(
     *,
     seed_url: str,
     user_query: str,
-    max_results_per_query: int = 5,
-    max_urls_total: int = 8,
+    max_results_per_query: int = DEFAULT_MAX_RESULTS_PER_QUERY_NODE,
+    max_urls_total: int = 15,
+    repo_root: pathlib.Path | None = None,
 ) -> list[str]:
     """Ordered evidence URLs only (no fetch). See ``_evidence_urls_and_hits_for_node``."""
     urls, _hits = _evidence_urls_and_hits_for_node(
@@ -150,6 +164,7 @@ def resolve_evidence_urls_for_node(
         user_query=user_query,
         max_results_per_query=max_results_per_query,
         max_urls_total=max_urls_total,
+        repo_root=repo_root,
     )
     return urls
 
@@ -196,7 +211,7 @@ def fetch_pages_for_urls(
         except Exception as e:
             text = f"(fetch failed: {e})"
             if report is not None:
-                report(f"URL fetch failed (exception): {url}\n  {e}")
+                report(f"fetch error · {cli_short_url(url)}: {e}")
         out.append((url, text))
     return out
 
@@ -209,8 +224,8 @@ def gather_evidence_for_node(
     repo_root: pathlib.Path,
     seed_url: str,
     user_query: str,
-    max_results_per_query: int = 5,
-    max_urls_total: int = 8,
+    max_results_per_query: int = DEFAULT_MAX_RESULTS_PER_QUERY_NODE,
+    max_urls_total: int = 15,
     budget_chars: int = 0,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
@@ -227,25 +242,21 @@ def gather_evidence_for_node(
         user_query=user_query,
         max_results_per_query=max_results_per_query,
         max_urls_total=max_urls_total,
+        repo_root=repo_root,
     )
 
     unlimited = _bundle_budget_unlimited(budget_chars)
 
     if trace is not None and urls:
-        trace(
-            f"evidence: queueing {len(urls)} source URL(s); "
-            f"Markdown bundle budget {'unlimited' if unlimited else budget_chars}"
-        )
+        bud = "∞" if unlimited else str(budget_chars)
+        trace(f"queue {len(urls)} urls · md budget {bud}")
 
     parts: list[str] = []
     used = 0
     for i, url in enumerate(urls):
         if not unlimited and used >= budget_chars:
             if trace is not None and i < len(urls):
-                trace(
-                    f"evidence: not fetching remaining {len(urls) - i} URL(s) "
-                    f"(Markdown budget {budget_chars} reached)"
-                )
+                trace(f"skip {len(urls) - i} urls · md cap {budget_chars}")
             break
         try:
             text = fetch_url_text_cached(
@@ -259,7 +270,7 @@ def gather_evidence_for_node(
         except Exception as e:
             text = f"(fetch failed: {e})"
             if report is not None:
-                report(f"URL fetch failed (exception): {url}\n  {e}")
+                report(f"fetch error · {cli_short_url(url)}: {e}")
         header = f"\n\n=== SOURCE URL: {url} ===\n"
         chunk = header + text
         if not unlimited and used + len(chunk) > budget_chars:
@@ -281,7 +292,7 @@ def gather_evidence_for_node(
         except Exception as e:
             parts.append(f"\n\n=== SEED URL FAILED: {seed_url} ===\n{e}")
             if report is not None:
-                report(f"URL fetch failed (exception): {seed_url}\n  {e}")
+                report(f"fetch error · {cli_short_url(seed_url)}: {e}")
 
     snippets = []
     for h in hits[:15]:
@@ -304,8 +315,8 @@ def gather_evidence_for_queries(
     llm_client: "LLMClient",
     repo_root: pathlib.Path,
     seed_url: str = "",
-    max_results_per_query: int = 4,
-    max_urls_total: int = 5,
+    max_results_per_query: int = CORE_COURSE_MAX_RESULTS_PER_QUERY,
+    max_urls_total: int = 15,
     budget_chars: int = 0,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
@@ -316,6 +327,9 @@ def gather_evidence_for_queries(
 ) -> str:
     """
     Ad-hoc evidence from explicit query strings (e.g. per core course).
+
+    Default ``max_results_per_query`` is lower than ingest nodes because this path
+    issues several Tavily calls per ``core_courses`` row.
 
     Tavily is scoped to ``seed_url``'s registrable domain when ``seed_url`` is set.
     ``budget_chars`` applies to the combined Markdown bundle only.
@@ -363,20 +377,15 @@ def gather_evidence_for_queries(
     unlimited = _bundle_budget_unlimited(budget_chars)
 
     if trace is not None and urls:
-        trace(
-            f"evidence: queueing {len(urls)} source URL(s); "
-            f"Markdown bundle budget {'unlimited' if unlimited else budget_chars}"
-        )
+        bud = "∞" if unlimited else str(budget_chars)
+        trace(f"queue {len(urls)} urls · md budget {bud}")
 
     parts: list[str] = []
     used = 0
     for i, url in enumerate(urls):
         if not unlimited and used >= budget_chars:
             if trace is not None and i < len(urls):
-                trace(
-                    f"evidence: not fetching remaining {len(urls) - i} URL(s) "
-                    f"(Markdown budget {budget_chars} reached)"
-                )
+                trace(f"skip {len(urls) - i} urls · md cap {budget_chars}")
             break
         try:
             text = fetch_url_text_cached(
@@ -390,7 +399,7 @@ def gather_evidence_for_queries(
         except Exception as e:
             text = f"(fetch failed: {e})"
             if report is not None:
-                report(f"URL fetch failed (exception): {url}\n  {e}")
+                report(f"fetch error · {cli_short_url(url)}: {e}")
         header = f"\n\n=== SOURCE URL: {url} ===\n"
         chunk = header + text
         if not unlimited and used + len(chunk) > budget_chars:

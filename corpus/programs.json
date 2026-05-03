@@ -3,5 +3,538 @@
     "version": 1,
     "description": "MDes Peer Program Comparator Corpus"
   },
-  "programs": []
+  "programs": [
+    {
+      "program_id": "berkeley_mims",
+      "base_url": "https://www.ischool.berkeley.edu/programs/mims",
+      "llm_rationales": [
+        {
+          "feature": "positioning.positioning_summary",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Program page describes MIMS as a 'two-year STEM-designated, full-time professional master’s program' for 'aspiring technology leaders, AI engineers, UX designers, and data-driven decision-makers,' and highlights interdisciplinary curriculum, hands-on learning, internships, and ethical technology.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "positioning.positioning_tags",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "Degree requirements state the curriculum bridges 'information and computer science, design, social sciences, management, law, and policy,' with core courses in programming, data structures, information law and policy, and a final project; this supports interdisciplinary, STEM-adjacent, and professional positioning.",
+          "llm_title": "MIMS Degree Requirements",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "positioning.positioning_tags",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page explicitly emphasizes 'AI,' 'UX,' 'human-centered design,' and 'UX design' as core knowledge areas and pathways, supporting the UI/UX tag.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "duration.length_in_berkeley_semesters",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "The degree requirements page states that the MIMS program is a two-year full-time degree program, requires students to be registered for four consecutive academic semesters, and notes the final project occurs in the second semester of the second year.",
+          "llm_title": "MIMS Degree Requirements",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "duration.duration_category",
+          "source_url": "https://www.ischool.berkeley.edu/programs",
+          "note": "The programs page lists MIMS as a two-year program with 'Semesters | 4' in the comparison table, supporting the four-semester duration category.",
+          "llm_title": "Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "degree_cost.comparison_cost_usd",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/funding",
+          "note": "Used the MIMS 'Student Annual Budget 2025–2026' row for California residents: Total Tuition & Fees is $33,880.50. This is tuition + mandatory program/academic fees only and excludes living expenses, so it is appropriate for cross-program comparison.",
+          "llm_title": "Funding Your MIMS Education",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "degree_cost.total_degree_cost_base_currency",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/funding",
+          "note": "Used the MIMS 'Student Annual Budget 2025–2026' row for California residents: Total Expected Graduate Costs is $70,654.50. This is a bundled cost-of-attendance figure including living expenses, so it is not the comparison cost, but it is the clearest program-stated total in USD.",
+          "llm_title": "Funding Your MIMS Education",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.unit_system",
+          "source_url": "https://www.ischool.berkeley.edu/programs",
+          "note": "The program comparison table states MIMS has a standard course load of 12 units per semester and 48 total units, indicating a semester-credit system.",
+          "llm_title": "MIMS program overview",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.sequencedness",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "The degree has a prescribed first-year core and a term sequence for core and final project courses, but electives are spread across later semesters and some breadth requirements are not tied to specific terms, so the curriculum is only partially sequenced.",
+          "llm_title": "MIMS degree requirements",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.offers_specialization",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/paths",
+          "note": "The program explicitly says students build on the core with electives to create a degree aligned with individual interests and that there are four common focus areas, with many more specializations possible.",
+          "llm_title": "MIMS paths",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "The source names five required core courses: Info 202, 203, 205, 206A, and 206B. Info 298A is also identified as the final project course in the fourth semester, so it is included as a required core/capstone row.",
+          "llm_title": "MIMS degree requirements",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.electives.estimated_elective_course_count",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program requires at least 48 total units and five core courses plus a final project. Because the core course unit values are not fully specified in the MIMS requirements pages, the elective count is only a rough estimate based on the remaining units after core/breadth requirements and a typical 3-unit elective size.",
+          "llm_title": "MIMS program overview",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.electives",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "The requirements page says students take additional electives in the second year, must take at least one advanced technology course and one advanced social science or policy course, may take up to 40 units from the Info catalog, and may count up to 8 units from other departments toward the degree.",
+          "llm_title": "MIMS degree requirements",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.unit_system",
+          "source_url": "https://www.ischool.berkeley.edu/programs",
+          "note": "The program table describes MIMS as a 48-unit degree with a standard course load of 12 units per semester, indicating a semester credit-hour system.",
+          "llm_title": "MIMS program overview",
+          "retrieved_date": ""
+        },
+        {
+          "feature": "curriculum.sequencedness",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "The curriculum has a prescribed first-year core, mandatory technology and management breadth requirements, and a fourth-semester final project, but many electives remain flexible, so the structure is partially sequenced rather than fully term-mapped.",
+          "llm_title": "MIMS degree requirements",
+          "retrieved_date": ""
+        },
+        {
+          "feature": "curriculum.offers_specialization",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/paths",
+          "note": "The page says students build on the core with electives to create a degree aligned with individual interests and describes four common focus areas plus many more specializations, so specialization is clearly offered.",
+          "llm_title": "MIMS paths",
+          "retrieved_date": ""
+        },
+        {
+          "feature": "curriculum.core_courses",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "The source explicitly names five required core courses: Info 202, Info 203, Info 205, Info 206A, and Info 206B. Info 298A is also listed as the required final project in the fourth semester, so it is included as a required core-like curriculum row.",
+          "llm_title": "MIMS degree requirements",
+          "retrieved_date": ""
+        },
+        {
+          "feature": "curriculum.electives.estimated_elective_course_count",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program requires at least 48 total units and says there are five core courses plus a wide range of electives, but the excerpt does not provide enough numeric detail for a defensible elective-course-count estimate, so null is used.",
+          "llm_title": "MIMS program page",
+          "retrieved_date": ""
+        },
+        {
+          "feature": "curriculum.core_courses.0.course_id",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/202",
+          "note": "Catalog page identifies the course as Info 202, Information Organization and Retrieval.",
+          "llm_title": "Info 202 course identification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.0.primary_type",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/202",
+          "note": "Description emphasizes conceptual modeling, metadata design, classification, standardization, and retrieval practices, fitting design methods and systems with a technology component.",
+          "llm_title": "Info 202 classification evidence",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.0.learning_outcomes",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/202",
+          "note": "Learning outcomes were grounded in the catalog description's stated topics and required introductory role for MIMS students.",
+          "llm_title": "Info 202 outcomes evidence",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.1.course_id",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/203",
+          "note": "Catalog page names the course as Info 203 Social Issues of Information.",
+          "llm_title": "Info 203 course identification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.1.primary_type",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/203",
+          "note": "Description centers on social issues, theories of technology in society, and societal impact, fitting history/theory/positioning best.",
+          "llm_title": "Info 203 classification evidence",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.1.secondary_type",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/203",
+          "note": "Course emphasizes technologies’ consequences for social groups and social interaction, supporting a human_factors secondary label.",
+          "llm_title": "Info 203 secondary classification evidence",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.1.units_or_credits",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/203",
+          "note": "Catalog lists the course as 3 units.",
+          "llm_title": "Info 203 unit count",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.1.sequence_position",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "MIMS degree requirements place Info 203 in the second semester of the first-year core sequence.",
+          "llm_title": "MIMS core sequence placement",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.2.course_id",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/205",
+          "note": "Catalog page identifies the course as Info 205 Information Law and Policy.",
+          "llm_title": "Info 205 course identification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.2.primary_type",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/205",
+          "note": "Course centers on legal and ethical issues, policy frameworks, and information law, fitting history/theory/positioning best.",
+          "llm_title": "Info 205 topical classification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.2.learning_outcomes",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/205",
+          "note": "Learning outcomes grounded in the course description's emphasis on legal/ethical analysis, policy constraints, and reflection on professional responsibility.",
+          "llm_title": "Info 205 outcomes extraction",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.3.course_id",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "MIMS degree requirements list Info 206A as a required core course in the first year.",
+          "llm_title": "MIMS Degree Requirements",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.3.course_title",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206a",
+          "note": "Course page gives the official title Introduction to Programming and Computation.",
+          "llm_title": "Info 206A course page",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.3.units_or_credits",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206a",
+          "note": "Course page states the course is 2 units.",
+          "llm_title": "Info 206A course page",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.3.primary_type",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206a",
+          "note": "Description centers on programming basics, Python, and computational problem solving, supporting technology classification.",
+          "llm_title": "Info 206A course page",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.3.learning_outcomes",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206a",
+          "note": "Outcomes are grounded in the course description's explicit skills: writing Python programs, analyzing data, processing text, graphics, images, simulation, decomposition, efficiency, and style.",
+          "llm_title": "Info 206A course page",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.4.course_id",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206b",
+          "note": "Catalog page identifies the official course number as Info 206B.",
+          "llm_title": "Info 206B course identification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.4.course_title",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206b",
+          "note": "Catalog page title is Introduction to Data Structures and Analytics.",
+          "llm_title": "Official course title",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.4.units_or_credits",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206b",
+          "note": "Catalog page lists the course as 2 units.",
+          "llm_title": "Unit count evidence",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.4.primary_type",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206b",
+          "note": "Course centers on data structures, data analysis, and Python coding, fitting technology.",
+          "llm_title": "Course type classification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.4.secondary_type",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206b",
+          "note": "Emphasis on best practices for writing code and structured data analysis supports a design-methods/systems secondary label.",
+          "llm_title": "Secondary type classification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.4.sequence_position",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "MIMS program materials describe a five-core-course first-year sequence; this slot is the fifth core course in the provided curriculum context.",
+          "llm_title": "Core sequence placement",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.4.learning_outcomes",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/206b",
+          "note": "Course description states students will represent, manipulate, and analyze structured data sets, and emphasizes coding best practices.",
+          "llm_title": "Learning outcomes extraction",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.5.course_id",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/298a",
+          "note": "Official catalog page names the course Info 298A.",
+          "llm_title": "Info 298A course identification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.5.course_title",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/298a",
+          "note": "Official catalog page gives the title Directed Group Work on Final Project.",
+          "llm_title": "Info 298A course title",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.5.course_summary",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/298a",
+          "note": "Catalog description says the final project integrates program skills, requires sustained coherent work, and may be research or applied work.",
+          "llm_title": "Info 298A description",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.5.primary_type",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/298a",
+          "note": "Project-based final project best fits design_methods_systems rather than design_studio at low weight.",
+          "llm_title": "Info 298A classification",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "curriculum.core_courses.5.learning_outcomes",
+          "source_url": "https://www.ischool.berkeley.edu/courses/info/298a",
+          "note": "Learning outcomes grounded in catalog language about integration, sustained work, tangible work product, project management, and written/oral presentation.",
+          "llm_title": "Info 298A outcomes",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.institution_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page identifies the offering as UC Berkeley’s School of Information MIMS program, supporting the institution name as UC Berkeley School of Information.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.program_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The page headline is 'Master of Information Management and Systems' and the body refers to 'Earn your Master of Information Management and Systems (MIMS),' supporting the program name.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.credential_name",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "UC Berkeley’s graduate programs list includes 'Information Management & Systems MIMS' as a Masters / Professional program, supporting the credential name and degree level.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.degree_type",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "The graduate programs listing classifies Information Management & Systems MIMS under 'Masters / Professional,' supporting the degree type.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_units.0",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page repeatedly states that MIMS is offered at UC Berkeley’s School of Information, supporting the host academic unit.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_model",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Because the program is housed in the School of Information, the host academic model is best classified as computing_hosted.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.location_label",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program is UC Berkeley-based; Berkeley, California, United States is the appropriate location label for the host institution.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        }
+      ],
+      "identity": {
+        "institution_name": "UC Berkeley School of Information",
+        "program_name": "Master of Information Management and Systems",
+        "credential_name": "Master of Information Management and Systems (MIMS)",
+        "degree_type": "Masters / Professional",
+        "host_academic_units": [
+          "UC Berkeley School of Information"
+        ],
+        "host_academic_model": "computing_hosted",
+        "location_label": "Berkeley, California, United States"
+      },
+      "positioning": {
+        "positioning_summary": "UC Berkeley’s MIMS is positioned as a two-year, full-time professional master’s for aspiring technology leaders and information professionals, with a strongly interdisciplinary curriculum spanning computer science, data systems/AI, human-centered design/UX, policy, ethics, law, and management. The program also signals a practical, career-oriented focus through hands-on project work, internships, and outcomes in UX, product, data, and tech leadership, while explicitly framing its work around ethical technology and social impact.",
+        "positioning_tags": [
+          "professional",
+          "interdisciplinary",
+          "stem_adjacent",
+          "ui_ux"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 33980.5,
+        "total_degree_cost_base_currency": 70054.5
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "partially_sequenced",
+        "curriculum_summary": "MIMS is a two-year, full-time, 48-semester-unit professional degree. The first year is mostly a required core, followed by electives and additional breadth requirements in the second year, with a required final project in the last semester. The program is flexible overall and supports specialization through electives and thematic focus areas, but it does not present formal tracks or concentrations.",
+        "offers_specialization": true,
+        "core_courses": [
+          {
+            "course_id": "Info 202",
+            "course_title": "Information Organization and Retrieval",
+            "units_or_credits": 3,
+            "sequence_position": 1,
+            "primary_type": "design_methods_systems",
+            "secondary_type": "technology",
+            "course_summary": "Required first-year core course introducing information organization and retrieval. Covers conceptual modeling, semantic representation, vocabulary and metadata design, classification, standardization, and information retrieval practices and applications.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/202",
+            "learning_outcomes": [
+              "Understand foundations of information organization and retrieval",
+              "Apply conceptual modeling and semantic representation",
+              "Design vocabularies, metadata, and classification schemes",
+              "Use information retrieval practices and related technologies",
+              "Analyze textual and non-textual information computationally"
+            ],
+            "normalized_unit_weight": 1.2857142857142856
+          },
+          {
+            "course_id": "Info 203",
+            "course_title": "Social Issues of Information",
+            "units_or_credits": 3,
+            "sequence_position": 2,
+            "primary_type": "history_theory_positioning",
+            "secondary_type": "human_factors",
+            "course_summary": "Required 3-unit core course introducing social issues around information and information technology, including technology’s impact on society and social groups.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/203",
+            "learning_outcomes": [
+              "Explain how information technologies affect social groups and social interaction.",
+              "Analyze how society shapes the technologies that are produced.",
+              "Discuss theories of technology in society.",
+              "Identify workplace, automation, and networked sociability issues.",
+              "Use social scientific methods to examine information technology problems."
+            ],
+            "normalized_unit_weight": 1.2857142857142856
+          },
+          {
+            "course_id": "Info 205",
+            "course_title": "Information Law and Policy",
+            "units_or_credits": 3,
+            "sequence_position": 3,
+            "primary_type": "history_theory_positioning",
+            "secondary_type": "open_or_other",
+            "course_summary": "Required first-year core course examining legal and ethical issues in information and communication technologies, including privacy, freedom of expression, consumer protection, cybersecurity, and copyright.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/205",
+            "learning_outcomes": [
+              "Analyze legal and ethical issues in information technologies.",
+              "Explain how policy frameworks shape technology design and use.",
+              "Evaluate privacy, copyright, and consumer protection concerns.",
+              "Reflect on the ethical impact of information professionals' work."
+            ],
+            "normalized_unit_weight": 1.2857142857142856
+          },
+          {
+            "course_id": "Info 206A",
+            "course_title": "Introduction to Programming and Computation",
+            "units_or_credits": 2,
+            "sequence_position": 4,
+            "primary_type": "technology",
+            "secondary_type": null,
+            "course_summary": "Required first-year core course in programming and computation. The 2-unit course introduces Python programming for computer science, data science, and information management, with emphasis on problem decomposition, program efficiency, and good programming style.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/206a",
+            "learning_outcomes": [
+              "Write interactive Python programs",
+              "Analyze data and process text",
+              "Draw graphics and manipulate images",
+              "Simulate physical systems",
+              "Apply problem decomposition and efficient coding practices"
+            ],
+            "normalized_unit_weight": 0.8571428571428571
+          },
+          {
+            "course_id": "Info 206B",
+            "course_title": "Introduction to Data Structures and Analytics",
+            "units_or_credits": 2,
+            "sequence_position": 5,
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "course_summary": "Required core course introducing data structures and data analysis in Python; 2 units; forms the second half of the INFO 206A/206B sequence.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/206b",
+            "learning_outcomes": [
+              "Represent structured data sets",
+              "Manipulate and analyze data in Python",
+              "Apply best practices for writing code",
+              "Build on INFO 206A prerequisites"
+            ],
+            "normalized_unit_weight": 0.8571428571428571
+          },
+          {
+            "course_id": "Info 298A",
+            "course_title": "Directed Group Work on Final Project",
+            "units_or_credits": 1,
+            "sequence_position": 6,
+            "primary_type": "design_methods_systems",
+            "secondary_type": "rhetoric_storytelling_presentation",
+            "course_summary": "Required culminating final project completed in the fourth semester. The project integrates skills and concepts from the MIMS program and may take the form of a research paper or professionally oriented applied work.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/298a",
+            "learning_outcomes": [
+              "Integrate skills and concepts learned in the MIMS program.",
+              "Formulate and carry out a sustained, coherent project.",
+              "Produce a tangible work product.",
+              "Manage a significant project from start to finish.",
+              "Present work in written and oral form."
+            ],
+            "normalized_unit_weight": 0.42857142857142855
+          }
+        ],
+        "electives": {
+          "summary": "Electives are broad and flexible, with students drawing from the I School catalog and other UC Berkeley departments to build specialization in areas such as UX, data science, policy, entrepreneurship, and privacy/security. The program requires at least 40 units from the Info course catalog, may include up to 6 units of individual or group study, and allows up to 8 units from other departments to count toward the degree.",
+          "estimated_elective_course_count": null
+        }
+      },
+      "verification": {
+        "status": "llm_extracted",
+        "verified_by": "",
+        "verified_date": ""
+      },
+      "date_added": "2026-05-03T19:37:25Z",
+      "date_updated": "2026-05-03T19:41:33Z"
+    }
+  ]
 }

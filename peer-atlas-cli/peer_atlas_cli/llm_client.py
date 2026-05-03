@@ -72,11 +72,11 @@ class OpenAICompatibleClient:
         self, *, system: str, user: str, transcript_step: str | None = None
     ) -> str:
         req_chars = len(system) + len(user)
-        step = f"\t[{transcript_step}]" if transcript_step else ""
-        print(
-            f"[peer-atlas]\tLLM chat request: {req_chars} chars (system + user){step}",
-            file=sys.stderr,
-        )
+        step_s = ""
+        if transcript_step:
+            ts = transcript_step if len(transcript_step) <= 42 else transcript_step[:39] + "…"
+            step_s = f" · {ts}"
+        print(f"[pa] LLM {req_chars}c{step_s}", file=sys.stderr)
         url = f"{self._base}/v1/chat/completions"
         payload: dict[str, Any] = {
             "model": self._model,
@@ -103,8 +103,7 @@ class OpenAICompatibleClient:
                             f"Wait and retry, or check usage/billing limits. Last detail: {last_body}"
                         )
                     print(
-                        f"[peer-atlas] LLM HTTP {r.status_code}; retrying in {wait:.1f}s "
-                        f"(attempt {attempt + 1}/{self._max_retries})…",
+                        f"[pa] HTTP {r.status_code} · retry {wait:.1f}s ({attempt + 1}/{self._max_retries})",
                         file=sys.stderr,
                     )
                     time.sleep(wait)

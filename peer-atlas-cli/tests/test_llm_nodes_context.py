@@ -17,7 +17,7 @@ def test_program_context_json_for_course_patch_includes_row_and_neighbors() -> N
             "sequencedness": "sequenced",
             "curriculum_summary": "Summary",
             "offers_specialization": False,
-            "elective_requirements": "Pick 3",
+            "electives": {"summary": "Pick breadth electives.", "estimated_elective_course_count": 3},
             "core_courses": [
                 {"course_id": "a", "course_title": "A"},
                 {"course_id": "b", "course_title": "B"},

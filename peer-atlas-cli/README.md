@@ -8,6 +8,8 @@ pip install -e "./peer-atlas-cli[dev]"
 
 Entry point: `peer-atlas`. `clear-programs` archives `corpus/programs.json` to `corpus/programs.archive.<UTC>.json` then empties the `programs` array (keeps `corpus_metadata`); use `-y` to skip confirmation. `add-program BASE_URL PROGRAM_ID [query]` uses **Tavily** (scoped to the registrable domain of `BASE_URL`) plus cached fetches, then LLM steps per ingest node (plus per–core-course patches). Set `TAVILY_API_KEY` in repo-root `.env`.
 
+**Tavily query text** is composed from a seed-page LLM pass (`atlas_search_context`), identity fallbacks, optional CLI `query`, and templates in [`categories_and_rules/tavily_search_guidance.json`](../categories_and_rules/tavily_search_guidance.json). See [docs/tavily-query-composition.md](docs/tavily-query-composition.md).
+
 **Evidence gathering pipeline** (queries → Tavily → URLs → raw HTML → simplified HTML → **required** main-body Markdown LLM → URL cache) does **not** truncate downloaded HTML. Cache JSON includes `body`, `body_markdown`, `body_chars`, and `body_markdown_chars`. The html→Markdown model receives at most **`PEER_ATLAS_HTML_MARKDOWN_LLM_INPUT_CHARS`** characters of simplified HTML; if the page is larger, stderr reports that the input was truncated **for that model only**. Tavily hits that look like PDF/DOC/XLS/etc. are dropped.
 
 **Curriculum path:** `curriculum_overview` uses `--curriculum-max-urls` (default 4) domain-scoped URLs, **full** Markdown per page, a **prose** LLM per source (`curriculum_source_extract`), then a **JSON** overview LLM on the concatenated mash (not stored on the program). Per `core_courses[i]` row: Tavily + Markdown fetches (domain-scoped when `BASE_URL` is passed as `seed_url`), then `curriculum_course_patch`.

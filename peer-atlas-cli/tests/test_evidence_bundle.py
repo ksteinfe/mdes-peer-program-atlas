@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import inspect
+
 from peer_atlas_cli.retrieval import evidence_bundle as eb
 from peer_atlas_cli.retrieval.evidence_gathering_pipeline import is_non_web_document_url
 
@@ -39,3 +41,12 @@ def test_bundle_budget_unlimited() -> None:
     assert eb._bundle_budget_unlimited(0) is True
     assert eb._bundle_budget_unlimited(-1) is True
     assert eb._bundle_budget_unlimited(100) is False
+
+
+def test_core_course_queries_use_lower_tavily_max_results_default() -> None:
+    assert eb.CORE_COURSE_MAX_RESULTS_PER_QUERY == 5
+    assert eb.DEFAULT_MAX_RESULTS_PER_QUERY_NODE == 10
+    qsig = inspect.signature(eb.gather_evidence_for_queries)
+    nsig = inspect.signature(eb.gather_evidence_for_node)
+    assert qsig.parameters["max_results_per_query"].default == 5
+    assert nsig.parameters["max_results_per_query"].default == 10

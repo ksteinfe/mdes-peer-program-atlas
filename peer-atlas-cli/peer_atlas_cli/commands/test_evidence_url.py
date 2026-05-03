@@ -44,7 +44,7 @@ def test_evidence_url_cmd(url: str, timeout: float) -> None:
     else:
         click.echo("No on-disk cache entry for this URL (fetching from network).", err=True)
 
-    click.echo(f"model={model!r} provider={provider!r}", err=True)
+    click.echo(f"{model} · {provider}", err=True)
     text = fetch_url_text_cached(
         u,
         repo_root=root,

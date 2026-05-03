@@ -83,10 +83,7 @@ def html_to_main_content_markdown(
     lim = llm_input_char_limit()
     raw_len = len((cleaned_html or "").strip())
     if raw_len > lim and warn_input_cap is not None:
-        warn_input_cap(
-            f"cleaned HTML is {raw_len} characters; PEER_ATLAS_HTML_MARKDOWN_LLM_INPUT_CHARS={lim} "
-            "(truncating for the html→markdown model only)."
-        )
+        warn_input_cap(f"html→md input {raw_len}c > cap {lim}c (truncated for model).")
     block = _cap_cleaned_html_for_llm(cleaned_html, lim)
     tmpl = load_prompt("retrieval/html_evidence_main_markdown.md")
     user = render_template(

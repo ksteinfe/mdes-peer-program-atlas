@@ -9,9 +9,10 @@ from typing import Any
 import click
 
 from peer_atlas_cli.categories import categories_payload_for_prompt, load_categories
-from peer_atlas_cli.cli_progress import cli_bracket_line, cli_rule_line
+from peer_atlas_cli.cli_progress import cli_bracket_line, cli_rule_line, cli_short_url
 from peer_atlas_cli.config import load_env, require_llm_config
 from peer_atlas_cli.corpus_io import load_corpus, program_by_id, write_corpus
+from peer_atlas_cli.program_dates import bump_date_updated
 from peer_atlas_cli.llm_client import get_client
 from peer_atlas_cli.llm_nodes import (
     LLMSchemaValidationError,
@@ -22,11 +23,12 @@ from peer_atlas_cli.llm_nodes import (
 from peer_atlas_cli.llm_reporting import echo_llm_raw_and_parsed, echo_validation_errors
 from peer_atlas_cli.program_sanitize import (
     ensure_course_source_urls,
+    finalize_top_level_sources_into_rationales,
+    migrate_course_source_id_to_url,
     normalize_core_course_learning_outcomes,
     normalize_curriculum_electives_in_program,
     normalize_derivation_notes,
     normalize_program_layout,
-    normalize_sources,
     strip_legacy_source_id_fields,
 )
 from peer_atlas_cli.repo_root import find_repo_root
@@ -43,7 +45,8 @@ from peer_atlas_cli.schema_validation import validate_corpus
 def _sanitize_program(program: dict[str, Any], *, base_url: str) -> None:
     normalize_program_layout(program)
     strip_legacy_source_id_fields(program)
-    normalize_sources(program)
+    migrate_course_source_id_to_url(program)
+    finalize_top_level_sources_into_rationales(program)
     normalize_derivation_notes(program, default_source_url=base_url)
     ensure_course_source_urls(program, base_url)
     normalize_core_course_learning_outcomes(program)
@@ -122,19 +125,19 @@ def reconsider_node_cmd(
     rel = rationales_for_node(node_key, program)
 
     def _recon_scope() -> str:
-        return f"reconsider-node ({node_key})"
+        return f"rc/{node_key}"
 
     def _recon_fetch(msg: str) -> None:
-        cli_bracket_line(_recon_scope(), "rationale URL fetch", msg, indent_tabs=1)
+        cli_bracket_line(_recon_scope(), "rat", msg, indent_tabs=1)
 
     host = base_llm_url or "https://api.openai.com"
     cli_rule_line("=")
     cli_bracket_line(
         _recon_scope(),
         "setup",
-        f"program={pid!r} model={model!r} provider={provider} at {host!r}; rationales={len(rel)}",
+        f"{pid} · {model} · {provider} · {cli_short_url(host)} · rat={len(rel)}",
     )
-    cli_bracket_line(_recon_scope(), "rationale URL fetch", "starting fetches for source_url values …")
+    cli_bracket_line(_recon_scope(), "rat", "fetch source_url …")
     cli_rule_line("-")
 
     fetched = fetch_rationale_source_pages(
@@ -155,8 +158,8 @@ def reconsider_node_cmd(
     )
     cli_bracket_line(
         _recon_scope(),
-        "assembled prompt EVIDENCE",
-        f"{len(evidence)} chars (instruction + rationales JSON + fetched Markdown blocks)",
+        "evidence",
+        f"{len(evidence)}c (instr + rat + md)",
     )
     cli_rule_line("-")
 
@@ -166,8 +169,8 @@ def reconsider_node_cmd(
             ctx_json = program_context_json_for_curriculum_steps(program)
             cli_bracket_line(
                 _recon_scope(),
-                "curriculum overview JSON LLM",
-                f"calling LLM … full EVIDENCE string: {len(evidence)} chars",
+                "cv",
+                f"LLM · {len(evidence)}c",
                 indent_tabs=1,
             )
             raw = run_curriculum_overview_step(
@@ -182,8 +185,8 @@ def reconsider_node_cmd(
         else:
             cli_bracket_line(
                 _recon_scope(),
-                f"{node_key} node JSON LLM",
-                f"calling LLM … full EVIDENCE string: {len(evidence)} chars",
+                node_key,
+                f"LLM · {len(evidence)}c",
                 indent_tabs=1,
             )
             raw = run_node_step(
@@ -196,7 +199,7 @@ def reconsider_node_cmd(
                 max_llm_attempts=max_llm_attempts,
             )
     except LLMSchemaValidationError as e:
-        cli_bracket_line(_recon_scope(), "LLM", f"failed (schema): {e}")
+        cli_bracket_line(_recon_scope(), "LLM", f"fail schema: {e}")
         echo_llm_raw_and_parsed(
             e.raw,
             program,
@@ -205,7 +208,7 @@ def reconsider_node_cmd(
         )
         sys.exit(1)
     except (json.JSONDecodeError, ValueError, RuntimeError) as e:
-        cli_bracket_line(_recon_scope(), "LLM", f"failed: {e}")
+        cli_bracket_line(_recon_scope(), "LLM", f"fail: {e}")
         echo_llm_raw_and_parsed(raw, program, intro="reconsider-node failure.")
         sys.exit(1)
 
@@ -214,15 +217,17 @@ def reconsider_node_cmd(
     if node_key in ("curriculum", "curriculum_overview"):
         recompute_normalized_unit_weights(program)
 
+    bump_date_updated(program)
+
     errs = validate_corpus(root, corpus)
     if errs:
         echo_validation_errors(errs, intro="Corpus invalid after reconsider-node.")
         sys.exit(1)
 
     if dry_run:
-        cli_bracket_line(_recon_scope(), "done", "Dry run: OK (not writing corpus).")
+        cli_bracket_line(_recon_scope(), "done", "dry-run OK")
         return
 
     write_corpus(root, corpus)
     cli_rule_line("=")
-    cli_bracket_line(_recon_scope(), "done", f"Wrote corpus with updated {node_key!r} for {pid!r}.")
+    cli_bracket_line(_recon_scope(), "done", f"wrote {node_key} · {pid}")

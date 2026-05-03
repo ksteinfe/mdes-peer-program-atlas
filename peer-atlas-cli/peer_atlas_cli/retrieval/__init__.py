@@ -1,6 +1,8 @@
 """Retrieval: search, cache, evidence."""
 
 from peer_atlas_cli.retrieval.evidence_bundle import (
+    CORE_COURSE_MAX_RESULTS_PER_QUERY,
+    DEFAULT_MAX_RESULTS_PER_QUERY_NODE,
     gather_evidence_for_node,
     gather_evidence_for_queries,
 )
@@ -15,6 +17,8 @@ from peer_atlas_cli.retrieval.url_cache import cache_dir_for_repo, cache_ttl_sec
 from peer_atlas_cli.retrieval.url_normalize import cache_key_for_url, normalize_url
 
 __all__ = [
+    "CORE_COURSE_MAX_RESULTS_PER_QUERY",
+    "DEFAULT_MAX_RESULTS_PER_QUERY_NODE",
     "INGEST_NODE_ORDER",
     "cache_dir_for_repo",
     "cache_key_for_url",

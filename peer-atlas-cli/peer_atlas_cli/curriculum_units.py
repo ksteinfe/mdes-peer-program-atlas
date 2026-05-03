@@ -1,4 +1,4 @@
-"""Compute normalized_unit_weight for core courses and elective slots."""
+"""Compute normalized_unit_weight for core courses."""
 
 from __future__ import annotations
 
@@ -13,22 +13,14 @@ def recompute_normalized_unit_weights(program: dict[str, Any]) -> None:
         u = c.get("units_or_credits")
         if isinstance(u, (int, float)):
             units.append(float(u))
-    for e in cur.get("elective_courses") or []:
-        u = e.get("units_or_credits")
-        if isinstance(u, (int, float)):
-            units.append(float(u))
     if not units:
         for c in cur.get("core_courses") or []:
             c["normalized_unit_weight"] = None
-        for e in cur.get("elective_courses") or []:
-            e["normalized_unit_weight"] = None
         return
     avg = mean(units)
     if avg == 0:
         for c in cur.get("core_courses") or []:
             c["normalized_unit_weight"] = None
-        for e in cur.get("elective_courses") or []:
-            e["normalized_unit_weight"] = None
         return
     for c in cur.get("core_courses") or []:
         u = c.get("units_or_credits")
@@ -36,9 +28,3 @@ def recompute_normalized_unit_weights(program: dict[str, Any]) -> None:
             c["normalized_unit_weight"] = float(u) / avg
         else:
             c["normalized_unit_weight"] = None
-    for e in cur.get("elective_courses") or []:
-        u = e.get("units_or_credits")
-        if isinstance(u, (int, float)):
-            e["normalized_unit_weight"] = float(u) / avg
-        else:
-            e["normalized_unit_weight"] = None

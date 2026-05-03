@@ -10,15 +10,17 @@ def minimal_valid_program(*, program_id: str = "fixture_program") -> dict[str, A
     return {
         "program_id": program_id,
         "base_url": "https://fixture.example.edu/program",
-        "sources": [
+        "date_added": "2020-01-01T00:00:00Z",
+        "date_updated": "2020-01-01T00:00:00Z",
+        "llm_rationales": [
             {
-                "url": "https://fixture.example.edu/program",
+                "feature": "program.citation",
+                "source_url": "https://fixture.example.edu/program",
+                "note": "",
                 "llm_title": "Program",
-                "llm_summary": "",
                 "retrieved_date": "",
             }
         ],
-        "llm_rationales": [],
         "identity": {
             "institution_name": "Fixture University",
             "program_name": "Fixture MDes",
@@ -61,8 +63,7 @@ def minimal_valid_program(*, program_id: str = "fixture_program") -> dict[str, A
                     "learning_outcomes": [],
                 }
             ],
-            "elective_requirements": "",
-            "elective_courses": [],
+            "electives": {"summary": "", "estimated_elective_course_count": None},
         },
         "verification": {
             "status": "llm_extracted",

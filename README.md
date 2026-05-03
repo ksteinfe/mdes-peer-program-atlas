@@ -30,7 +30,7 @@ Commands: `validate`, `clear-programs`, `merge-patch`, `add-program`.
 
 **Possible future commands** (not implemented today; prompt stubs live under `peer-atlas-cli/prompts/` if you wire them back in):
 
-- **`refresh-program`** — re-fetch sources and merge an LLM-refreshed full program into the corpus.
+- **`refresh-program`** — re-fetch evidence URLs and merge an LLM-refreshed full program into the corpus.
 - **`refine-program`** — apply a natural-language instruction via LLM with optional scoped Tavily evidence.
 - **`reevaluate-categories`** — batch re-run category classification for paths tied to `categories_and_rules/*.json`.
 

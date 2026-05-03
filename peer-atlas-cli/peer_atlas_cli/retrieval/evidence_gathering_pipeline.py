@@ -12,6 +12,7 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 from urllib.parse import urlparse
 
+from peer_atlas_cli.cli_progress import cli_short_url
 from peer_atlas_cli.html_text import html_to_visible_text
 from peer_atlas_cli.research import fetch_url_text_lenient
 from peer_atlas_cli.retrieval.host_scope import registered_domain_for_url
@@ -143,16 +144,17 @@ def fetch_simplify_markdown_and_store(
     cache_dir = cache_dir_for_repo(repo_root)
     entry = read_cached_entry(cache_dir, url)
     if entry is not None:
+        su = cli_short_url(url)
         if trace is not None:
-            trace(f"fetch: cache {url}")
+            trace(f"cache · {su}")
         if report is not None:
             st = entry.get("http_status")
             if isinstance(st, int) and st != 200:
                 notes = entry.get("notes")
                 note_s = notes if isinstance(notes, str) else ""
-                msg = f"URL fetch failed (cached HTTP {st}): {url}"
+                msg = f"HTTP {st} (cached) · {su}"
                 if note_s.strip():
-                    msg = f"{msg}\n  {note_s}"
+                    msg = f"{msg} — {note_s.strip()[:120]}"
                 report(msg)
         md = entry.get("body_markdown")
         if isinstance(md, str) and md.strip():
@@ -168,7 +170,7 @@ def fetch_simplify_markdown_and_store(
                 )
             except Exception as e:
                 if report is not None:
-                    report(f"html→markdown LLM failed (cached body) for {url}\n  {e}")
+                    report(f"html→md failed · {su}: {e}")
                 raise
             if not (md_out or "").strip():
                 raise RuntimeError(f"html→markdown LLM returned empty output for cached body: {url}")
@@ -176,12 +178,16 @@ def fetch_simplify_markdown_and_store(
             return md_out.strip()
         return ""
 
+    su = cli_short_url(url)
     if trace is not None:
-        trace(f"fetch: network {url}")
+        trace(f"net · {su}")
     res = fetch_url_text_lenient(url, timeout=timeout)
     if report is not None and res.status_code != 200:
-        sc = res.status_code if res.status_code is not None else "error"
-        msg = f"URL fetch failed (HTTP {sc}): {url}\n  {res.notes}"
+        sc = res.status_code if res.status_code is not None else "?"
+        nn = (res.notes or "").strip()
+        msg = f"HTTP {sc} · {su}"
+        if nn:
+            msg = f"{msg} — {nn[:120]}"
         report(msg)
     plain = html_to_visible_text(res.text)
     try:
@@ -193,7 +199,7 @@ def fetch_simplify_markdown_and_store(
         )
     except Exception as e:
         if report is not None:
-            report(f"html→markdown LLM failed (network fetch) for {url}\n  {e}")
+            report(f"html→md failed · {su}: {e}")
         raise
     if not (md_out or "").strip():
         raise RuntimeError(f"html→markdown LLM returned empty output for {url}")

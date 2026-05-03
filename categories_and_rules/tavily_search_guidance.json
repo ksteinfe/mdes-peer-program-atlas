@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "_readme": "Templates for Tavily query strings. Placeholders: {label} (primary search phrase from seed LLM then identity then CLI query), {institution}, {program_name}, {seed_url}, {course_title}, {course_id}. Domain restriction (include_domains) is applied in code from CLI base_url, not in these strings.",
+  "composition": {
+    "fallback_label": "graduate design program",
+    "label_resolution": "Prefer atlas_search_context.official_program_label when non-empty; else identity institution + program_name; else CLI user_query; else fallback_label."
+  },
+  "nodes": {
+    "positioning": {
+      "queries": ["{label} mission program overview"]
+    },
+    "duration": {
+      "queries": ["{label} time to complete degree duration"]
+    },
+    "degree_cost": {
+      "queries": ["{label} tuition fees cost"]
+    },
+    "curriculum": {
+      "queries": ["{label} curriculum requirements"]
+    },
+    "curriculum_overview": {
+      "queries": [
+        "{label} degree plan curriculum map required courses by term",
+        "{label} elective requirements"
+      ]
+    },
+    "identity": {
+      "queries": [
+        "{label} official degree name credential",
+        "{label} which college school department hosts program",
+        "site:{seed_url} program"
+      ],
+      "skip_query_if_placeholder_empty": ["seed_url"]
+    }
+  },
+  "curriculum_core_course": {
+    "generic_placeholder_queries": [
+      "{label} required course list degree requirements catalog"
+    ],
+    "queries": [
+      "{course_id} {course_title} syllabus course description {label}"
+    ],
+    "append_when_seed_url": "{course_id} {course_title} {institution} syllabus"
+  }
+}

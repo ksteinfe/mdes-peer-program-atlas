@@ -12,8 +12,10 @@ from peer_atlas_cli.categories import load_node_prompt_rules
 from peer_atlas_cli.json_paths import set_path
 from peer_atlas_cli.llm_client import LLMClient, parse_json_response
 from peer_atlas_cli.program_sanitize import (
+    append_bibliography_dicts_as_rationales,
     coalesce_curriculum_subtree_from_llm,
     coerce_llm_rationale_object,
+    hoist_curriculum_sources_and_derivation_notes_to_program,
 )
 from peer_atlas_cli.prompt_loader import load_prompt, render_template
 from peer_atlas_cli.repo_root import find_repo_root
@@ -45,6 +47,67 @@ INGEST_MAIN_NODES: tuple[str, ...] = (
     "curriculum_overview",
     "identity",
 )
+
+
+def run_search_context_from_seed(
+    *,
+    client: LLMClient,
+    program: dict[str, Any],
+    seed_markdown: str,
+    seed_url: str,
+    repo_root: pathlib.Path | None = None,
+) -> None:
+    """
+    Populate ``program['atlas_search_context']`` from the CLI seed URL page (draft ingest).
+
+    Used only to improve Tavily query strings; stripped before publish.
+    """
+    _ = repo_root
+    tmpl = load_prompt("search_context_from_seed.md")
+    md = (seed_markdown or "").strip()
+    if len(md) > 120_000:
+        md = md[:120_000] + "\n… [truncated for search-context prompt]\n"
+    user = render_template(
+        tmpl,
+        SEED_URL=seed_url,
+        SEED_PAGE_MARKDOWN=md,
+        PROGRAM_CONTEXT_JSON=json.dumps(
+            {
+                "program_id": program.get("program_id"),
+                "identity": program.get("identity"),
+            },
+            indent=2,
+            ensure_ascii=False,
+        ),
+    )
+    try:
+        raw = client.complete(
+            system="You output only valid JSON. No markdown fences, no commentary.",
+            user=user,
+            transcript_step="search-context-from-seed",
+        )
+    except Exception:
+        return
+    try:
+        parsed = parse_json_response(raw)
+    except (json.JSONDecodeError, ValueError):
+        return
+    if not isinstance(parsed, dict):
+        return
+    opl = parsed.get("official_program_label")
+    si = parsed.get("short_institution")
+    kws = parsed.get("degree_subject_keywords")
+    ctx: dict[str, Any] = {}
+    if isinstance(opl, str) and opl.strip():
+        ctx["official_program_label"] = opl.strip()
+    if isinstance(si, str) and si.strip():
+        ctx["short_institution"] = si.strip()
+    if isinstance(kws, list):
+        cleaned = [str(x).strip() for x in kws if str(x).strip()]
+        if cleaned:
+            ctx["degree_subject_keywords"] = cleaned[:8]
+    if ctx:
+        program["atlas_search_context"] = ctx
 
 
 def _node_prompt_rules_text(node_key: str, repo_root: pathlib.Path | None) -> str:
@@ -130,7 +193,9 @@ def program_context_json_for_course_patch(program: dict[str, Any], index: int) -
             "sequencedness": cur.get("sequencedness"),
             "curriculum_summary": cur.get("curriculum_summary"),
             "offers_specialization": cur.get("offers_specialization"),
-            "elective_requirements": cur.get("elective_requirements"),
+            "electives": copy.deepcopy(cur.get("electives"))
+            if isinstance(cur.get("electives"), dict)
+            else {"summary": "", "estimated_elective_course_count": None},
             "core_course_at_index": row,
             "neighbor_core_courses": neighbors,
         },
@@ -242,7 +307,7 @@ def run_node_step(
         keys = set(parsed.keys())
         if keys != {node}:
             raise ValueError(
-                f"LLM must return top-level key {node!r} (optional: llm_rationales, sources); "
+                f"LLM must return top-level key {node!r} (optional: llm_rationales); "
                 f"got {sorted(keys)!r}"
             )
         subtree = parsed.get(node)
@@ -251,19 +316,12 @@ def run_node_step(
         if node == "curriculum":
             coalesce_curriculum_subtree_from_llm(subtree)
         program[node] = copy.deepcopy(subtree)
+        if node == "curriculum":
+            hoist_curriculum_sources_and_derivation_notes_to_program(program)
         if isinstance(extra_sources, list):
-            arr = program.setdefault("sources", [])
-            if isinstance(arr, list):
-                seen = {s.get("url") for s in arr if isinstance(s, dict)}
-                for item in extra_sources:
-                    if not isinstance(item, dict):
-                        continue
-                    u = item.get("url")
-                    if u and u in seen:
-                        continue
-                    arr.append(copy.deepcopy(item))
-                    if u:
-                        seen.add(u)
+            append_bibliography_dicts_as_rationales(
+                program, extra_sources, feature="ingest.citation"
+            )
         if isinstance(extra_notes, list):
             arr = program.setdefault("llm_rationales", [])
             if isinstance(arr, list):
@@ -293,7 +351,7 @@ def run_node_step(
             base_user
             + "\n\nYour previous answer was rejected by the corpus JSON Schema. "
             f"Return a JSON object with top-level key {node!r} "
-            "(and optional top-level \"llm_rationales\" / \"sources\" arrays). "
+            "(and optional top-level \"llm_rationales\" array). "
             "Issues (fix all that apply):\n"
             + "\n".join(last_errors[:40])
         )
@@ -346,7 +404,7 @@ def run_curriculum_overview_step(
         keys = set(parsed.keys())
         if keys != {"curriculum"}:
             raise ValueError(
-                "LLM must return top-level key 'curriculum' (optional: llm_rationales, sources); "
+                "LLM must return top-level key 'curriculum' (optional: llm_rationales); "
                 f"got {sorted(keys)!r}"
             )
         subtree = parsed.get("curriculum")
@@ -354,19 +412,11 @@ def run_curriculum_overview_step(
             raise ValueError("LLM value for 'curriculum' must be an object")
         coalesce_curriculum_subtree_from_llm(subtree)
         program["curriculum"] = copy.deepcopy(subtree)
+        hoist_curriculum_sources_and_derivation_notes_to_program(program)
         if isinstance(extra_sources, list):
-            arr = program.setdefault("sources", [])
-            if isinstance(arr, list):
-                seen = {s.get("url") for s in arr if isinstance(s, dict)}
-                for item in extra_sources:
-                    if not isinstance(item, dict):
-                        continue
-                    u = item.get("url")
-                    if u and u in seen:
-                        continue
-                    arr.append(copy.deepcopy(item))
-                    if u:
-                        seen.add(u)
+            append_bibliography_dicts_as_rationales(
+                program, extra_sources, feature="ingest.citation"
+            )
         if isinstance(extra_notes, list):
             arr = program.setdefault("llm_rationales", [])
             if isinstance(arr, list):
@@ -396,7 +446,7 @@ def run_curriculum_overview_step(
             base_user
             + "\n\nYour previous answer was rejected by the corpus JSON Schema. "
             "Return a JSON object with top-level key \"curriculum\" "
-            "(and optional top-level \"llm_rationales\" / \"sources\" arrays). "
+            "(and optional top-level \"llm_rationales\" array). "
             "Issues (fix all that apply):\n"
             + "\n".join(last_errors[:40])
         )
@@ -440,8 +490,9 @@ def run_curriculum_course_patch(
             user = (
                 base_user
                 + "\n\nYour previous patch left the program invalid under the corpus "
-                "JSON Schema. Return ONLY an updates array that fixes paths under "
-                f"curriculum.core_courses.{index}.*. Issues:\n"
+                "JSON Schema. Return an object with an **updates** array that fixes paths under "
+                f"curriculum.core_courses.{index}.*. You may also include top-level "
+                "**llm_rationales** (and legacy **sources** are converted to rationales). Issues:\n"
                 + "\n".join(last_errors[:40])
             )
 
@@ -467,6 +518,26 @@ def run_curriculum_course_patch(
             if not path.startswith(prefix):
                 continue
             set_path(program, path, u.get("value"))
+
+        extra_notes = payload.pop("llm_rationales", None)
+        if extra_notes is None:
+            extra_notes = payload.pop("derivation_notes", None)
+        extra_sources = payload.pop("sources", None)
+        if isinstance(extra_sources, list):
+            append_bibliography_dicts_as_rationales(
+                program, extra_sources, feature="ingest.citation"
+            )
+        if isinstance(extra_notes, list):
+            arr = program.setdefault("llm_rationales", [])
+            if isinstance(arr, list):
+                base_u = str(program.get("base_url") or "").strip()
+                for item in extra_notes:
+                    if isinstance(item, dict):
+                        coerced = coerce_llm_rationale_object(
+                            item, default_source_url=base_u
+                        )
+                        if coerced is not None:
+                            arr.append(coerced)
 
         if repo_root is None:
             return raw

@@ -6,12 +6,12 @@ Output a single JSON object matching the program schema. Use only allowed catego
 - duration.duration_category
 - curriculum.unit_system and sequencedness
 - curriculum.core_courses[].primary_type and secondary_type (secondary_type null if primary_type is design_studio)
-- curriculum.elective_courses[] lite rows: course_id required; units_or_credits and normalized_unit_weight optional (null)
+- curriculum.**`electives`**: `{ "summary": string, "estimated_elective_course_count": integer | null }` — human prose plus a rough elective **course/slot** count for visualization (no elective course list).
 - verification — `{ "status": "llm_extracted", "verified_by": "", "verified_date": "" }` until human verification
 
 Rules:
-- Top-level **`sources[]`**: bibliography (url, llm_title, llm_summary, retrieved_date). Same shape as the corpus; use **`""`** for unknown dates where allowed.
-- Top-level **`llm_rationales[]`** when inferring fields from weak evidence; each object: **feature**, **source_url**, **note** (three strings only). **`feature`** is a dot path such as `degree_cost.comparison_cost_usd` or `positioning.positioning_tags`.
+- Top-level **`llm_rationales[]`** (required for the assembled record): each object has **exactly** five string keys: **`feature`**, **`source_url`**, **`note`**, **`llm_title`**, **`retrieved_date`**. Use **`feature`** as a dot path (`degree_cost.comparison_cost_usd`, `positioning.positioning_tags`, etc.). **`note`** states how the cited page supports that field; **`llm_title`** labels **`source_url`**; **`retrieved_date`** or **`""`**.
+- There is **no** separate top-level **`sources`** array; bibliography lives in **`llm_rationales`** rows (and legacy **`sources`** returned by a model are converted automatically).
 - Use null for unknown numbers; use "" for unknown strings only where the schema allows empty strings.
 - program_id: leave empty string; the CLI assigns a stable id from identity.institution_name and identity.program_name. If the model omits those, the CLI fills them from the starting URL or user query when possible.
 

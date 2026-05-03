@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from typing import Any
 
 import httpx
@@ -30,10 +31,17 @@ def search_urls(
     """
     Return Tavily results: each dict has url, title, content (snippet), optional score.
     """
+    q = (query or "").strip()
+    mr = max(1, min(max_results, 20))
+    if q:
+        dom_note = ""
+        if include_domains:
+            dom_note = f" · include_domains={include_domains!r}"
+        print(f"[pa] tavily · {q!r} · max_results={mr}{dom_note}", file=sys.stderr)
     payload: dict[str, Any] = {
         "api_key": tavily_api_key(),
-        "query": query.strip(),
-        "max_results": max(1, min(max_results, 20)),
+        "query": q,
+        "max_results": mr,
         "search_depth": "basic",
         "include_answer": False,
     }

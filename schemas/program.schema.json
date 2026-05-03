@@ -6,7 +6,8 @@
   "required": [
     "program_id",
     "base_url",
-    "sources",
+    "date_added",
+    "date_updated",
     "llm_rationales",
     "identity",
     "positioning",
@@ -23,9 +24,15 @@
       "minLength": 1,
       "description": "Canonical program site URL used for ingest and evidence (https recommended)."
     },
-    "sources": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/source" }
+    "date_added": {
+      "type": "string",
+      "minLength": 1,
+      "description": "UTC timestamp when the program was first added to the corpus (ISO 8601, e.g. 2026-05-03T12:00:00Z)."
+    },
+    "date_updated": {
+      "type": "string",
+      "minLength": 1,
+      "description": "UTC timestamp of the last corpus write that modified this program (ISO 8601)."
     },
     "llm_rationales": {
       "type": "array",
@@ -39,33 +46,37 @@
     "verification": { "$ref": "#/$defs/verification" }
   },
   "$defs": {
-    "source": {
+    "llmRationale": {
       "type": "object",
       "required": [
-        "url",
+        "feature",
+        "source_url",
+        "note",
         "llm_title",
-        "llm_summary",
         "retrieved_date"
       ],
       "additionalProperties": false,
       "properties": {
-        "url": { "type": "string", "minLength": 1 },
+        "feature": {
+          "type": "string",
+          "description": "Dot path of the program field this rationale supports (e.g. degree_cost.comparison_cost_usd)."
+        },
+        "source_url": {
+          "type": "string",
+          "description": "Canonical URL of the fetched page this row cites."
+        },
+        "note": {
+          "type": "string",
+          "description": "Why this source supports the feature, inference steps, or uncertainty."
+        },
         "llm_title": {
           "type": "string",
-          "description": "Short human-readable label for this URL (e.g. Program 'About' page)."
+          "description": "Short human-readable label for the cited URL (e.g. Program fees page)."
         },
-        "llm_summary": { "type": "string" },
-        "retrieved_date": { "type": "string" }
-      }
-    },
-    "llmRationale": {
-      "type": "object",
-      "required": ["feature", "source_url", "note"],
-      "additionalProperties": false,
-      "properties": {
-        "feature": { "type": "string" },
-        "source_url": { "type": "string" },
-        "note": { "type": "string" }
+        "retrieved_date": {
+          "type": "string",
+          "description": "ISO or human date the content was retrieved; use empty string if unknown."
+        }
       }
     },
     "identity": {
@@ -172,14 +183,19 @@
         }
       }
     },
-    "electiveCourseLite": {
+    "curriculumElectives": {
       "type": "object",
-      "required": ["course_id"],
+      "required": ["summary", "estimated_elective_course_count"],
       "additionalProperties": false,
       "properties": {
-        "course_id": { "type": "string" },
-        "units_or_credits": { "type": ["number", "null"] },
-        "normalized_unit_weight": { "type": ["number", "null"] }
+        "summary": {
+          "type": "string",
+          "description": "Concise human-readable description of elective structure (not machine-readable constraints)."
+        },
+        "estimated_elective_course_count": {
+          "type": ["integer", "null"],
+          "description": "Rough integer count of elective courses/slots for visualization."
+        }
       }
     },
     "curriculum": {
@@ -190,8 +206,7 @@
         "curriculum_summary",
         "offers_specialization",
         "core_courses",
-        "elective_requirements",
-        "elective_courses"
+        "electives"
       ],
       "additionalProperties": false,
       "properties": {
@@ -199,21 +214,14 @@
         "sequencedness": { "type": "string" },
         "curriculum_summary": { "type": "string" },
         "offers_specialization": {
-          "type": "boolean",
+          "type": ["boolean", "null"],
           "description": "True when the program offers distinct tracks, concentrations, or specializations students choose among."
         },
         "core_courses": {
           "type": "array",
           "items": { "$ref": "#/$defs/coreCourse" }
         },
-        "elective_requirements": {
-          "type": "string",
-          "description": "Human-readable summary of how electives work (policy text)."
-        },
-        "elective_courses": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/electiveCourseLite" }
-        }
+        "electives": { "$ref": "#/$defs/curriculumElectives" }
       }
     },
     "verification": {

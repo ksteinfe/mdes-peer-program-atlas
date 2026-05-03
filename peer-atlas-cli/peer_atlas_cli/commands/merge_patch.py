@@ -10,6 +10,7 @@ from typing import Any
 import click
 
 from peer_atlas_cli.corpus_io import load_corpus, program_by_id, write_corpus
+from peer_atlas_cli.program_dates import bump_date_updated
 from peer_atlas_cli.json_paths import get_path, path_exists, set_path_flexible
 from peer_atlas_cli.repo_root import find_repo_root
 from peer_atlas_cli.schema_validation import validate_corpus, validate_patch_shape
@@ -104,6 +105,16 @@ def merge_patch_cmd(
             click.echo(e, err=True)
         click.echo("Patch rejected: merged corpus failed validation.", err=True)
         sys.exit(1)
+
+    touched = {
+        str(ch["program_id"])
+        for ch in patch.get("changes", [])
+        if isinstance(ch, dict) and ch.get("program_id") is not None
+    }
+    for pid in touched:
+        prog = program_by_id(corpus, pid)
+        if isinstance(prog, dict):
+            bump_date_updated(prog)
 
     write_corpus(root, corpus)
     click.echo(f"Merged {len(applied)} change(s).")

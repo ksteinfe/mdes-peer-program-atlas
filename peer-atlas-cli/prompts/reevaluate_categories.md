@@ -15,7 +15,15 @@ CATEGORY_JSON:
 Output JSON ONLY:
 {
   "updates": [ { "path": "...", "value": ... } ],
-  "llm_rationales_to_append": [ { "feature": "", "source_url": "", "note": "" } ]
+  "llm_rationales_to_append": [
+    {
+      "feature": "",
+      "source_url": "",
+      "note": "",
+      "llm_title": "",
+      "retrieved_date": ""
+    }
+  ]
 }
 
 Rules:

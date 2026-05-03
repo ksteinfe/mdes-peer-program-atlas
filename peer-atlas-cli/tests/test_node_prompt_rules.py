@@ -19,7 +19,7 @@ def test_load_node_prompt_rules_joins_list_strings() -> None:
 
 def test_load_node_prompt_rules_empty_list() -> None:
     root = find_repo_root()
-    assert load_node_prompt_rules(root, "identity") == ""
+    assert load_node_prompt_rules(root, "__no_such_ingest_node__") == ""
 
 
 def test_load_node_prompt_rules_curriculum_overview_nonempty() -> None:

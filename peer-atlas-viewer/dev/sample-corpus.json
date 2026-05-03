@@ -7,15 +7,17 @@
     {
       "program_id": "sample_program",
       "base_url": "https://sample.edu/",
-      "sources": [
+      "date_added": "2020-06-01T00:00:00Z",
+      "date_updated": "2020-06-01T00:00:00Z",
+      "llm_rationales": [
         {
-          "url": "https://sample.edu/",
+          "feature": "program.citation",
+          "source_url": "https://sample.edu/",
+          "note": "",
           "llm_title": "Home",
-          "llm_summary": "",
           "retrieved_date": ""
         }
       ],
-      "llm_rationales": [],
       "identity": {
         "institution_name": "Sample University",
         "program_name": "Sample MDes",
@@ -45,8 +47,10 @@
         "curriculum_summary": "",
         "offers_specialization": false,
         "core_courses": [],
-        "elective_requirements": "",
-        "elective_courses": []
+        "electives": {
+          "summary": "",
+          "estimated_elective_course_count": null
+        }
       },
       "verification": {
         "status": "llm_extracted",

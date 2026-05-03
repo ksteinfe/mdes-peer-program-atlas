@@ -9,12 +9,20 @@ Output JSON with this shape ONLY:
 {
   "merged_program": { ... full updated program object ... },
   "changed_paths": ["dot.path", ...],
-  "new_sources": [ { each source: **url** (unique id), **llm_title**, **llm_summary**, **retrieved_date** } ]
+  "new_llm_rationales": [
+    {
+      "feature": "dot.path.or.program.citation",
+      "source_url": "https://...",
+      "note": "what changed or was confirmed",
+      "llm_title": "short page label",
+      "retrieved_date": "ISO-or-empty"
+    }
+  ]
 }
 
 Rules:
-- Preserve human-reviewed meaning: do not blank out fields unless the evidence clearly contradicts them; document residual uncertainty in **merged_program.llm_rationales** if needed.
-- Append **new_sources** into the program top-level **`sources`** array (dedupe by url); do not remove existing sources.
+- Preserve human-reviewed meaning: do not blank out fields unless the evidence clearly contradicts them; document residual uncertainty in **merged_program.llm_rationales** or **new_llm_rationales** as needed.
+- Append **new_llm_rationales** onto **merged_program.llm_rationales** (dedupe by `source_url` + `feature` when the CLI merges). Each row uses the **five** string keys above. Do **not** emit a separate **`sources`** array.
 - Keep program_id and **base_url** unchanged.
 - Use only allowed category ids from CATEGORY_JSON.
 

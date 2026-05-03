@@ -7,6 +7,7 @@ import pathlib
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
+from peer_atlas_cli.cli_progress import cli_short_url
 from peer_atlas_cli.retrieval.evidence_gathering_pipeline import is_non_web_document_url
 from peer_atlas_cli.retrieval.fetch_cached import fetch_url_text_cached
 
@@ -95,10 +96,7 @@ def fetch_rationale_source_pages(
     for url in urls:
         if used >= max_total_chars:
             if trace is not None:
-                trace(
-                    f"reconsider: skipping remaining rationale URL(s) "
-                    f"(total char budget {max_total_chars} reached)"
-                )
+                trace(f"skip rat urls · cap {max_total_chars}c")
             break
         try:
             text = fetch_url_text_cached(
@@ -112,7 +110,7 @@ def fetch_rationale_source_pages(
         except Exception as e:
             text = f"(fetch failed: {e})"
             if report is not None:
-                report(f"Rationale URL fetch failed: {url}\n  {e}")
+                report(f"rat fetch · {cli_short_url(url)}: {e}")
         header = f"\n\n=== RATIONALE SOURCE_URL: {url} ===\n"
         chunk = header + text
         if used + len(chunk) > max_total_chars:
@@ -143,8 +141,8 @@ def build_reconsider_evidence(
         f"{fetched_pages}\n"
         "## Reconsideration output (required)\n"
         f"- Return a JSON object whose **only** required top-level key is **`\"{pk}\"`** (the updated node subtree), matching the same shape as normal ingest for this step.\n"
-        "- You **may** also return optional top-level **`\"llm_rationales\"`** (array) and/or **`\"sources\"`** (array), same rules as ingest.\n"
-        "- For each new rationale object use **exactly** these string keys: **`feature`**, **`source_url`**, **`note`**. "
+        "- You **may** also return optional top-level **`\"llm_rationales\"`** (array), same rules as ingest.\n"
+        "- For each new rationale object use **exactly** these string keys: **`feature`**, **`source_url`**, **`note`**, **`llm_title`**, **`retrieved_date`**. "
         "Set **`feature`** to the dot path of the field the note supports (e.g. `positioning.positioning_tags`, `degree_cost.comparison_cost_usd`). "
         "New **`llm_rationales`** entries are **appended** to the program record (existing rationales above are not removed); add at least one new row when your edits or the human instruction warrant an audit trail.\n"
     )

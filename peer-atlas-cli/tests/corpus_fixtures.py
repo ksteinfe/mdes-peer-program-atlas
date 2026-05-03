@@ -47,7 +47,6 @@ def minimal_valid_program(*, program_id: str = "fixture_program") -> dict[str, A
             "sequencedness": "flexible",
             "curriculum_summary": "",
             "offers_specialization": False,
-            "evidence_curriculum_summary": "",
             "core_courses": [
                 {
                     "course_id": "FIXTURE 100",

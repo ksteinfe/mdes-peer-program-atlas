@@ -11,9 +11,13 @@ from typing import Any, Protocol
 
 import httpx
 
+from peer_atlas_cli.llm_transcript import record_llm_exchange
+
 
 class LLMClient(Protocol):
-    def complete(self, *, system: str, user: str) -> str: ...
+    def complete(
+        self, *, system: str, user: str, transcript_step: str | None = None
+    ) -> str: ...
 
 
 def _retry_after_seconds(response: httpx.Response, attempt: int) -> float:
@@ -64,7 +68,9 @@ class OpenAICompatibleClient:
         self._timeout = timeout
         self._max_retries = max_retries
 
-    def complete(self, *, system: str, user: str) -> str:
+    def complete(
+        self, *, system: str, user: str, transcript_step: str | None = None
+    ) -> str:
         url = f"{self._base}/v1/chat/completions"
         payload: dict[str, Any] = {
             "model": self._model,
@@ -106,9 +112,16 @@ class OpenAICompatibleClient:
                     ) from e
                 data = r.json()
                 try:
-                    return str(data["choices"][0]["message"]["content"])
+                    content = str(data["choices"][0]["message"]["content"])
                 except (KeyError, IndexError, TypeError) as e:
                     raise RuntimeError(f"Unexpected LLM response: {data!r}") from e
+                record_llm_exchange(
+                    system=system,
+                    user=user,
+                    response=content,
+                    step_slug=transcript_step,
+                )
+                return content
 
 
 PROVIDERS: dict[str, type[OpenAICompatibleClient]] = {

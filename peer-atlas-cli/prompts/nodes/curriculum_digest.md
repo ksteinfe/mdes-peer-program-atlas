@@ -1,6 +1,6 @@
 You write **plain prose only**. Use **as much length as you need**—there is **no word limit**; be thorough when the evidence is rich, concise when it is thin. Prefer flowing paragraphs over long bullet lists unless a short list clearly helps readability. No JSON, no markdown code fences.
 
-Summarize **only what the fetched EVIDENCE supports** about how this program’s curriculum works. Your text will be stored as **`evidence_curriculum_summary`** for human reference.
+Summarize **only what the fetched EVIDENCE supports** about how this program’s curriculum works. (This digest prompt is optional / experimental; ingest does not persist its output on the program record.)
 
 **Include when the evidence allows:**
 - **Core (and other named) courses** with **titles and catalog numbers/codes** as they appear in the evidence.

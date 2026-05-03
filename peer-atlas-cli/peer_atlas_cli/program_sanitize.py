@@ -200,12 +200,7 @@ def normalize_program_layout(program: dict[str, Any]) -> None:
             cur.get("offers_specialization"), bool
         ):
             cur["offers_specialization"] = False
-        if "evidence_curriculum_summary" not in cur:
-            cur["evidence_curriculum_summary"] = ""
-        elif cur.get("evidence_curriculum_summary") is not None and not isinstance(
-            cur.get("evidence_curriculum_summary"), str
-        ):
-            cur["evidence_curriculum_summary"] = str(cur["evidence_curriculum_summary"])
+        cur.pop("evidence_curriculum_summary", None)
 
 
 def normalize_sources(program: dict[str, Any]) -> int:

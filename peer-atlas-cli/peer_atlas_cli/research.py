@@ -10,6 +10,8 @@ from urllib.parse import urlparse
 
 import httpx
 
+from peer_atlas_cli.fetch_limits import coalesce_per_url_limit
+
 # Many .edu sites block non-browser User-Agents or minimal clients. Use a common
 # desktop Chrome fingerprint; httpx still decompresses gzip/br per Accept-Encoding.
 _DEFAULT_HEADERS: dict[str, str] = {
@@ -113,8 +115,9 @@ def _fetch_url_text_httpx_lenient(
                 last_status = r.status_code
                 if r.status_code == 200:
                     text = r.text
-                    if len(text) > max_chars:
-                        text = text[:max_chars] + "\n\n[truncated]"
+                    lim = coalesce_per_url_limit(max_chars)
+                    if len(text) > lim:
+                        text = text[:lim] + "\n\n[truncated]"
                     note = "; ".join(notes_parts) if notes_parts else "OK"
                     return FetchUrlResult(text, 200, note)
                 last_body = (r.text or "")[:2000]
@@ -136,7 +139,8 @@ def _fetch_url_text_httpx_lenient(
         + (f" ({'; '.join(notes_parts[-3:])})" if notes_parts else "")
         + "."
     )
-    return FetchUrlResult(placeholder[:max_chars], last_status, note)
+    lim_ph = coalesce_per_url_limit(max_chars)
+    return FetchUrlResult(placeholder[:lim_ph], last_status, note)
 
 
 def fetch_url_text_lenient(

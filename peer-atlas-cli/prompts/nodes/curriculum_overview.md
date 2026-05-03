@@ -2,9 +2,9 @@ You output only valid JSON. No markdown fences, no commentary.
 
 Return a JSON object whose keys are exactly **`"curriculum"`** and optionally **`"llm_rationales"`** (array).
 
-- **`curriculum`** must match the subtree: **`unit_system`**, **`sequencedness`**, **`curriculum_summary`**, **`offers_specialization`** (boolean), **`core_courses[]`**, **`elective_requirements`** (string), **`elective_courses[]`**. Do **not** include **`evidence_curriculum_summary`** in your JSON (the pipeline sets it from per-source dense extracts). There are **no** `sources` or `llm_rationales` arrays inside **`curriculum`**.
+- **`curriculum`** must match the subtree: **`unit_system`**, **`sequencedness`**, **`curriculum_summary`**, **`offers_specialization`** (boolean), **`core_courses[]`**, **`elective_requirements`** (string), **`elective_courses[]`**. Do **not** include any **`evidence_curriculum_summary`** field (it is not part of the corpus). There are **no** `sources` or `llm_rationales` arrays inside **`curriculum`**.
 
-- **`offers_specialization`:** **`true`** when EVIDENCE or **CURRICULUM_DIGEST** describes distinct tracks, concentrations, or specializations students choose among; **`false`** for a single fixed path or when neither source supports tracks.
+- **`offers_specialization`:** **`true`** when EVIDENCE describes distinct tracks, concentrations, or specializations students choose among; **`false`** for a single fixed path or when evidence does not support tracks.
 
 - **Curriculum fields:** fill **`unit_system`**, **`sequencedness`**, **`curriculum_summary`** from evidence (same sequencedness rules as CATEGORY_JSON `sequencedness`).
 
@@ -21,13 +21,10 @@ Additional instructions (`categories_and_rules/node_prompt_rules.json` → key `
 
 ACTIVE_NODE: curriculum_overview
 
-CURRICULUM_DIGEST (same material as EVIDENCE below: per-URL dense curriculum extracts, concatenated; align structured fields with it when consistent):
-{{CURRICULUM_DIGEST}}
-
 PROGRAM_CONTEXT_JSON (context only; do not treat as authoritative over EVIDENCE):
 {{PROGRAM_CONTEXT_JSON}}
 
-EVIDENCE (per-source dense curriculum extracts from fetched pages; primary source for facts):
+EVIDENCE (per-source dense curriculum extracts from fetched pages, concatenated; primary source for facts):
 {{EVIDENCE}}
 
 CATEGORY_JSON:

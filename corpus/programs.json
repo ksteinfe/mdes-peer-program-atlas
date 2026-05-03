@@ -10,20 +10,20 @@
       "sources": [
         {
           "url": "https://www.ischool.berkeley.edu/programs/mims",
-          "llm_title": "Master of Information Management and Systems",
-          "llm_summary": "Program page for UC Berkeley’s MIMS, describing it as a two-year, STEM-designated, full-time professional master’s program and identifying the awarded credential.",
+          "llm_title": "Master of Information Management and Systems | UC Berkeley School of Information",
+          "llm_summary": "Program overview describing MIMS as a two-year STEM-designated, full-time professional master’s program for technology leaders and data-driven decision-makers, with interdisciplinary coverage across technology, people, and policy.",
           "retrieved_date": "2026-05-03"
         },
         {
-          "url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
-          "llm_title": "MIMS Degree Requirements",
-          "llm_summary": "Degree-requirements page stating that the MIMS program is a two-year full-time degree program requiring at least 48 semester units of study.",
+          "url": "https://grad.berkeley.edu/program/information-management-systems/",
+          "llm_title": "Information Management & Systems MIMS | Berkeley Graduate Division",
+          "llm_summary": "Graduate Division program page describing MIMS as a two-year full-time program for information professionals and outlining the program’s broad learning goals.",
           "retrieved_date": "2026-05-03"
         },
         {
-          "url": "https://www.ischool.berkeley.edu/programs/mims/paths",
-          "llm_title": "Paths Through the MIMS Degree",
-          "llm_summary": "Paths page describing the degree as flexible and individualized, with common focus areas such as human-computer interaction and user experience design, applied data science and machine learning, information policy and ethical technology, and social and technical innovation in entrepreneurship.",
+          "url": "https://www.ischool.berkeley.edu/new/mims",
+          "llm_title": "For New MIMS Students | UC Berkeley School of Information",
+          "llm_summary": "Student-facing page noting that School of Information courses bridge information and computer science, design, social sciences, management, law, and policy.",
           "retrieved_date": "2026-05-03"
         }
       ],
@@ -31,92 +31,52 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "Selected interdisciplinary, professional, digital, and UI/UX because the page says the program is a 'two-year STEM-designated, full-time professional master’s program' for 'aspiring technology leaders, AI engineers, UX designers, and data-driven decision-makers,' and that it 'bridges technology, people, and policy.'"
+          "note": "Selected interdisciplinary, professional, STEM-adjacent, and digital because the program is described as a 'uniquely interdisciplinary curriculum that bridges technology, people, and policy' and as a 'two-year STEM-designated, full-time professional master’s program' for technology leaders and data-driven decision-makers."
         },
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.ischool.berkeley.edu/programs/mims/paths",
-          "note": "UI/UX is directly supported by the paths page, which lists 'human-computer interaction and user experience design' as common focus areas and describes students conducting user research and designing user interfaces."
+          "note": "Supported digital and professional orientation, plus interdisciplinary breadth, by listing focus areas such as human-computer interaction, user experience design, applied data science and machine learning, information policy and ethical technology, and entrepreneurship."
         },
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "Did not add stem_adjacent or social_impact because the evidence suggests both, but the strongest directly stated themes were professional, interdisciplinary, digital, and UI/UX; kept to the four most salient tags."
+          "note": "Did not add ui_ux or human_comptuer_interaction because the evidence mentions UX and HCI as focus areas, but the strongest overall program-level positioning is broader than a dedicated UI/UX or HCI specialization."
         },
         {
           "feature": "duration.length_in_berkeley_semesters",
           "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "The page metadata and description state that MIMS is a 'two-year' full-time program and the schema.org JSON-LD lists timeToComplete as 'P2Y'."
+          "note": "The program page describes MIMS as a 'two-year' full-time professional master's program; at Berkeley, two years corresponds to four standard semesters."
         },
         {
           "feature": "duration.duration_category",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "Two years at Berkeley's standard two-semester academic year corresponds to four semesters, so the appropriate category is four_semesters."
+          "source_url": "https://grad.berkeley.edu/program/information-management-systems/",
+          "note": "Berkeley Graduate Division describes the MIMS program as a 'two-year full-time program,' supporting the four-semester classification."
         },
         {
           "feature": "degree_cost.comparison_cost_usd",
           "source_url": "https://www.ischool.berkeley.edu/programs/mids/tuition",
-          "note": "Used the program-stated estimated total tuition and fees for the degree for a new student starting Fall 2025: $82,096. This is tuition and fees only, suitable for cross-program comparison."
+          "note": "Used the School of Information tuition page snippet stating estimated total tuition and fees for a new student starting Fall 2025 are $82,096. This is tuition + fees only, suitable for cross-program comparison."
         },
         {
           "feature": "degree_cost.total_degree_cost_base_currency",
           "source_url": "https://www.ischool.berkeley.edu/programs/mids/tuition",
-          "note": "Used the same program-stated estimated total tuition and fees figure of $82,096 in USD as the total degree cost in base currency."
+          "note": "Used the same estimated total tuition and fees figure of $82,096 in USD as the program-stated total degree cost in base currency. The evidence supports a single tuition-and-fees total, not a full cost of attendance."
         },
         {
           "feature": "degree_cost.comparison_cost_usd",
           "source_url": "https://www.ischool.berkeley.edu/programs/mims/funding",
-          "note": "The MIMS funding page snippet shows bundled cost-of-attendance figures including personal expenses and total expected graduate costs, but no isolated tuition-and-fees subtotal was available in the provided evidence, so it was not used for comparison_cost_usd."
+          "note": "Did not use the funding page's Total Expected Graduate Costs because that is a bundled cost-of-attendance figure including personal expenses; per rules, bundled COA totals are not appropriate for comparison_cost_usd without an isolated tuition-and-fees subtotal."
         },
         {
           "feature": "curriculum.core_courses",
           "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
-          "note": "The fetched materials do not name any specific required courses or course codes, only high-level program structure and duration."
-        },
-        {
-          "feature": "curriculum.elective_requirements",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims/paths",
-          "note": "The fetched materials describe possible focus areas but do not provide a formal elective count, unit rule, or bucket structure."
-        },
-        {
-          "feature": "identity.institution_name",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "The page is branded UC Berkeley School of Information and the structured data provider is UC Berkeley School of Information."
-        },
-        {
-          "feature": "identity.program_name",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "The page title and structured data name the program as Master of Information Management and Systems."
-        },
-        {
-          "feature": "identity.credential_name",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "The structured data explicitly lists the educationalCredentialAwarded as Master of Information Management and Systems."
-        },
-        {
-          "feature": "identity.degree_type",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "This is a master's-level professional degree program, so degree_type is master's."
-        },
-        {
-          "feature": "identity.host_academic_units",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "The program is housed in UC Berkeley’s School of Information."
-        },
-        {
-          "feature": "identity.host_academic_model",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "The School of Information is best mapped to the computing_hosted model because it is an information-technology-oriented academic unit rather than a design, business, or arts school."
-        },
-        {
-          "feature": "identity.location_label",
-          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
-          "note": "UC Berkeley is located in Berkeley, California, United States."
+          "note": "The fetched MIMS degree-requirements material does not name any required courses, course codes, or official titles, so core_courses is left empty."
         }
       ],
       "identity": {
         "institution_name": "UC Berkeley School of Information",
-        "program_name": "Master of Information Management and Systems",
+        "program_name": "Master of Information Management and Systems (MIMS)",
         "credential_name": "Master of Information Management and Systems",
         "degree_type": "master's",
         "host_academic_units": [
@@ -126,12 +86,12 @@
         "location_label": "Berkeley, California, United States"
       },
       "positioning": {
-        "positioning_summary": "MIMS is positioned as a two-year, full-time professional master’s program for aspiring technology leaders and information professionals, with an explicitly interdisciplinary curriculum bridging technology, people, and policy. The program also emphasizes user experience, human-computer interaction, data science, information policy, and innovation, with clear social-impact and digital-product orientation.",
+        "positioning_summary": "MIMS is positioned as a professional, interdisciplinary program for information professionals and technology leaders, bridging technology, people, policy, and related fields. Its examples and focus areas emphasize human-computer interaction, user experience, applied data science, information policy, and entrepreneurship, with a clear orientation toward digital and STEM-adjacent work.",
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "digital",
-          "ui_ux"
+          "stem_adjacent",
+          "digital"
         ]
       },
       "duration": {
@@ -147,33 +107,11 @@
       "curriculum": {
         "unit_system": "semester_credit_hours",
         "sequencedness": "flexible",
-        "curriculum_summary": "UC Berkeley’s MIMS is a two-year, full-time, onsite, STEM-designated professional master’s program requiring 48 credits. The supplied materials do not show a full requirement table or named required courses, but they do indicate that students follow individualized paths and may focus on areas such as human-computer interaction and user experience design, applied data science and machine learning, information policy and ethical technology, and social and technical innovation in entrepreneurship. The excerpt also indicates the program includes final projects.",
-        "offers_specialization": true,
+        "curriculum_summary": "MIMS is a two-year, full-time, STEM-designated professional master’s program. The fetched materials do not provide a detailed course-by-course requirement list, but they do indicate that the School of Information’s coursework spans information and computer science, design, social sciences, management, law, and policy, and that the degree includes a formal final project component.",
+        "offers_specialization": false,
         "core_courses": [],
-        "elective_requirements": "The supplied materials do not state a formal elective count or unit rule. They describe the degree as flexible and individualized, with common focus areas including human-computer interaction and user experience design, applied data science and machine learning, information policy and ethical technology, and social and technical innovation in entrepreneurship, and more.",
-        "elective_courses": [
-          {
-            "course_id": "Focus area: human-computer interaction and user experience design",
-            "units_or_credits": null,
-            "normalized_unit_weight": null
-          },
-          {
-            "course_id": "Focus area: applied data science and machine learning",
-            "units_or_credits": null,
-            "normalized_unit_weight": null
-          },
-          {
-            "course_id": "Focus area: information policy and ethical technology",
-            "units_or_credits": null,
-            "normalized_unit_weight": null
-          },
-          {
-            "course_id": "Focus area: social and technical innovation in entrepreneurship",
-            "units_or_credits": null,
-            "normalized_unit_weight": null
-          }
-        ],
-        "evidence_curriculum_summary": "### Source: https://www.ischool.berkeley.edu/programs/mims/degreerequirements\n\nThe page identifies MIMS as the Master of Information Management and Systems and says it is a two-year full-time degree program. The page title is MIMS Degree Requirements, but the excerpt provided does not include a full requirement table or a complete list of courses; it does, however, contain one concrete curriculum fact and a few structural signals.\n\nThe only explicit program-length and pace statement on the page is that the MIMS program is “a two-year full-time degree program.” No part-time option, modality detail, or credit total appears in the excerpt.\n\nThe page text shown does not include named required courses, elective lists, unit counts, sequencing by term, thesis/capstone/internship language, concentration or track options, or policies about taking courses outside the department. It also does not show advising, milestones, or learning outcomes in the excerpt provided.\n\nBecause the page is a degree-requirements page, the strongest curriculum-related fact available here is simply the program’s overall structure as a two-year full-time master’s degree. No additional degree-completion rules are visible in the supplied text.\n\n---\n\n### Source: https://www.ischool.berkeley.edu/programs/mims/paths\n\nThis page is a “Paths Through the MIMS Degree” page for UC Berkeley’s School of Information, and it gives only high-level curriculum-path information rather than a formal requirement list. The central curriculum fact stated on the page is that every MIMS student’s degree is unique. It frames the degree as flexible and individualized, with common focus areas including human-computer interaction and user experience design, applied data science and machine learning, information policy and ethical technology, and social and technical innovation in entrepreneurship, “and more.”\n\nThe page does not list specific required courses, course codes, unit totals, sequencing, or term-by-term milestones. It also does not name any capstone, thesis, internship, studio, or fieldwork requirement on the excerpt provided. What it does provide is a description of possible study directions within the degree, implying that students can shape their coursework around a chosen focus area.\n\nThe focus areas explicitly named on the page are:\nhuman-computer interaction and user experience design;\napplied data science and machine learning;\ninformation policy and ethical technology;\nsocial and technical innovation in entrepreneurship.\n\nBecause the page says “Every MIMS student’s degree is unique,” the strongest curriculum signal here is that the program supports individualized paths rather than a single fixed sequence. The page also suggests breadth beyond the listed examples by ending with “and more,” but it does not enumerate additional tracks or concentrations.\n\n---\n\n### Source: https://www.ischool.berkeley.edu/programs/mims\n\nThe page identifies the program as the Master of Information Management and Systems, or MIMS, at UC Berkeley’s School of Information. It describes MIMS as a two-year, STEM-designated, full-time professional master’s program. The structured data on the page also specifies that the program is onsite, takes two years to complete, has two terms per year, and requires 48 credits. The credential awarded is the Master of Information Management and Systems.\n\nBeyond those high-level facts, the excerpt provided does not include a detailed curriculum map, course sequence, concentration list, or explicit graduation requirements. No named courses, course codes, electives, capstone, thesis, internship, studio, field experience, or advising milestones appear in the visible text. The page does, however, frame the program as intended for aspiring technology leaders, AI engineers, UX designers, and data-driven decision-makers, and says graduates “drive innovation, influence policy, and design products that improve lives,” which gives some sense of the program’s applied, professional orientation.\n\nThe only concrete curriculum-structure details visible are:\n- Degree: Master of Information Management and Systems\n- Program length: two years\n- Pace/mode: full-time, onsite\n- Designation: STEM-designated\n- Credit total: 48 credits\n- Academic calendar detail: two terms per year\n\nNo other curriculum requirements are stated in the excerpted page text.\n\n---\n\n### Source: https://www.ischool.berkeley.edu/programs/mims/projects/2026\n\nThis page is a “MIMS Final Projects” page for UC Berkeley School of Information, and the curriculum-related information it contains is limited to the existence of a final-project component for the MIMS program. The page title and metadata identify the page as “MIMS Final Projects,” which strongly indicates that MIMS students complete final projects as part of the degree experience. However, in the excerpt provided, there are no visible details about the project format, credit value, timing, sequencing, supervision, evaluation, or whether the final project is required for all students.\n\nThe page text shown does not include degree length, total units or credits, required courses, electives, tracks, concentrations, prerequisites, co-requisites, term-by-term sequencing, thesis language, internship or fieldwork requirements, or any named course codes and titles. It also does not provide learning outcomes, advising milestones, or policies about outside-department electives.\n\nThe only curriculum-relevant fact that can be stated from the page excerpt is that the MIMS program has final projects, and that this page is specifically devoted to them."
+        "elective_requirements": "No specific required electives, elective counts, or elective areas are named in the fetched degree-requirements material.",
+        "elective_courses": []
       },
       "verification": {
         "status": "llm_extracted",

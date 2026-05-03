@@ -154,20 +154,12 @@ def reconsider_node_cmd(
     try:
         if node_key == "curriculum_overview":
             ctx_json = program_context_json_for_curriculum_steps(program)
-            preserved_summary = ""
-            cprev = program.get("curriculum")
-            if isinstance(cprev, dict):
-                ps = cprev.get("evidence_curriculum_summary")
-                if isinstance(ps, str):
-                    preserved_summary = ps
             raw = run_curriculum_overview_step(
                 client=client,
                 program=program,
                 evidence=evidence,
                 categories_json=cat_json,
                 program_context_json=ctx_json,
-                curriculum_digest="",
-                evidence_curriculum_summary=preserved_summary,
                 repo_root=root,
                 max_llm_attempts=max_llm_attempts,
             )

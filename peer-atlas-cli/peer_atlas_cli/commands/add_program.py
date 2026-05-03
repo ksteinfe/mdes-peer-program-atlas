@@ -250,7 +250,6 @@ def add_program_cmd(
                         source_url=src_url,
                         page_text=page_text,
                         repo_root=root,
-                        emit_debug=lambda m: click.echo(m, err=True),
                     )
                 except (ValueError, RuntimeError) as e:
                     click.echo(f"curriculum source extract failed for {src_url!r}: {e}", err=True)
@@ -262,9 +261,6 @@ def add_program_cmd(
                     "(No dense curriculum extracts produced; page fetches may have failed "
                     "or returned no extractable text.)"
                 )
-            cur_block = program.setdefault("curriculum", {})
-            if isinstance(cur_block, dict):
-                cur_block["evidence_curriculum_summary"] = mashed
 
             set_ingest_stage(program, "curriculum_overview")
             raw = ""
@@ -276,8 +272,6 @@ def add_program_cmd(
                     evidence=mashed,
                     categories_json=cat_json,
                     program_context_json=ctx_json,
-                    curriculum_digest=mashed,
-                    evidence_curriculum_summary=mashed,
                     repo_root=root,
                 )
             except LLMSchemaValidationError as e:

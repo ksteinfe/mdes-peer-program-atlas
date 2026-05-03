@@ -189,7 +189,6 @@
         "sequencedness",
         "curriculum_summary",
         "offers_specialization",
-        "evidence_curriculum_summary",
         "core_courses",
         "elective_requirements",
         "elective_courses"
@@ -202,10 +201,6 @@
         "offers_specialization": {
           "type": "boolean",
           "description": "True when the program offers distinct tracks, concentrations, or specializations students choose among."
-        },
-        "evidence_curriculum_summary": {
-          "type": "string",
-          "description": "Human-readable digest of fetched evidence—core courses with codes, term placement when known, how electives work, and related detail. Length is not capped; for reference only, not a legal guarantee."
         },
         "core_courses": {
           "type": "array",

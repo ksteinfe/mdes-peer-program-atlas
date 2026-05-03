@@ -155,8 +155,8 @@ def resolve_evidence_urls_for_node(
 
 def mash_curriculum_source_summaries(url_and_dense_text: list[tuple[str, str]]) -> str:
     """
-    Concatenate per-URL dense curriculum extracts for ``evidence_curriculum_summary``
-    and for the curriculum_overview JSON prompt (EVIDENCE / digest block).
+    Concatenate per-URL dense curriculum extracts for the in-memory mash passed to
+    the ``curriculum_overview`` JSON prompt (not stored on the program record).
     """
     parts: list[str] = []
     for url, dense in url_and_dense_text:

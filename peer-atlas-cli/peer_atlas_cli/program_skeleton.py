@@ -65,7 +65,6 @@ def build_ingest_skeleton(program_id: str, base_url: str) -> dict[str, Any]:
             "sequencedness": None,
             "curriculum_summary": None,
             "offers_specialization": None,
-            "evidence_curriculum_summary": None,
             "core_courses": [],
             "elective_requirements": "",
             "elective_courses": [],

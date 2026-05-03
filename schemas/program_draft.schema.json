@@ -202,7 +202,6 @@
         "sequencedness",
         "curriculum_summary",
         "offers_specialization",
-        "evidence_curriculum_summary",
         "core_courses",
         "elective_requirements",
         "elective_courses"
@@ -215,10 +214,6 @@
         "offers_specialization": {
           "type": ["boolean", "null"],
           "description": "True when the program offers distinct tracks, concentrations, or specializations students choose among."
-        },
-        "evidence_curriculum_summary": {
-          "type": ["string", "null"],
-          "description": "Concatenated per-URL dense curriculum extracts (LLM) from fetched sources; no fixed length. Filled during curriculum_overview ingest."
         },
         "core_courses": {
           "type": "array",

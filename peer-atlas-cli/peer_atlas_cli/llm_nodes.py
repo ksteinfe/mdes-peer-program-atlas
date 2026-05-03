@@ -4,9 +4,8 @@ from __future__ import annotations
 
 import copy
 import json
-import os
 import pathlib
-from collections.abc import Callable
+import re
 from typing import Any
 
 from peer_atlas_cli.categories import load_node_prompt_rules
@@ -80,46 +79,63 @@ def program_context_json_for_curriculum_steps(program: dict[str, Any]) -> str:
     return json.dumps(ctx, indent=2, ensure_ascii=False)
 
 
-_CURRICULUM_EXTRACT_CONSOLE_PREVIEW = 12_000
+def _transcript_slug_for_source_url(url: str) -> str:
+    from urllib.parse import urlparse
+
+    tail = (urlparse(url).path or "").strip("/").replace("/", "-")
+    if not tail:
+        tail = "page"
+    tail = re.sub(r"[^a-zA-Z0-9-]+", "-", tail).strip("-").lower()
+    return tail[-48:] if tail else "page"
 
 
-def curriculum_source_extract_debug_full_user_message() -> bool:
-    """When true, stderr debug prints the entire user message (can be very large)."""
-    v = os.environ.get("PEER_ATLAS_CURRICULUM_EXTRACT_DEBUG", "").strip().lower()
-    return v in ("1", "true", "yes", "on")
-
-
-def emit_curriculum_source_extract_llm_io(
-    emit: Callable[[str], None],
-    *,
-    source_url: str,
-    user_message: str,
-    response: str,
-) -> None:
-    """Echo the exact user prompt sent to the LLM and the assistant reply (for ingest debug)."""
-    full_user = curriculum_source_extract_debug_full_user_message()
-    emit("=== curriculum_source_extract LLM I/O ===")
-    emit(f"source: {source_url}")
-    emit(
-        f"user_message_chars={len(user_message)} assistant_chars={len(response)}; "
-        "stderr always shows assistant response; user message is previewed unless "
-        "PEER_ATLAS_CURRICULUM_EXTRACT_DEBUG=1"
+def program_context_json_for_course_patch(program: dict[str, Any], index: int) -> str:
+    """Minimal program slice for per-core-course patch (no full PROGRAM_JSON)."""
+    ident = program.get("identity")
+    if not isinstance(ident, dict):
+        ident = {}
+    keys = (
+        "institution_name",
+        "program_name",
+        "credential_name",
+        "degree_type",
+        "host_academic_units",
+        "host_academic_model",
+        "location_label",
     )
-    if full_user or len(user_message) <= _CURRICULUM_EXTRACT_CONSOLE_PREVIEW:
-        emit("--- user message (full) ---")
-        emit(user_message)
-    else:
-        emit(
-            f"--- user message (first {_CURRICULUM_EXTRACT_CONSOLE_PREVIEW} chars) ---"
-        )
-        emit(user_message[:_CURRICULUM_EXTRACT_CONSOLE_PREVIEW])
-        emit(
-            f"\n... [{len(user_message) - _CURRICULUM_EXTRACT_CONSOLE_PREVIEW} chars omitted; "
-            "PEER_ATLAS_CURRICULUM_EXTRACT_DEBUG=1 prints full user message]\n"
-        )
-    emit("--- assistant response ---")
-    emit(response if (response or "").strip() else "(empty)")
-    emit("=== end curriculum_source_extract LLM I/O ===\n")
+    cur = program.get("curriculum")
+    if not isinstance(cur, dict):
+        cur = {}
+    core = cur.get("core_courses")
+    row: dict[str, Any] = {}
+    if isinstance(core, list) and 0 <= index < len(core) and isinstance(core[index], dict):
+        row = copy.deepcopy(core[index])
+    neighbors: list[dict[str, Any]] = []
+    if isinstance(core, list):
+        for j in (index - 1, index + 1):
+            if 0 <= j < len(core) and isinstance(core[j], dict):
+                neighbors.append(
+                    {
+                        "index": j,
+                        "course_id": core[j].get("course_id"),
+                        "course_title": core[j].get("course_title"),
+                    }
+                )
+    ctx = {
+        "program_id": program.get("program_id"),
+        "base_url": program.get("base_url"),
+        "identity": {k: ident.get(k) for k in keys},
+        "curriculum": {
+            "unit_system": cur.get("unit_system"),
+            "sequencedness": cur.get("sequencedness"),
+            "curriculum_summary": cur.get("curriculum_summary"),
+            "offers_specialization": cur.get("offers_specialization"),
+            "elective_requirements": cur.get("elective_requirements"),
+            "core_course_at_index": row,
+            "neighbor_core_courses": neighbors,
+        },
+    }
+    return json.dumps(ctx, indent=2, ensure_ascii=False)
 
 
 def run_curriculum_digest_step(
@@ -129,7 +145,7 @@ def run_curriculum_digest_step(
     evidence: str,
     repo_root: pathlib.Path | None = None,
 ) -> str:
-    """Prose-only digest of EVIDENCE (no fixed length); stored as curriculum.evidence_curriculum_summary."""
+    """Prose-only digest of EVIDENCE (no fixed length); not wired into default ingest."""
     tmpl = load_prompt("nodes/curriculum_digest.md")
     user = render_template(
         tmpl,
@@ -140,6 +156,7 @@ def run_curriculum_digest_step(
     raw = client.complete(
         system="You write plain prose only. Do not output JSON or markdown code fences.",
         user=user,
+        transcript_step="curriculum-digest",
     )
     return (raw or "").strip()
 
@@ -151,7 +168,6 @@ def run_curriculum_source_dense_extract_step(
     source_url: str,
     page_text: str,
     repo_root: pathlib.Path | None = None,
-    emit_debug: Callable[[str], None] | None = None,
 ) -> str:
     """One LLM call: dense curriculum-related summary from a single fetched page."""
     tmpl = load_prompt("nodes/curriculum_source_extract.md")
@@ -167,16 +183,11 @@ def run_curriculum_source_dense_extract_step(
     raw = client.complete(
         system="You write plain prose only. Do not output JSON or markdown code fences.",
         user=user,
+        transcript_step=(
+            f"curriculum-source-extract__{_transcript_slug_for_source_url(source_url)}"
+        ),
     )
-    out = (raw or "").strip()
-    if emit_debug is not None:
-        emit_curriculum_source_extract_llm_io(
-            emit_debug,
-            source_url=source_url,
-            user_message=user,
-            response=out,
-        )
-    return out
+    return (raw or "").strip()
 
 
 def run_node_step(
@@ -215,7 +226,11 @@ def run_node_step(
     last_errors: list[str] = []
 
     for attempt in range(max(1, max_llm_attempts)):
-        raw = client.complete(system=system, user=user)
+        raw = client.complete(
+            system=system,
+            user=user,
+            transcript_step=f"node-{node}",
+        )
         last_raw = raw
         parsed = parse_json_response(raw)
         if not isinstance(parsed, dict):
@@ -291,23 +306,19 @@ def run_curriculum_overview_step(
     evidence: str,
     categories_json: str,
     program_context_json: str,
-    curriculum_digest: str = "",
-    evidence_curriculum_summary: str = "",
     system: str = "You output only valid JSON. No prose.",
     repo_root: pathlib.Path | None = None,
     max_llm_attempts: int = 3,
 ) -> str:
     """
     First curriculum pass: LLM returns only top-level ``curriculum`` subtree
-    (overview + placeholder core rows). Replaces ``program[\"curriculum\"]``,
-    then restores ``evidence_curriculum_summary`` from the per-source mash pipeline.
+    (overview + placeholder core rows). Replaces ``program[\"curriculum\"]``.
+    ``evidence`` is the in-memory per-URL extract mash (not persisted on the program).
     """
     tmpl = load_prompt("nodes/curriculum_overview.md")
-    digest_block = (curriculum_digest or "").strip() or "(no digest text; rely on EVIDENCE below.)"
     base_user = render_template(
         tmpl,
         PROGRAM_CONTEXT_JSON=program_context_json,
-        CURRICULUM_DIGEST=digest_block,
         EVIDENCE=evidence,
         CATEGORIES=categories_json,
         NODE_PROMPT_RULES=_node_prompt_rules_text(
@@ -319,7 +330,11 @@ def run_curriculum_overview_step(
     last_errors: list[str] = []
 
     for attempt in range(max(1, max_llm_attempts)):
-        raw = client.complete(system=system, user=user)
+        raw = client.complete(
+            system=system,
+            user=user,
+            transcript_step="curriculum-overview",
+        )
         last_raw = raw
         parsed = parse_json_response(raw)
         if not isinstance(parsed, dict):
@@ -339,8 +354,6 @@ def run_curriculum_overview_step(
             raise ValueError("LLM value for 'curriculum' must be an object")
         coalesce_curriculum_subtree_from_llm(subtree)
         program["curriculum"] = copy.deepcopy(subtree)
-        summary = (evidence_curriculum_summary or "").strip()
-        program["curriculum"]["evidence_curriculum_summary"] = summary
         if isinstance(extra_sources, list):
             arr = program.setdefault("sources", [])
             if isinstance(arr, list):
@@ -402,18 +415,18 @@ def run_curriculum_course_patch(
 ) -> str:
     """Apply {"updates":[{"path","value"},...]} for curriculum.core_courses.{index}.*"""
     tmpl = load_prompt("nodes/curriculum_course_patch.md")
-    program_json = json.dumps(program, indent=2, ensure_ascii=False)
+    backup = copy.deepcopy(program)
+    patch_ctx = program_context_json_for_course_patch(backup, index)
     base_user = render_template(
         tmpl,
         INDEX=str(index),
-        PROGRAM_JSON=program_json,
+        PROGRAM_CONTEXT_FOR_PATCH=patch_ctx,
         EVIDENCE=evidence,
         CATEGORIES=categories_json,
         NODE_PROMPT_RULES=_node_prompt_rules_text(
             "curriculum_course_patch", repo_root
         ),
     )
-    backup = copy.deepcopy(program)
     last_raw = ""
     last_errors: list[str] = []
 
@@ -432,7 +445,11 @@ def run_curriculum_course_patch(
                 + "\n".join(last_errors[:40])
             )
 
-        raw = client.complete(system=system, user=user)
+        raw = client.complete(
+            system=system,
+            user=user,
+            transcript_step=f"curriculum-course-patch__core-{index}",
+        )
         last_raw = raw
         payload = parse_json_response(raw)
         if not isinstance(payload, dict):

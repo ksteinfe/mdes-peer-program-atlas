@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import sys
+from typing import Any
+
 import click
 
 from peer_atlas_cli.commands.add_program import add_program_cmd
@@ -10,18 +13,27 @@ from peer_atlas_cli.commands.merge_patch import merge_patch_cmd
 from peer_atlas_cli.commands.reconsider_node import reconsider_node_cmd
 from peer_atlas_cli.commands.validate import validate_cmd
 from peer_atlas_cli.config import load_env
+from peer_atlas_cli.llm_transcript import begin_cli_llm_session
 from peer_atlas_cli.repo_root import find_repo_root
 
 
-@click.group()
+class PeerAtlasGroup(click.Group):
+    """Clears ``.peer-atlas/llm-last-session/`` and loads env before each subcommand."""
+
+    def invoke(self, ctx: click.Context) -> Any:
+        try:
+            root = find_repo_root()
+        except FileNotFoundError:
+            return super().invoke(ctx)
+        load_env(root)
+        begin_cli_llm_session(root, argv=sys.argv)
+        return super().invoke(ctx)
+
+
+@click.group(cls=PeerAtlasGroup)
 @click.version_option()
 def main() -> None:
     """MDes Peer Program Atlas — corpus tools."""
-    try:
-        root = find_repo_root()
-    except FileNotFoundError as e:
-        raise click.ClickException(str(e)) from e
-    load_env(root)
 
 
 main.add_command(validate_cmd, "validate")

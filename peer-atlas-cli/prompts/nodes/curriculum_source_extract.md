@@ -18,5 +18,5 @@ PROGRAM_CONTEXT_JSON:
 SOURCE_URL:
 {{SOURCE_URL}}
 
-PAGE_TEXT (simplified markup: head excerpt with title/description/canonical, then ``main`` / article / body-field region when detected; ``a href``, ``id``, ``img`` src/alt kept):
+PAGE_TEXT (simplified markup: head excerpt; full body; ``<img>`` removed; ``<a>`` text-only; no ``id``; empty wrappers removed; ``<strong>`` unwrapped; entities decoded and whitespace collapsed to single spaces except inside ``pre``/``code``/``kbd``/``samp``; ``abbr`` may keep ``title``):
 {{PAGE_TEXT}}

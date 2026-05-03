@@ -1,14 +1,15 @@
-"""HTML → simplified markup for URL evidence (main content + head meta; chrome dropped)."""
+"""HTML → simplified markup for URL evidence (full body + head meta; no region heuristics)."""
 
 from __future__ import annotations
 
 import re
-from html import escape
+from html import unescape
 
 from bs4 import BeautifulSoup
-from bs4.element import Comment, Tag
+from bs4.element import Comment, NavigableString, Tag
+from bs4.formatter import HTMLFormatter
 
-# Strip entire subtree (executable / chrome controls / head-only tags in body).
+# Strip entire subtree (non-human-readable / non-evidence machinery in body).
 _DECOMPOSE_TAGS = frozenset(
     {
         "script",
@@ -24,6 +25,7 @@ _DECOMPOSE_TAGS = frozenset(
         "object",
         "embed",
         "map",
+        "img",
         "meta",
         "link",
         "input",
@@ -35,8 +37,15 @@ _DECOMPOSE_TAGS = frozenset(
 )
 
 _UNWRAP_TAGS = frozenset({"form", "fieldset", "label"})
+_UNWRAP_PHRASING = frozenset({"strong"})
 
-# Prefer in-document main content (order matters). Shared with Playwright post-load waits.
+# Serialize text with fewer entities (e.g. ``&`` not forced to ``&amp;`` where safe).
+_HTML_MIN_ENTITIES = HTMLFormatter()
+
+# Do not collapse whitespace inside these (code-like blocks).
+_SKIP_TEXT_WS_NORMALIZE: frozenset[str] = frozenset({"pre", "code", "kbd", "samp"})
+
+# Playwright waits for one of these to attach before stability + snapshot (same list as before).
 _CONTENT_SELECTORS: tuple[str, ...] = (
     "main",
     "[role='main']",
@@ -56,45 +65,74 @@ _CONTENT_SELECTORS: tuple[str, ...] = (
 # Public alias for Playwright (wait until a content region attaches).
 CONTENT_REGION_SELECTORS: tuple[str, ...] = _CONTENT_SELECTORS
 
-# Mega-menu / global chrome (removed only when **not** inside main/article).
-_CHROME_SELECTORS: tuple[str, ...] = (
-    ".tbm",
-    ".tb-megamenu",
-    "#block-topnavigation",
-    "#block-quicksearch",
-)
-
-# Per-tag attribute allowlist (everything else dropped).
+# Per-tag attribute allowlist (everything else dropped). No ``id`` anywhere; ``<a>`` has no attributes.
 _ATTR_ALLOW: dict[str, frozenset[str]] = {
-    "a": frozenset({"href", "title"}),
-    "img": frozenset({"src", "alt"}),
+    "a": frozenset(),
     "abbr": frozenset({"title"}),
 }
 
-_TAGS_MAY_KEEP_ID: frozenset[str] = frozenset(
+# Flow / phrasing wrappers removed when they contain no non-blank text (children walked).
+_STRIP_IF_EMPTY_TAGS: frozenset[str] = frozenset(
     {
+        "div",
+        "span",
         "section",
         "article",
-        "main",
-        "div",
         "aside",
+        "header",
+        "footer",
+        "nav",
+        "main",
+        "figure",
+        "figcaption",
+        "blockquote",
+        "center",
+        "summary",
+        "details",
+        "ul",
+        "ol",
+        "li",
+        "dl",
+        "dt",
+        "dd",
+        "table",
+        "thead",
+        "tbody",
+        "tfoot",
+        "tr",
+        "td",
+        "th",
+        "caption",
+        "colgroup",
+        "col",
+        "p",
+        "pre",
         "h1",
         "h2",
         "h3",
         "h4",
         "h5",
         "h6",
-        "p",
-        "span",
-        "ul",
-        "ol",
-        "li",
-        "table",
-        "thead",
-        "tbody",
-        "tr",
-        "th",
-        "td",
+        "em",
+        "b",
+        "i",
+        "u",
+        "sub",
+        "sup",
+        "small",
+        "cite",
+        "abbr",
+        "mark",
+        "a",
+        "code",
+        "kbd",
+        "samp",
+        "var",
+        "del",
+        "ins",
+        "q",
+        "address",
+        "time",
     }
 )
 
@@ -119,14 +157,19 @@ def looks_like_html(s: str) -> bool:
     return False
 
 
-def _collapse_blank_lines(s: str) -> str:
-    lines = [ln.rstrip() for ln in s.splitlines()]
-    out: list[str] = []
-    for ln in lines:
-        if not ln.strip():
-            continue
-        out.append(ln.strip())
-    return "\n".join(out)
+def _normalize_plain_text_line(s: str) -> str:
+    """For non-HTML inputs: decode entities and collapse all whitespace to single spaces."""
+    t = unescape((s or "").strip())
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def _minimal_escape_pcdata(s: str) -> str:
+    """Escape only ``<`` / ``>`` so ``&`` and typical prose stay literal in stored HTML."""
+    return (s or "").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def _normalize_excerpt_field(s: str) -> str:
+    return re.sub(r"\s+", " ", unescape((s or "").strip())).strip()
 
 
 def _snapshot_head_meta(soup: BeautifulSoup) -> tuple[str, str, str]:
@@ -156,27 +199,18 @@ def _snapshot_head_meta(soup: BeautifulSoup) -> tuple[str, str, str]:
 def _format_head_excerpt(title: str, desc: str, canon: str) -> str:
     if not (title or desc or canon):
         return ""
-    parts: list[str] = ['<section id="peer-atlas-head-excerpt">']
+    title = _normalize_excerpt_field(title)
+    desc = _normalize_excerpt_field(desc)
+    canon = _normalize_excerpt_field(canon)
+    parts: list[str] = ["<section>"]
     if title:
-        parts.append(f"<h1>{escape(title)}</h1>")
+        parts.append(f"<h1>{_minimal_escape_pcdata(title)}</h1>")
     if desc:
-        parts.append(f"<p>{escape(desc)}</p>")
+        parts.append(f"<p>{_minimal_escape_pcdata(desc)}</p>")
     if canon:
-        ce = escape(canon, quote=True)
-        parts.append(f'<p><a href="{ce}">{ce}</a></p>')
+        parts.append(f"<p>{_minimal_escape_pcdata(canon)}</p>")
     parts.append("</section>")
     return "".join(parts)
-
-
-def _under_main_or_article(tag: Tag) -> bool:
-    p = tag.parent
-    while p is not None:
-        if isinstance(p, Tag):
-            n = (p.name or "").lower()
-            if n in ("main", "article"):
-                return True
-        p = getattr(p, "parent", None)
-    return False
 
 
 def _remove_scripts_styles_comments(root: BeautifulSoup | Tag) -> None:
@@ -187,104 +221,6 @@ def _remove_scripts_styles_comments(root: BeautifulSoup | Tag) -> None:
     for c in root.find_all(string=True):
         if isinstance(c, Comment):
             c.extract()
-
-
-def _substantial_block(el: Tag) -> bool:
-    text = el.get_text(separator=" ", strip=True)
-    if len(text) >= 40:
-        return True
-    return bool(el.find(["h1", "h2", "h3", "h4", "p", "ul", "ol", "table"]))
-
-
-def _preorder_index_map(body: Tag) -> dict[int, int]:
-    """Map id(Tag) → preorder index under ``body`` (document order)."""
-    idx: dict[int, int] = {}
-    i = 0
-    for el in body.descendants:
-        if isinstance(el, Tag):
-            idx[id(el)] = i
-            i += 1
-    return idx
-
-
-def _is_strict_descendant_of(needle: Tag, ancestor: Tag) -> bool:
-    p = needle.parent
-    while p is not None:
-        if p is ancestor:
-            return True
-        p = getattr(p, "parent", None)
-    return False
-
-
-def _collect_substantial_candidates(body: Tag) -> list[Tag]:
-    """All selector hits + substantial articles; dedupe by Tag identity."""
-    seen: set[int] = set()
-    out: list[Tag] = []
-    for sel in _CONTENT_SELECTORS:
-        for t in body.select(sel):
-            if not isinstance(t, Tag) or not _substantial_block(t):
-                continue
-            iid = id(t)
-            if iid in seen:
-                continue
-            seen.add(iid)
-            out.append(t)
-    for art in body.find_all("article"):
-        if not isinstance(art, Tag) or not _substantial_block(art):
-            continue
-        iid = id(art)
-        if iid in seen:
-            continue
-        seen.add(iid)
-        out.append(art)
-    return out
-
-
-def _filter_outermost_candidates(candidates: list[Tag]) -> list[Tag]:
-    """Drop nodes that lie inside another candidate (emit outer shell once)."""
-    roots: list[Tag] = []
-    for t in candidates:
-        inner = False
-        for u in candidates:
-            if u is t:
-                continue
-            if _is_strict_descendant_of(t, u):
-                inner = True
-                break
-        if not inner:
-            roots.append(t)
-    return roots
-
-
-def _visible_text_len(html_fragment: str) -> int:
-    if not html_fragment.strip():
-        return 0
-    frag = BeautifulSoup(html_fragment, "html.parser")
-    return len(frag.get_text(separator=" ", strip=True))
-
-
-def _clone_body_after_chrome(body: Tag) -> Tag:
-    """Deep clone of ``body`` then remove chrome outside main/article."""
-    clone = BeautifulSoup(str(body), "html.parser").body
-    if clone is None:
-        c2 = BeautifulSoup(str(body), "html.parser")
-        root = c2.find(True)
-        if isinstance(root, Tag):
-            return root
-        return body
-    _remove_chrome_outside_main(clone)
-    return clone
-
-
-def _remove_chrome_outside_main(body: Tag) -> None:
-    for tag_name in ("header", "footer", "nav"):
-        for el in list(body.find_all(tag_name)):
-            if not _under_main_or_article(el):
-                el.decompose()
-    for sel in _CHROME_SELECTORS:
-        for el in list(body.select(sel)):
-            if not _under_main_or_article(el):
-                el.decompose()
 
 
 def _body_or_wrapper(soup: BeautifulSoup) -> Tag:
@@ -303,8 +239,6 @@ def _body_or_wrapper(soup: BeautifulSoup) -> Tag:
 def _filter_tag_attrs(el: Tag) -> None:
     name = (el.name or "").lower()
     keep = set(_ATTR_ALLOW.get(name, ()))
-    if name in _TAGS_MAY_KEEP_ID and el.get("id"):
-        keep.add("id")
     new: dict[str, str] = {}
     for k in keep:
         if k not in el.attrs:
@@ -316,6 +250,70 @@ def _filter_tag_attrs(el: Tag) -> None:
     el.attrs = new
 
 
+_WS_TEXT_RE = re.compile(r"[\s\u00a0\u200b\ufeff]+", re.UNICODE)
+_RUN_WHITESPACE_RE = re.compile(r"\s+", re.UNICODE)
+
+
+def _subtree_has_nonblank_text(el: Tag) -> bool:
+    """True if any descendant string has a non-whitespace character, or a ``br``/``hr``."""
+    for child in el.descendants:
+        if isinstance(child, Tag):
+            n = (child.name or "").lower()
+            if n in {"br", "hr", "wbr"}:
+                return True
+    for s in el.strings:
+        if _WS_TEXT_RE.sub("", str(s)):
+            return True
+    return False
+
+
+def _ancestor_is_skip_ws_tag(node: NavigableString | Tag) -> bool:
+    p = node.parent
+    while p is not None:
+        if isinstance(p, Tag) and (p.name or "").lower() in _SKIP_TEXT_WS_NORMALIZE:
+            return True
+        p = p.parent
+    return False
+
+
+def _normalize_text_nodes(fragment: Tag) -> None:
+    """Decode entities in text nodes and collapse runs of whitespace to a single space."""
+    for s in list(fragment.strings):
+        if isinstance(s, Comment):
+            continue
+        if not isinstance(s, NavigableString):
+            continue
+        if _ancestor_is_skip_ws_tag(s):
+            continue
+        raw = str(s)
+        t = _RUN_WHITESPACE_RE.sub(" ", unescape(raw)).strip()
+        if t == raw:
+            continue
+        s.replace_with(t)
+
+
+def _strip_empty_wrapper_tags(fragment: Tag) -> None:
+    """
+    Remove container tags in ``_STRIP_IF_EMPTY_TAGS`` that have no non-blank text
+    in any descendant (including nested empty markup).
+    """
+    for _ in range(200):
+        changed = False
+        candidates = [
+            t
+            for t in fragment.find_all(True)
+            if isinstance(t, Tag) and (t.name or "").lower() in _STRIP_IF_EMPTY_TAGS
+        ]
+        candidates.sort(key=lambda t: len(list(t.parents)), reverse=True)
+        for el in candidates:
+            if _subtree_has_nonblank_text(el):
+                continue
+            el.decompose()
+            changed = True
+        if not changed:
+            break
+
+
 def _finalize_fragment(fragment: Tag) -> None:
     for el in list(fragment.find_all(True)):
         n = (el.name or "").lower()
@@ -324,29 +322,50 @@ def _finalize_fragment(fragment: Tag) -> None:
     for name in _UNWRAP_TAGS:
         for el in list(fragment.find_all(name)):
             el.unwrap()
+    for name in _UNWRAP_PHRASING:
+        for el in list(fragment.find_all(name)):
+            el.unwrap()
     for el in fragment.find_all(True):
         _filter_tag_attrs(el)
+    _strip_empty_wrapper_tags(fragment)
+    _normalize_text_nodes(fragment)
+    _strip_empty_wrapper_tags(fragment)
+
+
+def _clone_and_simplify_body_tree(body: Tag) -> Tag:
+    """Deep clone of ``body`` (or root tag) then strip scripts/decompose/unwrap/attrs."""
+    clone = BeautifulSoup(str(body), "html.parser")
+    root = clone.body
+    if root is None:
+        root = clone.find(True)
+    if not isinstance(root, Tag):
+        return body
+    _finalize_fragment(root)
+    return root
 
 
 def html_to_visible_text(html: str) -> str:
     """
-    Return **simplified HTML** focused on **research-relevant page content**:
+    Return **simplified HTML** for the **entire** document body (no “main only” heuristics):
 
-    - Prepends a small **head excerpt** (document title, meta description, canonical)
-      as ``<section id="peer-atlas-head-excerpt">…``.
-    - Collects **all** substantial matches from content-region selectors (plus
-      substantial ``article`` tags), drops nested duplicates (keeps outer node only),
-      concatenates each region as ``<section id="peer-atlas-region-NN">…``.
-    - If merged regions are still thin vs chrome-stripped ``body``, appends
-      ``<section id="peer-atlas-body-fallback">…`` with the rest of readable body.
-    - If no substantial region is found, uses **``<body>``** after removing ``header``,
-      ``footer``, ``nav``, and common mega-menu blocks **outside** ``main``/``article``.
-    - Keeps structural tags (``p``, ``li``, headings, tables, etc.); drops ``script``,
-      ``style``, and form controls.
-    - **Preserves** ``href`` / ``title`` on ``<a>``, ``src`` / ``alt`` on ``<img>``,
-      ``id`` on common block/heading tags, and strips other attributes.
+    - Prepends a small **head excerpt** (title, meta description, canonical) as
+      a bare ``<section>…</section>`` block.
+    - Serializes **everything under ``<body>``** (or the document root if there is no
+      ``body``): navigation, headers, footers, and main copy—all kept so DOM text is
+      not dropped by region selection.
+    - Removes ``script`` / ``style`` / ``noscript`` / comments, decomposes other
+      machinery in ``_DECOMPOSE_TAGS`` (including all ``img``), unwraps forms and
+      ``strong`` (inner text kept), strips all attributes from ``<a>`` (link text only),
+      drops ``id`` on every tag, keeps ``title`` only on ``abbr`` where allowlisted,
+      removes empty wrapper elements, then **normalizes text**: HTML entities decoded
+      to characters (e.g. ``&amp;`` → ``&``), newlines and other runs of whitespace
+      collapsed to a **single space** (skipped inside ``pre`` / ``code`` / ``kbd`` /
+      ``samp``).
 
-    Non-HTML strings get light whitespace cleanup only.
+    **Displayed vs DOM:** this follows the **live HTML** after fetch (Playwright waits
+    handle settling); it does not re-check CSS ``display:none`` on every node.
+
+    Non-HTML strings get entity decode + single-line whitespace collapse.
     """
     if not isinstance(html, str):
         return ""
@@ -354,7 +373,7 @@ def html_to_visible_text(html: str) -> str:
     if not raw:
         return ""
     if not looks_like_html(raw):
-        return _collapse_blank_lines(raw)
+        return _normalize_plain_text_line(raw)
 
     soup = BeautifulSoup(raw, "html.parser")
     title, desc, canon = _snapshot_head_meta(soup)
@@ -363,70 +382,11 @@ def html_to_visible_text(html: str) -> str:
     _remove_scripts_styles_comments(soup)
 
     body = _body_or_wrapper(soup)
-
-    if not (body.name and body.name.lower() == "body"):
-        fragment = body
-        _finalize_fragment(fragment)
-        inner = fragment.decode_contents().strip()
-        if not inner:
-            inner = _collapse_blank_lines(fragment.get_text("\n"))
-        if head_html:
-            return (head_html + "\n" + inner).strip()
-        return inner
-
-    preorder = _preorder_index_map(body)
-    candidates = _collect_substantial_candidates(body)
-    roots = _filter_outermost_candidates(candidates)
-    roots.sort(key=lambda t: preorder.get(id(t), 0))
-
-    fb_body = _clone_body_after_chrome(body)
-    _finalize_fragment(fb_body)
-    fb_inner = fb_body.decode_contents().strip()
-    fb_len = _visible_text_len(fb_inner)
-
-    if not roots:
-        inner = fb_inner
-        if not inner:
-            inner = _collapse_blank_lines(fb_body.get_text("\n"))
-        if head_html:
-            return (head_html + "\n" + inner).strip()
-        return inner
-
-    region_chunks: list[str] = []
-    for i, root in enumerate(roots, start=1):
-        copied = BeautifulSoup(str(root), "html.parser").find(True)
-        if copied is None:
-            continue
-        wrap_soup = BeautifulSoup("", "html.parser")
-        sec = wrap_soup.new_tag("section")
-        sec["id"] = f"peer-atlas-region-{i:02d}"
-        tag_name = (root.name or "div").lower()
-        sec["data-peer-atlas-root"] = tag_name
-        sec.append(copied)
-        _finalize_fragment(sec)
-        outer = str(sec).strip()
-        if outer:
-            region_chunks.append(outer)
-
-    merged_inner = "\n".join(region_chunks).strip()
-    merged_len = _visible_text_len(merged_inner)
-
-    thin = fb_len > 0 and (
-        merged_len < max(400, int(0.18 * fb_len)) or merged_len < 120
-    )
-    parts: list[str] = []
-    if merged_inner:
-        parts.append(merged_inner)
-    if thin and fb_inner:
-        parts.append(
-            f'<section id="peer-atlas-body-fallback">\n{fb_inner}\n</section>'
-        )
-
-    inner = "\n".join(parts).strip()
+    fragment = _clone_and_simplify_body_tree(body)
+    inner = fragment.decode_contents(formatter=_HTML_MIN_ENTITIES).strip()
     if not inner:
-        inner = fb_inner or _collapse_blank_lines(body.get_text("\n"))
+        inner = _normalize_plain_text_line(fragment.get_text(" "))
 
     if head_html:
         return (head_html + "\n" + inner).strip()
     return inner
-

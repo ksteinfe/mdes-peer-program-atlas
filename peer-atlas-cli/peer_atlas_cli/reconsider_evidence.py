@@ -5,9 +5,13 @@ from __future__ import annotations
 import json
 import pathlib
 from collections.abc import Callable
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from peer_atlas_cli.retrieval.fetch_cached import fetch_url_text_cached
+
+if TYPE_CHECKING:
+    from peer_atlas_cli.llm_client import LLMClient
+
 from peer_atlas_cli.retrieval.url_normalize import normalize_url
 
 # Nodes the user may pass on the CLI (includes overview-style curriculum pass).
@@ -70,6 +74,7 @@ def fetch_rationale_source_pages(
     max_total_chars: int,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
+    llm_client: LLMClient | None = None,
 ) -> str:
     """
     Fetch ``source_url`` from each rationale (deduped), return one markdown-ish block.
@@ -99,6 +104,7 @@ def fetch_rationale_source_pages(
                 max_chars=max_chars_per_url,
                 report=report,
                 trace=trace,
+                llm_client=llm_client,
             )
         except Exception as e:
             text = f"(fetch failed: {e})"

@@ -63,14 +63,14 @@ def _sanitize_program(program: dict[str, Any], *, base_url: str) -> None:
 )
 @click.option(
     "--max-chars-per-url",
-    default=12_000,
+    default=120_000,
     type=int,
     show_default=True,
-    help="Max characters stored per fetched rationale source_url.",
+    help="Max simplified characters per fetched rationale source_url (>=50k uses fetch coalesce floor).",
 )
 @click.option(
     "--max-total-chars",
-    default=48_000,
+    default=2_000_000,
     type=int,
     show_default=True,
     help="Total character budget for all rationale fetches combined.",
@@ -124,6 +124,8 @@ def reconsider_node_cmd(
     cats = load_categories(root)
     cat_json = categories_payload_for_prompt(cats)
 
+    client = get_client(provider, api_key=api_key, model=model, base_url=base_llm_url)
+
     rel = rationales_for_node(node_key, program)
     fetched = fetch_rationale_source_pages(
         root,
@@ -132,6 +134,7 @@ def reconsider_node_cmd(
         max_total_chars=max_total_chars,
         report=lambda m: click.echo(m, err=True),
         trace=lambda m: click.echo(f"  {m}", err=True),
+        llm_client=client,
     )
     evidence = build_reconsider_evidence(
         user_instruction=instr,
@@ -141,8 +144,6 @@ def reconsider_node_cmd(
         if node_key == "curriculum_overview"
         else node_key,
     )
-
-    client = get_client(provider, api_key=api_key, model=model, base_url=base_llm_url)
     host = base_llm_url or "https://api.openai.com"
     click.echo(
         f"reconsider-node: program={pid!r} node={node_key!r} model={model!r} "

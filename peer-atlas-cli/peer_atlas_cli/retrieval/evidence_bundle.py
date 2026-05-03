@@ -5,7 +5,10 @@ from __future__ import annotations
 import pathlib
 
 from collections.abc import Callable
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from peer_atlas_cli.llm_client import LLMClient
 
 from peer_atlas_cli.retrieval.evidence_relevance import (
     dedupe_hits_preserve_order,
@@ -177,6 +180,7 @@ def fetch_pages_for_urls(
     max_chars_per_url: int,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
+    llm_client: LLMClient | None = None,
 ) -> list[tuple[str, str]]:
     """Fetch each URL (cached); returns parallel list of ``(url, text)``."""
     per_url = _effective_max_chars_per_url(max_chars_per_url)
@@ -191,6 +195,7 @@ def fetch_pages_for_urls(
                 max_chars=per_url,
                 report=report,
                 trace=trace,
+                llm_client=llm_client,
             )
         except Exception as e:
             text = f"(fetch failed: {e})"
@@ -209,10 +214,11 @@ def gather_evidence_for_node(
     user_query: str,
     max_results_per_query: int = 5,
     max_urls_total: int = 8,
-    max_chars_per_url: int = 12_000,
-    budget_chars: int = 48_000,
+    max_chars_per_url: int = 120_000,
+    budget_chars: int = 0,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
+    llm_client: LLMClient | None = None,
 ) -> str:
     """
     Tavily search from node-specific queries, fetch top URLs (cached), return
@@ -221,7 +227,9 @@ def gather_evidence_for_node(
     ``budget_chars <= 0`` means **no cap** on the combined fetched excerpt size
     (URLs are still fetched one-by-one; each uses ``max_chars_per_url``).
     ``max_chars_per_url <= 0`` means use a very large per-URL ceiling (the fetch
-    layer may still apply its own safety limit).
+    layer may still apply its own safety limit). Defaults: ``max_chars_per_url``
+    120_000 (≥ 50_000 coalesces to the multi‑MiB fetch floor) and ``budget_chars``
+    0 (unlimited bundle).
     """
     urls, hits = _evidence_urls_and_hits_for_node(
         node,
@@ -259,6 +267,7 @@ def gather_evidence_for_node(
                 max_chars=per_url,
                 report=report,
                 trace=trace,
+                llm_client=llm_client,
             )
         except Exception as e:
             text = f"(fetch failed: {e})"
@@ -279,6 +288,7 @@ def gather_evidence_for_node(
                 max_chars=per_url,
                 report=report,
                 trace=trace,
+                llm_client=llm_client,
             )
             parts.append(f"\n\n=== SEED URL ONLY: {seed_url} ===\n{t}")
         except Exception as e:
@@ -308,14 +318,15 @@ def gather_evidence_for_queries(
     seed_url: str = "",
     max_results_per_query: int = 4,
     max_urls_total: int = 5,
-    max_chars_per_url: int = 10_000,
-    budget_chars: int = 32_000,
+    max_chars_per_url: int = 120_000,
+    budget_chars: int = 0,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
     program: dict[str, Any] | None = None,
     user_query: str = "",
     extra_anchor_phrases: list[str] | None = None,
     strict_anchor_filter: bool = False,
+    llm_client: LLMClient | None = None,
 ) -> str:
     """
     Ad-hoc evidence from explicit query strings (e.g. per core course).
@@ -324,6 +335,9 @@ def gather_evidence_for_queries(
     so registrar / catalog pages that do not mention the program name stay
     eligible. Pass ``program`` (+ optional anchors / strict) only for bundles
     where every hit should stay on-program (not the default for course search).
+
+    Defaults match ``gather_evidence_for_node`` (``max_chars_per_url`` 120_000,
+    ``budget_chars`` 0 = unlimited bundle).
     """
     hits: list[dict[str, Any]] = []
     for q in queries:
@@ -376,6 +390,7 @@ def gather_evidence_for_queries(
                 max_chars=per_url,
                 report=report,
                 trace=trace,
+                llm_client=llm_client,
             )
         except Exception as e:
             text = f"(fetch failed: {e})"

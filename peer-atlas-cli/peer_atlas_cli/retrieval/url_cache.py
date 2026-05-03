@@ -52,6 +52,31 @@ def _read_entry(path: pathlib.Path) -> dict[str, Any] | None:
         return None
 
 
+def clear_cache_entry_for_url(cache_dir: pathlib.Path, url: str) -> int:
+    """Remove primary and legacy JSON cache files for ``url`` if present.
+
+    Returns the number of files successfully removed (0, 1, or 2).
+    """
+    n = 0
+    for path in (_primary_path(cache_dir, url), _legacy_path(cache_dir, url)):
+        try:
+            if path.is_file():
+                path.unlink()
+                n += 1
+        except OSError:
+            continue
+    return n
+
+
+def read_raw_cache_entry(cache_dir: pathlib.Path, url: str) -> dict[str, Any] | None:
+    """Read cache JSON if the file exists (ignores TTL). Used to patch ``body_markdown``."""
+    for path in (_primary_path(cache_dir, url), _legacy_path(cache_dir, url)):
+        data = _read_entry(path)
+        if isinstance(data, dict):
+            return data
+    return None
+
+
 def read_cached_entry(cache_dir: pathlib.Path, url: str) -> dict[str, Any] | None:
     """Return full cache entry dict if present and not expired; otherwise None."""
     ttl = cache_ttl_seconds()
@@ -86,6 +111,7 @@ def write_cached_body(
     *,
     http_status: int | None = None,
     notes: str = "",
+    body_markdown: str | None = None,
 ) -> pathlib.Path:
     """Write pretty-printed JSON cache entry; returns path written."""
     cache_dir.mkdir(parents=True, exist_ok=True)
@@ -98,8 +124,30 @@ def write_cached_body(
         "notes": notes or "",
         "body": body,
     }
+    if body_markdown is not None and body_markdown.strip():
+        from peer_atlas_cli.retrieval.llm_evidence_markdown import sanitize_llm_text_for_json_storage
+
+        payload["body_markdown"] = sanitize_llm_text_for_json_storage(body_markdown)
     path.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
     return path
+
+
+def patch_cached_body_markdown(cache_dir: pathlib.Path, url: str, body_markdown: str) -> None:
+    """Merge ``body_markdown`` into an existing cache file (same ``fetched_at`` / ``body``)."""
+    from peer_atlas_cli.retrieval.llm_evidence_markdown import sanitize_llm_text_for_json_storage
+
+    data = read_raw_cache_entry(cache_dir, url)
+    if not isinstance(data, dict):
+        return
+    if not isinstance(data.get("body"), str):
+        return
+    data["body_markdown"] = sanitize_llm_text_for_json_storage(body_markdown)
+    path = _primary_path(cache_dir, url)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )

@@ -27,14 +27,28 @@ def test_html_to_visible_text_keeps_structure_strips_script() -> None:
     assert "Hello" in out
     assert "world" in out
     assert "class=" not in out.lower()
-    assert 'id="a"' in out
-    assert "peer-atlas-head-excerpt" in out
+    assert "id=" not in out.lower()
+    assert "<section>" in out
     assert "<h1>T</h1>" in out
 
 
-def test_html_to_visible_text_plain_unchanged() -> None:
+def test_html_to_visible_text_plain_collapses_whitespace() -> None:
     s = "  line one\n\nline two  "
-    assert html_to_visible_text(s) == "line one\nline two"
+    assert html_to_visible_text(s) == "line one line two"
+
+
+def test_entities_decoded_and_amp_not_escaped_in_pcdata() -> None:
+    html = "<html><head><title>T</title></head><body><p>a&amp;b &amp; c</p></body></html>"
+    out = html_to_visible_text(html)
+    assert "a&b & c" in out
+    assert "&amp;" not in out
+
+
+def test_strong_unwrapped() -> None:
+    html = "<html><head><title>T</title></head><body><p>x<strong>y</strong>z</p></body></html>"
+    out = html_to_visible_text(html)
+    assert "<strong" not in out.lower()
+    assert "xyz" in out
 
 
 def test_html_to_visible_text_json_ld_script_removed() -> None:
@@ -48,18 +62,29 @@ def test_html_to_visible_text_json_ld_script_removed() -> None:
     assert "Visible only" in out
 
 
-def test_html_img_keeps_src_alt_only() -> None:
+def test_html_img_tags_removed() -> None:
     html = (
         '<body><p>x</p><img src="/a.png" alt="A" class="c" data-x="1" /></body>'
     )
     out = html_to_visible_text(html)
-    assert 'src="/a.png"' in out
-    assert 'alt="A"' in out
-    assert "class=" not in out
-    assert "data-x" not in out
+    assert "<img" not in out.lower()
+    assert "a.png" not in out
+    assert "alt=" not in out.lower()
+    assert "<p>" in out
+    assert "x" in out
 
 
-def test_prefers_main_over_nav() -> None:
+def test_anchor_text_kept_href_stripped() -> None:
+    html = """<html><head><title>T</title></head><body>
+<p><a href="/x" title="Tip">Label</a></p>
+</body></html>"""
+    out = html_to_visible_text(html)
+    assert "Label" in out
+    assert 'href=' not in out
+    assert "title=" not in out.lower()
+
+
+def test_full_body_keeps_nav_and_main() -> None:
     html = """<html><head><title>Paths</title>
 <meta name="description" content="Every MIMS unique focus areas."/>
 <link rel="canonical" href="https://example.edu/paths"/>
@@ -70,8 +95,11 @@ body paragraph with enough text to count as substantial content here.</p></main>
 </body></html>"""
     out = html_to_visible_text(html)
     assert "Every MIMS student" in out
-    assert "Navitem" not in out
-    assert "canonical" in out.lower() or "example.edu" in out
+    assert "main body paragraph" in out  # newline inside <p> collapsed to space
+    assert "Navitem" in out
+    assert 'href=' not in out
+    assert "<a>" in out or "<a " in out
+    assert "example.edu" in out
     assert "<h1>Paths</h1>" in out  # from head excerpt (title)
 
 
@@ -85,10 +113,10 @@ def test_head_meta_and_canonical_in_excerpt() -> None:
     assert "Page T" in out
     assert "Desc D" in out
     assert "https://x.edu/y" in out
-    assert 'id="z"' in out
+    assert "id=" not in out.lower()
 
 
-def test_chrome_removed_when_no_main() -> None:
+def test_full_body_keeps_header_nav_footer() -> None:
     html = """<html><head><title>X</title></head><body>
 <header><nav><a href="/n">N</a></nav></header>
 <div class="node__content"><p>Deep content in node body forty chars minimum xxxxxxxxxxxx</p></div>
@@ -96,17 +124,34 @@ def test_chrome_removed_when_no_main() -> None:
 </body></html>"""
     out = html_to_visible_text(html)
     assert "Deep content" in out
-    assert "/n" not in out
-    assert "F" not in out
+    assert 'href=' not in out
+    assert "N" in out
+    assert "F" in out
 
 
-def test_merges_two_substantial_sibling_articles() -> None:
+def test_full_body_two_articles() -> None:
     html = """<!DOCTYPE html><html><head><title>T</title></head><body>
 <article><p>First article block with enough characters to qualify as substantial text here.</p></article>
 <article><p>Second article block with enough characters to qualify as substantial text here.</p></article>
 </body></html>"""
     out = html_to_visible_text(html)
-    assert "peer-atlas-region-01" in out
-    assert "peer-atlas-region-02" in out
+    assert "peer-atlas-region" not in out
     assert "First article" in out
     assert "Second article" in out
+
+
+def test_empty_wrapper_divs_removed() -> None:
+    html = """<html><head><title>T</title></head><body>
+<div><div></div><div><span> </span></div></div>
+<p>Kept</p>
+</body></html>"""
+    out = html_to_visible_text(html)
+    assert "Kept" in out
+    assert "<div" not in out.lower()
+
+
+def test_p_with_only_br_not_removed() -> None:
+    html = """<html><head><title>T</title></head><body><p><br/></p><p>After</p></body></html>"""
+    out = html_to_visible_text(html)
+    assert "br" in out.lower()
+    assert "After" in out

@@ -11,6 +11,7 @@ from peer_atlas_cli.commands.add_program import add_program_cmd
 from peer_atlas_cli.commands.clear_programs import clear_programs_cmd
 from peer_atlas_cli.commands.merge_patch import merge_patch_cmd
 from peer_atlas_cli.commands.reconsider_node import reconsider_node_cmd
+from peer_atlas_cli.commands.test_evidence_url import test_evidence_url_cmd
 from peer_atlas_cli.commands.validate import validate_cmd
 from peer_atlas_cli.config import load_env
 from peer_atlas_cli.llm_transcript import begin_cli_llm_session
@@ -41,6 +42,7 @@ main.add_command(clear_programs_cmd, "clear-programs")
 main.add_command(merge_patch_cmd, "merge-patch")
 main.add_command(add_program_cmd, "add-program")
 main.add_command(reconsider_node_cmd, "reconsider-node")
+main.add_command(test_evidence_url_cmd, "test-evidence-url")
 
 
 if __name__ == "__main__":

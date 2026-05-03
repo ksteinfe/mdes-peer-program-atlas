@@ -126,6 +126,20 @@ def _sanitize_before_validate(program: dict[str, Any]) -> None:
     help="Unused for curriculum_overview (per-URL fetch + per-URL LLM extract); kept for CLI compatibility. Other behavior unchanged.",
 )
 @click.option(
+    "--max-chars-per-url",
+    default=120_000,
+    type=int,
+    show_default=True,
+    help="Per fetched evidence URL for node steps and per-course research. Values >= 50_000 use the fetch coalesce floor (~8 MiB). 0 = 1M before coalesce.",
+)
+@click.option(
+    "--evidence-budget-chars",
+    default=0,
+    type=int,
+    show_default=True,
+    help="Max combined characters for fetched excerpts in one evidence bundle (per node or per course batch); 0 = no cap.",
+)
+@click.option(
     "--dry-run",
     is_flag=True,
     help="Run LLM steps but do not write the corpus file.",
@@ -139,6 +153,8 @@ def add_program_cmd(
     curriculum_max_urls: int,
     curriculum_max_chars_per_url: int,
     curriculum_budget_chars: int,
+    max_chars_per_url: int,
+    evidence_budget_chars: int,
     dry_run: bool,
 ) -> None:
     """Create a new program via search-backed, per-node LLM ingest."""
@@ -235,6 +251,7 @@ def add_program_cmd(
                 max_chars_per_url=curriculum_max_chars_per_url,
                 report=fetch_warn,
                 trace=trace_source,
+                llm_client=client,
             )
             ctx_json = program_context_json_for_curriculum_steps(program)
             dense_pairs: list[tuple[str, str]] = []
@@ -312,8 +329,11 @@ def add_program_cmd(
                     repo_root=root,
                     seed_url=url,
                     max_urls_total=min(5, max_search_urls),
+                    max_chars_per_url=max_chars_per_url,
+                    budget_chars=evidence_budget_chars,
                     report=fetch_warn,
                     trace=trace_source,
+                    llm_client=client,
                 )
                 click.echo(
                     f"  research done for core course index {i} ({len(cq)} queries).",
@@ -363,8 +383,11 @@ def add_program_cmd(
             seed_url=url,
             user_query=q,
             max_urls_total=max_search_urls,
+            max_chars_per_url=max_chars_per_url,
+            budget_chars=evidence_budget_chars,
             report=fetch_warn,
             trace=trace_source,
+            llm_client=client,
         )
         raw = ""
         try:

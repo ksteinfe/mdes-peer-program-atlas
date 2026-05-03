@@ -13,16 +13,8 @@ _STRICT_NULLABLE_KEYS: frozenset[str] = frozenset(
         "length_in_berkeley_semesters",
         "exchange_rate_to_usd",
         "comparison_cost_usd",
-        "total_degree_cost_base_currency_single",
-        "total_degree_cost_base_currency_domestic_or_resident",
-        "total_degree_cost_base_currency_international_or_nonresident",
-        "total_units_or_credits",
-        "has_required_core",
-        "has_structured_electives",
-        "has_open_electives",
-        "has_required_studio_sequence",
-        "has_required_thesis_or_capstone",
-        "has_internship_or_professional_practice_requirement",
+        "total_degree_cost_base_currency",
+        "source_url",
         "secondary_type",
     }
 )

@@ -7,7 +7,7 @@
       "rules": [
         "Use only when the course is clearly a project-based studio.",
         "Do not classify a course as design_studio merely because it includes a project.",
-        "Use design_studio only when normalized_unit_weight is strictly greater than 1.15; at 1.15 or below (or when weight is unknown), use design_methods_systems instead.",
+        "Use design_studio only when normalized_unit_weight is strictly greater than 1.1; at 1.1 or below (or when weight is unknown), use design_methods_systems instead. Higher weight above 1.1 should increase the likelihood of choosing design_studio when the course is clearly a heavy studio/project.",
         "Design studio can never be hybrid.",
         "If primary_type is design_studio, secondary_type must be null."
       ]

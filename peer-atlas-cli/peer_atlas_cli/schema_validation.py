@@ -9,6 +9,7 @@ from typing import Any
 from jsonschema import Draft202012Validator
 
 from peer_atlas_cli.categories import ids_for, load_categories
+from peer_atlas_cli.program_sanitize import migrate_record_canonical_shape
 
 
 def program_uses_draft_validation(program: dict[str, Any]) -> bool:
@@ -35,6 +36,7 @@ def validate_program_shape(
     repo_root: pathlib.Path, program: dict[str, Any]
 ) -> list[str]:
     errors: list[str] = []
+    migrate_record_canonical_shape(program)
     name = (
         "program_draft.schema.json"
         if program_uses_draft_validation(program)
@@ -70,7 +72,6 @@ def validate_program_categories(
     host_ids = ids_for("host_academic_models", categories)
     pos_ids = ids_for("positioning_tags", categories)
     dur_ids = ids_for("duration_categories", categories)
-    cost_ids = ids_for("cost_basis", categories)
     unit_ids = ids_for("unit_systems", categories)
     seq_ids = ids_for("sequencedness", categories)
     ver_ids = ids_for("verification_statuses", categories)
@@ -82,52 +83,60 @@ def validate_program_categories(
         if str(host_val) not in host_ids:
             p("identity.host_academic_model invalid")
 
-    pos = (program.get("positioning") or {}).get("derived_features") or {}
+    pos = program.get("positioning") or {}
+    if not isinstance(pos, dict):
+        pos = {}
     tags = pos.get("positioning_tags")
     if not isinstance(tags, list):
         if not draft:
-            p("positioning.derived_features.positioning_tags must be an array")
+            p("positioning.positioning_tags must be an array")
     else:
         seen_tag: set[str] = set()
         for i, t in enumerate(tags):
             if t is None or not str(t).strip():
                 if not draft:
-                    p(f"positioning.derived_features.positioning_tags[{i}] must be non-empty")
+                    p(f"positioning.positioning_tags[{i}] must be non-empty")
                 continue
             tid = str(t)
             if not draft:
                 if tid in seen_tag:
-                    p(f"positioning.derived_features.positioning_tags duplicate {tid!r}")
+                    p(f"positioning.positioning_tags duplicate {tid!r}")
                     continue
                 seen_tag.add(tid)
             if tid not in pos_ids:
-                p(f"positioning.derived_features.positioning_tags[{i}] invalid")
+                p(f"positioning.positioning_tags[{i}] invalid")
 
-    dur = (program.get("duration") or {}).get("derived_features") or {}
+    dur = program.get("duration") or {}
+    if not isinstance(dur, dict):
+        dur = {}
     dc = dur.get("duration_category")
     if dc is not None and str(dc).strip():
         if str(dc) not in dur_ids:
-            p("duration.derived_features.duration_category invalid")
+            p("duration.duration_category invalid")
 
-    deg = (program.get("degree_cost") or {}).get("derived_features") or {}
+    deg = program.get("degree_cost") or {}
+    if not isinstance(deg, dict):
+        deg = {}
     cc_usd = deg.get("comparison_cost_usd")
     if cc_usd is not None and not isinstance(cc_usd, (int, float)):
-        p("degree_cost.derived_features.comparison_cost_usd must be number or null")
-    cb = deg.get("cost_basis")
-    if cb is not None and str(cb).strip():
-        if str(cb) not in cost_ids:
-            p("degree_cost.derived_features.cost_basis invalid")
+        p("degree_cost.comparison_cost_usd must be number or null")
+    tdc = deg.get("total_degree_cost_base_currency")
+    if tdc is not None and not isinstance(tdc, (int, float)):
+        p(
+            "degree_cost.total_degree_cost_base_currency must be number or null"
+        )
 
     cur = program.get("curriculum") or {}
-    cdf = cur.get("derived_features") or {}
-    us = cdf.get("unit_system")
+    if not isinstance(cur, dict):
+        cur = {}
+    us = cur.get("unit_system")
     if us is not None and str(us).strip():
         if str(us) not in unit_ids:
-            p("curriculum.derived_features.unit_system invalid")
-    sq = cdf.get("sequencedness")
+            p("curriculum.unit_system invalid")
+    sq = cur.get("sequencedness")
     if sq is not None and str(sq).strip():
         if str(sq) not in seq_ids:
-            p("curriculum.derived_features.sequencedness invalid")
+            p("curriculum.sequencedness invalid")
 
     ver = program.get("verification") or {}
     vs = ver.get("status")

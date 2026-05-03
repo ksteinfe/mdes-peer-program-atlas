@@ -17,8 +17,10 @@ from peer_atlas_cli.llm_client import get_client
 from peer_atlas_cli.llm_nodes import (
     INGEST_MAIN_NODES,
     LLMSchemaValidationError,
+    program_context_json_for_curriculum_steps,
     run_curriculum_course_patch,
     run_curriculum_overview_step,
+    run_curriculum_source_dense_extract_step,
     run_node_step,
 )
 from peer_atlas_cli.llm_reporting import echo_llm_raw_and_parsed, echo_validation_errors
@@ -32,13 +34,19 @@ from peer_atlas_cli.program_sanitize import (
     normalize_core_course_learning_outcomes,
     normalize_curriculum_electives_in_program,
     normalize_derivation_notes,
+    normalize_program_layout,
     normalize_sources,
     strip_legacy_source_id_fields,
 )
 from peer_atlas_cli.publish_coerce import coerce_none_strings_for_publish
 from peer_atlas_cli.repo_root import find_repo_root
-from peer_atlas_cli.retrieval.evidence_bundle import gather_evidence_for_node
-from peer_atlas_cli.retrieval.evidence_bundle import gather_evidence_for_queries
+from peer_atlas_cli.retrieval.evidence_bundle import (
+    fetch_pages_for_urls,
+    gather_evidence_for_node,
+    gather_evidence_for_queries,
+    mash_curriculum_source_summaries,
+    resolve_evidence_urls_for_node,
+)
 from peer_atlas_cli.retrieval.query_builders import queries_for_core_course
 from peer_atlas_cli.retrieval.tavily_search import tavily_api_key
 from peer_atlas_cli.schema_validation import validate_corpus
@@ -63,13 +71,14 @@ def _remove_program_by_id(corpus: dict[str, Any], program_id: str) -> None:
 
 
 def _sanitize_before_validate(program: dict[str, Any]) -> None:
+    normalize_program_layout(program)
     strip_legacy_source_id_fields(program)
     normalize_sources(program)
     base = str(program.get("base_url") or "")
     n = normalize_derivation_notes(program, default_source_url=base)
     if n:
         click.echo(
-            f"Note: normalized {n} derivation_notes entr(y/ies) (strings or legacy source_id).",
+            f"Note: normalized {n} llm_rationales entr(y/ies) (strings or legacy keys).",
             err=True,
         )
     ensure_course_source_urls(program, base)
@@ -96,6 +105,27 @@ def _sanitize_before_validate(program: dict[str, Any]) -> None:
     help="Max core_courses rows to run per-course evidence patches (0 = all rows).",
 )
 @click.option(
+    "--curriculum-max-urls",
+    default=4,
+    type=int,
+    show_default=True,
+    help="Max URLs to fetch for curriculum_overview evidence (fewer, deeper pages).",
+)
+@click.option(
+    "--curriculum-max-chars-per-url",
+    default=120_000,
+    type=int,
+    show_default=True,
+    help="Max characters per fetched URL for curriculum_overview; 0 = very large cap. Fetch layer may still bound body size.",
+)
+@click.option(
+    "--curriculum-budget-chars",
+    default=0,
+    type=int,
+    show_default=True,
+    help="Unused for curriculum_overview (per-URL fetch + per-URL LLM extract); kept for CLI compatibility. Other behavior unchanged.",
+)
+@click.option(
     "--dry-run",
     is_flag=True,
     help="Run LLM steps but do not write the corpus file.",
@@ -106,6 +136,9 @@ def add_program_cmd(
     query: str,
     max_search_urls: int,
     max_courses: int,
+    curriculum_max_urls: int,
+    curriculum_max_chars_per_url: int,
+    curriculum_budget_chars: int,
     dry_run: bool,
 ) -> None:
     """Create a new program via search-backed, per-node LLM ingest."""
@@ -177,26 +210,74 @@ def add_program_cmd(
 
     for node in INGEST_MAIN_NODES:
         if node == "curriculum_overview":
-            set_ingest_stage(program, "curriculum_overview")
-            click.echo(f"--- Node: {node} ---", err=True)
-            evidence = gather_evidence_for_node(
+            set_ingest_stage(program, "curriculum_digest")
+            click.echo(
+                f"--- Node: {node} (per-source curriculum extract + overview) ---",
+                err=True,
+            )
+            urls = resolve_evidence_urls_for_node(
                 node,
                 program,
-                repo_root=root,
                 seed_url=url,
                 user_query=q,
-                max_urls_total=max_search_urls,
+                max_urls_total=curriculum_max_urls,
+            )
+            if urls:
+                per_url = curriculum_max_chars_per_url if curriculum_max_chars_per_url > 0 else 1_000_000
+                trace_source(
+                    f"evidence: queueing {len(urls)} source URL(s); "
+                    f"no per-source char cap for LLM extract "
+                    f"(fetch up to {per_url} chars per URL)"
+                )
+            pages = fetch_pages_for_urls(
+                urls,
+                repo_root=root,
+                max_chars_per_url=curriculum_max_chars_per_url,
                 report=fetch_warn,
                 trace=trace_source,
             )
+            ctx_json = program_context_json_for_curriculum_steps(program)
+            dense_pairs: list[tuple[str, str]] = []
+            for src_url, page_text in pages:
+                try:
+                    click.echo(
+                        f"Calling LLM (curriculum source extract) … {src_url}",
+                        err=True,
+                    )
+                    dense = run_curriculum_source_dense_extract_step(
+                        client=client,
+                        program_context_json=ctx_json,
+                        source_url=src_url,
+                        page_text=page_text,
+                        repo_root=root,
+                        emit_debug=lambda m: click.echo(m, err=True),
+                    )
+                except (ValueError, RuntimeError) as e:
+                    click.echo(f"curriculum source extract failed for {src_url!r}: {e}", err=True)
+                    sys.exit(1)
+                dense_pairs.append((src_url, dense))
+            mashed = mash_curriculum_source_summaries(dense_pairs).strip()
+            if not mashed:
+                mashed = (
+                    "(No dense curriculum extracts produced; page fetches may have failed "
+                    "or returned no extractable text.)"
+                )
+            cur_block = program.setdefault("curriculum", {})
+            if isinstance(cur_block, dict):
+                cur_block["evidence_curriculum_summary"] = mashed
+
+            set_ingest_stage(program, "curriculum_overview")
             raw = ""
             try:
-                click.echo("Calling LLM (curriculum overview) …", err=True)
+                click.echo("Calling LLM (curriculum overview JSON) …", err=True)
                 raw = run_curriculum_overview_step(
                     client=client,
                     program=program,
-                    evidence=evidence,
+                    evidence=mashed,
                     categories_json=cat_json,
+                    program_context_json=ctx_json,
+                    curriculum_digest=mashed,
+                    evidence_curriculum_summary=mashed,
                     repo_root=root,
                 )
             except LLMSchemaValidationError as e:
@@ -340,7 +421,7 @@ def add_program_cmd(
             echo_llm_raw_and_parsed(
                 "",
                 program,
-                intro="Final strict validation failed. Fix corpus manually or re-run refine.",
+                intro="Final strict validation failed. Fix corpus manually or use merge-patch.",
                 schema_errors=errs,
             )
             sys.exit(1)

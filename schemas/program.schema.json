@@ -6,6 +6,8 @@
   "required": [
     "program_id",
     "base_url",
+    "sources",
+    "llm_rationales",
     "identity",
     "positioning",
     "duration",
@@ -20,6 +22,14 @@
       "type": "string",
       "minLength": 1,
       "description": "Canonical program site URL used for ingest and evidence (https recommended)."
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "llm_rationales": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/llmRationale" }
     },
     "identity": { "$ref": "#/$defs/identity" },
     "positioning": { "$ref": "#/$defs/positioning" },
@@ -48,23 +58,14 @@
         "retrieved_date": { "type": "string" }
       }
     },
-    "derivationNote": {
+    "llmRationale": {
       "type": "object",
-      "required": ["derived_feature", "source_url", "note"],
+      "required": ["feature", "source_url", "note"],
       "additionalProperties": false,
       "properties": {
-        "derived_feature": { "type": "string" },
+        "feature": { "type": "string" },
         "source_url": { "type": "string" },
         "note": { "type": "string" }
-      }
-    },
-    "location": {
-      "type": "object",
-      "required": ["country", "state_or_region"],
-      "additionalProperties": false,
-      "properties": {
-        "country": { "type": "string" },
-        "state_or_region": { "type": "string" }
       }
     },
     "identity": {
@@ -76,8 +77,7 @@
         "degree_type",
         "host_academic_units",
         "host_academic_model",
-        "location",
-        "sources"
+        "location_label"
       ],
       "additionalProperties": false,
       "properties": {
@@ -90,119 +90,51 @@
           "items": { "type": "string" }
         },
         "host_academic_model": { "type": "string" },
-        "location": { "$ref": "#/$defs/location" },
-        "sources": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/source" }
+        "location_label": {
+          "type": "string",
+          "description": "Human-readable location (city, region, country as appropriate)."
         }
       }
     },
     "positioning": {
       "type": "object",
-      "required": ["derived_features", "sources", "derivation_notes"],
+      "required": ["positioning_summary", "positioning_tags"],
       "additionalProperties": false,
       "properties": {
-        "derived_features": {
-          "type": "object",
-          "required": [
-            "positioning_summary",
-            "positioning_tags"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "positioning_summary": { "type": "string" },
-            "positioning_tags": {
-              "type": "array",
-              "items": { "type": "string" },
-              "uniqueItems": true
-            }
-          }
-        },
-        "sources": {
+        "positioning_summary": { "type": "string" },
+        "positioning_tags": {
           "type": "array",
-          "items": { "$ref": "#/$defs/source" }
-        },
-        "derivation_notes": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/derivationNote" }
+          "items": { "type": "string" },
+          "uniqueItems": true
         }
       }
     },
     "duration": {
       "type": "object",
-      "required": ["derived_features", "sources", "derivation_notes"],
+      "required": ["length_in_berkeley_semesters", "duration_category"],
       "additionalProperties": false,
       "properties": {
-        "derived_features": {
-          "type": "object",
-          "required": [
-            "length_in_berkeley_semesters",
-            "duration_category"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "length_in_berkeley_semesters": {
-              "type": ["integer", "null"],
-              "minimum": 0
-            },
-            "duration_category": { "type": "string" }
-          }
+        "length_in_berkeley_semesters": {
+          "type": ["integer", "null"],
+          "minimum": 0
         },
-        "sources": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/source" }
-        },
-        "derivation_notes": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/derivationNote" }
-        }
+        "duration_category": { "type": "string" }
       }
     },
     "degreeCost": {
       "type": "object",
-      "required": ["derived_features", "sources", "derivation_notes"],
+      "required": [
+        "base_currency",
+        "exchange_rate_to_usd",
+        "comparison_cost_usd",
+        "total_degree_cost_base_currency"
+      ],
       "additionalProperties": false,
       "properties": {
-        "derived_features": {
-          "type": "object",
-          "required": [
-            "base_currency",
-            "exchange_rate_to_usd",
-            "exchange_rate_date",
-            "comparison_cost_usd",
-            "total_degree_cost_base_currency_single",
-            "total_degree_cost_base_currency_domestic_or_resident",
-            "total_degree_cost_base_currency_international_or_nonresident",
-            "comparison_cost_method",
-            "cost_basis"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "base_currency": { "type": "string" },
-            "exchange_rate_to_usd": { "type": ["number", "null"] },
-            "exchange_rate_date": { "type": "string" },
-            "comparison_cost_usd": { "type": ["number", "null"] },
-            "total_degree_cost_base_currency_single": {
-              "type": ["number", "null"]
-            },
-            "total_degree_cost_base_currency_domestic_or_resident": {
-              "type": ["number", "null"]
-            },
-            "total_degree_cost_base_currency_international_or_nonresident": {
-              "type": ["number", "null"]
-            },
-            "comparison_cost_method": { "type": "string" },
-            "cost_basis": { "type": "string" }
-          }
-        },
-        "sources": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/source" }
-        },
-        "derivation_notes": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/derivationNote" }
-        }
+        "base_currency": { "type": "string" },
+        "exchange_rate_to_usd": { "type": ["number", "null"] },
+        "comparison_cost_usd": { "type": ["number", "null"] },
+        "total_degree_cost_base_currency": { "type": ["number", "null"] }
       }
     },
     "coreCourse": {
@@ -211,7 +143,6 @@
         "course_id",
         "course_title",
         "units_or_credits",
-        "normalized_unit_weight",
         "sequence_position",
         "primary_type",
         "secondary_type",
@@ -229,7 +160,12 @@
         "primary_type": { "type": "string" },
         "secondary_type": { "type": ["string", "null"] },
         "course_summary": { "type": "string" },
-        "source_url": { "type": "string", "minLength": 1 },
+        "source_url": {
+          "anyOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        },
         "learning_outcomes": {
           "type": "array",
           "items": { "type": "string" }
@@ -238,7 +174,7 @@
     },
     "electiveCourseLite": {
       "type": "object",
-      "required": ["course_id", "units_or_credits", "normalized_unit_weight"],
+      "required": ["course_id"],
       "additionalProperties": false,
       "properties": {
         "course_id": { "type": "string" },
@@ -249,44 +185,27 @@
     "curriculum": {
       "type": "object",
       "required": [
-        "derived_features",
+        "unit_system",
+        "sequencedness",
+        "curriculum_summary",
+        "offers_specialization",
+        "evidence_curriculum_summary",
         "core_courses",
         "elective_requirements",
-        "elective_courses",
-        "sources",
-        "derivation_notes"
+        "elective_courses"
       ],
       "additionalProperties": false,
       "properties": {
-        "derived_features": {
-          "type": "object",
-          "required": [
-            "has_required_core",
-            "has_structured_electives",
-            "has_open_electives",
-            "has_required_studio_sequence",
-            "has_required_thesis_or_capstone",
-            "has_internship_or_professional_practice_requirement",
-            "total_units_or_credits",
-            "unit_system",
-            "sequencedness",
-            "curriculum_summary"
-          ],
-          "additionalProperties": false,
-          "properties": {
-            "has_required_core": { "type": ["boolean", "null"] },
-            "has_structured_electives": { "type": ["boolean", "null"] },
-            "has_open_electives": { "type": ["boolean", "null"] },
-            "has_required_studio_sequence": { "type": ["boolean", "null"] },
-            "has_required_thesis_or_capstone": { "type": ["boolean", "null"] },
-            "has_internship_or_professional_practice_requirement": {
-              "type": ["boolean", "null"]
-            },
-            "total_units_or_credits": { "type": ["number", "null"] },
-            "unit_system": { "type": "string" },
-            "sequencedness": { "type": "string" },
-            "curriculum_summary": { "type": "string" }
-          }
+        "unit_system": { "type": "string" },
+        "sequencedness": { "type": "string" },
+        "curriculum_summary": { "type": "string" },
+        "offers_specialization": {
+          "type": "boolean",
+          "description": "True when the program offers distinct tracks, concentrations, or specializations students choose among."
+        },
+        "evidence_curriculum_summary": {
+          "type": "string",
+          "description": "Human-readable digest of fetched evidence—core courses with codes, term placement when known, how electives work, and related detail. Length is not capped; for reference only, not a legal guarantee."
         },
         "core_courses": {
           "type": "array",
@@ -299,41 +218,17 @@
         "elective_courses": {
           "type": "array",
           "items": { "$ref": "#/$defs/electiveCourseLite" }
-        },
-        "sources": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/source" }
-        },
-        "derivation_notes": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/derivationNote" }
         }
       }
     },
     "verification": {
       "type": "object",
-      "required": [
-        "status",
-        "verified_by",
-        "verified_date",
-        "verification_scope",
-        "verification_notes",
-        "fields_needing_review"
-      ],
+      "required": ["status", "verified_by", "verified_date"],
       "additionalProperties": false,
       "properties": {
         "status": { "type": "string" },
         "verified_by": { "type": "string" },
-        "verified_date": { "type": "string" },
-        "verification_scope": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "verification_notes": { "type": "string" },
-        "fields_needing_review": {
-          "type": "array",
-          "items": { "type": "string" }
-        }
+        "verified_date": { "type": "string" }
       }
     }
   }

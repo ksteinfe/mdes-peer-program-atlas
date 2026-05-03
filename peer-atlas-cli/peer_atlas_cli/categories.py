@@ -11,7 +11,6 @@ CATEGORY_FILES = {
     "duration_categories": "duration_categories.json",
     "sequencedness": "sequencedness.json",
     "unit_systems": "unit_systems.json",
-    "cost_basis": "cost_basis.json",
     "verification_statuses": "verification_statuses.json",
     "positioning_tags": "positioning_tags.json",
     "host_academic_models": "host_academic_models.json",

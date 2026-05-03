@@ -26,13 +26,19 @@ pip install -e ".[dev]"
 peer-atlas --help
 ```
 
-Commands: `validate`, `clear-programs`, `merge-patch`, `add-program`, `refresh-program`, `refine-program`, `reevaluate-categories`.
+Commands: `validate`, `clear-programs`, `merge-patch`, `add-program`.
+
+**Possible future commands** (not implemented today; prompt stubs live under `peer-atlas-cli/prompts/` if you wire them back in):
+
+- **`refresh-program`** — re-fetch sources and merge an LLM-refreshed full program into the corpus.
+- **`refine-program`** — apply a natural-language instruction via LLM with optional scoped Tavily evidence.
+- **`reevaluate-categories`** — batch re-run category classification for paths tied to `categories_and_rules/*.json`.
 
 `clear-programs` archives the current `corpus/programs.json` to `corpus/programs.archive.<UTC>.json`, then sets `programs` to `[]` (keeps `corpus_metadata`). Use `-y` to skip the confirmation prompt.
 
 `add-program` usage: `peer-atlas add-program BASE_URL PROGRAM_ID [optional query text]` — `BASE_URL` is stored on the program record and used for search seeding and evidence; `PROGRAM_ID` must be unique in the corpus (stable slug, e.g. `berkeley_mdes`).
 
-Configure LLM (optional until you use LLM commands): copy `.env.example` to `.env` in the **repository root** and set `LLM_API_KEY`, `LLM_MODEL`, etc. For `add-program` (search-backed multi-step ingest) and for `refine-program --scope`, set **`TAVILY_API_KEY`**. Fetched HTML is cached under `.peer-atlas/url-cache/` as **pretty-printed JSON** with human-readable filenames (see `PEER_ATLAS_FETCH_CACHE_*`). Page fetches use **Playwright Chromium** first, then **httpx** (retries + alternate headers) if Playwright is unavailable or returns a non-200 response — after `pip install`, run **`playwright install chromium`** once. **`PEER_ATLAS_FETCH_COOKIE`** is sent on both paths; optional **`PEER_ATLAS_PLAYWRIGHT_HEADED=1`** runs a visible browser for debugging.
+Configure LLM (optional until you use LLM commands): copy `.env.example` to `.env` in the **repository root** and set `LLM_API_KEY`, `LLM_MODEL`, etc. For **`add-program`** (search-backed multi-step ingest), set **`TAVILY_API_KEY`**. Fetched HTML is cached under `.peer-atlas/url-cache/` as **pretty-printed JSON** with human-readable filenames (see `PEER_ATLAS_FETCH_CACHE_*`). Page fetches use **Playwright Chromium** first, then **httpx** (retries + alternate headers) if Playwright is unavailable or returns a non-200 response — after `pip install`, run **`playwright install chromium`** once. **`PEER_ATLAS_FETCH_COOKIE`** is sent on both paths; optional **`PEER_ATLAS_PLAYWRIGHT_HEADED=1`** runs a visible browser for debugging.
 
 ```bash
 peer-atlas validate
@@ -70,4 +76,4 @@ node peer-atlas-viewer/tools/bundle.mjs corpus/programs.json
 
 ## `program_id`
 
-Stable slug, typically `{institution_slug}_{program_slug}` (lowercase, underscores). Used for merge, refresh, and display.
+Stable slug, typically `{institution_slug}_{program_slug}` (lowercase, underscores). Used for merge-patch, validate, and display.

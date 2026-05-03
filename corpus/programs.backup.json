@@ -5,446 +5,184 @@
   },
   "programs": [
     {
-      "program_id": "berkeley_mdes",
-      "base_url": "https://design.berkeley.edu/",
-      "identity": {
-        "institution_name": "UC Berkeley",
-        "program_name": "Berkeley Master of Design (MDes)",
-        "credential_name": "Master of Design",
-        "degree_type": "Master's",
-        "host_academic_units": [
-          "College of Engineering",
-          "College of Environmental Design",
-          "Jacobs Institute for Design Innovation"
-        ],
-        "host_academic_model": "engineering_design_shared_hosted",
-        "location": {
-          "country": "United States",
-          "state_or_region": "California"
+      "program_id": "berkeley_mims",
+      "base_url": "https://www.ischool.berkeley.edu/programs/mims",
+      "atlas_ingest": {
+        "stage": "identity",
+        "updated_at": "2026-05-03T01:01:00Z"
+      },
+      "sources": [
+        {
+          "url": "https://www.ischool.berkeley.edu/programs/mims",
+          "llm_title": "Master of Information Management and Systems",
+          "llm_summary": "Program page for UC Berkeley’s MIMS, describing it as a two-year, STEM-designated, full-time professional master’s program and identifying the awarded credential.",
+          "retrieved_date": "2026-05-03"
         },
-        "sources": [
-          {
-            "url": "https://design.berkeley.edu/about-mdes",
-            "llm_title": "Program Overview - Berkeley MDes",
-            "llm_summary": "States that the Berkeley Master of Design is a professional graduate program in design for emerging technologies and that it is jointly offered by the College of Engineering and the College of Environmental Design.",
-            "retrieved_date": "2026-05-02"
-          },
-          {
-            "url": "https://grad.berkeley.edu/program/master-of-design/",
-            "llm_title": "Design MDes - Berkeley Graduate Division",
-            "llm_summary": "Describes the Berkeley Master of Design as a three-semester professional graduate degree at UC Berkeley.",
-            "retrieved_date": "2026-05-02"
-          },
-          {
-            "url": "https://design.berkeley.edu/",
-            "llm_title": "Home - Berkeley MDes",
-            "llm_summary": "Identifies the site as Berkeley MDes / Master of Design at UC Berkeley.",
-            "retrieved_date": "2026-05-02"
-          }
-        ]
+        {
+          "url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "llm_title": "MIMS Degree Requirements",
+          "llm_summary": "Degree-requirements page stating that the MIMS program is a two-year full-time degree program requiring at least 48 semester units of study.",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "url": "https://www.ischool.berkeley.edu/programs/mims/paths",
+          "llm_title": "Paths Through the MIMS Degree",
+          "llm_summary": "Paths page describing the degree as flexible and individualized, with common focus areas such as human-computer interaction and user experience design, applied data science and machine learning, information policy and ethical technology, and social and technical innovation in entrepreneurship.",
+          "retrieved_date": "2026-05-03"
+        }
+      ],
+      "llm_rationales": [
+        {
+          "feature": "positioning.positioning_tags",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Selected interdisciplinary, professional, digital, and UI/UX because the page says the program is a 'two-year STEM-designated, full-time professional master’s program' for 'aspiring technology leaders, AI engineers, UX designers, and data-driven decision-makers,' and that it 'bridges technology, people, and policy.'"
+        },
+        {
+          "feature": "positioning.positioning_tags",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/paths",
+          "note": "UI/UX is directly supported by the paths page, which lists 'human-computer interaction and user experience design' as common focus areas and describes students conducting user research and designing user interfaces."
+        },
+        {
+          "feature": "positioning.positioning_tags",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Did not add stem_adjacent or social_impact because the evidence suggests both, but the strongest directly stated themes were professional, interdisciplinary, digital, and UI/UX; kept to the four most salient tags."
+        },
+        {
+          "feature": "duration.length_in_berkeley_semesters",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The page metadata and description state that MIMS is a 'two-year' full-time program and the schema.org JSON-LD lists timeToComplete as 'P2Y'."
+        },
+        {
+          "feature": "duration.duration_category",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Two years at Berkeley's standard two-semester academic year corresponds to four semesters, so the appropriate category is four_semesters."
+        },
+        {
+          "feature": "degree_cost.comparison_cost_usd",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mids/tuition",
+          "note": "Used the program-stated estimated total tuition and fees for the degree for a new student starting Fall 2025: $82,096. This is tuition and fees only, suitable for cross-program comparison."
+        },
+        {
+          "feature": "degree_cost.total_degree_cost_base_currency",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mids/tuition",
+          "note": "Used the same program-stated estimated total tuition and fees figure of $82,096 in USD as the total degree cost in base currency."
+        },
+        {
+          "feature": "degree_cost.comparison_cost_usd",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/funding",
+          "note": "The MIMS funding page snippet shows bundled cost-of-attendance figures including personal expenses and total expected graduate costs, but no isolated tuition-and-fees subtotal was available in the provided evidence, so it was not used for comparison_cost_usd."
+        },
+        {
+          "feature": "curriculum.core_courses",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
+          "note": "The fetched materials do not name any specific required courses or course codes, only high-level program structure and duration."
+        },
+        {
+          "feature": "curriculum.elective_requirements",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims/paths",
+          "note": "The fetched materials describe possible focus areas but do not provide a formal elective count, unit rule, or bucket structure."
+        },
+        {
+          "feature": "identity.institution_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The page is branded UC Berkeley School of Information and the structured data provider is UC Berkeley School of Information."
+        },
+        {
+          "feature": "identity.program_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The page title and structured data name the program as Master of Information Management and Systems."
+        },
+        {
+          "feature": "identity.credential_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The structured data explicitly lists the educationalCredentialAwarded as Master of Information Management and Systems."
+        },
+        {
+          "feature": "identity.degree_type",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "This is a master's-level professional degree program, so degree_type is master's."
+        },
+        {
+          "feature": "identity.host_academic_units",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program is housed in UC Berkeley’s School of Information."
+        },
+        {
+          "feature": "identity.host_academic_model",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The School of Information is best mapped to the computing_hosted model because it is an information-technology-oriented academic unit rather than a design, business, or arts school."
+        },
+        {
+          "feature": "identity.location_label",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "UC Berkeley is located in Berkeley, California, United States."
+        }
+      ],
+      "identity": {
+        "institution_name": "UC Berkeley School of Information",
+        "program_name": "Master of Information Management and Systems",
+        "credential_name": "Master of Information Management and Systems",
+        "degree_type": "master's",
+        "host_academic_units": [
+          "School of Information"
+        ],
+        "host_academic_model": "computing_hosted",
+        "location_label": "Berkeley, California, United States"
       },
       "positioning": {
-        "derived_features": {
-          "positioning_summary": "A professional graduate program in design for emerging technologies that emphasizes interdisciplinary work, technical rigor, design theory, and social practice, with a studio-based format and explicit public-interest framing.",
-          "positioning_tags": [
-            "interdisciplinary",
-            "professional",
-            "stem_adjacent",
-            "social_impact"
-          ]
-        },
-        "sources": [
-          {
-            "url": "https://design.berkeley.edu/about-mdes",
-            "llm_title": "Program overview page",
-            "llm_summary": "States that Berkeley MDes is a professional graduate program in design for emerging technologies and that it emphasizes a critical approach to design and social practice to address pressing challenges that cut across disciplinary boundaries.",
-            "retrieved_date": ""
-          },
-          {
-            "url": "https://grad.berkeley.edu/program/master-of-design/",
-            "llm_title": "Graduate Division program page",
-            "llm_summary": "Describes the curriculum as connecting technical rigor, design theory, and social practice and preparing students for a broad range of creative and professional paths.",
-            "retrieved_date": ""
-          },
-          {
-            "url": "https://design.berkeley.edu/admissions",
-            "llm_title": "Admissions page",
-            "llm_summary": "Describes the program as studio-based and professional, aimed at making emerging technologies matter, and notes its rootedness in Berkeley's history of thoughtful practice in the public interest.",
-            "retrieved_date": ""
-          }
-        ],
-        "derivation_notes": [
-          {
-            "derived_feature": "positioning_summary",
-            "source_url": "https://design.berkeley.edu/about-mdes",
-            "note": "Used the explicit description of a professional graduate program in design for emerging technologies, plus the emphasis on disciplinary boundaries and social practice."
-          },
-          {
-            "derived_feature": "positioning_summary",
-            "source_url": "https://grad.berkeley.edu/program/master-of-design/",
-            "note": "Used the explicit phrasing about technical rigor, design theory, and social practice to support the interdisciplinary and STEM-adjacent framing."
-          },
-          {
-            "derived_feature": "positioning_summary",
-            "source_url": "https://design.berkeley.edu/admissions",
-            "note": "Used the explicit studio-based/professional wording and public-interest language to support professional and social-impact positioning."
-          },
-          {
-            "derived_feature": "positioning_tags",
-            "source_url": "https://design.berkeley.edu/about-mdes",
-            "note": "Included interdisciplinary because the page explicitly says challenges cut across disciplinary boundaries."
-          },
-          {
-            "derived_feature": "positioning_tags",
-            "source_url": "https://design.berkeley.edu/admissions",
-            "note": "Included professional because the page explicitly calls it a professional master's program and studio-based professional program."
-          },
-          {
-            "derived_feature": "positioning_tags",
-            "source_url": "https://grad.berkeley.edu/program/master-of-design/",
-            "note": "Included stem_adjacent because the page explicitly mentions technical rigor and the program is for design; this directly supports adjacency to technical fields without overclaiming a pure engineering identity."
-          },
-          {
-            "derived_feature": "positioning_tags",
-            "source_url": "https://design.berkeley.edu/admissions",
-            "note": "Included social_impact because the page explicitly references Berkeley's history of thoughtful practice in the public interest."
-          },
-          {
-            "derived_feature": "positioning_tags",
-            "source_url": "https://design.berkeley.edu/about-mdes",
-            "note": "Did not add digital or ui_ux: the evidence mentions emerging technologies and design, but does not explicitly center digital products, platforms, interfaces, or UX."
-          },
-          {
-            "derived_feature": "positioning_tags",
-            "source_url": "https://design.berkeley.edu/about-mdes",
-            "note": "Did not add research or physical_making: the evidence provided does not explicitly position the program around scholarly research output or fabrication/making."
-          }
+        "positioning_summary": "MIMS is positioned as a two-year, full-time professional master’s program for aspiring technology leaders and information professionals, with an explicitly interdisciplinary curriculum bridging technology, people, and policy. The program also emphasizes user experience, human-computer interaction, data science, information policy, and innovation, with clear social-impact and digital-product orientation.",
+        "positioning_tags": [
+          "interdisciplinary",
+          "professional",
+          "digital",
+          "ui_ux"
         ]
       },
       "duration": {
-        "derived_features": {
-          "length_in_berkeley_semesters": 3,
-          "duration_category": "three_semesters"
-        },
-        "sources": [
-          {
-            "url": "https://design.berkeley.edu/about-mdes-program-design",
-            "llm_title": "Program Design - Berkeley MDes",
-            "llm_summary": "States that the MDes program runs over three semesters.",
-            "retrieved_date": ""
-          },
-          {
-            "url": "https://grad.berkeley.edu/program/master-of-design/",
-            "llm_title": "Design MDes",
-            "llm_summary": "Describes the Berkeley Master of Design as a three-semester professional graduate degree.",
-            "retrieved_date": ""
-          },
-          {
-            "url": "https://design.berkeley.edu/mdes-program-design-2",
-            "llm_title": "Program Design - Berkeley MDes",
-            "llm_summary": "States that over three semesters students complete the required core courses and electives.",
-            "retrieved_date": ""
-          }
-        ],
-        "derivation_notes": [
-          {
-            "derived_feature": "length_in_berkeley_semesters",
-            "source_url": "https://design.berkeley.edu/about-mdes-program-design",
-            "note": "Used the explicit statement that the program is over three semesters."
-          },
-          {
-            "derived_feature": "length_in_berkeley_semesters",
-            "source_url": "https://grad.berkeley.edu/program/master-of-design/",
-            "note": "Used the explicit description of the degree as a three-semester program to confirm the length."
-          },
-          {
-            "derived_feature": "duration_category",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "note": "Mapped the three-semester length to the allowed duration category three_semesters."
-          }
-        ]
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
       },
       "degree_cost": {
-        "derived_features": {
-          "base_currency": "USD",
-          "exchange_rate_to_usd": 1,
-          "exchange_rate_date": "2026-05-02",
-          "comparison_cost_usd": null,
-          "total_degree_cost_base_currency_single": 82251,
-          "total_degree_cost_base_currency_domestic_or_resident": null,
-          "total_degree_cost_base_currency_international_or_nonresident": null,
-          "comparison_cost_method": "",
-          "cost_basis": "tuition_only"
-        },
-        "sources": [
-          {
-            "url": "https://design.berkeley.edu/admissions/program-fees-funding",
-            "llm_title": "Program Fees & Funding - Berkeley MDes",
-            "llm_summary": "States that MDes tuition is charged per unit, the per-unit fee is fixed for the cohort, the degree requires a minimum of 39 units, and the page provides an estimated total degree program cost table based on the minimum units.",
-            "retrieved_date": "2026-05-02"
-          },
-          {
-            "url": "https://design.berkeley.edu/learn-more-tuition-financial-aid",
-            "llm_title": "Program Fees & Funding - Berkeley MDes",
-            "llm_summary": "Explains that the Degree Tuition & Fees section includes total tuition and campus fees for the minimum number of units over the three semesters, while the graduate student budget also includes living and other COA items.",
-            "retrieved_date": "2026-05-02"
-          },
-          {
-            "url": "https://grad.berkeley.edu/admissions/application-process/cost/",
-            "llm_title": "Tuition Costs & Fees - Berkeley Graduate Division",
-            "llm_summary": "Describes graduate tuition and fees as estimates and notes that fees can include tuition, campus fee, transit fee, health insurance, nonresident fees, and other degree-related charges.",
-            "retrieved_date": "2026-05-02"
-          }
-        ],
-        "derivation_notes": [
-          {
-            "derived_feature": "base_currency",
-            "source_url": "https://design.berkeley.edu/admissions/program-fees-funding",
-            "note": "Set to USD because the published program fee table is denominated in U.S. dollars."
-          },
-          {
-            "derived_feature": "cost_basis",
-            "source_url": "https://design.berkeley.edu/admissions/program-fees-funding",
-            "note": "Set to tuition_only because the source provides tuition and mandatory academic/program fees for the degree, not a full cost of attendance including living expenses."
-          },
-          {
-            "derived_feature": "total_degree_cost_base_currency_single",
-            "source_url": "https://design.berkeley.edu/admissions/program-fees-funding",
-            "note": "Used the explicit estimated total degree program cost for the minimum 39 units: $2,109 per unit × 39 units = $82,251. This reflects tuition and required program/campus fees only; SHIP and Student Services Access Fee are excluded from the program fee table and not added here for comparability."
-          },
-          {
-            "derived_feature": "comparison_cost_usd",
-            "source_url": "https://design.berkeley.edu/learn-more-tuition-financial-aid",
-            "note": "null — the page also presents a graduate student budget / cost of attendance that bundles living and other expenses, so it is not used for comparison_cost_usd; the tuition-and-fees subtotal is taken instead from the program fee table."
-          },
-          {
-            "derived_feature": "exchange_rate_to_usd",
-            "source_url": "https://design.berkeley.edu/admissions/program-fees-funding",
-            "note": "Set to 1 because the base currency is already USD, so no conversion is needed."
-          },
-          {
-            "derived_feature": "exchange_rate_date",
-            "source_url": "https://design.berkeley.edu/admissions/program-fees-funding",
-            "note": "Used the current extraction date as the reference date for the no-op USD conversion."
-          }
-        ]
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 82096,
+        "total_degree_cost_base_currency": 82096
       },
       "curriculum": {
-        "derived_features": {
-          "has_required_core": true,
-          "has_structured_electives": true,
-          "has_open_electives": true,
-          "has_required_studio_sequence": true,
-          "has_required_thesis_or_capstone": true,
-          "has_internship_or_professional_practice_requirement": true,
-          "total_units_or_credits": 39,
-          "unit_system": "semester_credit_hours",
-          "sequencedness": "partially_sequenced",
-          "curriculum_summary": "The program is a three-semester, studio-based curriculum requiring nine core courses plus three electives, with a summer outside-the-classroom experience expected between the first and second years. The published plan shows 39 minimum units and a mix of required core, capstone/thesis, and elective work."
-        },
-        "core_courses": [
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "flexible",
+        "curriculum_summary": "UC Berkeley’s MIMS is a two-year, full-time, onsite, STEM-designated professional master’s program requiring 48 credits. The supplied materials do not show a full requirement table or named required courses, but they do indicate that students follow individualized paths and may focus on areas such as human-computer interaction and user experience design, applied data science and machine learning, information policy and ethical technology, and social and technical innovation in entrepreneurship. The excerpt also indicates the program includes final projects.",
+        "offers_specialization": true,
+        "core_courses": [],
+        "elective_requirements": "The supplied materials do not state a formal elective count or unit rule. They describe the degree as flexible and individualized, with common focus areas including human-computer interaction and user experience design, applied data science and machine learning, information policy and ethical technology, and social and technical innovation in entrepreneurship, and more.",
+        "elective_courses": [
           {
-            "course_id": "DES INV 200",
-            "course_title": "Design Frameworks",
-            "units_or_credits": 3,
-            "normalized_unit_weight": 0.7777777777777778,
-            "sequence_position": 1,
-            "primary_type": "design_methods_systems",
-            "secondary_type": "history_theory_positioning",
-            "course_summary": "Required core course that critically examines design mindset, skillset, and toolset through methods, strategy, and design history.",
-            "source_url": "https://design.berkeley.edu/courses/design-frameworks-3-units",
-            "learning_outcomes": [
-              "Examine the mindset, skillset, and toolset associated with design",
-              "Interweave design methods with strategy and history of design and technology",
-              "Approach design methods critically",
-              "Develop a framework for design practice and positioning"
-            ]
+            "course_id": "Focus area: human-computer interaction and user experience design",
+            "units_or_credits": null,
+            "normalized_unit_weight": null
           },
           {
-            "course_id": "DES INV 201",
-            "course_title": "Debates in Design",
-            "units_or_credits": 3,
-            "normalized_unit_weight": 0.7777777777777778,
-            "sequence_position": 2,
-            "primary_type": "history_theory_positioning",
-            "secondary_type": null,
-            "course_summary": "Required core course that helps students grasp contemporary design debates and become active participants in design discourse.",
-            "source_url": "https://design.berkeley.edu/courses/debates-in-design-3-units",
-            "learning_outcomes": [
-              "Grasp the nature of contemporary design debates",
-              "Become an active participant in design discourse",
-              "Critically engage with design positions and arguments",
-              "Develop a stronger critical stance on design issues"
-            ]
+            "course_id": "Focus area: applied data science and machine learning",
+            "units_or_credits": null,
+            "normalized_unit_weight": null
           },
           {
-            "course_id": "DES INV 202",
-            "course_title": "Technology Design Foundations",
-            "units_or_credits": 4,
-            "normalized_unit_weight": 1.037037037037037,
-            "sequence_position": 3,
-            "primary_type": "technology",
-            "secondary_type": null,
-            "course_summary": "Required core course introducing technology design foundations.",
-            "source_url": "https://design.berkeley.edu/courses/technology-design-foundations-4-units",
-            "learning_outcomes": []
+            "course_id": "Focus area: information policy and ethical technology",
+            "units_or_credits": null,
+            "normalized_unit_weight": null
           },
           {
-            "course_id": "DES INV 210",
-            "course_title": "Studio Foundations",
-            "units_or_credits": 3,
-            "normalized_unit_weight": 0.7777777777777778,
-            "sequence_position": 4,
-            "primary_type": "design_methods_systems",
-            "secondary_type": null,
-            "course_summary": "Introduces MDes students to the key concepts of design studio and foundational principles and methods for studio practice.",
-            "source_url": "https://design.berkeley.edu/courses/studio-foundations",
-            "learning_outcomes": [
-              "Understand key concepts of design studio",
-              "Learn foundational principles and methods",
-              "Work collaboratively in a studio setting",
-              "Recognize the culture and life of a working studio"
-            ]
-          },
-          {
-            "course_id": "DES INV 211",
-            "course_title": "Designing Emerging Technologies",
-            "units_or_credits": 5,
-            "normalized_unit_weight": 1.2962962962962963,
-            "sequence_position": 5,
-            "primary_type": "technology",
-            "secondary_type": "open_or_other",
-            "course_summary": "Required core course focused on designing emerging technologies, as listed in the Berkeley MDes program plan.",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "learning_outcomes": [
-              "Design emerging technologies",
-              "Apply design thinking to new technologies",
-              "Develop concepts for technology-centered design work",
-              "Engage with the program's emerging technologies focus"
-            ]
-          },
-          {
-            "course_id": "DES INV 213",
-            "course_title": "Thesis Studio",
-            "units_or_credits": 6,
-            "normalized_unit_weight": 1.5555555555555556,
-            "sequence_position": 6,
-            "primary_type": "design_studio",
-            "secondary_type": null,
-            "course_summary": "Final studio course in the MDes program where students develop proposals for novel designed artifacts, services, environments, interfaces, or processes.",
-            "source_url": "https://design.berkeley.edu/courses/thesis-studio",
-            "learning_outcomes": [
-              "Develop proposals for novel designed artifacts",
-              "Explore physical objects, products, services, environments, curios, interfaces, or processes",
-              "Advance a final studio project",
-              "Produce work for the concluding MDes studio"
-            ]
+            "course_id": "Focus area: social and technical innovation in entrepreneurship",
+            "units_or_credits": null,
+            "normalized_unit_weight": null
           }
         ],
-        "elective_requirements": [
-          {
-            "requirement_name": "Elective",
-            "requirement_description": "One elective appears in each of the three semesters in the published plan, for a total of three electives.",
-            "units_or_credits": 3,
-            "normalized_unit_weight": 0.7777777777777778,
-            "primary_type": "open_or_other",
-            "secondary_type": null,
-            "course_summary": "Flexible elective slot; the program notes that approved electives vary by scheduling availability and are updated regularly.",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2"
-          }
-        ],
-        "sources": [
-          {
-            "url": "https://design.berkeley.edu/about-mdes-program-design",
-            "llm_title": "Program Design - Berkeley MDes",
-            "llm_summary": "States that the MDes program is studio-based and lists required courses including DES INV 200, 201, and 202.",
-            "retrieved_date": "2026-05-02"
-          },
-          {
-            "url": "https://design.berkeley.edu/mdes-program-design-2",
-            "llm_title": "Program Design - Berkeley MDes",
-            "llm_summary": "States that over three semesters students complete nine required core courses and three electives, and shows the term-by-term plan including DES INV 210, 211, and 213 plus electives and a summer outside-the-classroom experience.",
-            "retrieved_date": "2026-05-02"
-          },
-          {
-            "url": "https://design.berkeley.edu/mdes-program-design-2/electives",
-            "llm_title": "Elective Courses - Berkeley MDes",
-            "llm_summary": "Explains that the list of approved electives changes based on scheduling availability and is updated regularly for MDes students each semester.",
-            "retrieved_date": "2026-05-02"
-          }
-        ],
-        "derivation_notes": [
-          {
-            "derived_feature": "has_required_core",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "note": "Set true because the page explicitly states that students complete nine required core courses."
-          },
-          {
-            "derived_feature": "has_structured_electives",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "note": "Set true because the page explicitly states that students complete three electives."
-          },
-          {
-            "derived_feature": "has_open_electives",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2/electives",
-            "note": "Set true because the electives page says the approved elective list changes based on scheduling availability and is updated regularly, indicating flexible elective choice within a published approval list."
-          },
-          {
-            "derived_feature": "has_required_studio_sequence",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "note": "Set true because the curriculum is described as studio-based and includes Studio Foundations and Thesis Studio in the term plan."
-          },
-          {
-            "derived_feature": "has_required_thesis_or_capstone",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "note": "Set true because the term plan explicitly includes Capstone Portfolio and Thesis Studio."
-          },
-          {
-            "derived_feature": "has_internship_or_professional_practice_requirement",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "note": "Set true because the page states that in the summer between the first and second years students are expected to engage in an experience such as an internship, international design study, or community service outside the classroom."
-          },
-          {
-            "derived_feature": "total_units_or_credits",
-            "source_url": "https://design.berkeley.edu/admissions/program-fees-funding",
-            "note": "Set to 39 based on the published minimum units required for the degree."
-          },
-          {
-            "derived_feature": "unit_system",
-            "source_url": "https://design.berkeley.edu/about-mdes-program-design",
-            "note": "Set to semester_credit_hours because the curriculum uses units in a Berkeley semester-based program."
-          },
-          {
-            "derived_feature": "sequencedness",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "note": "Set to partially_sequenced because the evidence provides a term-by-term plan for the required curriculum, but the overall program includes some elective flexibility and the named required items are not all presented as a fully rigid semester-by-semester sequence in the evidence available."
-          },
-          {
-            "derived_feature": "curriculum_summary",
-            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
-            "note": "Summarized the three-semester structure, nine required core courses, three electives, and the summer outside-the-classroom experience from the program design page."
-          }
-        ]
+        "evidence_curriculum_summary": "### Source: https://www.ischool.berkeley.edu/programs/mims/degreerequirements\n\nThe page identifies MIMS as the Master of Information Management and Systems and says it is a two-year full-time degree program. The page title is MIMS Degree Requirements, but the excerpt provided does not include a full requirement table or a complete list of courses; it does, however, contain one concrete curriculum fact and a few structural signals.\n\nThe only explicit program-length and pace statement on the page is that the MIMS program is “a two-year full-time degree program.” No part-time option, modality detail, or credit total appears in the excerpt.\n\nThe page text shown does not include named required courses, elective lists, unit counts, sequencing by term, thesis/capstone/internship language, concentration or track options, or policies about taking courses outside the department. It also does not show advising, milestones, or learning outcomes in the excerpt provided.\n\nBecause the page is a degree-requirements page, the strongest curriculum-related fact available here is simply the program’s overall structure as a two-year full-time master’s degree. No additional degree-completion rules are visible in the supplied text.\n\n---\n\n### Source: https://www.ischool.berkeley.edu/programs/mims/paths\n\nThis page is a “Paths Through the MIMS Degree” page for UC Berkeley’s School of Information, and it gives only high-level curriculum-path information rather than a formal requirement list. The central curriculum fact stated on the page is that every MIMS student’s degree is unique. It frames the degree as flexible and individualized, with common focus areas including human-computer interaction and user experience design, applied data science and machine learning, information policy and ethical technology, and social and technical innovation in entrepreneurship, “and more.”\n\nThe page does not list specific required courses, course codes, unit totals, sequencing, or term-by-term milestones. It also does not name any capstone, thesis, internship, studio, or fieldwork requirement on the excerpt provided. What it does provide is a description of possible study directions within the degree, implying that students can shape their coursework around a chosen focus area.\n\nThe focus areas explicitly named on the page are:\nhuman-computer interaction and user experience design;\napplied data science and machine learning;\ninformation policy and ethical technology;\nsocial and technical innovation in entrepreneurship.\n\nBecause the page says “Every MIMS student’s degree is unique,” the strongest curriculum signal here is that the program supports individualized paths rather than a single fixed sequence. The page also suggests breadth beyond the listed examples by ending with “and more,” but it does not enumerate additional tracks or concentrations.\n\n---\n\n### Source: https://www.ischool.berkeley.edu/programs/mims\n\nThe page identifies the program as the Master of Information Management and Systems, or MIMS, at UC Berkeley’s School of Information. It describes MIMS as a two-year, STEM-designated, full-time professional master’s program. The structured data on the page also specifies that the program is onsite, takes two years to complete, has two terms per year, and requires 48 credits. The credential awarded is the Master of Information Management and Systems.\n\nBeyond those high-level facts, the excerpt provided does not include a detailed curriculum map, course sequence, concentration list, or explicit graduation requirements. No named courses, course codes, electives, capstone, thesis, internship, studio, field experience, or advising milestones appear in the visible text. The page does, however, frame the program as intended for aspiring technology leaders, AI engineers, UX designers, and data-driven decision-makers, and says graduates “drive innovation, influence policy, and design products that improve lives,” which gives some sense of the program’s applied, professional orientation.\n\nThe only concrete curriculum-structure details visible are:\n- Degree: Master of Information Management and Systems\n- Program length: two years\n- Pace/mode: full-time, onsite\n- Designation: STEM-designated\n- Credit total: 48 credits\n- Academic calendar detail: two terms per year\n\nNo other curriculum requirements are stated in the excerpted page text.\n\n---\n\n### Source: https://www.ischool.berkeley.edu/programs/mims/projects/2026\n\nThis page is a “MIMS Final Projects” page for UC Berkeley School of Information, and the curriculum-related information it contains is limited to the existence of a final-project component for the MIMS program. The page title and metadata identify the page as “MIMS Final Projects,” which strongly indicates that MIMS students complete final projects as part of the degree experience. However, in the excerpt provided, there are no visible details about the project format, credit value, timing, sequencing, supervision, evaluation, or whether the final project is required for all students.\n\nThe page text shown does not include degree length, total units or credits, required courses, electives, tracks, concentrations, prerequisites, co-requisites, term-by-term sequencing, thesis language, internship or fieldwork requirements, or any named course codes and titles. It also does not provide learning outcomes, advising milestones, or policies about outside-department electives.\n\nThe only curriculum-relevant fact that can be stated from the page excerpt is that the MIMS program has final projects, and that this page is specifically devoted to them."
       },
       "verification": {
         "status": "llm_extracted",
         "verified_by": "",
-        "verified_date": "",
-        "verification_scope": [
-          "identity",
-          "positioning",
-          "duration",
-          "degree_cost",
-          "curriculum"
-        ],
-        "verification_notes": "Program data is supported by Berkeley MDes site excerpts and related UC Berkeley pages. The program appears to be a three-semester professional graduate degree with a tuition-only estimated total cost derived from the published minimum units and per-unit fee. Curriculum evidence supports required core courses, electives, studio sequence, thesis/capstone, and an outside-the-classroom summer experience.",
-        "fields_needing_review": [
-          "curriculum.core_courses.DES INV 213.primary_type",
-          "curriculum.core_courses.DES INV 213.secondary_type",
-          "curriculum.elective_requirements[0].primary_type",
-          "degree_cost.derived_features.total_degree_cost_base_currency_single",
-          "degree_cost.derived_features.exchange_rate_date"
-        ]
+        "verified_date": ""
       }
     }
   ]

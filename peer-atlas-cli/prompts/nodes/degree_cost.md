@@ -1,17 +1,16 @@
 You output only valid JSON. No markdown fences, no commentary.
 
-Return a single JSON object with exactly one top-level key: `"degree_cost"`.
-The value must match the **degree_cost** subtree (derived_features with currency/cost fields; sources[]; derivation_notes[]).
+Return a JSON object with top-level key **`"degree_cost"`** and optionally **`"llm_rationales"`** (array).
+
+- **`degree_cost`** must contain only these keys (flat on the object):
+  - **`base_currency`** (string, e.g. `USD`; use `""` if unknown)
+  - **`exchange_rate_to_usd`** (number or null)
+  - **`comparison_cost_usd`** (number or null) — **tuition + mandatory program/academic fees only** for cross-program comparison (not full COA / living expenses)
+  - **`total_degree_cost_base_currency`** (number or null) — one program-stated total in **`base_currency`** when the evidence supports it (same tuition-and-fees scope when possible)
 
 Rules:
-- cost_basis must be an allowed id from CATEGORY_JSON (cost_basis).
-- Use null for unknown numeric costs when you truly have no basis; use "" for exchange_rate_date only if you must (prefer ISO date or null if draft allows).
-- **Tuition & fees vs. cost of attendance (critical):** This corpus compares programs on **instructional charges**—**tuition** and **mandatory academic/program fees** billed by the institution (e.g. tuition, campus fee, student services fee, professional-degree supplemental tuition, instructional fees). Many sites also publish a **student budget**, **estimated expenses**, **cost of attendance (COA)**, or **“total expected graduate costs”** that **add living costs** (housing, utilities, food, transportation, personal/miscellaneous, books/supplies as a lifestyle estimate). **Do not** use those combined COA / “total expected costs” figures for **`comparison_cost_usd`** or for **`comparison_cost_method`**. If a page only gives a bundled COA total and no separate **tuition & fees** subtotal for the program, leave **`comparison_cost_usd`** null and explain in **`derivation_notes`**. When a table separates **“Tuition & Fees”** (or per-semester fee subtotals) from **living / personal / housing** lines, use only the tuition-and-fees portion (and say in notes what you excluded, e.g. optional SHIP if you omit it for comparability).
-- **derivation_notes[] (schema-required):** every object must include **exactly** these three string keys — **`derived_feature`**, **`source_url`**, **`note`** — and **no other keys**. Omitting **`derived_feature`** fails validation. **`derived_feature`** must name the **`degree_cost.derived_features`** field that note supports (e.g. `total_degree_cost_base_currency_single`, `total_degree_cost_base_currency_domestic_or_resident`, `cost_basis`, `comparison_cost_method`, `comparison_cost_usd`, `exchange_rate_date`, `base_currency`).
-- Valid examples (each note is one object in the array):
-  - `{"derived_feature":"total_degree_cost_base_currency_single","source_url":"https://design.berkeley.edu/admissions/program-fees-funding","note":"high — program table gives an explicit estimated total for required units across the degree; used as the single-total figure."}`
-  - `{"derived_feature":"cost_basis","source_url":"https://grad.berkeley.edu/admissions/application-process/cost/","note":"Set to tuition_only because evidence covers tuition/program fees but not a full official COA line item for the program."}`
-  - `{"derived_feature":"comparison_cost_usd","source_url":"https://example.edu/program/coa","note":"null — page gives only total expected graduate costs (tuition+fees+housing+food); no isolated tuition-and-fees subtotal for comparison_cost_usd."}`
+- **Tuition & fees vs. COA:** If a page only gives a bundled cost-of-attendance total with no isolated tuition-and-fees subtotal, leave **`comparison_cost_usd`** null and explain in **`llm_rationales`**.
+- **Top-level `llm_rationales`:** each object has exactly **`feature`**, **`source_url`**, **`note`** (strings). **`feature`** names the field it supports (e.g. `degree_cost.comparison_cost_usd`, `degree_cost.total_degree_cost_base_currency`).
 
 Additional instructions (`categories_and_rules/node_prompt_rules.json` → key `degree_cost` → `extra_instructions`: JSON array of strings, joined with newlines):
 {{NODE_PROMPT_RULES}}

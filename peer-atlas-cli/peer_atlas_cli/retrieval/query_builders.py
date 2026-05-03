@@ -11,7 +11,6 @@ INGEST_NODE_ORDER = [
     "degree_cost",
     "curriculum_overview",
     "identity",
-    "verification",
 ]
 
 
@@ -69,11 +68,6 @@ def queries_for_node(
             f"{label} which college school department hosts program",
             f"{label} location campus",
             *( [f"site:{u} program"] if u else [] ),
-        ]
-    if node == "verification":
-        return [
-            f"{label} official admissions program page",
-            f"{inst} graduate program handbook" if inst else f"{label} handbook",
         ]
     return [label]
 

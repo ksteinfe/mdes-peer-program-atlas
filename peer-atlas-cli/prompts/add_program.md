@@ -2,17 +2,16 @@ You are a careful research assistant building one program record for the MDes Pe
 
 Output a single JSON object matching the program schema. Use only allowed category ids provided in CATEGORY_JSON for:
 - identity.host_academic_model
-- positioning.derived_features.positioning_tags (array of ids from CATEGORY_JSON `positioning_tags` only when evidence directly supports each tag)
-- duration.derived_features.duration_category
-- degree_cost.derived_features.cost_basis
-- curriculum.derived_features.unit_system and sequencedness
+- positioning.positioning_tags (array of ids from CATEGORY_JSON `positioning_tags` only when evidence directly supports each tag)
+- duration.duration_category
+- curriculum.unit_system and sequencedness
 - curriculum.core_courses[].primary_type and secondary_type (secondary_type null if primary_type is design_studio)
-- curriculum.elective_courses[] entries have no course_types fields; only course_id, units_or_credits, normalized_unit_weight
-- verification.status — set to "llm_extracted"
+- curriculum.elective_courses[] lite rows: course_id required; units_or_credits and normalized_unit_weight optional (null)
+- verification — `{ "status": "llm_extracted", "verified_by": "", "verified_date": "" }` until human verification
 
 Rules:
-- Include derivation_notes when inferring derived_features.
-- Add sources with **url** (unique id), **llm_title** (short human-readable title for the page), **llm_summary**, **retrieved_date** (ISO date; use "" if unknown).
+- Top-level **`sources[]`**: bibliography (url, llm_title, llm_summary, retrieved_date). Same shape as the corpus; use **`""`** for unknown dates where allowed.
+- Top-level **`llm_rationales[]`** when inferring fields from weak evidence; each object: **feature**, **source_url**, **note** (three strings only). **`feature`** is a dot path such as `degree_cost.comparison_cost_usd` or `positioning.positioning_tags`.
 - Use null for unknown numbers; use "" for unknown strings only where the schema allows empty strings.
 - program_id: leave empty string; the CLI assigns a stable id from identity.institution_name and identity.program_name. If the model omits those, the CLI fills them from the starting URL or user query when possible.
 

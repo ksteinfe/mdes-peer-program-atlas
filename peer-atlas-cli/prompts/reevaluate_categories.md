@@ -15,8 +15,7 @@ CATEGORY_JSON:
 Output JSON ONLY:
 {
   "updates": [ { "path": "...", "value": ... } ],
-  "derivation_notes_to_append": [ { "section": "curriculum", "derived_feature": "", "source_url": "", "note": "" } ],
-  "fields_needing_review_additions": ["path"]
+  "llm_rationales_to_append": [ { "feature": "", "source_url": "", "note": "" } ]
 }
 
 Rules:

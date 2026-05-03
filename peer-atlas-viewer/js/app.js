@@ -274,9 +274,9 @@ function rowCells(p) {
   const id = p.program_id ?? "";
   const ident = p.identity ?? {};
   const loc = ident.location ?? {};
-  const pos = (p.positioning?.derived_features) ?? {};
-  const dur = (p.duration?.derived_features) ?? {};
-  const cost = (p.degree_cost?.derived_features) ?? {};
+  const pos = p.positioning ?? {};
+  const dur = p.duration ?? {};
+  const cost = p.degree_cost ?? {};
   const ver = p.verification ?? {};
   return {
     id,

@@ -39,6 +39,21 @@
       "id": "ui_ux",
       "label": "UI/UX",
       "description": "Emphasizes user interface and user experience design."
+    },
+    {
+      "id": "emerging_technologies",
+      "label": "Emerging Technologies",
+      "description": "explicitly emphasizes emerging technologies."
+    },
+    {
+      "id": "human_comptuer_interaction",
+      "label": "Human Computer Interaction",
+      "description": "explicitly emphasizes human computer interaction."
+    },
+    {
+      "id": "entrepreneurship",
+      "label": "Entrepreneurship",
+      "description": "explicitly emphasizes entrepreneurship."
     }
   ]
 }

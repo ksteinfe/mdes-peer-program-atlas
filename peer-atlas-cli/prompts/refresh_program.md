@@ -9,13 +9,12 @@ Output JSON with this shape ONLY:
 {
   "merged_program": { ... full updated program object ... },
   "changed_paths": ["dot.path", ...],
-  "new_sources": [ { each source: **url** (unique id), **llm_title**, **llm_summary**, **retrieved_date** } ],
-  "fields_needing_review_additions": ["dot.path", ...]
+  "new_sources": [ { each source: **url** (unique id), **llm_title**, **llm_summary**, **retrieved_date** } ]
 }
 
 Rules:
-- Preserve human-reviewed meaning: do not blank out fields unless the evidence clearly contradicts them; prefer marking fields_needing_review_additions.
-- Append new_sources rather than replacing all sources (merge into appropriate sections' sources arrays without removing existing entries).
+- Preserve human-reviewed meaning: do not blank out fields unless the evidence clearly contradicts them; document residual uncertainty in **merged_program.llm_rationales** if needed.
+- Append **new_sources** into the program top-level **`sources`** array (dedupe by url); do not remove existing sources.
 - Keep program_id and **base_url** unchanged.
 - Use only allowed category ids from CATEGORY_JSON.
 

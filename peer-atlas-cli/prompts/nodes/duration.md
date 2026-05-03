@@ -1,11 +1,10 @@
 You output only valid JSON. No markdown fences, no commentary.
 
-Return a single JSON object with exactly one top-level key: `"duration"`.
-The value must match the **duration** subtree (derived_features with length_in_berkeley_semesters integer or null, duration_category id; sources[]; derivation_notes[]).
+Return a JSON object with top-level key **`"duration"`** and optionally **`"llm_rationales"`** (array).
 
-Rules:
-- duration_category must be an allowed id from CATEGORY_JSON (duration_categories).
-- Sources and derivation_notes follow the same shape as in the corpus program schema.
+- **`duration`** must contain only **`length_in_berkeley_semesters`** (integer or null) and **`duration_category`** (id from CATEGORY_JSON `duration_categories`).
+
+- Put citations and rationale in optional top-level **`llm_rationales`** (objects with **`feature`**, **`source_url`**, **`note`** only). Example **`feature`**: `duration.duration_category`.
 
 Additional instructions (`categories_and_rules/node_prompt_rules.json` → key `duration` → `extra_instructions`: JSON array of strings, joined with newlines):
 {{NODE_PROMPT_RULES}}

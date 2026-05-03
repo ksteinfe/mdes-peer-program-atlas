@@ -7,6 +7,7 @@ import pathlib
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
+from peer_atlas_cli.retrieval.evidence_gathering_pipeline import is_non_web_document_url
 from peer_atlas_cli.retrieval.fetch_cached import fetch_url_text_cached
 
 if TYPE_CHECKING:
@@ -70,21 +71,23 @@ def fetch_rationale_source_pages(
     repo_root: pathlib.Path,
     rationales: list[dict[str, Any]],
     *,
-    max_chars_per_url: int,
+    llm_client: "LLMClient",
     max_total_chars: int,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
-    llm_client: LLMClient | None = None,
 ) -> str:
     """
     Fetch ``source_url`` from each rationale (deduped), return one markdown-ish block.
+
+    Full Markdown is retrieved per URL (no truncation in the fetch pipeline); this
+    function only applies ``max_total_chars`` when concatenating blocks for the prompt.
     """
     urls: list[str] = []
     for item in rationales:
         if not isinstance(item, dict):
             continue
         u = str(item.get("source_url") or "").strip()
-        if u.startswith(("http://", "https://")):
+        if u.startswith(("http://", "https://")) and not is_non_web_document_url(u):
             urls.append(u)
     urls = _dedupe_urls(urls)
     parts: list[str] = []
@@ -101,10 +104,10 @@ def fetch_rationale_source_pages(
             text = fetch_url_text_cached(
                 url,
                 repo_root=repo_root,
-                max_chars=max_chars_per_url,
+                llm_client=llm_client,
                 report=report,
                 trace=trace,
-                llm_client=llm_client,
+                warn_markdown_cap=report,
             )
         except Exception as e:
             text = f"(fetch failed: {e})"

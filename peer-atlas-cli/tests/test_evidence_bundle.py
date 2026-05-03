@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from peer_atlas_cli.retrieval import evidence_bundle as eb
+from peer_atlas_cli.retrieval.evidence_gathering_pipeline import is_non_web_document_url
 
 
 def test_mash_curriculum_source_summaries_joins_sources() -> None:
@@ -29,9 +30,9 @@ def test_priority_curriculum_evidence_urls_degree_requirements_first() -> None:
     assert "/projects/" in ordered[-1]
 
 
-def test_effective_max_chars_zero_is_large() -> None:
-    assert eb._effective_max_chars_per_url(0) == 1_000_000
-    assert eb._effective_max_chars_per_url(5000) == 5000
+def test_is_non_web_document_url_detects_pdf() -> None:
+    assert is_non_web_document_url("https://x.edu/a.pdf") is True
+    assert is_non_web_document_url("https://x.edu/page") is False
 
 
 def test_bundle_budget_unlimited() -> None:

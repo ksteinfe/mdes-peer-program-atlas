@@ -49,16 +49,17 @@ def test_write_cached_body_stores_sanitized_markdown(tmp_path: pathlib.Path) -> 
     stored = raw.get("body_markdown")
     assert isinstance(stored, str)
     assert "\x01" not in stored
+    assert raw.get("body_chars") == len("<p>body</p>")
+    assert raw.get("body_markdown_chars") == len(stored)
     json.loads(json.dumps(raw, ensure_ascii=False))
 
 
 def test_fetch_cache_hit_backfills_body_markdown(monkeypatch: pytest.MonkeyPatch, tmp_path: pathlib.Path) -> None:
     monkeypatch.setenv("PEER_ATLAS_FETCH_CACHE_DIR", str(tmp_path))
-    monkeypatch.delenv("PEER_ATLAS_SKIP_HTML_MARKDOWN_LLM", raising=False)
     url = "https://example.com/doc"
     write_cached_body(tmp_path, url, "<html> simplified </html>", http_status=200)
     fake = _FakeLLM("# From LLM\n\ncontent")
-    text = fetch_url_text_cached(url, repo_root=tmp_path, max_chars=50_000, llm_client=fake)
+    text = fetch_url_text_cached(url, repo_root=tmp_path, llm_client=fake)
     assert text.startswith("# From LLM")
     assert fake.calls == 1
     raw = read_raw_cache_entry(tmp_path, url)
@@ -73,12 +74,3 @@ def test_clear_cache_entry_for_url_removes_primary(tmp_path: pathlib.Path) -> No
     assert clear_cache_entry_for_url(tmp_path, url) == 1
     assert read_raw_cache_entry(tmp_path, url) is None
 
-
-def test_fetch_respects_skip_env_no_llm(monkeypatch: pytest.MonkeyPatch, tmp_path: pathlib.Path) -> None:
-    monkeypatch.setenv("PEER_ATLAS_FETCH_CACHE_DIR", str(tmp_path))
-    monkeypatch.setenv("PEER_ATLAS_SKIP_HTML_MARKDOWN_LLM", "1")
-    url = "https://example.com/x"
-    write_cached_body(tmp_path, url, "<p>x</p>", http_status=200)
-    fake = _FakeLLM("unused")
-    fetch_url_text_cached(url, repo_root=tmp_path, llm_client=fake)
-    assert fake.calls == 0

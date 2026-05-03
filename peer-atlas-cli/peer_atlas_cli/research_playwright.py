@@ -8,7 +8,6 @@ import threading
 import time
 from typing import Any
 
-from peer_atlas_cli.fetch_limits import coalesce_per_url_limit
 from peer_atlas_cli.html_text import CONTENT_REGION_SELECTORS
 
 
@@ -162,7 +161,7 @@ def _wait_text_stable_pair(
 
 
 def fetch_url_text_playwright_chromium(
-    url: str, *, timeout: float, max_chars: int
+    url: str, *, timeout: float
 ) -> "FetchUrlResult | None":
     """
     Navigate with headless Chromium; return FetchUrlResult on completion (any status),
@@ -213,9 +212,6 @@ def fetch_url_text_playwright_chromium(
                 pass
 
         html = page.content()
-        snap_lim = coalesce_per_url_limit(max_chars)
-        if len(html) > snap_lim:
-            html = html[:snap_lim] + "\n\n[truncated]"
         note = "; ".join(notes_parts)
         if status is not None and status != 200:
             note = f"{note}; HTTP {status}"
@@ -223,9 +219,7 @@ def fetch_url_text_playwright_chromium(
     except Exception as e:
         notes_parts.append(f"{type(e).__name__}: {e}")
         return FetchUrlResult(
-            (
-                f"[Peer Atlas fetch: Playwright error — no HTML body available for this URL.]\n{e}"
-            )[: coalesce_per_url_limit(max_chars)],
+            f"[Peer Atlas fetch: Playwright error — no HTML body available for this URL.]\n{e}",
             status,
             "; ".join(notes_parts),
         )

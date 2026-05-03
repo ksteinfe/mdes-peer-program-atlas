@@ -14,9 +14,7 @@ def test_lenient_returns_playwright_when_200() -> None:
         return_value=pw_ok,
     ):
         with patch.object(research, "_fetch_url_text_httpx_lenient") as httpx_fn:
-            r = research.fetch_url_text_lenient(
-                "https://example.com/", timeout=1.0, max_chars=10_000
-            )
+            r = research.fetch_url_text_lenient("https://example.com/", timeout=1.0)
     assert r is pw_ok
     httpx_fn.assert_not_called()
 
@@ -31,9 +29,7 @@ def test_lenient_falls_back_httpx_when_playwright_non_200() -> None:
         with patch.object(
             research, "_fetch_url_text_httpx_lenient", return_value=httpx_ok
         ) as httpx_fn:
-            r = research.fetch_url_text_lenient(
-                "https://example.com/", timeout=1.0, max_chars=10_000
-            )
+            r = research.fetch_url_text_lenient("https://example.com/", timeout=1.0)
     assert r is httpx_ok
     httpx_fn.assert_called_once()
 
@@ -47,8 +43,6 @@ def test_lenient_falls_back_httpx_when_playwright_none() -> None:
         with patch.object(
             research, "_fetch_url_text_httpx_lenient", return_value=httpx_ok
         ) as httpx_fn:
-            r = research.fetch_url_text_lenient(
-                "https://example.com/", timeout=1.0, max_chars=10_000
-            )
+            r = research.fetch_url_text_lenient("https://example.com/", timeout=1.0)
     assert r is httpx_ok
     httpx_fn.assert_called_once()

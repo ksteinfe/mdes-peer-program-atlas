@@ -71,6 +71,12 @@ class OpenAICompatibleClient:
     def complete(
         self, *, system: str, user: str, transcript_step: str | None = None
     ) -> str:
+        req_chars = len(system) + len(user)
+        step = f"\t[{transcript_step}]" if transcript_step else ""
+        print(
+            f"[peer-atlas]\tLLM chat request: {req_chars} chars (system + user){step}",
+            file=sys.stderr,
+        )
         url = f"{self._base}/v1/chat/completions"
         payload: dict[str, Any] = {
             "model": self._model,

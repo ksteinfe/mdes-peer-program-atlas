@@ -9,6 +9,7 @@ from typing import Any
 import click
 
 from peer_atlas_cli.categories import categories_payload_for_prompt, load_categories
+from peer_atlas_cli.cli_progress import cli_bracket_line, cli_rule_line
 from peer_atlas_cli.config import load_env, require_llm_config
 from peer_atlas_cli.corpus_io import load_corpus, programs_list, write_corpus
 from peer_atlas_cli.curriculum_units import recompute_normalized_unit_weights
@@ -77,9 +78,10 @@ def _sanitize_before_validate(program: dict[str, Any]) -> None:
     base = str(program.get("base_url") or "")
     n = normalize_derivation_notes(program, default_source_url=base)
     if n:
-        click.echo(
-            f"Note: normalized {n} llm_rationales entr(y/ies) (strings or legacy keys).",
-            err=True,
+        cli_bracket_line(
+            "add-program",
+            "corpus sanitize",
+            f"normalized {n} llm_rationales entr(y/ies) (strings or legacy keys).",
         )
     ensure_course_source_urls(program, base)
     normalize_core_course_learning_outcomes(program)
@@ -112,32 +114,11 @@ def _sanitize_before_validate(program: dict[str, Any]) -> None:
     help="Max URLs to fetch for curriculum_overview evidence (fewer, deeper pages).",
 )
 @click.option(
-    "--curriculum-max-chars-per-url",
-    default=120_000,
-    type=int,
-    show_default=True,
-    help="Max characters per fetched URL for curriculum_overview; 0 = very large cap. Fetch layer may still bound body size.",
-)
-@click.option(
-    "--curriculum-budget-chars",
-    default=0,
-    type=int,
-    show_default=True,
-    help="Unused for curriculum_overview (per-URL fetch + per-URL LLM extract); kept for CLI compatibility. Other behavior unchanged.",
-)
-@click.option(
-    "--max-chars-per-url",
-    default=120_000,
-    type=int,
-    show_default=True,
-    help="Per fetched evidence URL for node steps and per-course research. Values >= 50_000 use the fetch coalesce floor (~8 MiB). 0 = 1M before coalesce.",
-)
-@click.option(
     "--evidence-budget-chars",
     default=0,
     type=int,
     show_default=True,
-    help="Max combined characters for fetched excerpts in one evidence bundle (per node or per course batch); 0 = no cap.",
+    help="Max combined characters of Markdown page excerpts in one evidence bundle (per node or per course batch); 0 = no cap.",
 )
 @click.option(
     "--dry-run",
@@ -151,9 +132,6 @@ def add_program_cmd(
     max_search_urls: int,
     max_courses: int,
     curriculum_max_urls: int,
-    curriculum_max_chars_per_url: int,
-    curriculum_budget_chars: int,
-    max_chars_per_url: int,
     evidence_budget_chars: int,
     dry_run: bool,
 ) -> None:
@@ -212,25 +190,24 @@ def add_program_cmd(
             raise RuntimeError("corpus validation failed after ingest step")
         write_corpus(root, corpus)
 
-    click.echo(
-        f"Ingest pipeline (model={model!r}, provider={provider}) at {host!r}; "
-        "Tavily search + cached fetch per node.",
-        err=True,
+    cli_rule_line("=")
+    cli_bracket_line(
+        "add-program",
+        "ingest setup",
+        f"model={model!r} provider={provider} at {host!r}; Tavily + evidence pipeline per node.",
     )
-
-    def fetch_warn(msg: str) -> None:
-        click.echo(msg, err=True)
-
-    def trace_source(msg: str) -> None:
-        click.echo(f"  {msg}", err=True)
+    cli_rule_line("-")
 
     for node in INGEST_MAIN_NODES:
         if node == "curriculum_overview":
-            set_ingest_stage(program, "curriculum_digest")
-            click.echo(
-                f"--- Node: {node} (per-source curriculum extract + overview) ---",
-                err=True,
+            cli_rule_line("=")
+            cli_bracket_line(
+                "curriculum_overview",
+                "digest + overview + per-course patches",
+                "starting node (sub-stages below)",
             )
+            cli_rule_line("-")
+            set_ingest_stage(program, "curriculum_digest")
             urls = resolve_evidence_urls_for_node(
                 node,
                 program,
@@ -238,28 +215,32 @@ def add_program_cmd(
                 user_query=q,
                 max_urls_total=curriculum_max_urls,
             )
+
+            def trace_cv(msg: str) -> None:
+                cli_bracket_line("curriculum_overview", "evidence pipeline", msg, indent_tabs=1)
+
+            def fetch_warn_cv(msg: str) -> None:
+                cli_bracket_line("curriculum_overview", "evidence pipeline", msg, indent_tabs=1)
+
             if urls:
-                per_url = curriculum_max_chars_per_url if curriculum_max_chars_per_url > 0 else 1_000_000
-                trace_source(
-                    f"evidence: queueing {len(urls)} source URL(s); "
-                    f"no per-source char cap for LLM extract "
-                    f"(fetch up to {per_url} chars per URL)"
-                )
+                trace_cv(f"queueing {len(urls)} source URL(s) (full fetch + Markdown).")
             pages = fetch_pages_for_urls(
                 urls,
                 repo_root=root,
-                max_chars_per_url=curriculum_max_chars_per_url,
-                report=fetch_warn,
-                trace=trace_source,
                 llm_client=client,
+                report=fetch_warn_cv,
+                trace=trace_cv,
             )
             ctx_json = program_context_json_for_curriculum_steps(program)
             dense_pairs: list[tuple[str, str]] = []
             for src_url, page_text in pages:
                 try:
-                    click.echo(
-                        f"Calling LLM (curriculum source extract) … {src_url}",
-                        err=True,
+                    pt_n = len(page_text or "")
+                    cli_bracket_line(
+                        "curriculum_overview",
+                        "source extract (dense prose LLM)",
+                        f"calling LLM … {src_url}\t— page text (prompt PAGE_TEXT): {pt_n} chars",
+                        indent_tabs=1,
                     )
                     dense = run_curriculum_source_dense_extract_step(
                         client=client,
@@ -269,7 +250,12 @@ def add_program_cmd(
                         repo_root=root,
                     )
                 except (ValueError, RuntimeError) as e:
-                    click.echo(f"curriculum source extract failed for {src_url!r}: {e}", err=True)
+                    cli_bracket_line(
+                        "curriculum_overview",
+                        "source extract (dense prose LLM)",
+                        f"failed for {src_url!r}: {e}",
+                        indent_tabs=1,
+                    )
                     sys.exit(1)
                 dense_pairs.append((src_url, dense))
             mashed = mash_curriculum_source_summaries(dense_pairs).strip()
@@ -282,7 +268,12 @@ def add_program_cmd(
             set_ingest_stage(program, "curriculum_overview")
             raw = ""
             try:
-                click.echo("Calling LLM (curriculum overview JSON) …", err=True)
+                cli_bracket_line(
+                    "curriculum_overview",
+                    "overview JSON (curriculum subtree LLM)",
+                    f"calling LLM … evidence mash: {len(mashed)} chars",
+                    indent_tabs=1,
+                )
                 raw = run_curriculum_overview_step(
                     client=client,
                     program=program,
@@ -292,7 +283,7 @@ def add_program_cmd(
                     repo_root=root,
                 )
             except LLMSchemaValidationError as e:
-                click.echo(f"{node} step failed (schema): {e}", err=True)
+                cli_bracket_line("curriculum_overview", "overview JSON", f"step failed (schema): {e}")
                 echo_llm_raw_and_parsed(
                     e.raw,
                     program,
@@ -301,7 +292,7 @@ def add_program_cmd(
                 )
                 sys.exit(1)
             except (json.JSONDecodeError, ValueError, RuntimeError) as e:
-                click.echo(f"{node} step failed: {e}", err=True)
+                cli_bracket_line("curriculum_overview", "overview JSON", f"step failed: {e}")
                 echo_llm_raw_and_parsed(
                     raw,
                     program,
@@ -316,7 +307,12 @@ def add_program_cmd(
             if max_courses > 0:
                 n_courses = min(n_courses, max_courses)
             for i in range(n_courses):
-                click.echo(f"  curriculum course index {i} …", err=True)
+                cli_bracket_line(
+                    "curriculum_overview",
+                    f"core_courses[{i}] research",
+                    f"starting Tavily + evidence for this row …",
+                    indent_tabs=1,
+                )
                 cq = queries_for_core_course(
                     program,
                     str(courses[i].get("course_title") or ""),
@@ -326,21 +322,28 @@ def add_program_cmd(
                 set_ingest_stage(program, "curriculum_course_research")
                 ev_c = gather_evidence_for_queries(
                     cq,
+                    llm_client=client,
                     repo_root=root,
                     seed_url=url,
                     max_urls_total=min(5, max_search_urls),
-                    max_chars_per_url=max_chars_per_url,
                     budget_chars=evidence_budget_chars,
-                    report=fetch_warn,
-                    trace=trace_source,
-                    llm_client=client,
+                    report=fetch_warn_cv,
+                    trace=trace_cv,
                 )
-                click.echo(
-                    f"  research done for core course index {i} ({len(cq)} queries).",
-                    err=True,
+                cli_bracket_line(
+                    "curriculum_overview",
+                    f"core_courses[{i}] research",
+                    f"done ({len(cq)} Tavily query strings). evidence bundle: {len(ev_c)} chars",
+                    indent_tabs=1,
                 )
                 set_ingest_stage(program, "curriculum_course_llm")
                 try:
+                    cli_bracket_line(
+                        "curriculum_overview",
+                        f"core_courses[{i}] JSON patch LLM",
+                        f"calling LLM … patch context evidence: {len(ev_c)} chars",
+                        indent_tabs=1,
+                    )
                     run_curriculum_course_patch(
                         client=client,
                         program=program,
@@ -350,7 +353,12 @@ def add_program_cmd(
                         repo_root=root,
                     )
                 except LLMSchemaValidationError as e:
-                    click.echo(f"curriculum patch {i} failed (schema): {e}", err=True)
+                    cli_bracket_line(
+                        "curriculum_overview",
+                        f"core_courses[{i}] JSON patch",
+                        f"failed (schema): {e}",
+                        indent_tabs=1,
+                    )
                     echo_llm_raw_and_parsed(
                         e.raw,
                         program,
@@ -359,7 +367,12 @@ def add_program_cmd(
                     )
                     sys.exit(1)
                 except (json.JSONDecodeError, ValueError, RuntimeError) as e:
-                    click.echo(f"curriculum patch {i} failed: {e}", err=True)
+                    cli_bracket_line(
+                        "curriculum_overview",
+                        f"core_courses[{i}] JSON patch",
+                        f"failed: {e}",
+                        indent_tabs=1,
+                    )
                     sys.exit(1)
             try:
                 persist()
@@ -372,26 +385,41 @@ def add_program_cmd(
                     schema_errors=errs_post,
                 )
                 sys.exit(1)
+            cli_rule_line("-")
             continue
 
+        cli_rule_line("=")
+        task_label = "Tavily + evidence + node JSON LLM"
+        cli_bracket_line(node, task_label, "starting node step")
+        cli_rule_line("-")
         set_ingest_stage(program, node)
-        click.echo(f"--- Node: {node} ---", err=True)
+
+        def trace_node(msg: str) -> None:
+            cli_bracket_line(node, "evidence pipeline", msg, indent_tabs=1)
+
+        def fetch_warn_node(msg: str) -> None:
+            cli_bracket_line(node, "evidence pipeline", msg, indent_tabs=1)
+
         evidence = gather_evidence_for_node(
             node,
             program,
+            llm_client=client,
             repo_root=root,
             seed_url=url,
             user_query=q,
             max_urls_total=max_search_urls,
-            max_chars_per_url=max_chars_per_url,
             budget_chars=evidence_budget_chars,
-            report=fetch_warn,
-            trace=trace_source,
-            llm_client=client,
+            report=fetch_warn_node,
+            trace=trace_node,
         )
         raw = ""
         try:
-            click.echo("Calling LLM …", err=True)
+            cli_bracket_line(
+                node,
+                "node JSON LLM",
+                f"calling LLM … evidence bundle: {len(evidence)} chars",
+                indent_tabs=1,
+            )
             raw = run_node_step(
                 client=client,
                 program=program,
@@ -401,7 +429,7 @@ def add_program_cmd(
                 repo_root=root,
             )
         except LLMSchemaValidationError as e:
-            click.echo(f"{node} step failed (schema): {e}", err=True)
+            cli_bracket_line(node, "node JSON LLM", f"step failed (schema): {e}")
             echo_llm_raw_and_parsed(
                 e.raw,
                 program,
@@ -410,7 +438,7 @@ def add_program_cmd(
             )
             sys.exit(1)
         except (json.JSONDecodeError, ValueError, RuntimeError) as e:
-            click.echo(f"{node} step failed: {e}", err=True)
+            cli_bracket_line(node, "node JSON LLM", f"step failed: {e}")
             echo_llm_raw_and_parsed(raw, program, intro=f"Ingest failed at node {node!r}.")
             sys.exit(1)
         try:
@@ -424,6 +452,15 @@ def add_program_cmd(
                 schema_errors=errs_post,
             )
             sys.exit(1)
+        cli_rule_line("-")
+
+    cli_rule_line("=")
+    cli_bracket_line(
+        "add-program",
+        "finalize",
+        "all ingest nodes complete; validating and writing corpus …",
+    )
+    cli_rule_line("-")
 
     set_ingest_stage(program, "complete")
     strip_atlas_ingest(program)
@@ -455,6 +492,10 @@ def add_program_cmd(
                 intro="(dry-run: would not pass final strict validation)",
             )
         else:
-            click.echo("(dry-run: final strict validation OK)", err=True)
-
-    click.echo(f"Added program {pid}" if not dry_run else f"Dry-run finished for {pid}")
+            cli_bracket_line("add-program", "finalize", "(dry-run: final strict validation OK)")
+    cli_rule_line("=")
+    cli_bracket_line(
+        "add-program",
+        "done",
+        f"{'Added program ' + pid if not dry_run else 'Dry-run finished for ' + pid}",
+    )

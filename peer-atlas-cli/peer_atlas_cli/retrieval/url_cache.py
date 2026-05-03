@@ -128,6 +128,9 @@ def write_cached_body(
         from peer_atlas_cli.retrieval.llm_evidence_markdown import sanitize_llm_text_for_json_storage
 
         payload["body_markdown"] = sanitize_llm_text_for_json_storage(body_markdown)
+    payload["body_chars"] = len(body) if isinstance(body, str) else 0
+    md = payload.get("body_markdown")
+    payload["body_markdown_chars"] = len(md) if isinstance(md, str) else 0
     path.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -145,6 +148,10 @@ def patch_cached_body_markdown(cache_dir: pathlib.Path, url: str, body_markdown:
     if not isinstance(data.get("body"), str):
         return
     data["body_markdown"] = sanitize_llm_text_for_json_storage(body_markdown)
+    body = data.get("body")
+    data["body_chars"] = len(body) if isinstance(body, str) else 0
+    md = data.get("body_markdown")
+    data["body_markdown_chars"] = len(md) if isinstance(md, str) else 0
     path = _primary_path(cache_dir, url)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(

@@ -10,8 +10,6 @@ from urllib.parse import urlparse
 
 import httpx
 
-from peer_atlas_cli.fetch_limits import coalesce_per_url_limit
-
 # Many .edu sites block non-browser User-Agents or minimal clients. Use a common
 # desktop Chrome fingerprint; httpx still decompresses gzip/br per Accept-Encoding.
 _DEFAULT_HEADERS: dict[str, str] = {
@@ -92,9 +90,7 @@ class FetchUrlResult:
     notes: str
 
 
-def _fetch_url_text_httpx_lenient(
-    url: str, *, timeout: float = 30.0, max_chars: int = 120_000
-) -> FetchUrlResult:
+def _fetch_url_text_httpx_lenient(url: str, *, timeout: float = 30.0) -> FetchUrlResult:
     """httpx-only fetch with retries (fallback when Playwright is unavailable or non-200)."""
     retries = _int_env("PEER_ATLAS_FETCH_RETRIES", 3)
     delay_ms = _int_env("PEER_ATLAS_FETCH_RETRY_DELAY_MS", 500)
@@ -115,9 +111,6 @@ def _fetch_url_text_httpx_lenient(
                 last_status = r.status_code
                 if r.status_code == 200:
                     text = r.text
-                    lim = coalesce_per_url_limit(max_chars)
-                    if len(text) > lim:
-                        text = text[:lim] + "\n\n[truncated]"
                     note = "; ".join(notes_parts) if notes_parts else "OK"
                     return FetchUrlResult(text, 200, note)
                 last_body = (r.text or "")[:2000]
@@ -139,13 +132,10 @@ def _fetch_url_text_httpx_lenient(
         + (f" ({'; '.join(notes_parts[-3:])})" if notes_parts else "")
         + "."
     )
-    lim_ph = coalesce_per_url_limit(max_chars)
-    return FetchUrlResult(placeholder[:lim_ph], last_status, note)
+    return FetchUrlResult(placeholder, last_status, note)
 
 
-def fetch_url_text_lenient(
-    url: str, *, timeout: float = 30.0, max_chars: int = 120_000
-) -> FetchUrlResult:
+def fetch_url_text_lenient(url: str, *, timeout: float = 30.0) -> FetchUrlResult:
     """
     Fetch URL body: try Playwright Chromium first; on missing Playwright, errors, or
     non-200 response, fall back to httpx retries. Never raises for HTTP error status.
@@ -153,17 +143,17 @@ def fetch_url_text_lenient(
     try:
         from peer_atlas_cli.research_playwright import fetch_url_text_playwright_chromium
 
-        pw = fetch_url_text_playwright_chromium(url, timeout=timeout, max_chars=max_chars)
+        pw = fetch_url_text_playwright_chromium(url, timeout=timeout)
         if pw is not None and pw.status_code == 200:
             return pw
     except Exception:
         pass
-    return _fetch_url_text_httpx_lenient(url, timeout=timeout, max_chars=max_chars)
+    return _fetch_url_text_httpx_lenient(url, timeout=timeout)
 
 
-def fetch_url_text(url: str, *, timeout: float = 30.0, max_chars: int = 120_000) -> str:
+def fetch_url_text(url: str, *, timeout: float = 30.0) -> str:
     """Strict fetch: raises after lenient retries if status is not 200."""
-    res = fetch_url_text_lenient(url, timeout=timeout, max_chars=max_chars)
+    res = fetch_url_text_lenient(url, timeout=timeout)
     if res.status_code != 200:
         raise RuntimeError(
             f"GET {url!r} failed (HTTP {res.status_code}): {res.notes}"

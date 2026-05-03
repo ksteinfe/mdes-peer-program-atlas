@@ -9,6 +9,7 @@ from typing import Any
 import click
 
 from peer_atlas_cli.categories import categories_payload_for_prompt, load_categories
+from peer_atlas_cli.cli_progress import cli_bracket_line, cli_rule_line
 from peer_atlas_cli.config import load_env, require_llm_config
 from peer_atlas_cli.corpus_io import load_corpus, program_by_id, write_corpus
 from peer_atlas_cli.llm_client import get_client
@@ -62,18 +63,11 @@ def _sanitize_program(program: dict[str, Any], *, base_url: str) -> None:
     help="Call the LLM and validate but do not write corpus/programs.json.",
 )
 @click.option(
-    "--max-chars-per-url",
-    default=120_000,
-    type=int,
-    show_default=True,
-    help="Max simplified characters per fetched rationale source_url (>=50k uses fetch coalesce floor).",
-)
-@click.option(
     "--max-total-chars",
     default=2_000_000,
     type=int,
     show_default=True,
-    help="Total character budget for all rationale fetches combined.",
+    help="Total character budget for combined Markdown from all rationale source_url fetches.",
 )
 @click.option(
     "--max-llm-attempts",
@@ -87,7 +81,6 @@ def reconsider_node_cmd(
     node: str,
     instruction: tuple[str, ...],
     dry_run: bool,
-    max_chars_per_url: int,
     max_total_chars: int,
     max_llm_attempts: int,
 ) -> None:
@@ -127,14 +120,30 @@ def reconsider_node_cmd(
     client = get_client(provider, api_key=api_key, model=model, base_url=base_llm_url)
 
     rel = rationales_for_node(node_key, program)
+
+    def _recon_scope() -> str:
+        return f"reconsider-node ({node_key})"
+
+    def _recon_fetch(msg: str) -> None:
+        cli_bracket_line(_recon_scope(), "rationale URL fetch", msg, indent_tabs=1)
+
+    host = base_llm_url or "https://api.openai.com"
+    cli_rule_line("=")
+    cli_bracket_line(
+        _recon_scope(),
+        "setup",
+        f"program={pid!r} model={model!r} provider={provider} at {host!r}; rationales={len(rel)}",
+    )
+    cli_bracket_line(_recon_scope(), "rationale URL fetch", "starting fetches for source_url values …")
+    cli_rule_line("-")
+
     fetched = fetch_rationale_source_pages(
         root,
         rel,
-        max_chars_per_url=max_chars_per_url,
-        max_total_chars=max_total_chars,
-        report=lambda m: click.echo(m, err=True),
-        trace=lambda m: click.echo(f"  {m}", err=True),
         llm_client=client,
+        max_total_chars=max_total_chars,
+        report=_recon_fetch,
+        trace=_recon_fetch,
     )
     evidence = build_reconsider_evidence(
         user_instruction=instr,
@@ -144,17 +153,23 @@ def reconsider_node_cmd(
         if node_key == "curriculum_overview"
         else node_key,
     )
-    host = base_llm_url or "https://api.openai.com"
-    click.echo(
-        f"reconsider-node: program={pid!r} node={node_key!r} model={model!r} "
-        f"provider={provider} at {host!r}; rationales={len(rel)}",
-        err=True,
+    cli_bracket_line(
+        _recon_scope(),
+        "assembled prompt EVIDENCE",
+        f"{len(evidence)} chars (instruction + rationales JSON + fetched Markdown blocks)",
     )
+    cli_rule_line("-")
 
     raw = ""
     try:
         if node_key == "curriculum_overview":
             ctx_json = program_context_json_for_curriculum_steps(program)
+            cli_bracket_line(
+                _recon_scope(),
+                "curriculum overview JSON LLM",
+                f"calling LLM … full EVIDENCE string: {len(evidence)} chars",
+                indent_tabs=1,
+            )
             raw = run_curriculum_overview_step(
                 client=client,
                 program=program,
@@ -165,6 +180,12 @@ def reconsider_node_cmd(
                 max_llm_attempts=max_llm_attempts,
             )
         else:
+            cli_bracket_line(
+                _recon_scope(),
+                f"{node_key} node JSON LLM",
+                f"calling LLM … full EVIDENCE string: {len(evidence)} chars",
+                indent_tabs=1,
+            )
             raw = run_node_step(
                 client=client,
                 program=program,
@@ -175,7 +196,7 @@ def reconsider_node_cmd(
                 max_llm_attempts=max_llm_attempts,
             )
     except LLMSchemaValidationError as e:
-        click.echo(f"reconsider-node failed (schema): {e}", err=True)
+        cli_bracket_line(_recon_scope(), "LLM", f"failed (schema): {e}")
         echo_llm_raw_and_parsed(
             e.raw,
             program,
@@ -184,7 +205,7 @@ def reconsider_node_cmd(
         )
         sys.exit(1)
     except (json.JSONDecodeError, ValueError, RuntimeError) as e:
-        click.echo(f"reconsider-node failed: {e}", err=True)
+        cli_bracket_line(_recon_scope(), "LLM", f"failed: {e}")
         echo_llm_raw_and_parsed(raw, program, intro="reconsider-node failure.")
         sys.exit(1)
 
@@ -199,8 +220,9 @@ def reconsider_node_cmd(
         sys.exit(1)
 
     if dry_run:
-        click.echo("Dry run: OK (not writing corpus).", err=True)
+        cli_bracket_line(_recon_scope(), "done", "Dry run: OK (not writing corpus).")
         return
 
     write_corpus(root, corpus)
-    click.echo(f"Wrote corpus with updated {node_key!r} for {pid!r}.", err=True)
+    cli_rule_line("=")
+    cli_bracket_line(_recon_scope(), "done", f"Wrote corpus with updated {node_key!r} for {pid!r}.")

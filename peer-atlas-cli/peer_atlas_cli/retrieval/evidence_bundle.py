@@ -1,4 +1,4 @@
-"""Run Tavily + cached fetch to build evidence text for prompts."""
+"""Run Tavily + evidence pipeline to build per-node EVIDENCE strings (Markdown excerpts)."""
 
 from __future__ import annotations
 
@@ -10,6 +10,11 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     from peer_atlas_cli.llm_client import LLMClient
 
+from peer_atlas_cli.retrieval.evidence_gathering_pipeline import (
+    filter_hits_web_documents_only,
+    is_non_web_document_url,
+    search_urls_for_evidence,
+)
 from peer_atlas_cli.retrieval.evidence_relevance import (
     dedupe_hits_preserve_order,
     rank_hits_for_program,
@@ -37,15 +42,8 @@ def _dedupe_urls(urls: list[str]) -> list[str]:
     return out
 
 
-def _effective_max_chars_per_url(max_chars_per_url: int) -> int:
-    """``<= 0`` means no practical per-URL cap beyond the fetch implementation."""
-    if max_chars_per_url <= 0:
-        return 1_000_000
-    return max_chars_per_url
-
-
 def _bundle_budget_unlimited(budget_chars: int) -> bool:
-    """``<= 0`` disables the cross-URL evidence string cap (each URL still uses per-URL max)."""
+    """``<= 0`` disables the combined Markdown evidence cap for this bundle."""
     return budget_chars <= 0
 
 
@@ -83,14 +81,9 @@ def _evidence_urls_and_hits_for_node(
     max_results_per_query: int = 5,
     max_urls_total: int = 8,
 ) -> tuple[list[str], list[dict[str, Any]]]:
-    """Tavily search + ranking + domain filters; returns ``(urls, ranked_hits)`` (no fetch)."""
+    """Tavily search (domain-scoped) + ranking; returns ``(urls, ranked_hits)`` (no fetch)."""
     queries = queries_for_node(node, program, seed_url=seed_url, user_query=user_query)
     hits: list[dict[str, Any]] = []
-
-    reg_domain = registered_domain_for_url(seed_url) if seed_url else None
-    include_domains: list[str] | None = None
-    if node == "curriculum_overview" and reg_domain:
-        include_domains = [reg_domain]
 
     for q in queries:
         q = (q or "").strip()
@@ -98,10 +91,10 @@ def _evidence_urls_and_hits_for_node(
             continue
         try:
             hits.extend(
-                search_urls(
+                search_urls_for_evidence(
                     q,
+                    seed_url=seed_url,
                     max_results=max_results_per_query,
-                    include_domains=include_domains,
                 )
             )
         except Exception:
@@ -114,20 +107,25 @@ def _evidence_urls_and_hits_for_node(
         user_query=user_query,
         strict_anchor_filter=False,
     )
+    reg_domain = registered_domain_for_url(seed_url) if seed_url else None
     if node == "curriculum_overview" and reg_domain:
         hits = filter_hits_to_registered_domain(hits, reg_domain)
-    urls = _dedupe_urls([h["url"] for h in hits])[:max_urls_total]
+
+    urls = _dedupe_urls(
+        [h["url"] for h in hits if isinstance(h.get("url"), str) and not is_non_web_document_url(str(h["url"]))]
+    )[:max_urls_total]
     if node == "curriculum_overview" and reg_domain:
         urls = [
             u for u in urls if isinstance(u, str) and url_matches_registered_domain(u, reg_domain)
         ]
         urls = urls[:max_urls_total]
 
-    if seed_url and normalize_url(seed_url) not in {normalize_url(u) for u in urls}:
-        if (not reg_domain) or (not node == "curriculum_overview") or url_matches_registered_domain(
-            seed_url, reg_domain
-        ):
-            urls.insert(0, seed_url)
+    if seed_url and not is_non_web_document_url(seed_url):
+        if normalize_url(seed_url) not in {normalize_url(u) for u in urls}:
+            if (not reg_domain) or (node != "curriculum_overview") or url_matches_registered_domain(
+                seed_url, reg_domain
+            ):
+                urls.insert(0, seed_url)
 
     if node == "curriculum_overview" and urls:
         urls = _priority_curriculum_evidence_urls(urls)
@@ -177,25 +175,23 @@ def fetch_pages_for_urls(
     urls: list[str],
     *,
     repo_root: pathlib.Path,
-    max_chars_per_url: int,
+    llm_client: "LLMClient",
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
-    llm_client: LLMClient | None = None,
 ) -> list[tuple[str, str]]:
-    """Fetch each URL (cached); returns parallel list of ``(url, text)``."""
-    per_url = _effective_max_chars_per_url(max_chars_per_url)
+    """Fetch each URL via the evidence pipeline; returns ``(url, markdown)``."""
     out: list[tuple[str, str]] = []
     for url in urls:
-        if not url:
+        if not url or is_non_web_document_url(url):
             continue
         try:
             text = fetch_url_text_cached(
                 url,
                 repo_root=repo_root,
-                max_chars=per_url,
+                llm_client=llm_client,
                 report=report,
                 trace=trace,
-                llm_client=llm_client,
+                warn_markdown_cap=report,
             )
         except Exception as e:
             text = f"(fetch failed: {e})"
@@ -209,27 +205,20 @@ def gather_evidence_for_node(
     node: str,
     program: dict[str, Any],
     *,
+    llm_client: "LLMClient",
     repo_root: pathlib.Path,
     seed_url: str,
     user_query: str,
     max_results_per_query: int = 5,
     max_urls_total: int = 8,
-    max_chars_per_url: int = 120_000,
     budget_chars: int = 0,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
-    llm_client: LLMClient | None = None,
 ) -> str:
     """
-    Tavily search from node-specific queries, fetch top URLs (cached), return
-    one markdown-ish block for the LLM.
-
-    ``budget_chars <= 0`` means **no cap** on the combined fetched excerpt size
-    (URLs are still fetched one-by-one; each uses ``max_chars_per_url``).
-    ``max_chars_per_url <= 0`` means use a very large per-URL ceiling (the fetch
-    layer may still apply its own safety limit). Defaults: ``max_chars_per_url``
-    120_000 (≥ 50_000 coalesces to the multi‑MiB fetch floor) and ``budget_chars``
-    0 (unlimited bundle).
+    Domain-scoped Tavily search, fetch full Markdown per URL (evidence pipeline), then
+    assemble one block for the LLM. ``budget_chars`` caps the combined **Markdown**
+    excerpt size (including headers); ``<= 0`` means unlimited.
     """
     urls, hits = _evidence_urls_and_hits_for_node(
         node,
@@ -240,14 +229,12 @@ def gather_evidence_for_node(
         max_urls_total=max_urls_total,
     )
 
-    per_url = _effective_max_chars_per_url(max_chars_per_url)
     unlimited = _bundle_budget_unlimited(budget_chars)
 
     if trace is not None and urls:
         trace(
             f"evidence: queueing {len(urls)} source URL(s); "
-            f"char budget {'unlimited' if unlimited else budget_chars} "
-            f"(up to {per_url} chars per URL)"
+            f"Markdown bundle budget {'unlimited' if unlimited else budget_chars}"
         )
 
     parts: list[str] = []
@@ -257,17 +244,17 @@ def gather_evidence_for_node(
             if trace is not None and i < len(urls):
                 trace(
                     f"evidence: not fetching remaining {len(urls) - i} URL(s) "
-                    f"(char budget {budget_chars} reached)"
+                    f"(Markdown budget {budget_chars} reached)"
                 )
             break
         try:
             text = fetch_url_text_cached(
                 url,
                 repo_root=repo_root,
-                max_chars=per_url,
+                llm_client=llm_client,
                 report=report,
                 trace=trace,
-                llm_client=llm_client,
+                warn_markdown_cap=report,
             )
         except Exception as e:
             text = f"(fetch failed: {e})"
@@ -276,19 +263,19 @@ def gather_evidence_for_node(
         header = f"\n\n=== SOURCE URL: {url} ===\n"
         chunk = header + text
         if not unlimited and used + len(chunk) > budget_chars:
-            chunk = chunk[: budget_chars - used] + "\n… [truncated for budget]\n"
+            chunk = chunk[: max(0, budget_chars - used)] + "\n… [truncated for budget]\n"
         parts.append(chunk)
         used += len(chunk)
 
-    if not parts and seed_url:
+    if not parts and seed_url and not is_non_web_document_url(seed_url):
         try:
             t = fetch_url_text_cached(
                 seed_url,
                 repo_root=repo_root,
-                max_chars=per_url,
+                llm_client=llm_client,
                 report=report,
                 trace=trace,
-                llm_client=llm_client,
+                warn_markdown_cap=report,
             )
             parts.append(f"\n\n=== SEED URL ONLY: {seed_url} ===\n{t}")
         except Exception as e:
@@ -299,14 +286,14 @@ def gather_evidence_for_node(
     snippets = []
     for h in hits[:15]:
         u, title = h.get("url"), h.get("title", "")
-        c = (h.get("content") or "")[:800]
+        c = str(h.get("content") or "")
         if u:
             snippets.append(f"- {title} — {u}\n  {c}")
 
     pre = (
         "Search snippets (Tavily):\n"
         + ("\n".join(snippets) if snippets else "(no search hits)")
-        + "\n\nFetched page excerpts:\n"
+        + "\n\nFetched page excerpts (Markdown):\n"
     )
     return pre + "".join(parts)
 
@@ -314,11 +301,11 @@ def gather_evidence_for_node(
 def gather_evidence_for_queries(
     queries: list[str],
     *,
+    llm_client: "LLMClient",
     repo_root: pathlib.Path,
     seed_url: str = "",
     max_results_per_query: int = 4,
     max_urls_total: int = 5,
-    max_chars_per_url: int = 120_000,
     budget_chars: int = 0,
     report: Callable[[str], None] | None = None,
     trace: Callable[[str], None] | None = None,
@@ -326,26 +313,34 @@ def gather_evidence_for_queries(
     user_query: str = "",
     extra_anchor_phrases: list[str] | None = None,
     strict_anchor_filter: bool = False,
-    llm_client: LLMClient | None = None,
 ) -> str:
     """
     Ad-hoc evidence from explicit query strings (e.g. per core course).
 
-    Omit ``program`` for **per-course** research: hits are only deduped by URL,
-    so registrar / catalog pages that do not mention the program name stay
-    eligible. Pass ``program`` (+ optional anchors / strict) only for bundles
-    where every hit should stay on-program (not the default for course search).
-
-    Defaults match ``gather_evidence_for_node`` (``max_chars_per_url`` 120_000,
-    ``budget_chars`` 0 = unlimited bundle).
+    Tavily is scoped to ``seed_url``'s registrable domain when ``seed_url`` is set.
+    ``budget_chars`` applies to the combined Markdown bundle only.
     """
     hits: list[dict[str, Any]] = []
+    base = (seed_url or "").strip()
     for q in queries:
         q = (q or "").strip()
         if not q:
             continue
         try:
-            hits.extend(search_urls(q, max_results=max_results_per_query))
+            if base:
+                hits.extend(
+                    search_urls_for_evidence(
+                        q,
+                        seed_url=base,
+                        max_results=max_results_per_query,
+                    )
+                )
+            else:
+                hits.extend(
+                    filter_hits_web_documents_only(
+                        search_urls(q, max_results=max_results_per_query)
+                    )
+                )
         except Exception:
             continue
     if program is not None:
@@ -359,18 +354,18 @@ def gather_evidence_for_queries(
         )
     else:
         hits = dedupe_hits_preserve_order(hits)
-    urls = _dedupe_urls([h["url"] for h in hits])[:max_urls_total]
-    if seed_url:
+    urls = _dedupe_urls(
+        [h["url"] for h in hits if isinstance(h.get("url"), str) and not is_non_web_document_url(str(h["url"]))]
+    )[:max_urls_total]
+    if seed_url and not is_non_web_document_url(seed_url):
         urls = _dedupe_urls([seed_url] + urls)[:max_urls_total]
 
-    per_url = _effective_max_chars_per_url(max_chars_per_url)
     unlimited = _bundle_budget_unlimited(budget_chars)
 
     if trace is not None and urls:
         trace(
             f"evidence: queueing {len(urls)} source URL(s); "
-            f"char budget {'unlimited' if unlimited else budget_chars} "
-            f"(up to {per_url} chars per URL)"
+            f"Markdown bundle budget {'unlimited' if unlimited else budget_chars}"
         )
 
     parts: list[str] = []
@@ -380,17 +375,17 @@ def gather_evidence_for_queries(
             if trace is not None and i < len(urls):
                 trace(
                     f"evidence: not fetching remaining {len(urls) - i} URL(s) "
-                    f"(char budget {budget_chars} reached)"
+                    f"(Markdown budget {budget_chars} reached)"
                 )
             break
         try:
             text = fetch_url_text_cached(
                 url,
                 repo_root=repo_root,
-                max_chars=per_url,
+                llm_client=llm_client,
                 report=report,
                 trace=trace,
-                llm_client=llm_client,
+                warn_markdown_cap=report,
             )
         except Exception as e:
             text = f"(fetch failed: {e})"
@@ -399,7 +394,7 @@ def gather_evidence_for_queries(
         header = f"\n\n=== SOURCE URL: {url} ===\n"
         chunk = header + text
         if not unlimited and used + len(chunk) > budget_chars:
-            chunk = chunk[: budget_chars - used] + "\n… [truncated]\n"
+            chunk = chunk[: max(0, budget_chars - used)] + "\n… [truncated]\n"
         parts.append(chunk)
         used += len(chunk)
     return "".join(parts) if parts else "(no evidence fetched)"

@@ -14,24 +14,18 @@ from peer_atlas_cli.retrieval.url_cache import cache_dir_for_repo, clear_cache_e
 @click.command("test-evidence-url")
 @click.argument("url")
 @click.option(
-    "--max-chars",
-    default=120_000,
-    type=int,
-    show_default=True,
-    help="Per-URL character cap passed to the fetch layer (same coalesce rules as ingest).",
-)
-@click.option(
     "--timeout",
     default=30.0,
     type=float,
     show_default=True,
     help="HTTP / Playwright timeout in seconds for the live fetch.",
 )
-def test_evidence_url_cmd(url: str, max_chars: int, timeout: float) -> None:
+def test_evidence_url_cmd(url: str, timeout: float) -> None:
     """
-    Clear the disk cache for URL (if present), download the page again, simplify HTML,
-    optionally run the main-body Markdown LLM (unless ``PEER_ATLAS_SKIP_HTML_MARKDOWN_LLM``),
-    write the cache JSON, and print the same string ingest would use as evidence (stdout).
+    Clear the disk cache for URL (if present), download the page again, run the full
+    evidence pipeline (unlimited HTML → simplified HTML → required Markdown LLM),
+    write the cache JSON (with char counts), and print the Markdown string ingest
+    would use as evidence (stdout).
 
     Progress and warnings go to stderr so you can redirect stdout to a file.
     """
@@ -54,10 +48,10 @@ def test_evidence_url_cmd(url: str, max_chars: int, timeout: float) -> None:
     text = fetch_url_text_cached(
         u,
         repo_root=root,
-        timeout=timeout,
-        max_chars=max_chars,
         llm_client=client,
+        timeout=timeout,
         report=lambda m: click.echo(m, err=True),
         trace=lambda m: click.echo(m, err=True),
+        warn_markdown_cap=lambda m: click.echo(m, err=True),
     )
     click.echo(text)

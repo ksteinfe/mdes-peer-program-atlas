@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import re
 import unicodedata
+from collections.abc import Callable
 from typing import TYPE_CHECKING
 
 from peer_atlas_cli.llm_nodes import _transcript_slug_for_source_url
@@ -24,14 +25,6 @@ def llm_input_char_limit() -> int:
         return max(8_000, min(int(raw), 500_000))
     except ValueError:
         return _LLM_INPUT_CHARS
-
-
-def skip_html_markdown_llm() -> bool:
-    return os.environ.get("PEER_ATLAS_SKIP_HTML_MARKDOWN_LLM", "").strip().lower() in (
-        "1",
-        "true",
-        "yes",
-    )
 
 
 def sanitize_llm_text_for_json_storage(s: str) -> str:
@@ -78,11 +71,22 @@ def html_to_main_content_markdown(
     client: "LLMClient",
     cleaned_html: str,
     source_url: str,
+    warn_input_cap: Callable[[str], None] | None = None,
 ) -> str:
     """
     One chat completion: simplified HTML → main-body Markdown (no nav boilerplate).
+
+    When ``cleaned_html`` exceeds ``PEER_ATLAS_HTML_MARKDOWN_LLM_INPUT_CHARS``, the string
+    sent to the model is truncated; if ``warn_input_cap`` is set, it is called once with
+    a short explanation (CLI should surface this to stderr).
     """
     lim = llm_input_char_limit()
+    raw_len = len((cleaned_html or "").strip())
+    if raw_len > lim and warn_input_cap is not None:
+        warn_input_cap(
+            f"cleaned HTML is {raw_len} characters; PEER_ATLAS_HTML_MARKDOWN_LLM_INPUT_CHARS={lim} "
+            "(truncating for the html→markdown model only)."
+        )
     block = _cap_cleaned_html_for_llm(cleaned_html, lim)
     tmpl = load_prompt("retrieval/html_evidence_main_markdown.md")
     user = render_template(

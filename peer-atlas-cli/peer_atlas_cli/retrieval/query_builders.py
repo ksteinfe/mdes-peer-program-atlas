@@ -34,40 +34,31 @@ def queries_for_node(
 
     if node == "positioning":
         return [
-            f"{label} program positioning mission interdisciplinary",
-            f"{label} MDes design graduate focus areas",
-            f"{label} official program overview",
+            f"{label} mission program overview"
         ]
     if node == "duration":
         return [
-            f"{label} degree length semesters credits duration",
-            f"{label} time to complete graduate program",
-            f"{label} academic calendar length",
+            f"{label} time to complete degree duration"
         ]
     if node == "degree_cost":
         return [
-            f"{label} tuition fees cost graduate",
-            f"{label} estimated cost of attendance",
-            f"{inst} graduate tuition" if inst else f"{label} tuition",
+            f"{inst} tuition fees cost" if inst else f"{label} tuition fees cost"
         ]
     if node == "curriculum":
         return [
-            f"{label} curriculum required courses core",
-            f"{label} MDes course requirements catalog",
-            f"{label} studio thesis credits units",
+            f"{label} curriculum requirements"
         ]
     if node == "curriculum_overview":
         return [
             f"{label} degree plan curriculum map required courses by term",
-            f"{label} program structure core sequence official",
-            f"{label} graduate curriculum course list overview",
+            f"{label} program structure class sequence",
+            f"{label} elective requirements"
         ]
     if node == "identity":
         return [
             f"{label} official degree name credential",
             f"{label} which college school department hosts program",
-            f"{label} location campus",
-            *( [f"site:{u} program"] if u else [] ),
+            *([f"site:{u} program"] if u else []),
         ]
     return [label]
 

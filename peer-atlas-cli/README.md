@@ -6,7 +6,13 @@ Install from repository root:
 pip install -e "./peer-atlas-cli[dev]"
 ```
 
-Entry point: `peer-atlas`. `clear-programs` archives `corpus/programs.json` to `corpus/programs.archive.<UTC>.json` then empties the `programs` array (keeps `corpus_metadata`); use `-y` to skip confirmation. `add-program BASE_URL PROGRAM_ID [query]` uses **Tavily** (scoped to the registrable domain of `BASE_URL`) plus cached fetches, then LLM steps per ingest node (plus per–core-course patches). Set `TAVILY_API_KEY` in repo-root `.env`.
+Entry point: `peer-atlas`. `clear-programs` empties the `programs` array in `corpus/programs.json` (keeps `corpus_metadata`); use `-y` to skip confirmation.
+
+**`sources` (per program):** required array of normalized URL strings — an inventory of every ``url`` stored in a JSON file under the repo url-cache (``.peer-atlas/url-cache`` or ``PEER_ATLAS_FETCH_CACHE_DIR``) whose **registrable domain** matches the program's ``base_url`` (same rule as Tavily host scoping in ``host_scope.py``), **plus** any cache file whose **filename** contains the program's registrable domain or hostname (so pages cached under a path-style filename still attach). Multiple programs at the same institution therefore often share overlapping ``sources`` lists. Refresh after fetches with **`peer-atlas refresh-sources`** (optional **`--dry-run`**); **`add-program`** also refreshes ``sources`` before each corpus validation pass.
+
+**Category enums (`INVALID`):** Each vocabulary JSON under ``categories_and_rules/`` includes an ``INVALID`` id. During **`add-program`**, **`reconsider-node`**, **`merge-patch`**, **`refresh-sources`**, and **`remove-last-program`**, unknown positioning tags / course types / host models / duration / unit system / sequencedness / verification values are **replaced in memory** with ``INVALID`` (and stderr lines log the bad value). ``design_studio`` rows still get ``secondary_type`` cleared to ``null``. **`peer-atlas validate`** does **not** apply that repair (it checks the JSON as loaded).
+
+`add-program BASE_URL PROGRAM_ID [query]` uses **Tavily** (scoped to the registrable domain of `BASE_URL`) plus cached fetches, then LLM steps per ingest node (plus per–core-course patches). Set `TAVILY_API_KEY` in repo-root `.env`.
 
 **Tavily query text** is composed from a seed-page LLM pass (`atlas_search_context`), identity fallbacks, optional CLI `query`, and templates in [`categories_and_rules/tavily_search_guidance.json`](../categories_and_rules/tavily_search_guidance.json). See [docs/tavily-query-composition.md](docs/tavily-query-composition.md).
 

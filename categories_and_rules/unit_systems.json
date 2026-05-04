@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "id": "INVALID",
+      "label": "Invalid / unknown",
+      "description": "Reserved sentinel for values that are not valid unit_system ids."
+    },
+    {
       "id": "semester_credit_hours",
       "label": "Semester credit hours",
       "description": "US-style semester credits."

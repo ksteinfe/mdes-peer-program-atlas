@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "id": "INVALID",
+      "label": "Invalid / unknown",
+      "description": "Reserved sentinel for values that are not valid sequencedness ids."
+    },
+    {
       "id": "highly_sequenced",
       "label": "Highly sequenced",
       "description": "A large majority of required curriculum items (especially core courses) have an official semester or term placement in degree-plan materials—not only a broad year label.",

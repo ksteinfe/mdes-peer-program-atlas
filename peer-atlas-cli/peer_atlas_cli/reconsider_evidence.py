@@ -49,8 +49,6 @@ def rationales_for_node(node: str, program: dict[str, Any]) -> list[dict[str, An
         if not isinstance(item, dict):
             continue
         feat = item.get("feature")
-        if feat is None and "derived_feature" in item:
-            feat = item.get("derived_feature")
         if _feature_matches_node(node, str(feat or "")):
             out.append(dict(item))
     return out
@@ -143,6 +141,6 @@ def build_reconsider_evidence(
         f"- Return a JSON object whose **only** required top-level key is **`\"{pk}\"`** (the updated node subtree), matching the same shape as normal ingest for this step.\n"
         "- You **may** also return optional top-level **`\"llm_rationales\"`** (array), same rules as ingest.\n"
         "- For each new rationale object use **exactly** these string keys: **`feature`**, **`source_url`**, **`note`**, **`llm_title`**, **`retrieved_date`**. "
-        "Set **`feature`** to the dot path of the field the note supports (e.g. `positioning.positioning_tags`, `degree_cost.comparison_cost_usd`). "
+        "Set **`feature`** to the dot path of the field the note supports (e.g. `positioning.positioning_tags`, `degree_cost.comparison_cost_usd`, `degree_cost.cost_base_currency`). "
         "New **`llm_rationales`** entries are **appended** to the program record (existing rationales above are not removed); add at least one new row when your edits or the human instruction warrant an audit trail.\n"
     )

@@ -22,7 +22,7 @@ from peer_atlas_cli.schema_validation import validate_corpus
     help="Override corpus JSON path (default: corpus/programs.json under repo root).",
 )
 def validate_cmd(corpus_file: pathlib.Path | None) -> None:
-    """Validate corpus against JSON Schema and category files."""
+    """Validate corpus against JSON Schema and category files (no enum auto-repair)."""
     root = find_repo_root()
     path = corpus_file or corpus_path(root)
     with path.open(encoding="utf-8") as f:

@@ -46,6 +46,7 @@ def _minimal_prog(pid: str, *, da: str | None = None, du: str | None = None) -> 
     base = {
         "program_id": pid,
         "base_url": f"https://{pid}.example.edu/",
+        "sources": [],
         "llm_rationales": [
             {
                 "feature": "x",
@@ -73,7 +74,7 @@ def _minimal_prog(pid: str, *, da: str | None = None, du: str | None = None) -> 
             "base_currency": "USD",
             "exchange_rate_to_usd": None,
             "comparison_cost_usd": None,
-            "total_degree_cost_base_currency": None,
+            "cost_base_currency": None,
         },
         "curriculum": {
             "unit_system": "semester_credit_hours",

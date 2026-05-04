@@ -99,7 +99,15 @@ def merge_patch_cmd(
         click.echo(str(e), err=True)
         sys.exit(1)
 
-    val_errs = validate_corpus(root, corpus)
+    enum_notes: list[str] = []
+    val_errs = validate_corpus(
+        root,
+        corpus,
+        category_repair_notes=enum_notes,
+        repair_invalid_enums=True,
+    )
+    for line in enum_notes:
+        click.echo(line, err=True)
     if val_errs:
         for e in val_errs:
             click.echo(e, err=True)

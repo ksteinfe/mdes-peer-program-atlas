@@ -22,7 +22,7 @@ Output JSON with this shape ONLY:
 
 Rules:
 - Preserve human-reviewed meaning: do not blank out fields unless the evidence clearly contradicts them; document residual uncertainty in **merged_program.llm_rationales** or **new_llm_rationales** as needed.
-- Append **new_llm_rationales** onto **merged_program.llm_rationales** (dedupe by `source_url` + `feature` when the CLI merges). Each row uses the **five** string keys above. Do **not** emit a separate **`sources`** array.
+- Append **new_llm_rationales** onto **merged_program.llm_rationales** (dedupe by `source_url` + `feature` when the CLI merges). Each row uses the **five** string keys above.
 - Keep program_id and **base_url** unchanged.
 - Use only allowed category ids from CATEGORY_JSON.
 

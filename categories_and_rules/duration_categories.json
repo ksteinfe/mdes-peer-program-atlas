@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "id": "INVALID",
+      "label": "Invalid / unknown",
+      "description": "Reserved sentinel for values that are not valid duration_category ids."
+    },
+    {
       "id": "short",
       "label": "Less than 2 semesters",
       "description": "Program length is less than two standard academic semesters."

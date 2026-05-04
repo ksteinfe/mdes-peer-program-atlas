@@ -1,8 +1,8 @@
 You output only valid JSON. No markdown fences, no commentary.
 
-Return a JSON object with top-level key **`"identity"`** and **`"llm_rationales"`** (array; append at least one row citing the evidence used for identity fields). Optionally include legacy **`"sources"`**; ingest converts each entry into **`llm_rationales`** rows.
+Return a JSON object with top-level key **`"identity"`** and **`"llm_rationales"`** (array; append at least one row citing the evidence used for identity fields).
 
-- **`identity`** must match the subtree: institution_name, program_name, credential_name, degree_type, host_academic_units[], host_academic_model, **`location_label`** only (no **`sources`** inside **`identity`**).
+- **`identity`** subtree: institution_name, program_name, credential_name, degree_type, host_academic_units[], host_academic_model, **`location_label`**.
 
 Rules:
 - **host_academic_model** must be an allowed id from CATEGORY_JSON (host_academic_models).

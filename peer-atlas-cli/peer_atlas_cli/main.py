@@ -13,6 +13,7 @@ from peer_atlas_cli.commands.merge_patch import merge_patch_cmd
 from peer_atlas_cli.commands.reconsider_node import reconsider_node_cmd
 from peer_atlas_cli.commands.test_evidence_url import test_evidence_url_cmd
 from peer_atlas_cli.commands.remove_last_program import remove_last_program_cmd
+from peer_atlas_cli.commands.refresh_sources import refresh_sources_cmd
 from peer_atlas_cli.commands.validate import validate_cmd
 from peer_atlas_cli.config import load_env
 from peer_atlas_cli.llm_transcript import begin_cli_llm_session
@@ -39,6 +40,7 @@ def main() -> None:
 
 
 main.add_command(validate_cmd, "validate")
+main.add_command(refresh_sources_cmd, "refresh-sources")
 main.add_command(clear_programs_cmd, "clear-programs")
 main.add_command(merge_patch_cmd, "merge-patch")
 main.add_command(remove_last_program_cmd, "remove-last-program")

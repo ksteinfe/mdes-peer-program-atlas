@@ -56,11 +56,11 @@ def program_by_id(corpus: dict[str, Any], program_id: str) -> dict[str, Any] | N
 
 def clear_all_programs(repo_root: pathlib.Path) -> tuple[int, pathlib.Path | None]:
     """
-    Copy ``corpus/programs.json`` to a dated archive, then set ``programs`` to ``[]``.
+    Optionally save a timestamped copy of ``programs.json``, then set ``programs`` to ``[]``.
 
-    Returns ``(removed_count, archive_path)``. If there were no programs, does not
-    create a dated archive and returns ``(0, None)``. ``write_corpus`` also copies
-    the pre-write file to ``programs.backup.json``.
+    Returns ``(removed_count, snapshot_path)``. If there were no programs, does not
+    create a snapshot and returns ``(0, None)``. ``write_corpus`` still refreshes
+    ``programs.backup.json`` when replacing ``programs.json``.
     """
     data = load_corpus(repo_root)
     programs = programs_list(data)

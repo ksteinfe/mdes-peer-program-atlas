@@ -8,6 +8,7 @@
     "base_url",
     "date_added",
     "date_updated",
+    "sources",
     "llm_rationales",
     "identity",
     "positioning",
@@ -34,6 +35,12 @@
       "minLength": 1,
       "description": "UTC timestamp of the last corpus write that modified this program (ISO 8601)."
     },
+    "sources": {
+      "type": "array",
+      "description": "Normalized URLs of all url-cache JSON entries whose registrable domain matches this program's base_url registrable domain (inventory; overlaps across programs are expected for shared institutions).",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
     "llm_rationales": {
       "type": "array",
       "items": { "$ref": "#/$defs/llmRationale" }
@@ -59,7 +66,7 @@
       "properties": {
         "feature": {
           "type": "string",
-          "description": "Dot path of the program field this rationale supports (e.g. degree_cost.comparison_cost_usd)."
+          "description": "Dot path of the program field this rationale supports (e.g. degree_cost.comparison_cost_usd, degree_cost.cost_base_currency)."
         },
         "source_url": {
           "type": "string",
@@ -138,14 +145,20 @@
         "base_currency",
         "exchange_rate_to_usd",
         "comparison_cost_usd",
-        "total_degree_cost_base_currency"
+        "cost_base_currency"
       ],
       "additionalProperties": false,
       "properties": {
         "base_currency": { "type": "string" },
         "exchange_rate_to_usd": { "type": ["number", "null"] },
-        "comparison_cost_usd": { "type": ["number", "null"] },
-        "total_degree_cost_base_currency": { "type": ["number", "null"] }
+        "comparison_cost_usd": {
+          "type": ["number", "null"],
+          "description": "Tuition plus mandatory program/academic fees only (USD), for cross-program comparison—not housing or full cost of attendance."
+        },
+        "cost_base_currency": {
+          "type": ["number", "null"],
+          "description": "Program-stated tuition total in base_currency, including mandatory program/academic fees when they are part of that tuition-and-fees subtotal; exclude housing and full cost of attendance."
+        }
       }
     },
     "coreCourse": {

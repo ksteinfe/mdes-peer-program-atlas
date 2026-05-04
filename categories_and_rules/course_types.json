@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "id": "INVALID",
+      "label": "Invalid / unknown",
+      "description": "Reserved sentinel: tooling replaces LLM outputs that are not valid course_type ids so ingest can continue."
+    },
+    {
       "id": "design_studio",
       "label": "Design studio",
       "description": "A project-based studio course that normally carries larger curricular weight than other courses.",

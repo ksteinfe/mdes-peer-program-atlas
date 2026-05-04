@@ -10,7 +10,7 @@
       "Apply each **positioning_tags** id **only** when EVIDENCE (or a source you cite that appears in EVIDENCE) **explicitly** states or clearly implies that positioning theme for **this** program.",
       "Do **not** add a tag from general knowledge, rankings, geography, or stereotypes when the text does not support it.",
       "When in doubt, **leave the tag out**; add a top-level **llm_rationales** entry to explain what was considered and omitted for lack of direct support.",
-      "Apply a maximum of 4 tags to the program. Consider which tags are the most strongly supported by the evidence."
+      "Apply a maximum of 4 positioning_tags to the program. Consider which tags are the most strongly supported by the evidence."
     ]
   },
   "duration": {
@@ -20,10 +20,10 @@
   },
   "degree_cost": {
     "extra_instructions": [
-      "Every top-level **`llm_rationales[]`** entry must be a JSON object with **exactly** five string keys: **feature**, **source_url**, **note**, **llm_title**, **retrieved_date**. No extra keys.",
-      "Example: {\"feature\":\"degree_cost.total_degree_cost_base_currency\",\"source_url\":\"https://design.berkeley.edu/admissions/program-fees-funding\",\"note\":\"Used program fee table; tuition and mandatory fees only.\",\"llm_title\":\"Program fees\",\"retrieved_date\":\"\"}",
+      "Every top-level **`llm_rationales[]`** entry uses **exactly** five string keys: **feature**, **source_url**, **note**, **llm_title**, **retrieved_date**.",
+      "Example: {\"feature\":\"degree_cost.cost_base_currency\",\"source_url\":\"https://design.berkeley.edu/admissions/program-fees-funding\",\"note\":\"Used program fee table; tuition and mandatory fees only.\",\"llm_title\":\"Program fees\",\"retrieved_date\":\"\"}",
       "**comparison_cost_usd** is for **cross-program comparison** and must reflect **tuition + mandatory program/academic fees only**—not housing or full COA. If only a COA total exists, leave **comparison_cost_usd** null and document in **llm_rationales**.",
-      "**total_degree_cost_base_currency** is a single figure in **base_currency** when the evidence states one defensible total; otherwise null.",
+      "**cost_base_currency** is the program-stated **tuition + mandatory program/academic fees** total in **base_currency** when evidence supports that subtotal (not housing or full cost of attendance); otherwise null.",
       "- If no defensible numbers exist, leave cost fields null and explain in **llm_rationales**."
     ]
   },
@@ -31,7 +31,7 @@
     "extra_instructions": [
       "**sequencedness (highly vs partially):** from official degree-plan or program-design evidence, count **required** courses/plan rows you can name; use the **share that specify an exact semester or term** (not only \"Year 1\"). **highly_sequenced** when **≈67%+** are term-specific; **partially_sequenced** when a substantial minority lack term-level dates. Corpus anchors: **Berkeley MDes** → highly_sequenced; **Berkeley MIMS** → partially_sequenced (see `categories_and_rules/sequencedness.json` rules).",
       "**`design_studio` and weight:** Only consider **`design_studio`** when **`normalized_unit_weight`** is strictly greater than **1.1**. If the weight is **1.1** or less, or unknown/null, do **not** use **`design_studio`**—use **`design_methods_systems`** (or another better-fitting type). When weight is above **1.1**, **higher weight ⇒ more likely `design_studio`** among comparable courses (heavier studio/project rows should lean **`design_studio`** when catalog copy fits). The same threshold applies to **`secondary_type`** on **core_courses** only.",
-      "**Electives:** Output only **`electives.summary`** (prose) and **`electives.estimated_elective_course_count`** (integer or null). Do **not** output elective course rows or structured constraint objects. When evidence gives total degree units/credits and **`core_courses`** have unit values, infer remaining elective units (total minus sum of core units), assume a typical elective course size (often 3) when unstated, and set **`estimated_elective_course_count`** accordingly; document uncertainty in **top-level** **`llm_rationales`** (not nested under **`curriculum`**)."
+      "**Electives:** Output only **`electives.summary`** (prose) and **`electives.estimated_elective_course_count`** (integer or null). When evidence gives total degree units/credits and **`core_courses`** have unit values, infer remaining elective units (total minus sum of core units), assume a typical elective course size (often 3) when unstated, and set **`estimated_elective_course_count`** accordingly; document uncertainty in **top-level** **`llm_rationales`**."
     ]
   },
   "curriculum_digest": {
@@ -54,10 +54,10 @@
   "curriculum_overview": {
     "extra_instructions": [
       "**`offers_specialization`:** set **`true`** only when EVIDENCE or CURRICULUM_DIGEST describes **distinct tracks, concentrations, or specializations** students choose among; otherwise **`false`**.",
-      "Every top-level **`llm_rationales[]`** entry must be a JSON object with **exactly** five string keys: **`feature`**, **`source_url`**, **`note`**, **`llm_title`**, **`retrieved_date`**. Do **not** use **`rationale`**, **`reason`**, or any other key (the corpus schema rejects extra keys).",
+      "Every top-level **`llm_rationales[]`** entry uses **exactly** five string keys: **`feature`**, **`source_url`**, **`note`**, **`llm_title`**, **`retrieved_date`**.",
       "**core_courses[] — required vs empty:** Emit **one row per required course that EVIDENCE names** (catalog code, INFO/DATA-style number, or distinct official title). Never invent codes; **do** transcribe what the text actually lists. If EVIDENCE names **N** distinct cores, **`core_courses.length` must be ≥ N** (merge duplicates only when clearly the same course). If EVIDENCE only says \"five core courses\" **without** names, you may output **zero** rows **only** then—and you **must** add an **`llm_rationales`** entry with **`feature`**: `curriculum.core_courses` stating that titles/codes were absent from fetched material.",
       "**Never** use generic placeholders like \"Core course 2\" / `mims_core_2` unless that is the real catalog key. If you must sequence unnamed placeholders temporarily, prefer explicit labels tied to evidence (e.g. \"Year 1 core — unnamed in source\") and **`open_or_other`**—then expect the per-course patch step to replace them when research finds real titles.",
-      "Each **`core_courses[]`** object must use the schema keys: `course_id`, `course_title`, **`units_or_credits`**, `sequence_position`, **`primary_type`**, **`secondary_type`**, `course_summary`, `source_url`, **`learning_outcomes`**; **`normalized_unit_weight`** optional (**`null`** — tooling may recompute). **Never** output **`course_type`** or any other extra property (`additionalProperties` is false).",
+      "Each **`core_courses[]`** row uses: `course_id`, `course_title`, **`units_or_credits`**, `sequence_position`, **`primary_type`**, **`secondary_type`**, `course_summary`, `source_url`, **`learning_outcomes`**; **`normalized_unit_weight`** optional (**`null`** — tooling may recompute).",
       "Each core row should still be schema-complete with **`learning_outcomes`: []** and short `course_summary`; **`primary_type`** may stay **`open_or_other`** until the per-course research step.",
       "**`electives.estimated_elective_course_count`:** When degree text states total units/credits and **`core_courses`** list units per core, infer elective units (total minus sum of core units), pick a defensible typical elective size (often 3), then set count ≈ round(elective_units ÷ typical). If only a vague \"several electives\" is stated, infer the best integer or use **`null`** and explain in **top-level** **`llm_rationales`**.",
       "**`electives.summary`:** Capture open vs structured electives, program-approved lists, category breadth requirements, outside-department limits, and whether electives support tracks—**in prose only**, not as JSON rules.",
@@ -74,7 +74,7 @@
       "**design_studio** vs weight: assign **design_studio** only when **normalized_unit_weight** is strictly greater than **1.1**; at **1.1** or below, or when weight is unknown/null, do **not** use **design_studio**—use **design_methods_systems** (or another appropriate type) for primary or secondary. Above **1.1**, **higher weight ⇒ more likely `design_studio`** when catalog copy supports a studio/project course. A studio-sounding title alone is not enough at low weight.",
       "**secondary_type** must be null whenever **primary_type** is design_studio.",
       "**secondary_type** must never be 'open_or_other', and should be null instead.",
-      "**open_or_other** should only be used as a primary_type.",    
+      "**open_or_other** should only be used as a primary_type.",
       "Set **learning_outcomes** from this course's EVIDENCE (learning objectives, outcomes, or skills stated in catalog copy). Use **3–8** concise bullets; if none are stated, use **`[]`**.",
       "If the row still has a **vague overview label** (e.g. \"Core course 2\") but EVIDENCE names the actual course, patch **`course_id`**, **`course_title`**, **`course_summary`**, and **`source_url`** to the catalog/degree-requirements reality."
     ]

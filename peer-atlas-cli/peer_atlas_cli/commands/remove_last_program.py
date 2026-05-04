@@ -70,7 +70,15 @@ def remove_last_program_cmd(yes: bool) -> None:
     shutil.copy2(path, archive)
     plist.pop(idx)
 
-    errs = validate_corpus(root, corpus)
+    enum_notes: list[str] = []
+    errs = validate_corpus(
+        root,
+        corpus,
+        category_repair_notes=enum_notes,
+        repair_invalid_enums=True,
+    )
+    for line in enum_notes:
+        click.echo(line, err=True)
     if errs:
         for e in errs:
             click.echo(e, err=True)

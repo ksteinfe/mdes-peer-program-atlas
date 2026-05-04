@@ -1,0 +1,303 @@
+{
+  "positioning_tags": {
+    "items": [
+      {
+        "id": "INVALID",
+        "label": "Invalid / unknown",
+        "description": "Reserved sentinel: tooling replaces LLM outputs that are not valid positioning_tag ids so ingest can continue."
+      },
+      {
+        "id": "interdisciplinary",
+        "label": "Interdisciplinary",
+        "description": "Positioning emphasizes cross-disciplinary work."
+      },
+      {
+        "id": "stem_adjacent",
+        "label": "STEM-adjacent",
+        "description": "Emphasizes work adjacent to engineering, computing, or sciences."
+      },
+      {
+        "id": "fine_arts_adjacent",
+        "label": "Fine Arts Adjacent",
+        "description": "Emphasizes work adjacent to the fine arts."
+      },
+      {
+        "id": "architecture_adjacent",
+        "label": "Architecture Adjacent",
+        "description": "Emphasizes work adjacent to architecture."
+      },
+      {
+        "id": "professional",
+        "label": "Professional",
+        "description": "Emphasizes industry readiness, studios, and professional skills."
+      },
+      {
+        "id": "research",
+        "label": "Research",
+        "description": "Emphasizes academic research trajectories and scholarly output."
+      },
+      {
+        "id": "social_impact",
+        "label": "Social Impact",
+        "description": "Emphasizes public interest, equity, sustainability, or civic contexts."
+      },
+      {
+        "id": "physical_making",
+        "label": "Physical Making",
+        "description": "Emphasizes physical making, fabrication, or production."
+      },
+      {
+        "id": "digital",
+        "label": "Digital",
+        "description": "Emphasizes digital products, services, platforms, or apps."
+      },
+      {
+        "id": "ui_ux",
+        "label": "UI/UX",
+        "description": "Emphasizes user interface and user experience design."
+      },
+      {
+        "id": "emerging_technologies",
+        "label": "Emerging Technologies",
+        "description": "explicitly emphasizes emerging technologies."
+      },
+      {
+        "id": "human_computer_interaction",
+        "label": "Human Computer Interaction",
+        "description": "explicitly emphasizes human computer interaction."
+      },
+      {
+        "id": "entrepreneurship",
+        "label": "Entrepreneurship",
+        "description": "explicitly emphasizes entrepreneurship."
+      },
+      {
+        "id": "critical_speculative_design",
+        "label": "Critial / Speculative Design",
+        "description": "explicitly emphasizes critical or speculative design."
+      },
+      {
+        "id": "interaction_design",
+        "label": "Interaction Design",
+        "description": "explicitly emphasizes interaction design."
+      }
+    ]
+  },
+  "course_types": {
+    "items": [
+      {
+        "id": "INVALID",
+        "label": "Invalid / unknown",
+        "description": "Reserved sentinel: tooling replaces LLM outputs that are not valid course_type ids so ingest can continue."
+      },
+      {
+        "id": "design_studio",
+        "label": "Design studio",
+        "description": "A project-based studio course that normally carries larger curricular weight than other courses.",
+        "rules": [
+          "Use only when the course is clearly a project-based studio.",
+          "Do not classify a course as design_studio merely because it includes a project.",
+          "Use design_studio only when normalized_unit_weight is strictly greater than 1.1; at 1.1 or below (or when weight is unknown), use design_methods_systems instead. Higher weight above 1.1 should increase the likelihood of choosing design_studio when the course is clearly a heavy studio/project.",
+          "Design studio can never be hybrid.",
+          "If primary_type is design_studio, secondary_type must be null."
+        ]
+      },
+      {
+        "id": "human_factors",
+        "label": "Human factors",
+        "description": "Courses focused on people, communities, users, behavior, culture, social context, design research, ethnography, ergonomics, or human-centered design."
+      },
+      {
+        "id": "technology",
+        "label": "Technology",
+        "description": "Courses focused on technical design methods, computational tools, software, hardware, fabrication, sensors, AI, robotics, CAD, optimization, or technologies used in the design itself."
+      },
+      {
+        "id": "history_theory_positioning",
+        "label": "History, theory, and positioning",
+        "description": "Courses focused on design history, design theory, critical theory, contemporary issues, ethics, politics, movements, disciplinary framing, or colloquia."
+      },
+      {
+        "id": "rhetoric_storytelling_presentation",
+        "label": "Rhetoric, storytelling, and presentation",
+        "description": "Courses focused on writing, presenting, communicating, documenting, exhibiting, pitching, or narrating design work."
+      },
+      {
+        "id": "design_methods_systems",
+        "label": "Design methods and systems",
+        "description": "Courses focused on design process, structured methods, systems thinking, strategy, problem framing, research synthesis, service design methods, participatory design, systems mapping, or design frameworks."
+      },
+      {
+        "id": "entrepreneurship",
+        "label": "Entrepreneurship",
+        "description": "Courses focused on venture creation, innovation management, commercialization, markets, business models, product-market fit, leadership, startup practice, or go-to-market strategy."
+      },
+      {
+        "id": "open_or_other",
+        "label": "Open or other",
+        "description": "Use when a course or elective slot is broad, unspecified, intentionally flexible, or does not clearly map to one of the defined types."
+      }
+    ]
+  },
+  "host_academic_models": {
+    "items": [
+      {
+        "id": "INVALID",
+        "label": "Invalid / unknown",
+        "description": "Reserved sentinel for values that are not valid host_academic_model ids."
+      },
+      {
+        "id": "engineering_design_shared_hosted",
+        "label": "co-hosted by engineering + design units",
+        "description": "Program is administratively housed in both engineering and design units."
+      },
+      {
+        "id": "engineering_arts_shared_hosted",
+        "label": "co-hosted by engineering + fine arts units",
+        "description": "Program is administratively housed in both engineering and arts units."
+      },
+      {
+        "id": "engineering_business_shared_hosted",
+        "label": "co-hosted by engineering + business units",
+        "description": "Program is administratively housed in both engineering and business units."
+      },
+      {
+        "id": "design_business_shared_hosted",
+        "label": "co-hosted by design + business units",
+        "description": "Program is administratively housed in both design and business units."
+      },
+      {
+        "id": "engineering_hosted",
+        "label": "hosted in an engineering unit",
+        "description": "Administered by an engineering school or college."
+      },
+      {
+        "id": "design_hosted",
+        "label": "hosted in a design unit",
+        "description": "Administered by a design school or college."
+      },
+      {
+        "id": "arts_hosted",
+        "label": "hosted in an arts / humanities units",
+        "description": "Administered by a unit in arts, humanities, or fine arts."
+      },
+      {
+        "id": "business_hosted",
+        "label": "hosted in an business / management unit",
+        "description": "Administered by a unit in business or management."
+      },
+      {
+        "id": "computing_hosted",
+        "label": "hosted in an CS / information technology unit",
+        "description": "Administered by a unit in computer science or information technology."
+      },
+      {
+        "id": "unknown",
+        "label": "Unknown",
+        "description": "Academic unit is not clearly associated with any known categories."
+      }
+    ]
+  },
+  "duration_categories": {
+    "items": [
+      {
+        "id": "INVALID",
+        "label": "Invalid / unknown",
+        "description": "Reserved sentinel for values that are not valid duration_category ids."
+      },
+      {
+        "id": "short",
+        "label": "Less than 2 semesters",
+        "description": "Program length is less than two standard academic semesters."
+      },
+      {
+        "id": "two_semesters",
+        "label": "Two semesters",
+        "description": "Roughly two standard academic semesters."
+      },
+      {
+        "id": "three_semesters",
+        "label": "Three semesters",
+        "description": "Roughly three standard academic semesters."
+      },
+      {
+        "id": "four_semesters",
+        "label": "Four semesters",
+        "description": "Roughly four standard academic semesters."
+      },
+      {
+        "id": "four_plus_semesters",
+        "label": "Four or more semesters",
+        "description": "Extended programs spanning more than four standard academic semesters."
+      },
+      {
+        "id": "variable_or_custom",
+        "label": "Variable or custom",
+        "description": "Duration is student-paced, modular, or not expressed in standard terms."
+      }
+    ]
+  },
+  "sequencedness": {
+    "items": [
+      {
+        "id": "INVALID",
+        "label": "Invalid / unknown",
+        "description": "Reserved sentinel for values that are not valid sequencedness ids."
+      },
+      {
+        "id": "highly_sequenced",
+        "label": "Highly sequenced",
+        "description": "A large majority of required curriculum items (especially core courses) have an official semester or term placement in degree-plan materials—not only a broad year label.",
+        "rules": [
+          "Operational rule: among required courses (or plan rows) you can list from evidence, compute the share that name a **specific semester or term** (e.g. Fall Year 1, Spring Year 2). If **roughly one-half (50%) or more** have that level of placement, prefer **highly_sequenced**."
+        ]
+      },
+      {
+        "id": "partially_sequenced",
+        "label": "Partially sequenced",
+        "description": "Meaningful sequencing (e.g. a prescribed first-year core or prerequisites) but a substantial portion of required or listed courses lack an explicit semester/term in the materials you have, or placement stops at year-level.",
+        "rules": [
+          "If **fewer than ~two-thirds** of enumerated required items show a **specific term** (many are only \"Year 1 core\", placeholders, or undated catalog lines), prefer **partially_sequenced** over highly_sequenced.",
+          "Also use partially_sequenced when only **some** threads are term-mapped while others are intentionally open across terms."
+        ]
+      },
+      {
+        "id": "flexible",
+        "label": "Flexible",
+        "description": "Minimal prescribed term-by-term sequencing for required work; students choose timing across terms within broad requirements.",
+        "rules": [
+          "Use when evidence shows few or no required courses pinned to particular semesters, beyond generic credit progress rules."
+        ]
+      }
+    ]
+  },
+  "unit_systems": {
+    "items": [
+      {
+        "id": "INVALID",
+        "label": "Invalid / unknown",
+        "description": "Reserved sentinel for values that are not valid unit_system ids."
+      },
+      {
+        "id": "semester_credit_hours",
+        "label": "Semester credit hours",
+        "description": "US-style semester credits."
+      },
+      {
+        "id": "quarter_units",
+        "label": "Quarter units",
+        "description": "US-style quarter-system units."
+      },
+      {
+        "id": "ects",
+        "label": "ECTS",
+        "description": "European Credit Transfer and Accumulation System."
+      },
+      {
+        "id": "other_or_mixed",
+        "label": "Other or mixed",
+        "description": "Nonstandard or explicitly mixed unit systems."
+      }
+    ]
+  }
+}

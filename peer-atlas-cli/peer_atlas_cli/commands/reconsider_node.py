@@ -23,13 +23,10 @@ from peer_atlas_cli.llm_nodes import (
 from peer_atlas_cli.llm_reporting import echo_llm_raw_and_parsed, echo_validation_errors
 from peer_atlas_cli.program_sanitize import (
     ensure_course_source_urls,
-    finalize_top_level_sources_into_rationales,
-    migrate_course_source_id_to_url,
     normalize_core_course_learning_outcomes,
     normalize_curriculum_electives_in_program,
-    normalize_derivation_notes,
+    normalize_llm_rationales,
     normalize_program_layout,
-    strip_legacy_source_id_fields,
 )
 from peer_atlas_cli.repo_root import find_repo_root
 from peer_atlas_cli.reconsider_evidence import (
@@ -44,10 +41,7 @@ from peer_atlas_cli.schema_validation import validate_corpus
 
 def _sanitize_program(program: dict[str, Any], *, base_url: str) -> None:
     normalize_program_layout(program)
-    strip_legacy_source_id_fields(program)
-    migrate_course_source_id_to_url(program)
-    finalize_top_level_sources_into_rationales(program)
-    normalize_derivation_notes(program, default_source_url=base_url)
+    normalize_llm_rationales(program, default_source_url=base_url)
     ensure_course_source_urls(program, base_url)
     normalize_core_course_learning_outcomes(program)
     normalize_curriculum_electives_in_program(program)
@@ -219,7 +213,15 @@ def reconsider_node_cmd(
 
     bump_date_updated(program)
 
-    errs = validate_corpus(root, corpus)
+    enum_notes: list[str] = []
+    errs = validate_corpus(
+        root,
+        corpus,
+        category_repair_notes=enum_notes,
+        repair_invalid_enums=True,
+    )
+    for line in enum_notes:
+        cli_bracket_line(_recon_scope(), "enum-repair", line, indent_tabs=1)
     if errs:
         echo_validation_errors(errs, intro="Corpus invalid after reconsider-node.")
         sys.exit(1)

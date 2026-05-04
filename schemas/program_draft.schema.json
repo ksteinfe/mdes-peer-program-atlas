@@ -9,6 +9,7 @@
     "date_added",
     "date_updated",
     "atlas_ingest",
+    "sources",
     "llm_rationales",
     "identity",
     "positioning",
@@ -38,7 +39,7 @@
       "properties": {
         "stage": {
           "type": "string",
-            "enum": [
+          "enum": [
             "skeleton",
             "search_context",
             "positioning",
@@ -56,6 +57,12 @@
         },
         "updated_at": { "type": "string" }
       }
+    },
+    "sources": {
+      "type": "array",
+      "description": "Normalized URLs from url-cache whose registrable domain matches base_url (draft may start empty).",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
     },
     "atlas_search_context": {
       "type": "object",
@@ -155,14 +162,20 @@
         "base_currency",
         "exchange_rate_to_usd",
         "comparison_cost_usd",
-        "total_degree_cost_base_currency"
+        "cost_base_currency"
       ],
       "additionalProperties": false,
       "properties": {
         "base_currency": { "type": ["string", "null"] },
         "exchange_rate_to_usd": { "type": ["number", "null"] },
-        "comparison_cost_usd": { "type": ["number", "null"] },
-        "total_degree_cost_base_currency": { "type": ["number", "null"] }
+        "comparison_cost_usd": {
+          "type": ["number", "null"],
+          "description": "Tuition plus mandatory program/academic fees only (USD), for cross-program comparison—not housing or full cost of attendance."
+        },
+        "cost_base_currency": {
+          "type": ["number", "null"],
+          "description": "Program-stated tuition total in base_currency, including mandatory program/academic fees when they are part of that tuition-and-fees subtotal; exclude housing and full cost of attendance."
+        }
       }
     },
     "coreCourse": {

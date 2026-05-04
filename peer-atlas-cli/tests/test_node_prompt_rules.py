@@ -11,7 +11,7 @@ def test_load_node_prompt_rules_joins_list_strings() -> None:
     text = load_node_prompt_rules(root, "degree_cost")
     assert "feature" in text
     assert "comparison_cost_usd" in text
-    assert "total_degree_cost_base_currency" in text
+    assert "cost_base_currency" in text
     parts = text.split("\n")
     assert len(parts) >= 4
     assert all(p.strip() for p in parts)

@@ -2,24 +2,41 @@
 
 from __future__ import annotations
 
+import click
 import copy
 import json
 import pathlib
 import re
 from typing import Any
 
+import click
+
 from peer_atlas_cli.categories import load_node_prompt_rules
 from peer_atlas_cli.json_paths import set_path
 from peer_atlas_cli.llm_client import LLMClient, parse_json_response
 from peer_atlas_cli.program_sanitize import (
-    append_bibliography_dicts_as_rationales,
     coalesce_curriculum_subtree_from_llm,
     coerce_llm_rationale_object,
-    hoist_curriculum_sources_and_derivation_notes_to_program,
+    hoist_nested_curriculum_llm_rationales,
 )
 from peer_atlas_cli.prompt_loader import load_prompt, render_template
 from peer_atlas_cli.repo_root import find_repo_root
 from peer_atlas_cli.schema_validation import validate_single_program
+
+
+def _validate_program_with_enum_repairs(
+    repo_root: pathlib.Path, program: dict[str, Any]
+) -> list[str]:
+    notes: list[str] = []
+    errs = validate_single_program(
+        repo_root,
+        program,
+        category_repair_notes=notes,
+        repair_invalid_enums=True,
+    )
+    for line in notes:
+        click.echo(line, err=True)
+    return errs
 
 
 class LLMSchemaValidationError(Exception):
@@ -301,9 +318,8 @@ def run_node_step(
         if not isinstance(parsed, dict):
             raise ValueError("LLM JSON must be an object")
         extra_notes = parsed.pop("llm_rationales", None)
-        if extra_notes is None:
-            extra_notes = parsed.pop("derivation_notes", None)
-        extra_sources = parsed.pop("sources", None)
+        parsed.pop("derivation_notes", None)
+        parsed.pop("sources", None)
         keys = set(parsed.keys())
         if keys != {node}:
             raise ValueError(
@@ -317,11 +333,7 @@ def run_node_step(
             coalesce_curriculum_subtree_from_llm(subtree)
         program[node] = copy.deepcopy(subtree)
         if node == "curriculum":
-            hoist_curriculum_sources_and_derivation_notes_to_program(program)
-        if isinstance(extra_sources, list):
-            append_bibliography_dicts_as_rationales(
-                program, extra_sources, feature="ingest.citation"
-            )
+            hoist_nested_curriculum_llm_rationales(program)
         if isinstance(extra_notes, list):
             arr = program.setdefault("llm_rationales", [])
             if isinstance(arr, list):
@@ -337,7 +349,7 @@ def run_node_step(
         if repo_root is None:
             return raw
 
-        last_errors = validate_single_program(repo_root, program)
+        last_errors = _validate_program_with_enum_repairs(repo_root, program)
         if not last_errors:
             return raw
 
@@ -398,9 +410,8 @@ def run_curriculum_overview_step(
         if not isinstance(parsed, dict):
             raise ValueError("LLM JSON must be an object")
         extra_notes = parsed.pop("llm_rationales", None)
-        if extra_notes is None:
-            extra_notes = parsed.pop("derivation_notes", None)
-        extra_sources = parsed.pop("sources", None)
+        parsed.pop("derivation_notes", None)
+        parsed.pop("sources", None)
         keys = set(parsed.keys())
         if keys != {"curriculum"}:
             raise ValueError(
@@ -412,11 +423,7 @@ def run_curriculum_overview_step(
             raise ValueError("LLM value for 'curriculum' must be an object")
         coalesce_curriculum_subtree_from_llm(subtree)
         program["curriculum"] = copy.deepcopy(subtree)
-        hoist_curriculum_sources_and_derivation_notes_to_program(program)
-        if isinstance(extra_sources, list):
-            append_bibliography_dicts_as_rationales(
-                program, extra_sources, feature="ingest.citation"
-            )
+        hoist_nested_curriculum_llm_rationales(program)
         if isinstance(extra_notes, list):
             arr = program.setdefault("llm_rationales", [])
             if isinstance(arr, list):
@@ -432,7 +439,7 @@ def run_curriculum_overview_step(
         if repo_root is None:
             return raw
 
-        last_errors = validate_single_program(repo_root, program)
+        last_errors = _validate_program_with_enum_repairs(repo_root, program)
         if not last_errors:
             return raw
 
@@ -491,8 +498,7 @@ def run_curriculum_course_patch(
                 base_user
                 + "\n\nYour previous patch left the program invalid under the corpus "
                 "JSON Schema. Return an object with an **updates** array that fixes paths under "
-                f"curriculum.core_courses.{index}.*. You may also include top-level "
-                "**llm_rationales** (and legacy **sources** are converted to rationales). Issues:\n"
+                f"curriculum.core_courses.{index}.*. You may include top-level **llm_rationales**. Issues:\n"
                 + "\n".join(last_errors[:40])
             )
 
@@ -520,13 +526,8 @@ def run_curriculum_course_patch(
             set_path(program, path, u.get("value"))
 
         extra_notes = payload.pop("llm_rationales", None)
-        if extra_notes is None:
-            extra_notes = payload.pop("derivation_notes", None)
-        extra_sources = payload.pop("sources", None)
-        if isinstance(extra_sources, list):
-            append_bibliography_dicts_as_rationales(
-                program, extra_sources, feature="ingest.citation"
-            )
+        payload.pop("derivation_notes", None)
+        payload.pop("sources", None)
         if isinstance(extra_notes, list):
             arr = program.setdefault("llm_rationales", [])
             if isinstance(arr, list):
@@ -542,7 +543,7 @@ def run_curriculum_course_patch(
         if repo_root is None:
             return raw
 
-        last_errors = validate_single_program(repo_root, program)
+        last_errors = _validate_program_with_enum_repairs(repo_root, program)
         if not last_errors:
             return raw
 

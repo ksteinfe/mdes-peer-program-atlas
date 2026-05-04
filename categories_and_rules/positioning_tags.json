@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "id": "INVALID",
+      "label": "Invalid / unknown",
+      "description": "Reserved sentinel: tooling replaces LLM outputs that are not valid positioning_tag ids so ingest can continue."
+    },
+    {
       "id": "interdisciplinary",
       "label": "Interdisciplinary",
       "description": "Positioning emphasizes cross-disciplinary work."
@@ -9,7 +14,17 @@
       "id": "stem_adjacent",
       "label": "STEM-adjacent",
       "description": "Emphasizes work adjacent to engineering, computing, or sciences."
-    },    
+    },
+    {
+      "id": "fine_arts_adjacent",
+      "label": "Fine Arts Adjacent",
+      "description": "Emphasizes work adjacent to the fine arts."
+    },
+    {
+      "id": "architecture_adjacent",
+      "label": "Architecture Adjacent",
+      "description": "Emphasizes work adjacent to architecture."
+    },  
     {
       "id": "professional",
       "label": "Professional",
@@ -46,7 +61,7 @@
       "description": "explicitly emphasizes emerging technologies."
     },
     {
-      "id": "human_comptuer_interaction",
+      "id": "human_computer_interaction",
       "label": "Human Computer Interaction",
       "description": "explicitly emphasizes human computer interaction."
     },
@@ -54,6 +69,16 @@
       "id": "entrepreneurship",
       "label": "Entrepreneurship",
       "description": "explicitly emphasizes entrepreneurship."
+    },
+    {
+      "id": "critical_speculative_design",
+      "label": "Critial / Speculative Design",
+      "description": "explicitly emphasizes critical or speculative design."
+    },
+    {
+      "id": "interaction_design",
+      "label": "Interaction Design",
+      "description": "explicitly emphasizes interaction design."
     }
   ]
 }

@@ -16,5 +16,8 @@ def test_design_studio_requires_null_secondary() -> None:
     bad = corpus["programs"][0]["curriculum"]["core_courses"][0]
     bad["primary_type"] = "design_studio"
     bad["secondary_type"] = "technology"
-    errs = validate_corpus(root, corpus)
-    assert any("design_studio" in e for e in errs)
+    errs = validate_corpus(
+        root, corpus, repair_invalid_enums=True, category_repair_notes=[]
+    )
+    assert errs == []
+    assert bad["secondary_type"] is None

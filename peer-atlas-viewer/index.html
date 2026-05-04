@@ -3,19 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MDes Peer Program Atlas — Viewer</title>
+  <title>MDes Peer Program Atlas</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header class="app-header">
     <h1>MDes Peer Program Atlas</h1>
-    <p class="lede">Local corpus browser. Load JSON, inspect programs, export patch files.</p>
+    <p class="lede">
+      Peer-program comparison dataset. Sort and filter programs; click a tag in the table to add it to the active filters (narrowing the list; tag conditions combine with “all must match”). Open a row for details. Edits stay in the browser until you export a patch file.
+    </p>
   </header>
 
-  <section class="toolbar">
-    <button type="button" id="btn-load-corpus" class="file-label">
-      Load corpus…
-    </button>
+  <section class="toolbar" aria-label="Actions">
+    <button type="button" id="btn-filter" class="btn-primary">Filter programs</button>
+    <span id="count-line" class="count-line" role="status">Showing 0 of 0 programs</span>
+    <span class="toolbar-spacer"></span>
+    <!-- peer-atlas:bundle-remove:start -->
+    <button type="button" id="btn-load-corpus" class="btn-quiet">Load corpus…</button>
     <input
       id="file-corpus"
       type="file"
@@ -23,53 +27,84 @@
       hidden
       aria-hidden="true"
     />
-    <button type="button" id="btn-sample">Load sample</button>
-    <input id="filter" type="search" placeholder="Filter institution / program / id…" />
+    <button type="button" id="btn-sample" class="btn-quiet">Load sample</button>
+    <!-- peer-atlas:bundle-remove:end -->
     <span id="status" class="status" role="status"></span>
   </section>
 
-  <main class="layout">
-    <section class="panel" aria-labelledby="table-title">
-      <h2 id="table-title">Programs</h2>
+  <main class="main-surface">
+    <div class="table-card">
       <div class="table-wrap">
-        <table id="program-table">
+        <table id="program-table" class="program-table">
+          <colgroup>
+            <col class="col-inst" />
+            <col class="col-program" />
+            <col class="col-degree" />
+            <col class="col-sem" />
+            <col class="col-host" />
+            <col class="col-tags" />
+          </colgroup>
           <thead>
             <tr>
-              <th scope="col">Program ID</th>
-              <th scope="col">Institution</th>
-              <th scope="col">Program</th>
-              <th scope="col">Degree type</th>
-              <th scope="col">Country</th>
-              <th scope="col">State / region</th>
-              <th scope="col">Host model</th>
-              <th scope="col">Positioning tags</th>
-              <th scope="col">Duration</th>
-              <th scope="col">Berkeley sem.</th>
-              <th scope="col">Cost USD</th>
-              <th scope="col">Verification</th>
+              <th scope="col"><button type="button" class="th-sort" data-sort="institution">Institution</button></th>
+              <th scope="col"><button type="button" class="th-sort" data-sort="program">Program</button></th>
+              <th scope="col"><button type="button" class="th-sort" data-sort="degree">Degree type</button></th>
+              <th scope="col"><button type="button" class="th-sort" data-sort="berkeleySem"># of semesters</button></th>
+              <th scope="col"><button type="button" class="th-sort" data-sort="hostModel">Host academic model</button></th>
+              <th scope="col"><button type="button" class="th-sort" data-sort="tags">Positioning tags</button></th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
-    </section>
+    </div>
+  </main>
 
-    <section class="panel drilldown" aria-labelledby="detail-title">
-      <h2 id="detail-title">Program detail</h2>
-      <p id="detail-empty" class="muted">Select a program row.</p>
-      <div id="detail-root" hidden></div>
-      <div id="patch-actions" class="patch-actions" hidden>
-        <h3>Patch queue</h3>
-        <button type="button" id="btn-queue-reviewed">Queue: verification → human_reviewed</button>
-        <ul id="patch-queue" class="patch-queue"></ul>
-        <div class="patch-meta">
-          <label>Created by <input id="meta-by" type="text" placeholder="Initials" /></label>
+  <dialog id="dlg-filter" class="sheet" aria-labelledby="dlg-filter-title">
+    <div class="sheet-inner">
+      <header class="sheet-header">
+        <h2 id="dlg-filter-title">Filter programs</h2>
+        <button type="button" class="btn-iconish" id="btn-filter-close" aria-label="Close">Close</button>
+      </header>
+      <div id="filter-body" class="sheet-body"></div>
+      <footer class="sheet-footer">
+        <button type="button" id="btn-filter-clear">Clear all filters</button>
+        <button type="button" id="btn-filter-done" class="btn-primary">Done</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-detail" class="sheet sheet-detail" aria-labelledby="dlg-detail-title">
+    <div class="sheet-inner">
+      <header class="sheet-header">
+        <h2 id="dlg-detail-title" class="dialog-title-heading">Program</h2>
+        <button type="button" class="btn-iconish" id="btn-detail-close" aria-label="Close">Close</button>
+      </header>
+      <div id="detail-scroll" class="sheet-body detail-scroll"></div>
+      <footer class="sheet-footer detail-footer">
+        <p class="edit-hint" id="edit-hint" hidden>Edits are local until you export a patch. They are not saved to the corpus file.</p>
+        <div class="detail-actions">
+          <button type="button" id="btn-edit-toggle">Edit</button>
+          <button type="button" id="btn-edit-cancel" hidden>Cancel edits</button>
+          <button type="button" id="btn-export-patch" class="btn-primary" hidden disabled>Export patch for this program</button>
+        </div>
+        <div class="patch-meta-row" id="patch-meta-row" hidden>
+          <label>Created by <input id="meta-by" type="text" placeholder="Initials" autocomplete="name" /></label>
           <label>Notes <input id="meta-notes" type="text" /></label>
         </div>
-        <button type="button" id="btn-export-patch">Download patch JSON</button>
-      </div>
-    </section>
-  </main>
+      </footer>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-course" class="sheet sheet-course" aria-labelledby="dlg-course-title">
+    <div class="sheet-inner">
+      <header class="sheet-header">
+        <h2 id="dlg-course-title" class="dialog-title-heading">Course</h2>
+        <button type="button" class="btn-iconish" id="btn-course-close" aria-label="Close">Close</button>
+      </header>
+      <div id="course-scroll" class="sheet-body detail-scroll"></div>
+    </div>
+  </dialog>
 
   <script type="module" src="js/app.js"></script>
 </body>

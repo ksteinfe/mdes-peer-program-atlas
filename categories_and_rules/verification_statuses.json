@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "id": "INVALID",
+      "label": "Invalid / unknown",
+      "description": "Reserved sentinel for values that are not valid verification.status ids."
+    },
+    {
       "id": "llm_extracted",
       "label": "LLM extracted",
       "description": "Populated primarily by automated extraction; needs human review."

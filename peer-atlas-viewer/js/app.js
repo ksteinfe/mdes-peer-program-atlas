@@ -8,22 +8,104 @@ const IDB_CORPUS_KEY = "corpusFile";
 
 /** @type {{ corpus_metadata?: object, programs: object[] } | null} */
 let corpus = null;
+/** @type {Record<string, unknown>} */
+let categories = {};
 /** @type {string | null} */
-let selectedId = null;
-/** @type {object[]} */
-let patchQueue = [];
+let detailProgramId = null;
+/** @type {object | null} */
+let editBaseline = null;
+let editMode = false;
+
+/** @type {{ key: string, dir: 'asc' | 'desc' }} */
+let sortState = { key: "institution", dir: "asc" };
+
+/**
+ * @typedef {{
+ *   degrees: Set<string>,
+ *   hostModels: Set<string>,
+ *   tags: Set<string>,
+ *   semMin: number | null,
+ *   semMax: number | null,
+ * }} FilterState
+ */
+
+/** @type {FilterState} */
+const filters = {
+  degrees: new Set(),
+  hostModels: new Set(),
+  tags: new Set(),
+  semMin: null,
+  semMax: null,
+};
+
+const SORT_KEYS = ["institution", "program", "degree", "berkeleySem", "hostModel", "tags"];
+
+/** Max characters for course title in sample list (ellipsis if longer). */
+const COURSE_TITLE_LIST_MAX = 52;
+
+/** Max characters for course dialog heading `course_id - course_title` (ellipsis if longer). */
+const COURSE_POPOVER_TITLE_MAX = 78;
+
+/** Dot-paths merge-patch uses (popover fields only). */
+const EDITABLE_PATHS = [
+  "identity.institution_name",
+  "identity.program_name",
+  "identity.credential_name",
+  "identity.degree_type",
+  "identity.host_academic_units",
+  "identity.host_academic_model",
+  "identity.location_label",
+  "positioning.positioning_summary",
+  "positioning.positioning_tags",
+  "duration.length_in_berkeley_semesters",
+  "duration.duration_category",
+  "duration.duration_summary",
+  "degree_cost.base_currency",
+  "degree_cost.exchange_rate_to_usd",
+  "degree_cost.comparison_cost_usd",
+  "degree_cost.cost_base_currency",
+  "degree_cost.cost_basis",
+  "degree_cost.comparison_cost_method",
+  "curriculum.unit_system",
+  "curriculum.sequencedness",
+  "curriculum.curriculum_summary",
+  "curriculum.offers_specialization",
+  "curriculum.electives.summary",
+];
 
 function setStatus(msg) {
   const el = $("#status");
   if (el) el.textContent = msg;
 }
 
+function setCountLine(visible, total) {
+  const el = $("#count-line");
+  if (el) el.textContent = `Showing ${visible} of ${total} programs`;
+}
+
+function deepClone(o) {
+  return JSON.parse(JSON.stringify(o));
+}
+
+function deepEqual(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
+/**
+ * @param {unknown} data
+ */
 function normalizeCorpus(data) {
   if (!data || typeof data !== "object") throw new Error("Invalid JSON root");
-  if (!Array.isArray(data.programs)) {
-    throw new Error("Expected top-level 'programs' array");
+  const root = /** @type {Record<string, unknown>} */ (data);
+  if (!Array.isArray(root.programs)) throw new Error("Expected top-level 'programs' array");
+  for (const p of root.programs) {
+    if (p && typeof p === "object" && !Array.isArray(p)) {
+      const pr = /** @type {Record<string, unknown>} */ (p);
+      delete pr.llm_rationales;
+      delete pr.sources;
+    }
   }
-  return data;
+  return /** @type {{ corpus_metadata?: object, programs: object[] }} */ (data);
 }
 
 function supportsFilePicker() {
@@ -32,14 +114,13 @@ function supportsFilePicker() {
 
 function rememberCorpusLabel(file) {
   const name = file?.name || "corpus.json";
-  const path =
-    typeof file?.path === "string" && file.path.length > 0 ? file.path : "";
+  const path = typeof file?.path === "string" && file.path.length > 0 ? file.path : "";
   try {
     localStorage.setItem(LS_LAST_CORPUS_LABEL, name);
     if (path) localStorage.setItem(LS_LAST_CORPUS_PATH, path);
     else localStorage.removeItem(LS_LAST_CORPUS_PATH);
   } catch {
-    /* quota or private mode */
+    /* ignore */
   }
 }
 
@@ -49,9 +130,7 @@ function openIdb() {
     req.onerror = () => reject(req.error);
     req.onupgradeneeded = () => {
       const db = req.result;
-      if (!db.objectStoreNames.contains(IDB_STORE)) {
-        db.createObjectStore(IDB_STORE);
-      }
+      if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE);
     };
     req.onsuccess = () => resolve(req.result);
   });
@@ -66,10 +145,7 @@ function idbClose(db) {
   }
 }
 
-/**
- * @param {string} key
- * @param {unknown} value
- */
+/** @param {string} key @param {unknown} value */
 async function idbPut(key, value) {
   const db = await openIdb();
   try {
@@ -137,8 +213,10 @@ async function applyLoadedCorpus(file, handle, opts = {}) {
   const text = await file.text();
   const data = JSON.parse(text);
   corpus = normalizeCorpus(data);
-  selectedId = null;
-  patchQueue = [];
+  detailProgramId = null;
+  editBaseline = null;
+  editMode = false;
+  clearFilterSets();
   rememberCorpusLabel(file);
   if (handle && supportsFilePicker()) {
     try {
@@ -162,7 +240,6 @@ async function applyLoadedCorpus(file, handle, opts = {}) {
   const verb = opts.reload ? "Reloaded" : "Loaded";
   setStatus(`${verb} ${label} (${corpus.programs.length} programs).`);
   renderTable();
-  renderDetail();
 }
 
 /**
@@ -174,16 +251,14 @@ async function ingestCorpusFile(file, handle) {
     await applyLoadedCorpus(file, handle, { reload: false });
   } catch (err) {
     corpus = null;
-    selectedId = null;
+    detailProgramId = null;
     setStatus("Invalid or unexpected JSON.");
     console.error(err);
     renderTable();
-    renderDetail();
   }
 }
 
 /**
- * Restore corpus from a persisted handle.
  * @param {FileSystemFileHandle} handle
  * @returns {Promise<'ok' | 'denied' | 'error'>}
  */
@@ -221,14 +296,10 @@ async function tryRestorePersistedCorpus() {
     } catch {
       /* ignore */
     }
-    setStatus(
-      "Saved corpus could not be read. Use Load corpus… to pick a valid JSON file."
-    );
+    setStatus("Saved corpus could not be read. Use Load corpus… to pick a valid JSON file.");
     return false;
   }
-  setStatus(
-    "Saved corpus needs permission after refresh. Click Load corpus… and pick the same file once."
-  );
+  setStatus("Saved corpus needs permission after refresh. Click Load corpus… and pick the same file once.");
   return false;
 }
 
@@ -239,12 +310,7 @@ async function openCorpusPicker() {
       const opts = {
         multiple: false,
         excludeAcceptAllOption: false,
-        types: [
-          {
-            description: "JSON",
-            accept: { "application/json": [".json"] },
-          },
-        ],
+        types: [{ description: "JSON", accept: { "application/json": [".json"] } }],
       };
       const handles = await window.showOpenFilePicker(opts);
       const handle = handles[0];
@@ -260,83 +326,202 @@ async function openCorpusPicker() {
   if (input instanceof HTMLInputElement) input.click();
 }
 
-function pick(obj, path, fallback = "") {
-  let cur = obj;
-  for (const key of path) {
-    if (cur == null || typeof cur !== "object") return fallback;
-    cur = cur[key];
-  }
-  if (cur == null || cur === "") return fallback;
-  return String(cur);
+function clearFilterSets() {
+  filters.degrees.clear();
+  filters.hostModels.clear();
+  filters.tags.clear();
+  filters.semMin = null;
+  filters.semMax = null;
 }
 
-function rowCells(p) {
-  const id = p.program_id ?? "";
+/**
+ * Add this positioning tag to the active tag filters (does not clear degree, host, or semester filters).
+ * Multiple tag filters combine with AND (program must include every selected tag).
+ * @param {string} tagId
+ */
+function applyTagFilter(tagId) {
+  if (!tagId) return;
+  filters.tags.add(tagId);
+  renderTable();
+  const lab = labelForId("positioning_tags", tagId) || tagId;
+  const n = filters.tags.size;
+  setStatus(
+    n > 1
+      ? `Added tag filter: ${lab} (${n} tags required; programs must match all). Use Filter programs to adjust or clear.`
+      : `Added tag filter: ${lab}. Use Filter programs to adjust or clear.`
+  );
+}
+
+/**
+ * @param {string} catKey e.g. 'host_academic_models'
+ * @param {string} id
+ */
+function labelForId(catKey, id) {
+  const block = categories[catKey];
+  const items = block && typeof block === "object" && Array.isArray(block.items) ? block.items : [];
+  const row = items.find((x) => x && typeof x === "object" && x.id === id);
+  return row && typeof row.label === "string" ? row.label : id;
+}
+
+/**
+ * @param {object} p
+ */
+function rowView(p) {
   const ident = p.identity ?? {};
-  const loc = ident.location ?? {};
   const pos = p.positioning ?? {};
   const dur = p.duration ?? {};
-  const cost = p.degree_cost ?? {};
-  const ver = p.verification ?? {};
+  const tags = Array.isArray(pos.positioning_tags)
+    ? pos.positioning_tags.filter((t) => t != null && String(t).trim())
+    : [];
+  const hostId = typeof ident.host_academic_model === "string" ? ident.host_academic_model : "";
+  const berk = dur.length_in_berkeley_semesters;
   return {
-    id,
-    institution: pick(ident, ["institution_name"]),
-    program: pick(ident, ["program_name"]),
-    degree: pick(ident, ["degree_type"]),
-    country: pick(loc, ["country"]),
-    region: pick(loc, ["state_or_region"]),
-    hostModel: pick(ident, ["host_academic_model"]),
-    positioning: Array.isArray(pos.positioning_tags)
-      ? pos.positioning_tags.filter((t) => t != null && String(t).trim()).join(", ")
-      : "",
-    durationCat: pick(dur, ["duration_category"]),
-    berkSem: dur.length_in_berkeley_semesters ?? "",
-    costUsd: cost.comparison_cost_usd ?? "",
-    verification: pick(ver, ["status"]),
+    program: p,
+    institution: String(ident.institution_name ?? ""),
+    programName: String(ident.program_name ?? ""),
+    degree: String(ident.degree_type ?? ""),
+    berkeleySem: berk === null || berk === undefined || berk === "" ? null : Number(berk),
+    hostModel: hostId,
+    hostModelLabel: labelForId("host_academic_models", hostId) || hostId,
+    tags,
+    tagsSortKey: tags.slice().sort().join(", "),
   };
+}
+
+/**
+ * @param {object} p
+ */
+function passesFilters(p) {
+  const v = rowView(p);
+  if (filters.degrees.size && !filters.degrees.has(v.degree)) return false;
+  if (filters.hostModels.size && !filters.hostModels.has(v.hostModel)) return false;
+  if (filters.tags.size) {
+    for (const t of filters.tags) {
+      if (!v.tags.includes(t)) return false;
+    }
+  }
+  if (filters.semMin != null && Number.isFinite(filters.semMin)) {
+    if (v.berkeleySem == null || !Number.isFinite(v.berkeleySem) || v.berkeleySem < filters.semMin)
+      return false;
+  }
+  if (filters.semMax != null && Number.isFinite(filters.semMax)) {
+    if (v.berkeleySem == null || !Number.isFinite(v.berkeleySem) || v.berkeleySem > filters.semMax)
+      return false;
+  }
+  return true;
+}
+
+/**
+ * @param {ReturnType<typeof rowView>} a
+ * @param {ReturnType<typeof rowView>} b
+ */
+/**
+ * @param {ReturnType<typeof rowView>} v
+ * @param {string} k
+ */
+function sortValueFor(v, k) {
+  if (k === "program") return v.programName;
+  return /** @type {string | number | null} */ (v[k]);
+}
+
+function compareRows(a, b) {
+  const dir = sortState.dir === "desc" ? -1 : 1;
+  const k = sortState.key;
+  let cmp = 0;
+  if (k === "berkeleySem") {
+    const na = a.berkeleySem;
+    const nb = b.berkeleySem;
+    if (na == null && nb == null) cmp = 0;
+    else if (na == null) cmp = 1;
+    else if (nb == null) cmp = -1;
+    else cmp = na - nb;
+  } else if (k === "tags") {
+    cmp = a.tagsSortKey.localeCompare(b.tagsSortKey, undefined, { sensitivity: "base" });
+  } else {
+    const sa = String(sortValueFor(a, k) ?? "");
+    const sb = String(sortValueFor(b, k) ?? "");
+    cmp = sa.localeCompare(sb, undefined, { sensitivity: "base" });
+  }
+  if (cmp !== 0) return cmp * dir;
+  return a.institution.localeCompare(b.institution, undefined, { sensitivity: "base" });
+}
+
+function getFilteredPrograms() {
+  if (!corpus) return [];
+  return corpus.programs.filter(passesFilters);
 }
 
 function renderTable() {
   const tbody = $("#program-table tbody");
-  if (!tbody || !corpus) return;
-  const q = ($("#filter")?.value || "").trim().toLowerCase();
+  if (!tbody || !corpus) {
+    if (tbody) tbody.replaceChildren();
+    setCountLine(0, 0);
+    return;
+  }
+  const list = getFilteredPrograms().map(rowView).sort(compareRows);
+  setCountLine(list.length, corpus.programs.length);
   tbody.replaceChildren();
-  for (const p of corpus.programs) {
-    const c = rowCells(p);
-    const hay = [c.id, c.institution, c.program, c.degree].join(" ").toLowerCase();
-    if (q && !hay.includes(q)) continue;
+  for (const v of list) {
     const tr = document.createElement("tr");
+    tr.dataset.programId = v.program.program_id;
     tr.tabIndex = 0;
-    if (c.id === selectedId) tr.setAttribute("aria-selected", "true");
-    tr.dataset.programId = c.id;
-    const vals = [
-      c.id,
-      c.institution,
-      c.program,
-      c.degree,
-      c.country,
-      c.region,
-      c.hostModel,
-      c.positioning,
-      c.durationCat,
-      c.berkSem,
-      c.costUsd,
-      c.verification,
+    tr.innerHTML = "";
+    const cells = [
+      v.institution,
+      v.programName,
+      v.degree,
+      v.berkeleySem == null || !Number.isFinite(v.berkeleySem) ? "—" : String(v.berkeleySem),
+      v.hostModelLabel,
     ];
-    for (const v of vals) {
+    for (let i = 0; i < cells.length; i++) {
       const td = document.createElement("td");
-      td.textContent = v === null || v === undefined ? "" : String(v);
+      td.textContent = cells[i];
+      if (i === 3) td.className = "sem-cell";
       tr.appendChild(td);
     }
-    tr.addEventListener("click", () => selectProgram(c.id));
+    const tdTags = document.createElement("td");
+    tdTags.className = "tag-cell";
+    const ul = document.createElement("ul");
+    ul.className = "tag-list";
+    for (const t of v.tags) {
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tag-pill";
+      btn.textContent = labelForId("positioning_tags", t) || t;
+      btn.title = `Add tag to filters (must match all selected tags): ${labelForId("positioning_tags", t) || t}`;
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        applyTagFilter(String(t));
+      });
+      li.appendChild(btn);
+      ul.appendChild(li);
+    }
+    tdTags.appendChild(ul);
+    tr.appendChild(tdTags);
+    tr.addEventListener("click", (e) => {
+      if (e.target instanceof HTMLElement && e.target.closest("button.tag-pill")) return;
+      openDetail(v.program.program_id);
+    });
     tr.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        selectProgram(c.id);
+        openDetail(v.program.program_id);
       }
     });
     tbody.appendChild(tr);
   }
+}
+
+function toggleSort(key) {
+  if (!SORT_KEYS.includes(key)) return;
+  if (sortState.key === key) sortState.dir = sortState.dir === "asc" ? "desc" : "asc";
+  else {
+    sortState.key = key;
+    sortState.dir = "asc";
+  }
+  renderTable();
 }
 
 function esc(s) {
@@ -346,130 +531,398 @@ function esc(s) {
     .replaceAll(">", "&gt;");
 }
 
-function renderPrimitive(path, value) {
-  const v =
-    value === null || value === undefined
-      ? ""
-      : typeof value === "object"
-        ? JSON.stringify(value)
-        : String(value);
-  return `<div class="kv"><div>${esc(path)}</div><div data-path="${esc(
-    path
-  )}">${esc(v)}</div></div>`;
+function escAttr(s) {
+  return String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
 }
 
-function renderObjectSection(title, obj, prefix) {
-  if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
-    return `<div class="section"><h3>${esc(title)}</h3>${renderPrimitive(
-      prefix,
-      obj
-    )}</div>`;
-  }
-  let inner = "";
-  for (const [k, v] of Object.entries(obj)) {
-    const p = prefix ? `${prefix}.${k}` : k;
-    if (v != null && typeof v === "object" && !Array.isArray(v)) {
-      inner += `<div class="nested"><strong>${esc(k)}</strong>${renderObjectBlock(
-        p,
-        v
-      )}</div>`;
-    } else if (Array.isArray(v)) {
-      inner += `<div class="nested"><strong>${esc(k)}</strong>`;
-      inner += `<pre data-path="${esc(p)}">${esc(JSON.stringify(v, null, 2))}</pre></div>`;
-    } else {
-      inner += renderPrimitive(p, v);
+/** Lazily parsed `#course-type-icons` JSON map (base64 data URLs from bundle) or empty. */
+/** @type {Record<string, string> | null} */
+let courseTypeIconSrcMapCache = null;
+
+function getCourseTypeIconSrcMap() {
+  if (courseTypeIconSrcMapCache !== null) return courseTypeIconSrcMapCache;
+  const el = document.getElementById("course-type-icons");
+  if (el?.textContent?.trim()) {
+    try {
+      courseTypeIconSrcMapCache = JSON.parse(el.textContent);
+      return courseTypeIconSrcMapCache;
+    } catch {
+      courseTypeIconSrcMapCache = {};
+      return courseTypeIconSrcMapCache;
     }
   }
-  return `<div class="section"><h3>${esc(title)}</h3>${inner}</div>`;
+  courseTypeIconSrcMapCache = {};
+  return courseTypeIconSrcMapCache;
 }
 
-function renderObjectBlock(prefix, obj) {
-  let inner = "";
-  for (const [k, v] of Object.entries(obj)) {
-    const p = `${prefix}.${k}`;
-    if (v != null && typeof v === "object" && !Array.isArray(v)) {
-      inner += `<div class="nested"><strong>${esc(k)}</strong>${renderObjectBlock(
-        p,
-        v
-      )}</div>`;
-    } else if (Array.isArray(v)) {
-      inner += `<div class="nested"><strong>${esc(k)}</strong><pre data-path="${esc(
-        p
-      )}">${esc(JSON.stringify(v, null, 2))}</pre></div>`;
-    } else {
-      inner += renderPrimitive(p, v);
-    }
-  }
-  return `<div class="kv-block">${inner}</div>`;
-}
-
-function renderDetail() {
-  const root = $("#detail-root");
-  const empty = $("#detail-empty");
-  const patch = $("#patch-actions");
-  if (!root || !empty || !patch) return;
-  if (!selectedId || !corpus) {
-    root.hidden = true;
-    empty.hidden = false;
-    patch.hidden = true;
-    return;
-  }
-  const p = corpus.programs.find((x) => x.program_id === selectedId);
-  if (!p) {
-    root.hidden = true;
-    empty.hidden = false;
-    patch.hidden = true;
-    return;
-  }
-  empty.hidden = true;
-  root.hidden = false;
-  patch.hidden = false;
-  const blocks = [
-    renderObjectSection("Identity", p.identity, "identity"),
-    renderObjectSection("Positioning", p.positioning, "positioning"),
-    renderObjectSection("Duration", p.duration, "duration"),
-    renderObjectSection("Degree cost", p.degree_cost, "degree_cost"),
-    renderObjectSection("Curriculum", p.curriculum, "curriculum"),
-    renderObjectSection("Verification", p.verification, "verification"),
-  ];
-  root.innerHTML = blocks.join("");
-  renderPatchQueue();
-}
-
-function selectProgram(id) {
-  selectedId = id;
-  renderTable();
-  renderDetail();
-}
-
-function renderPatchQueue() {
-  const ul = $("#patch-queue");
-  if (!ul) return;
-  ul.replaceChildren();
-  for (const ch of patchQueue) {
-    const li = document.createElement("li");
-    li.textContent = `${ch.program_id}  ${ch.path}`;
-    ul.appendChild(li);
+/**
+ * Icon URL for a course_types id: embedded bundle map first, else `icons/course-types/{id}.svg` next to the module.
+ * @param {unknown} typeId
+ * @returns {string | null}
+ */
+function courseTypeIconSrc(typeId) {
+  const id = String(typeId ?? "").trim();
+  if (!id || id === "INVALID") return null;
+  const embedded = getCourseTypeIconSrcMap()[id];
+  if (embedded) return embedded;
+  try {
+    return new URL(`../icons/course-types/${encodeURIComponent(id)}.svg`, import.meta.url).href;
+  } catch {
+    return null;
   }
 }
 
-function queueVerificationHumanReviewed() {
-  if (!corpus || !selectedId) {
-    setStatus("Select a program first.");
-    return;
-  }
-  const p = corpus.programs.find((x) => x.program_id === selectedId);
-  if (!p) return;
-  const cur = p.verification?.status ?? null;
-  patchQueue.push({
-    program_id: selectedId,
-    path: "verification.status",
-    old_value: cur,
-    new_value: "human_reviewed",
-    notes: "Queued from viewer",
+/**
+ * @param {unknown} typeId
+ * @param {{ size?: number, className?: string, alt?: string }} [opts]
+ */
+function courseTypeIconImgHtml(typeId, opts = {}) {
+  const id = String(typeId ?? "").trim();
+  const size = opts.size ?? 20;
+  const cls = opts.className ?? "course-type-icon";
+  const altText = opts.alt !== undefined ? String(opts.alt) : "";
+  const url = courseTypeIconSrc(id);
+  if (!url) return "";
+  const altAttr = ` alt="${escAttr(altText)}"`;
+  return `<img src="${escAttr(url)}"${altAttr} width="${size}" height="${size}" class="${esc(cls)}" loading="lazy" decoding="async" />`;
+}
+
+/**
+ * Label cell content: optional icon + human-readable type label.
+ * @param {unknown} typeId
+ */
+function courseTypeLabelWithIconHtml(typeId) {
+  const id = String(typeId ?? "").trim();
+  const lbl = labelCourseType(id) || id || "—";
+  const icon = courseTypeIconImgHtml(id, {
+    size: 20,
+    className: "course-type-icon course-type-icon--inline",
+    alt: "",
   });
-  setStatus("Change queued.");
-  renderPatchQueue();
+  if (!icon) return esc(lbl);
+  return `<span class="course-type-label-with-icon">${icon}<span class="course-type-label-text">${esc(lbl)}</span></span>`;
+}
+
+/**
+ * Two-letter code for course primary_type (from underscore segments or first two chars).
+ * @param {unknown} typeId
+ */
+function primaryTypeTwoChar(typeId) {
+  const id = String(typeId ?? "").trim();
+  if (!id) return "—";
+  const parts = id.split("_").filter(Boolean);
+  if (parts.length >= 2) {
+    const a = parts[0][0] || "";
+    const b = parts[1][0] || "";
+    return (a + b).toUpperCase();
+  }
+  return id.slice(0, 2).toUpperCase().padEnd(2, "·");
+}
+
+/**
+ * @param {unknown} typeId
+ */
+function labelCourseType(typeId) {
+  return labelForId("course_types", String(typeId ?? ""));
+}
+
+/**
+ * @param {object} curriculumObj
+ */
+function buildSampleCoursesSectionHtml(curriculumObj) {
+  const cur = curriculumObj && typeof curriculumObj === "object" ? curriculumObj : {};
+  const courses = Array.isArray(cur.core_courses) ? cur.core_courses : [];
+  if (!courses.length) {
+    return `<section class="detail-section detail-section--courses"><h3>Sample courses</h3><p class="sample-courses-empty">No core courses in this record.</p></section>`;
+  }
+  let rows = "";
+  for (let i = 0; i < courses.length; i++) {
+    const c = courses[i];
+    if (!c || typeof c !== "object") continue;
+    const cid = String(c.course_id ?? "");
+    const tit = String(c.course_title ?? "");
+    const abbr = primaryTypeTwoChar(c.primary_type);
+    const typeLabel = labelCourseType(c.primary_type) || abbr;
+    const icon = courseTypeIconImgHtml(c.primary_type, {
+      size: 18,
+      className: "course-type-icon course-type-icon--sample",
+      alt: typeLabel,
+    });
+    let shown = tit;
+    let ell = "";
+    if (tit.length > COURSE_TITLE_LIST_MAX) {
+      shown = tit.slice(0, COURSE_TITLE_LIST_MAX);
+      ell = "…";
+    }
+    const rightTd = icon
+      ? `<td class="sample-course-type">${icon}</td>`
+      : `<td class="sample-course-abbr">${esc(abbr)}</td>`;
+    rows += `<tr class="course-sample-row" data-course-index="${i}" tabindex="0" role="button"><td class="sample-course-main">${esc(
+      cid
+    )} - ${esc(shown)}${ell}</td>${rightTd}</tr>`;
+  }
+  return `<section class="detail-section detail-section--courses"><h3>Sample courses</h3><table class="sample-courses" aria-label="Core courses"><tbody>${rows}</tbody></table></section>`;
+}
+
+/**
+ * @param {object} p
+ */
+function setProgramDialogTitle(p) {
+  const titleEl = $("#dlg-detail-title");
+  if (!titleEl || !p) return;
+  const inst = p.identity?.institution_name ?? "";
+  const pn = p.identity?.program_name ?? "";
+  const text = [inst, pn].filter(Boolean).join(" — ") || "Program";
+  titleEl.replaceChildren();
+  const u = typeof p.base_url === "string" ? p.base_url.trim() : "";
+  if (u) {
+    const a = document.createElement("a");
+    a.href = u;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.textContent = text;
+    titleEl.appendChild(a);
+  } else {
+    titleEl.textContent = text;
+  }
+}
+
+function closeCourseDialog() {
+  const dlg = /** @type {HTMLDialogElement} */ ($("#dlg-course"));
+  if (dlg?.open) dlg.close();
+}
+
+/**
+ * @param {object} course
+ */
+function openCourseDialog(course) {
+  if (!course || typeof course !== "object") return;
+  closeCourseDialog();
+  const dlg = /** @type {HTMLDialogElement} */ ($("#dlg-course"));
+  const scroll = $("#course-scroll");
+  if (!dlg || !scroll) return;
+  setCourseDialogTitle(course);
+  scroll.innerHTML = buildCourseDetailHtml(course);
+  dlg.showModal();
+}
+
+/**
+ * Full and display-safe heading for the course dialog (`course_id - course_title`).
+ * @param {object} course
+ * @returns {{ full: string, short: string }}
+ */
+function coursePopoverTitleParts(course) {
+  const cid = String(course.course_id ?? "").trim();
+  const tit = String(course.course_title ?? "").trim();
+  const full = cid && tit ? `${cid} - ${tit}` : cid || tit || "Course";
+  let short = full;
+  if (full.length > COURSE_POPOVER_TITLE_MAX) {
+    short = full.slice(0, Math.max(1, COURSE_POPOVER_TITLE_MAX - 1)) + "…";
+  }
+  return { full, short };
+}
+
+/**
+ * @param {object} course
+ */
+function setCourseDialogTitle(course) {
+  const titleEl = $("#dlg-course-title");
+  if (!titleEl) return;
+  const { full, short } = coursePopoverTitleParts(course);
+  titleEl.removeAttribute("title");
+  titleEl.replaceChildren();
+  const url = course.source_url && String(course.source_url).trim();
+  if (url) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.textContent = short;
+    if (short !== full) a.title = full;
+    titleEl.appendChild(a);
+  } else {
+    titleEl.textContent = short;
+    if (short !== full) titleEl.title = full;
+  }
+}
+
+/**
+ * @param {object} c
+ */
+function buildCourseDetailHtml(c) {
+  /** @type {string[]} */
+  const rows = [];
+  const push = (label, innerTd) => {
+    rows.push(`<tr><th>${esc(label)}</th><td>${innerTd}</td></tr>`);
+  };
+  const fullTit = String(c.course_title ?? "").trim();
+  push("Course title", fullTit ? esc(fullTit) : "—");
+  push(
+    "Units / credits",
+    c.units_or_credits != null && c.units_or_credits !== "" ? esc(String(c.units_or_credits)) : "—"
+  );
+  const pt = String(c.primary_type ?? "").trim();
+  push("Primary type", courseTypeLabelWithIconHtml(pt));
+  const st = c.secondary_type;
+  const stStr = st == null || st === "" ? null : String(st).trim();
+  push("Secondary type", stStr == null ? "—" : courseTypeLabelWithIconHtml(stStr));
+  const nw = c.normalized_unit_weight;
+  push(
+    "Normalized unit weight",
+    nw != null && Number.isFinite(Number(nw)) ? esc(Number(nw).toFixed(2)) : "—"
+  );
+  const sum = String(c.course_summary ?? "").trim();
+  push("Summary", esc(sum || "—"));
+  const lo = Array.isArray(c.learning_outcomes)
+    ? c.learning_outcomes.filter((x) => typeof x === "string" && x.trim())
+    : [];
+  const loHtml =
+    lo.length === 0 ? "—" : `<ul class="course-lo">${lo.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
+  push("Learning outcomes", loHtml);
+  return `<table class="def-table course-detail-table"><tbody>${rows.join("")}</tbody></table>`;
+}
+
+function formatCostK(usd) {
+  if (usd == null || usd === "" || !Number.isFinite(Number(usd))) return "—";
+  const n = Math.round(Number(usd) / 1000);
+  return `$${n}k`;
+}
+
+/**
+ * @param {object} obj
+ * @param {string} path
+ */
+function getPath(obj, path) {
+  const parts = path.split(".");
+  let cur = obj;
+  for (const p of parts) {
+    if (cur == null || typeof cur !== "object") return undefined;
+    cur = /** @type {Record<string, unknown>} */ (cur)[p];
+  }
+  return cur;
+}
+
+/**
+ * @param {object} obj
+ * @param {string} path
+ * @param {unknown} value
+ */
+function setPath(obj, path, value) {
+  const parts = path.split(".");
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const k = parts[i];
+    if (cur[k] == null || typeof cur[k] !== "object") cur[k] = {};
+    cur = /** @type {Record<string, unknown>} */ (cur)[k];
+  }
+  cur[parts[parts.length - 1]] = value;
+}
+
+function findProgram(id) {
+  return corpus?.programs.find((x) => x.program_id === id) ?? null;
+}
+
+function closeDetail() {
+  closeCourseDialog();
+  if (editMode && editBaseline && detailProgramId) {
+    const idx = corpus?.programs.findIndex((x) => x.program_id === detailProgramId) ?? -1;
+    if (corpus && idx >= 0) corpus.programs[idx] = deepClone(editBaseline);
+  }
+  const dlg = /** @type {HTMLDialogElement} */ ($("#dlg-detail"));
+  if (dlg?.open) dlg.close();
+  detailProgramId = null;
+  editBaseline = null;
+  editMode = false;
+  syncEditChrome();
+  renderTable();
+}
+
+function openDetail(programId) {
+  if (!findProgram(programId)) return;
+  detailProgramId = programId;
+  editBaseline = null;
+  editMode = false;
+  const dlg = /** @type {HTMLDialogElement} */ ($("#dlg-detail"));
+  renderDetailBody();
+  syncEditChrome();
+  dlg?.showModal();
+}
+
+function enterEditMode() {
+  const p = detailProgramId ? findProgram(detailProgramId) : null;
+  if (!p) return;
+  editBaseline = deepClone(p);
+  editMode = true;
+  renderDetailBody();
+  syncEditChrome();
+}
+
+function cancelEditMode() {
+  const p = detailProgramId ? findProgram(detailProgramId) : null;
+  if (!p || !editBaseline) {
+    editMode = false;
+    editBaseline = null;
+    syncEditChrome();
+    renderDetailBody();
+    return;
+  }
+  const idx = corpus?.programs.findIndex((x) => x.program_id === detailProgramId) ?? -1;
+  if (corpus && idx >= 0) corpus.programs[idx] = deepClone(editBaseline);
+  editBaseline = null;
+  editMode = false;
+  renderDetailBody();
+  syncEditChrome();
+}
+
+function syncEditChrome() {
+  const hint = $("#edit-hint");
+  const btnEdit = $("#btn-edit-toggle");
+  const btnCancel = $("#btn-edit-cancel");
+  const btnExport = $("#btn-export-patch");
+  const meta = $("#patch-meta-row");
+  if (hint) hint.hidden = !editMode;
+  if (btnCancel) btnCancel.hidden = !editMode;
+  if (btnExport) {
+    btnExport.hidden = !editMode;
+    btnExport.disabled = !editMode || !isDirty();
+  }
+  if (meta) meta.hidden = !editMode;
+  if (btnEdit) btnEdit.textContent = editMode ? "Editing" : "Edit";
+  if (btnEdit) btnEdit.disabled = !detailProgramId || editMode;
+}
+
+function isDirty() {
+  const p = detailProgramId ? findProgram(detailProgramId) : null;
+  if (!editMode || !p || !editBaseline) return false;
+  for (const path of EDITABLE_PATHS) {
+    if (!deepEqual(getPath(p, path), getPath(editBaseline, path))) return true;
+  }
+  return false;
+}
+
+function collectChangesForExport() {
+  const p = detailProgramId ? findProgram(detailProgramId) : null;
+  if (!p || !editBaseline) return [];
+  /** @type {object[]} */
+  const changes = [];
+  for (const path of EDITABLE_PATHS) {
+    const oldV = getPath(editBaseline, path);
+    const newV = getPath(p, path);
+    if (!deepEqual(oldV, newV)) {
+      changes.push({
+        program_id: detailProgramId,
+        path,
+        old_value: oldV === undefined ? null : oldV,
+        new_value: newV === undefined ? null : newV,
+      });
+    }
+  }
+  return changes;
 }
 
 function isoDate() {
@@ -477,6 +930,10 @@ function isoDate() {
 }
 
 function exportPatch() {
+  const p = detailProgramId ? findProgram(detailProgramId) : null;
+  if (!p || !editBaseline) return;
+  const changes = collectChangesForExport();
+  if (!changes.length) return;
   const createdBy = $("#meta-by")?.value?.trim() || "";
   const notes = $("#meta-notes")?.value?.trim() || "";
   const patch = {
@@ -486,23 +943,596 @@ function exportPatch() {
       source_corpus_name: "MDes Peer Program Comparator Corpus",
       notes,
     },
-    changes: patchQueue.map(({ program_id, path, old_value, new_value, notes: n }) => ({
-      program_id,
-      path,
-      old_value,
-      new_value,
-      ...(n ? { notes: n } : {}),
-    })),
+    changes,
   };
-  const blob = new Blob([JSON.stringify(patch, null, 2)], {
-    type: "application/json",
-  });
+  const blob = new Blob([JSON.stringify(patch, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
+  const safeId = String(detailProgramId).replace(/[^a-z0-9_-]+/gi, "_");
   a.href = URL.createObjectURL(blob);
-  a.download = `patch_${isoDate()}.json`;
+  a.download = `patch_${safeId}_${isoDate()}.json`;
   a.click();
   URL.revokeObjectURL(a.href);
   setStatus("Patch downloaded.");
+  editBaseline = deepClone(p);
+  syncEditChrome();
+  renderDetailBody();
+}
+
+/**
+ * @param {string} path
+ */
+function resetField(path) {
+  const p = detailProgramId ? findProgram(detailProgramId) : null;
+  if (!p || !editBaseline || !editMode) return;
+  const v = getPath(editBaseline, path);
+  setPath(p, path, deepClone(v));
+  renderDetailBody();
+  syncEditChrome();
+}
+
+function renderDetailBody() {
+  const root = $("#detail-scroll");
+  if (!root || !detailProgramId) return;
+  const p = findProgram(detailProgramId);
+  if (!p) {
+    root.innerHTML = "";
+    return;
+  }
+  const ident = p.identity ?? {};
+  const pos = p.positioning ?? {};
+  const dur = p.duration ?? {};
+  const deg = p.degree_cost ?? {};
+  const cur = p.curriculum ?? {};
+  const elec = cur.electives ?? {};
+
+  const hostIdVal = String(ident.host_academic_model ?? "");
+  const hostItems = (categories.host_academic_models?.items ?? []).filter((x) => x && x.id);
+  const hostIds = new Set(hostItems.map((x) => x.id));
+  let hostOptions = hostItems
+    .map((x) => `<option value="${esc(x.id)}">${esc(x.label || x.id)}</option>`)
+    .join("");
+  if (hostIdVal && !hostIds.has(hostIdVal)) {
+    hostOptions = `<option value="${esc(hostIdVal)}">${esc(hostIdVal)}</option>` + hostOptions;
+  }
+
+  const durIdVal = String(dur.duration_category ?? "");
+  const durItems = (categories.duration_categories?.items ?? []).filter((x) => x && x.id);
+  const durIds = new Set(durItems.map((x) => x.id));
+  let durOptions = durItems
+    .map((x) => `<option value="${esc(x.id)}">${esc(x.label || x.id)}</option>`)
+    .join("");
+  if (durIdVal && !durIds.has(durIdVal)) {
+    durOptions = `<option value="${esc(durIdVal)}">${esc(durIdVal)}</option>` + durOptions;
+  }
+
+  const unitIdVal = String(cur.unit_system ?? "");
+  const unitItems = (categories.unit_systems?.items ?? []).filter((x) => x && x.id);
+  const unitIds = new Set(unitItems.map((x) => x.id));
+  let unitOptions = unitItems
+    .map((x) => `<option value="${esc(x.id)}">${esc(x.label || x.id)}</option>`)
+    .join("");
+  if (unitIdVal && !unitIds.has(unitIdVal)) {
+    unitOptions = `<option value="${esc(unitIdVal)}">${esc(unitIdVal)}</option>` + unitOptions;
+  }
+
+  const seqIdVal = String(cur.sequencedness ?? "");
+  const seqItems = (categories.sequencedness?.items ?? []).filter((x) => x && x.id);
+  const seqIds = new Set(seqItems.map((x) => x.id));
+  let seqOptions = seqItems
+    .map((x) => `<option value="${esc(x.id)}">${esc(x.label || x.id)}</option>`)
+    .join("");
+  if (seqIdVal && !seqIds.has(seqIdVal)) {
+    seqOptions = `<option value="${esc(seqIdVal)}">${esc(seqIdVal)}</option>` + seqOptions;
+  }
+
+  const tagItems = categories.positioning_tags?.items ?? [];
+  const tagList = Array.isArray(pos.positioning_tags) ? pos.positioning_tags : [];
+  const tagChecks = tagItems
+    .filter((x) => x && x.id)
+    .map((x) => {
+      const on = tagList.includes(x.id);
+      return `<label><input type="checkbox" data-path="positioning.positioning_tags" data-tag="${esc(
+        x.id
+      )}" ${editMode ? "" : "disabled"} ${on ? "checked" : ""}/> ${esc(x.label || x.id)}</label>`;
+    })
+    .join("");
+
+  const unitsStr = (ident.host_academic_units ?? []).join(", ");
+
+  /** @param {string} path @param {string} label @param {string} inner @returns {string} */
+  const fieldRow = (path, label, inner) => {
+    const dirty =
+      editMode && editBaseline && !deepEqual(getPath(p, path), getPath(editBaseline, path));
+    const reset =
+      editMode && dirty
+        ? `<button type="button" class="reset-field" data-reset="${esc(path)}">Reset field</button>`
+        : "";
+    return `<tr data-field-path="${esc(path)}" class="${dirty ? "field-dirty" : ""}"><th>${esc(
+      label
+    )}</th><td>${inner}${reset}</td></tr>`;
+  };
+
+  let html = "";
+
+  html += `<section class="detail-section"><h3>Identity</h3><table class="def-table">`;
+  if (editMode) {
+    html += fieldRow(
+      "identity.institution_name",
+      "Institution",
+      `<input type="text" data-path="identity.institution_name" value="${esc(ident.institution_name ?? "")}" />`
+    );
+    html += fieldRow(
+      "identity.program_name",
+      "Program",
+      `<input type="text" data-path="identity.program_name" value="${esc(ident.program_name ?? "")}" />`
+    );
+    html += fieldRow(
+      "identity.credential_name",
+      "Credential name",
+      `<input type="text" data-path="identity.credential_name" value="${esc(ident.credential_name ?? "")}" />`
+    );
+    html += fieldRow(
+      "identity.degree_type",
+      "Degree type",
+      `<input type="text" data-path="identity.degree_type" value="${esc(ident.degree_type ?? "")}" />`
+    );
+    html += fieldRow(
+      "identity.host_academic_units",
+      "Host academic units",
+      `<input type="text" data-path="identity.host_academic_units" value="${esc(unitsStr)}" placeholder="Comma-separated" />`
+    );
+    html += fieldRow(
+      "identity.host_academic_model",
+      "Host academic model",
+      `<select data-path="identity.host_academic_model">${hostOptions}</select>`
+    );
+    html += fieldRow(
+      "identity.location_label",
+      "Location",
+      `<input type="text" data-path="identity.location_label" value="${esc(ident.location_label ?? "")}" />`
+    );
+  } else {
+    html += `<tr><th>Institution</th><td>${esc(ident.institution_name ?? "")}</td></tr>`;
+    html += `<tr><th>Program</th><td>${esc(ident.program_name ?? "")}</td></tr>`;
+    html += `<tr><th>Credential name</th><td>${esc(ident.credential_name ?? "")}</td></tr>`;
+    html += `<tr><th>Degree type</th><td>${esc(ident.degree_type ?? "")}</td></tr>`;
+    html += `<tr><th>Host academic units</th><td>${esc(unitsStr)}</td></tr>`;
+    html += `<tr><th>Host academic model</th><td>${esc(labelForId("host_academic_models", String(ident.host_academic_model ?? "")))}</td></tr>`;
+    html += `<tr><th>Location</th><td>${esc(ident.location_label ?? "")}</td></tr>`;
+  }
+  html += `</table></section>`;
+
+  html += `<section class="detail-section"><h3>Positioning</h3><table class="def-table">`;
+  if (editMode) {
+    html += fieldRow(
+      "positioning.positioning_summary",
+      "Positioning summary",
+      `<textarea data-path="positioning.positioning_summary">${esc(pos.positioning_summary ?? "")}</textarea>`
+    );
+    const pathTags = "positioning.positioning_tags";
+    const tagsDirty =
+      editMode && editBaseline && !deepEqual(getPath(p, pathTags), getPath(editBaseline, pathTags));
+    const tagsReset =
+      editMode && tagsDirty
+        ? `<button type="button" class="reset-field" data-reset="${esc(pathTags)}">Reset field</button>`
+        : "";
+    html += `<tr data-field-path="${esc(pathTags)}" class="${tagsDirty ? "field-dirty" : ""}"><th>Positioning tags</th><td><div class="tag-editor">${tagChecks}</div>${tagsReset}</td></tr>`;
+  } else {
+    html += `<tr><th>Positioning summary</th><td>${esc(pos.positioning_summary ?? "")}</td></tr>`;
+    html += `<tr><th>Positioning tags</th><td><div class="tag-list">${tagList
+      .map(
+        (t) =>
+          `<span class="tag-pill">${esc(labelForId("positioning_tags", String(t)))}</span>`
+      )
+      .join(" ")}</div></td></tr>`;
+  }
+  html += `</table></section>`;
+
+  html += `<section class="detail-section"><h3>Duration</h3><table class="def-table">`;
+  const durSummary = dur.duration_summary != null ? String(dur.duration_summary) : "";
+  if (editMode) {
+    html += fieldRow(
+      "duration.length_in_berkeley_semesters",
+      "Length (Berkeley semesters)",
+      `<input type="number" data-path="duration.length_in_berkeley_semesters" value="${
+        dur.length_in_berkeley_semesters == null ? "" : esc(String(dur.length_in_berkeley_semesters))
+      }" step="1" min="0" />`
+    );
+    html += fieldRow(
+      "duration.duration_category",
+      "Duration category",
+      `<select data-path="duration.duration_category">${durOptions}</select>`
+    );
+    html += fieldRow(
+      "duration.duration_summary",
+      "Duration summary",
+      `<textarea data-path="duration.duration_summary">${esc(durSummary)}</textarea>`
+    );
+  } else {
+    html += `<tr><th>Length (Berkeley semesters)</th><td>${
+      dur.length_in_berkeley_semesters == null ? "—" : esc(String(dur.length_in_berkeley_semesters))
+    }</td></tr>`;
+    html += `<tr><th>Duration category</th><td>${esc(labelForId("duration_categories", String(dur.duration_category ?? "")))}</td></tr>`;
+    if (durSummary) html += `<tr><th>Duration summary</th><td>${esc(durSummary)}</td></tr>`;
+  }
+  html += `</table></section>`;
+
+  html += `<section class="detail-section"><h3>Degree cost</h3><table class="def-table">`;
+  if (editMode) {
+    html += fieldRow(
+      "degree_cost.comparison_cost_usd",
+      "Comparison cost (USD)",
+      `<input type="number" data-path="degree_cost.comparison_cost_usd" value="${
+        deg.comparison_cost_usd == null ? "" : esc(String(deg.comparison_cost_usd))
+      }" step="1" min="0" />`
+    );
+    html += fieldRow(
+      "degree_cost.base_currency",
+      "Base currency",
+      `<input type="text" data-path="degree_cost.base_currency" value="${esc(deg.base_currency ?? "")}" />`
+    );
+    html += fieldRow(
+      "degree_cost.cost_base_currency",
+      "Cost (base currency)",
+      `<input type="number" data-path="degree_cost.cost_base_currency" value="${
+        deg.cost_base_currency == null ? "" : esc(String(deg.cost_base_currency))
+      }" step="0.01" />`
+    );
+    html += fieldRow(
+      "degree_cost.exchange_rate_to_usd",
+      "Exchange rate to USD",
+      `<input type="number" data-path="degree_cost.exchange_rate_to_usd" value="${
+        deg.exchange_rate_to_usd == null ? "" : esc(String(deg.exchange_rate_to_usd))
+      }" step="0.000001" />`
+    );
+    html += fieldRow(
+      "degree_cost.cost_basis",
+      "Cost basis",
+      `<input type="text" data-path="degree_cost.cost_basis" value="${esc(
+        deg.cost_basis != null ? String(deg.cost_basis) : ""
+      )}" />`
+    );
+    html += fieldRow(
+      "degree_cost.comparison_cost_method",
+      "Comparison cost method",
+      `<input type="text" data-path="degree_cost.comparison_cost_method" value="${esc(
+        deg.comparison_cost_method != null ? String(deg.comparison_cost_method) : ""
+      )}" />`
+    );
+  } else {
+    html += `<tr><th>Comparison (rounded)</th><td>${esc(formatCostK(deg.comparison_cost_usd))}</td></tr>`;
+    html += `<tr><th>Base currency</th><td>${esc(deg.base_currency ?? "")}</td></tr>`;
+    html += `<tr><th>Cost (base currency)</th><td>${
+      deg.cost_base_currency == null ? "—" : esc(String(deg.cost_base_currency))
+    }</td></tr>`;
+    if (deg.cost_basis) html += `<tr><th>Cost basis</th><td>${esc(String(deg.cost_basis))}</td></tr>`;
+    if (deg.comparison_cost_method)
+      html += `<tr><th>Comparison cost method</th><td>${esc(String(deg.comparison_cost_method))}</td></tr>`;
+  }
+  html += `</table></section>`;
+
+  html += `<section class="detail-section"><h3>Curriculum summary</h3><table class="def-table">`;
+  if (editMode) {
+    html += fieldRow(
+      "curriculum.curriculum_summary",
+      "Curriculum summary",
+      `<textarea data-path="curriculum.curriculum_summary">${esc(cur.curriculum_summary ?? "")}</textarea>`
+    );
+    html += fieldRow(
+      "curriculum.unit_system",
+      "Unit system",
+      `<select data-path="curriculum.unit_system">${unitOptions}</select>`
+    );
+    html += fieldRow(
+      "curriculum.sequencedness",
+      "Sequencedness",
+      `<select data-path="curriculum.sequencedness">${seqOptions}</select>`
+    );
+    html += fieldRow(
+      "curriculum.offers_specialization",
+      "Offers specialization",
+      `<select data-path="curriculum.offers_specialization"><option value="true" ${
+        cur.offers_specialization === true ? "selected" : ""
+      }>Yes</option><option value="false" ${
+        !cur.offers_specialization ? "selected" : ""
+      }>No</option></select>`
+    );
+    html += fieldRow(
+      "curriculum.electives.summary",
+      "Electives summary",
+      `<textarea data-path="curriculum.electives.summary">${esc(elec.summary ?? "")}</textarea>`
+    );
+  } else {
+    html += `<tr><th>Curriculum summary</th><td>${esc(cur.curriculum_summary ?? "")}</td></tr>`;
+    html += `<tr><th>Unit system</th><td>${esc(labelForId("unit_systems", String(cur.unit_system ?? "")))}</td></tr>`;
+    html += `<tr><th>Sequencedness</th><td>${esc(labelForId("sequencedness", String(cur.sequencedness ?? "")))}</td></tr>`;
+    html += `<tr><th>Offers specialization</th><td>${cur.offers_specialization ? "Yes" : "No"}</td></tr>`;
+    html += `<tr><th>Electives summary</th><td>${esc(elec.summary ?? "")}</td></tr>`;
+  }
+  html += `</table></section>`;
+
+  html += buildSampleCoursesSectionHtml(cur);
+
+  root.innerHTML = html;
+
+  setProgramDialogTitle(p);
+
+  if (editMode) {
+    const selHost = root.querySelector('[data-path="identity.host_academic_model"]');
+    if (selHost instanceof HTMLSelectElement) selHost.value = String(ident.host_academic_model ?? "");
+    const selDur = root.querySelector('[data-path="duration.duration_category"]');
+    if (selDur instanceof HTMLSelectElement) selDur.value = String(dur.duration_category ?? "");
+    const selUnit = root.querySelector('[data-path="curriculum.unit_system"]');
+    if (selUnit instanceof HTMLSelectElement) selUnit.value = String(cur.unit_system ?? "");
+    const selSeq = root.querySelector('[data-path="curriculum.sequencedness"]');
+    if (selSeq instanceof HTMLSelectElement) selSeq.value = String(cur.sequencedness ?? "");
+
+    root.querySelectorAll("input[data-path]:not([type=checkbox])").forEach((el) => {
+      el.addEventListener("input", onFieldInput);
+    });
+    root.querySelectorAll("textarea[data-path]").forEach((el) => {
+      el.addEventListener("input", onFieldInput);
+    });
+    root.querySelectorAll("select[data-path]").forEach((el) => {
+      el.addEventListener("change", onFieldInput);
+    });
+    root.querySelectorAll('input[type="checkbox"][data-path="positioning.positioning_tags"]').forEach((el) => {
+      el.addEventListener("change", onTagCheckbox);
+    });
+    root.querySelectorAll(".reset-field").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const path = btn.getAttribute("data-reset");
+        if (path) resetField(path);
+      });
+    });
+  }
+}
+
+/**
+ * After inline edits, update dirty row styling and reset buttons without re-rendering the whole form
+ * (re-rendering on every keystroke destroys inputs and interrupts typing).
+ */
+function updateDetailDirtyStyling() {
+  const root = $("#detail-scroll");
+  const p = detailProgramId ? findProgram(detailProgramId) : null;
+  if (!root || !p || !editMode || !editBaseline) return;
+  for (const path of EDITABLE_PATHS) {
+    const tr = root.querySelector(`tr[data-field-path="${path}"]`);
+    if (!(tr instanceof HTMLTableRowElement)) continue;
+    const dirty = !deepEqual(getPath(p, path), getPath(editBaseline, path));
+    tr.classList.toggle("field-dirty", dirty);
+    const td = tr.cells[1];
+    if (!td) continue;
+    const resetBtn = td.querySelector("button.reset-field");
+    if (dirty && !resetBtn) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "reset-field";
+      btn.dataset.reset = path;
+      btn.textContent = "Reset field";
+      btn.addEventListener("click", () => resetField(path));
+      td.appendChild(btn);
+    } else if (!dirty && resetBtn) {
+      resetBtn.remove();
+    }
+  }
+}
+
+function onFieldInput(e) {
+  const t = e.target;
+  if (!(t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement || t instanceof HTMLSelectElement))
+    return;
+  const path = t.getAttribute("data-path");
+  if (!path || !detailProgramId) return;
+  const p = findProgram(detailProgramId);
+  if (!p) return;
+  let val;
+  if (t instanceof HTMLSelectElement && path === "curriculum.offers_specialization") {
+    val = t.value === "true";
+  } else if (t instanceof HTMLInputElement && t.type === "number") {
+    const s = t.value.trim();
+    val = s === "" ? null : Number(s);
+    if (Number.isNaN(val)) val = null;
+  } else if (path === "identity.host_academic_units") {
+    val = t.value
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+  } else {
+    val = t.value;
+  }
+  if (path === "duration.duration_summary" && val === "") {
+    if (p.duration && typeof p.duration === "object") delete p.duration.duration_summary;
+    updateDetailDirtyStyling();
+    syncEditChrome();
+    return;
+  }
+  setPath(p, path, val);
+  updateDetailDirtyStyling();
+  syncEditChrome();
+}
+
+function onTagCheckbox() {
+  const p = detailProgramId ? findProgram(detailProgramId) : null;
+  if (!p) return;
+  const root = $("#detail-scroll");
+  if (!root) return;
+  const checked = [...root.querySelectorAll('input[type="checkbox"][data-path="positioning.positioning_tags"]:checked')].map(
+    (x) => /** @type {HTMLInputElement} */ (x).dataset.tag
+  ).filter(Boolean);
+  if (!p.positioning || typeof p.positioning !== "object") p.positioning = {};
+  p.positioning.positioning_tags = checked;
+  updateDetailDirtyStyling();
+  syncEditChrome();
+}
+
+function buildFilterPanel() {
+  const body = $("#filter-body");
+  if (!body || !corpus) return;
+  const degs = [...new Set(corpus.programs.map((p) => rowView(p).degree))].sort((a, b) =>
+    a.localeCompare(b)
+  );
+  const hosts = [...new Set(corpus.programs.map((p) => rowView(p).hostModel).filter(Boolean))].sort();
+  const allTags = new Set();
+  for (const p of corpus.programs) {
+    const t = rowView(p).tags;
+    t.forEach((x) => allTags.add(x));
+  }
+  const tags = [...allTags].sort();
+
+  const cbGroup = (title, setKey, values, labelFn, hint) => {
+    const set = filters[setKey];
+    let inner = `<div class="filter-group"><h3>${esc(title)}</h3>`;
+    if (hint) inner += `<p class="filter-hint">${esc(hint)}</p>`;
+    inner += `<div class="filter-checkboxes">`;
+    for (const v of values) {
+      const id = `f-${setKey}-${encodeURIComponent(v)}`.replace(/%/g, "_");
+      const on = set.has(v);
+      inner += `<label><input type="checkbox" data-filter-set="${esc(setKey)}" value="${esc(v)}" id="${id}" ${
+        on ? "checked" : ""
+      }/> ${esc(labelFn(v))}</label>`;
+    }
+    inner += `</div></div>`;
+    return inner;
+  };
+
+  let html = "";
+  html += cbGroup("Degree type", "degrees", degs, (v) => v);
+  html += cbGroup("Host academic model", "hostModels", hosts, (v) => labelForId("host_academic_models", v) || v);
+  html += cbGroup(
+    "Positioning tags",
+    "tags",
+    tags,
+    (v) => labelForId("positioning_tags", v) || v,
+    "A program is shown only if it has every tag you check (AND). Leave all unchecked to ignore this filter."
+  );
+  html += `<div class="filter-group"><h3>Berkeley semesters</h3><div class="filter-range">`;
+  html += `<label>Min <input type="number" id="f-sem-min" step="1" min="0" value="${
+    filters.semMin ?? ""
+  }" placeholder="—"/></label>`;
+  html += `<label>Max <input type="number" id="f-sem-max" step="1" min="0" value="${
+    filters.semMax ?? ""
+  }" placeholder="—"/></label>`;
+  html += `</div></div>`;
+
+  const active = [];
+  if (filters.degrees.size) active.push(`Degree: ${[...filters.degrees].join(", ")}`);
+  if (filters.hostModels.size) active.push(`Host model: ${[...filters.hostModels].join(", ")}`);
+  if (filters.tags.size)
+    active.push(`Positioning tags (all of): ${[...filters.tags].map((id) => labelForId("positioning_tags", id) || id).join(", ")}`);
+  if (filters.semMin != null) active.push(`Min semesters ≥ ${filters.semMin}`);
+  if (filters.semMax != null) active.push(`Max semesters ≤ ${filters.semMax}`);
+  html += `<div class="active-filters"><strong>Active filters</strong>`;
+  if (!active.length) html += `<p>None (all programs shown).</p>`;
+  else html += `<ul>${active.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>`;
+  html += `</div>`;
+
+  body.innerHTML = html;
+  body.querySelectorAll('input[type="checkbox"][data-filter-set]').forEach((el) => {
+    el.addEventListener("change", () => {
+      const setKey = el.getAttribute("data-filter-set");
+      const val = el.getAttribute("value");
+      if (!setKey || val == null || !(filters[setKey] instanceof Set)) return;
+      const s = /** @type {Set<string>} */ (filters[setKey]);
+      if (el.checked) s.add(val);
+      else s.delete(val);
+    });
+  });
+}
+
+function readSemInputsFromFilterPanel() {
+  const minEl = /** @type {HTMLInputElement | null} */ (document.querySelector("#f-sem-min"));
+  const maxEl = /** @type {HTMLInputElement | null} */ (document.querySelector("#f-sem-max"));
+  const minV = minEl?.value?.trim() ?? "";
+  const maxV = maxEl?.value?.trim() ?? "";
+  filters.semMin = minV === "" ? null : Number(minV);
+  filters.semMax = maxV === "" ? null : Number(maxV);
+  if (filters.semMin != null && Number.isNaN(filters.semMin)) filters.semMin = null;
+  if (filters.semMax != null && Number.isNaN(filters.semMax)) filters.semMax = null;
+}
+
+function openFilterDialog() {
+  buildFilterPanel();
+  /** @type {HTMLDialogElement} */ ($("#dlg-filter"))?.showModal();
+}
+
+function wireDialogs() {
+  const dlgF = /** @type {HTMLDialogElement} */ ($("#dlg-filter"));
+  const dlgD = /** @type {HTMLDialogElement} */ ($("#dlg-detail"));
+  dlgF?.addEventListener("click", (e) => {
+    if (e.target === dlgF) dlgF.close();
+  });
+  dlgD?.addEventListener("click", (e) => {
+    if (e.target === dlgD) closeDetail();
+  });
+  dlgD?.addEventListener("click", (e) => {
+    const row = e.target instanceof Element ? e.target.closest(".course-sample-row") : null;
+    if (!row || !detailProgramId) return;
+    e.stopPropagation();
+    const idx = Number(row.getAttribute("data-course-index"));
+    if (!Number.isFinite(idx) || idx < 0) return;
+    const prog = findProgram(detailProgramId);
+    const courses = prog?.curriculum?.core_courses;
+    if (!Array.isArray(courses) || !courses[idx]) return;
+    openCourseDialog(courses[idx]);
+  });
+  dlgD?.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const t = e.target;
+    if (!(t instanceof Element)) return;
+    const row = t.closest(".course-sample-row");
+    if (!row || !detailProgramId) return;
+    e.preventDefault();
+    const idx = Number(row.getAttribute("data-course-index"));
+    if (!Number.isFinite(idx) || idx < 0) return;
+    const prog = findProgram(detailProgramId);
+    const courses = prog?.curriculum?.core_courses;
+    if (!Array.isArray(courses) || !courses[idx]) return;
+    openCourseDialog(courses[idx]);
+  });
+
+  const dlgC = /** @type {HTMLDialogElement} */ ($("#dlg-course"));
+  dlgC?.addEventListener("click", (e) => {
+    if (e.target === dlgC) closeCourseDialog();
+  });
+  $("#btn-course-close")?.addEventListener("click", () => closeCourseDialog());
+
+  $("#btn-filter-close")?.addEventListener("click", () => dlgF?.close());
+  $("#btn-filter-done")?.addEventListener("click", () => {
+    readSemInputsFromFilterPanel();
+    dlgF?.close();
+    renderTable();
+  });
+  $("#btn-filter-clear")?.addEventListener("click", () => {
+    clearFilterSets();
+    buildFilterPanel();
+    renderTable();
+  });
+  $("#btn-detail-close")?.addEventListener("click", () => closeDetail());
+  $("#btn-filter")?.addEventListener("click", () => openFilterDialog());
+}
+
+async function loadViewerCategories() {
+  const el = document.getElementById("viewer-categories");
+  const txt = el?.textContent?.trim();
+  if (txt) {
+    try {
+      categories = JSON.parse(txt);
+      return;
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+  try {
+    const r = await fetch("dev/viewer-categories.json");
+    if (r.ok) {
+      categories = await r.json();
+      return;
+    }
+  } catch {
+    /* ignore */
+  }
+  categories = {};
 }
 
 async function loadSample() {
@@ -512,15 +1542,14 @@ async function loadSample() {
     if (!r.ok) throw new Error(String(r.status));
     const data = await r.json();
     corpus = normalizeCorpus(data);
-    selectedId = null;
-    patchQueue = [];
+    detailProgramId = null;
+    editBaseline = null;
+    editMode = false;
+    clearFilterSets();
     setStatus(`Loaded sample (${corpus.programs.length} programs).`);
     renderTable();
-    renderDetail();
   } catch (e) {
-    setStatus(
-      "Could not load sample (serve viewer via static server, e.g. python -m http.server)."
-    );
+    setStatus("Could not load sample (serve viewer via static server, e.g. python -m http.server).");
     console.error(e);
   }
 }
@@ -533,15 +1562,21 @@ $("#file-corpus")?.addEventListener("change", async (e) => {
   const input = e.target;
   if (!(input instanceof HTMLInputElement) || !input.files?.length) return;
   const file = input.files[0];
-  await ingestCorpusFile(file, null, file.name);
+  await ingestCorpusFile(file, null);
   input.value = "";
 });
 
-$("#filter")?.addEventListener("input", () => renderTable());
 $("#btn-sample")?.addEventListener("click", () => loadSample());
-$("#btn-queue-reviewed")?.addEventListener("click", () =>
-  queueVerificationHumanReviewed()
-);
+
+document.querySelectorAll(".th-sort").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const k = btn.getAttribute("data-sort");
+    if (k) toggleSort(k);
+  });
+});
+
+$("#btn-edit-toggle")?.addEventListener("click", () => enterEditMode());
+$("#btn-edit-cancel")?.addEventListener("click", () => cancelEditMode());
 $("#btn-export-patch")?.addEventListener("click", () => exportPatch());
 
 function bootEmbeddedCorpus() {
@@ -550,24 +1585,31 @@ function bootEmbeddedCorpus() {
   try {
     const data = JSON.parse(el.textContent || "{}");
     corpus = normalizeCorpus(data);
-    selectedId = null;
-    patchQueue = [];
+    detailProgramId = null;
+    editBaseline = null;
+    editMode = false;
+    clearFilterSets();
     setStatus(`Loaded embedded corpus (${corpus.programs.length} programs).`);
     renderTable();
-    renderDetail();
   } catch (e) {
     console.error(e);
   }
 }
 
-bootEmbeddedCorpus();
-if (!corpus) {
-  void tryRestorePersistedCorpus().then((ok) => {
-    if (!ok && !corpus) {
-      const hint = supportsFilePicker()
-        ? "Load a corpus JSON file (Chrome/Edge remembers it across refreshes) or the dev sample."
-        : "Load a corpus JSON file or the dev sample.";
-      setStatus(hint);
-    }
-  });
+async function boot() {
+  await loadViewerCategories();
+  wireDialogs();
+  bootEmbeddedCorpus();
+  if (!corpus) {
+    void tryRestorePersistedCorpus().then((ok) => {
+      if (!ok && !corpus) {
+        const hint = supportsFilePicker()
+          ? "Load a corpus JSON file (Chrome/Edge remembers it across refreshes) or the dev sample."
+          : "Load a corpus JSON file or the dev sample.";
+        setStatus(hint);
+      }
+    });
+  }
 }
+
+void boot();

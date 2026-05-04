@@ -7,7 +7,7 @@ import json
 from peer_atlas_cli.corpus_io import clear_all_programs, load_corpus, programs_list
 
 
-def test_clear_all_programs_archives_and_empties(tmp_path) -> None:
+def test_clear_all_programs_saves_snapshot_and_empties(tmp_path) -> None:
     root = tmp_path / "repo"
     corpus_dir = root / "corpus"
     corpus_dir.mkdir(parents=True)

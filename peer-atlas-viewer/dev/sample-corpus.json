@@ -1,62 +1,1425 @@
 {
-  "corpus_metadata": {
-    "version": 1,
-    "description": "Dev sample"
-  },
   "programs": [
     {
-      "program_id": "sample_program",
-      "base_url": "https://sample.edu/",
-      "date_added": "2020-06-01T00:00:00Z",
-      "date_updated": "2020-06-01T00:00:00Z",
-      "llm_rationales": [
-        {
-          "feature": "program.citation",
-          "source_url": "https://sample.edu/",
-          "note": "",
-          "llm_title": "Home",
-          "retrieved_date": ""
-        }
-      ],
+      "program_id": "berkeley_mims",
+      "base_url": "https://www.ischool.berkeley.edu/programs/mims",
       "identity": {
-        "institution_name": "Sample University",
-        "program_name": "Sample MDes",
-        "credential_name": "MDes",
-        "degree_type": "MDes",
-        "host_academic_units": ["Design"],
-        "host_academic_model": "design_hosted",
-        "location_label": "United States"
+        "institution_name": "UC Berkeley School of Information",
+        "program_name": "Master of Information Management and Systems",
+        "credential_name": "Master of Information Management and Systems (MIMS)",
+        "degree_type": "MIMS",
+        "host_academic_units": [
+          "UC Berkeley School of Information"
+        ],
+        "host_academic_model": "computing_hosted",
+        "location_label": "Berkeley, California, United States"
       },
       "positioning": {
-        "positioning_summary": "",
-        "positioning_tags": ["professional"]
+        "positioning_summary": "UC Berkeley’s MIMS is positioned as a two-year, full-time professional master’s for aspiring technology leaders and information professionals, with a strongly interdisciplinary curriculum spanning computer science, data systems/AI, human-centered design/UX, policy, ethics, law, and management. The program also signals a practical, career-oriented focus through hands-on project work, internships, and outcomes in UX, product, data, and tech leadership, while explicitly framing its work around ethical technology and social impact.",
+        "positioning_tags": [
+          "professional",
+          "interdisciplinary",
+          "stem_adjacent",
+          "ui_ux"
+        ]
       },
       "duration": {
-        "length_in_berkeley_semesters": null,
-        "duration_category": "variable_or_custom"
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
       },
       "degree_cost": {
-        "base_currency": "",
-        "exchange_rate_to_usd": null,
-        "comparison_cost_usd": null,
-        "total_degree_cost_base_currency": null
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 33980.5,
+        "cost_base_currency": 33980.5
       },
       "curriculum": {
         "unit_system": "semester_credit_hours",
-        "sequencedness": "flexible",
+        "sequencedness": "partially_sequenced",
+        "curriculum_summary": "MIMS is a two-year, full-time, 48-semester-unit professional degree. The first year is mostly a required core, followed by electives and additional breadth requirements in the second year, with a required final project in the last semester. The program is flexible overall and supports specialization through electives and thematic focus areas, but it does not present formal tracks or concentrations.",
+        "offers_specialization": true,
+        "electives": {
+          "summary": "Electives are broad and flexible, with students drawing from the I School catalog and other UC Berkeley departments to build specialization in areas such as UX, data science, policy, entrepreneurship, and privacy/security. The program requires at least 40 units from the Info course catalog, may include up to 6 units of individual or group study, and allows up to 8 units from other departments to count toward the degree."
+        },
+        "core_courses": [
+          {
+            "course_id": "Info 202",
+            "course_title": "Information Organization and Retrieval",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "technology",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.2857142857142856,
+            "course_summary": "Required first-year core course introducing information organization and retrieval. Covers conceptual modeling, semantic representation, vocabulary and metadata design, classification, standardization, and information retrieval practices and applications.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/202",
+            "learning_outcomes": [
+              "Understand foundations of information organization and retrieval",
+              "Apply conceptual modeling and semantic representation",
+              "Design vocabularies, metadata, and classification schemes",
+              "Use information retrieval practices and related technologies",
+              "Analyze textual and non-textual information computationally"
+            ]
+          },
+          {
+            "course_id": "Info 203",
+            "course_title": "Social Issues of Information",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": "human_factors",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.2857142857142856,
+            "course_summary": "Required 3-unit core course introducing social issues around information and information technology, including technology’s impact on society and social groups.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/203",
+            "learning_outcomes": [
+              "Explain how information technologies affect social groups and social interaction.",
+              "Analyze how society shapes the technologies that are produced.",
+              "Discuss theories of technology in society.",
+              "Identify workplace, automation, and networked sociability issues.",
+              "Use social scientific methods to examine information technology problems."
+            ]
+          },
+          {
+            "course_id": "Info 205",
+            "course_title": "Information Law and Policy",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": null,
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.2857142857142856,
+            "course_summary": "Required first-year core course examining legal and ethical issues in information and communication technologies, including privacy, freedom of expression, consumer protection, cybersecurity, and copyright.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/205",
+            "learning_outcomes": [
+              "Analyze legal and ethical issues in information technologies.",
+              "Explain how policy frameworks shape technology design and use.",
+              "Evaluate privacy, copyright, and consumer protection concerns.",
+              "Reflect on the ethical impact of information professionals' work."
+            ]
+          },
+          {
+            "course_id": "Info 206A",
+            "course_title": "Introduction to Programming and Computation",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 2,
+            "normalized_unit_weight": 0.8571428571428571,
+            "course_summary": "Required first-year core course in programming and computation. The 2-unit course introduces Python programming for computer science, data science, and information management, with emphasis on problem decomposition, program efficiency, and good programming style.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/206a",
+            "learning_outcomes": [
+              "Write interactive Python programs",
+              "Analyze data and process text",
+              "Draw graphics and manipulate images",
+              "Simulate physical systems",
+              "Apply problem decomposition and efficient coding practices"
+            ]
+          },
+          {
+            "course_id": "Info 206B",
+            "course_title": "Introduction to Data Structures and Analytics",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 2,
+            "normalized_unit_weight": 0.8571428571428571,
+            "course_summary": "Required core course introducing data structures and data analysis in Python; 2 units; forms the second half of the INFO 206A/206B sequence.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/206b",
+            "learning_outcomes": [
+              "Represent structured data sets",
+              "Manipulate and analyze data in Python",
+              "Apply best practices for writing code",
+              "Build on INFO 206A prerequisites"
+            ]
+          },
+          {
+            "course_id": "Info 298A",
+            "course_title": "Directed Group Work on Final Project",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "rhetoric_storytelling_presentation",
+            "units_or_credits": 1,
+            "normalized_unit_weight": 0.42857142857142855,
+            "course_summary": "Required culminating final project completed in the fourth semester. The project integrates skills and concepts from the MIMS program and may take the form of a research paper or professionally oriented applied work.",
+            "source_url": "https://www.ischool.berkeley.edu/courses/info/298a",
+            "learning_outcomes": [
+              "Integrate skills and concepts learned in the MIMS program.",
+              "Formulate and carry out a sustained, coherent project.",
+              "Produce a tangible work product.",
+              "Manage a significant project from start to finish.",
+              "Present work in written and oral form."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "berkeley_mdes",
+      "base_url": "https://design.berkeley.edu/",
+      "identity": {
+        "institution_name": "University of California, Berkeley",
+        "program_name": "Master of Design (MDes)",
+        "credential_name": "MDes",
+        "degree_type": "Masters / Professional",
+        "host_academic_units": [
+          "College of Engineering",
+          "College of Environmental Design",
+          "Jacobs Institute for Design Innovation"
+        ],
+        "host_academic_model": "engineering_design_shared_hosted",
+        "location_label": "Berkeley, California, USA"
+      },
+      "positioning": {
+        "positioning_summary": "The Berkeley MDes is positioned as a three-semester, interdisciplinary professional graduate program in design for emerging technologies that connects technical rigor, design theory, and social practice, with strong emphasis on career preparation, real-world application, and socially responsible design.",
+        "positioning_tags": [
+          "interdisciplinary",
+          "professional",
+          "emerging_technologies",
+          "social_impact"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 3,
+        "duration_category": "three_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 82251,
+        "cost_base_currency": 82251
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "partially_sequenced",
+        "curriculum_summary": "Berkeley MDes is a studio-based, three-semester professional master’s program completed over about 16 months and requiring a minimum of 39 units. The curriculum combines eight named required core courses, a summer Design@Large professional development experience, and four electives drawn from technical, entrepreneurship, social practice, and open UC Berkeley courses. The materials show a clear year-by-year sample sequence, but the program also allows some flexibility in elective timing and selection.",
+        "offers_specialization": false,
+        "electives": {
+          "summary": "The MDes requires four electives: one technical elective, one entrepreneurship or social practice elective, and two open electives. The approved lists are broad and cross-disciplinary, spanning computing, engineering, planning, new media, and design-related topics. The open electives may be any 3- or 4-unit upper-division or graduate UC Berkeley course, subject to availability. The structure supports individualized emphasis, but the program does not advertise formal tracks or concentrations."
+        },
+        "core_courses": [
+          {
+            "course_id": "DES INV 200",
+            "course_title": "Design Frameworks",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "history_theory_positioning",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 0.8888888888888888,
+            "course_summary": "Foundational MDes core course that interweaves practical design methods with readings and lectures on the history of design and technology.",
+            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
+            "learning_outcomes": [
+              "Use design methods to frame and solve problems",
+              "Apply noticing, observing, framing, and reframing",
+              "Connect design practice with history of design and technology",
+              "Develop critique and reflection skills across design contexts"
+            ]
+          },
+          {
+            "course_id": "DES INV 202",
+            "course_title": "Technology Design Foundations",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 4,
+            "normalized_unit_weight": 1.1851851851851851,
+            "course_summary": "Foundational course in design and technology frameworks. Students use human-centered design, research, concept generation, prototyping, critique, and a semester-long hardware-plus-digital project to create a product-service system.",
+            "source_url": "https://jacobsinstitute.berkeley.edu/fall-2025-courses/",
+            "learning_outcomes": [
+              "Apply human-centered design methods to emerging technologies.",
+              "Generate and refine concepts through research and prototyping.",
+              "Build fluency with fabrication and microcontroller-based technologies.",
+              "Use critique and iteration to improve design solutions.",
+              "Create a product-service system addressing a well-defined need."
+            ]
+          },
+          {
+            "course_id": "DES INV 201",
+            "course_title": "Debates in Design",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": "rhetoric_storytelling_presentation",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 0.8888888888888888,
+            "course_summary": "Colloquium-style course exploring a yearly design topic through invited lectures, readings, discussion, and written reflections.",
+            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
+            "learning_outcomes": [
+              "Articulate new methods for connecting conceptual knowledge with technical skills.",
+              "Integrate ideas from multiple perspectives and worldviews.",
+              "Develop thoughtful questions and discussion points from advance readings.",
+              "Write reflective responses to lectures and discussions.",
+              "Engage contemporary design challenges at different scales of practice."
+            ]
+          },
+          {
+            "course_id": "DES INV 210",
+            "course_title": "Studio Foundations",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 3,
+            "normalized_unit_weight": 0.8888888888888888,
+            "course_summary": "Introductory design studio that orients students to studio culture, iterative making, critique, communication, and portfolio development.",
+            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
+            "learning_outcomes": [
+              "Understand the culture and life of a working studio",
+              "Develop ideas through feedback, critique, and refinement",
+              "Work with a variety of materials and media",
+              "Practice visual and verbal communication",
+              "Begin building a portfolio of design work"
+            ]
+          },
+          {
+            "course_id": "DES INV 211",
+            "course_title": "Designing Emerging Technologies",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 1.4814814814814814,
+            "course_summary": "A substantial studio course focused on designing emerging technologies through iterative project work, critique, and technical production.",
+            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
+            "learning_outcomes": [
+              "Design products, services, and experiences for emerging technologies",
+              "Iterate concepts through critique and refinement",
+              "Apply technical production skills in a studio context",
+              "Develop solutions to well-defined design problems",
+              "Integrate hardware and digital technologies in project work"
+            ]
+          },
+          {
+            "course_id": "DES INV 213",
+            "course_title": "Thesis Studio",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 6,
+            "normalized_unit_weight": 1.7777777777777777,
+            "course_summary": "Hands-on thesis studio focused on fabrication, building technologies, and fundamental design production skills in a studio environment.",
+            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
+            "learning_outcomes": [
+              "Develop a thesis project in a studio setting",
+              "Apply fabrication and building technologies",
+              "Produce a real-world application or solution",
+              "Work with external partners or faculty-led themes",
+              "Advance fundamental design production skills"
+            ]
+          },
+          {
+            "course_id": "DES INV 218",
+            "course_title": "Thesis Seminar",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "history_theory_positioning",
+            "units_or_credits": 1,
+            "normalized_unit_weight": 0.2962962962962963,
+            "course_summary": "A 1-unit online seminar supporting the MDes thesis process and broader Design@Large reflection.",
+            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
+            "learning_outcomes": [
+              "Develop an important thesis question for design.",
+              "Produce a formal written thesis document.",
+              "Connect socio-cultural investigation with technical exploration.",
+              "Reflect on and document the final studio project.",
+              "Situate thesis work within broader design practice."
+            ]
+          },
+          {
+            "course_id": "DES INV 219",
+            "course_title": "Capstone Portfolio",
+            "primary_type": "rhetoric_storytelling_presentation",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 2,
+            "normalized_unit_weight": 0.5925925925925926,
+            "course_summary": "Culminating MDes portfolio course in which students compile and reflect on at least four meaningful pieces of work, including studio, prior coursework, and Design@Large experience.",
+            "source_url": "https://design.berkeley.edu/mdes-program-design-2",
+            "learning_outcomes": [
+              "Compile a coherent portfolio of MDes work",
+              "Select projects that demonstrate key learning objectives",
+              "Present deeper investigations from prior classes",
+              "Reflect on studio and Design@Large experiences"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "artcenter_media_design_practices",
+      "base_url": "https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html",
+      "identity": {
+        "institution_name": "ArtCenter College of Design",
+        "program_name": "Media Design Practices MFA Program",
+        "credential_name": "Master of Fine Arts in Media Design Practices",
+        "degree_type": "MFA",
+        "host_academic_units": [
+          "Graduate Degrees",
+          "Media Design Practices"
+        ],
+        "host_academic_model": "design_hosted",
+        "location_label": "Pasadena, California, USA"
+      },
+      "positioning": {
+        "positioning_summary": "ArtCenter’s Media Design Practices MFA is positioned as an interdisciplinary, STEM-designated design program centered on emerging technologies, critical frameworks, and experimental studio practice. It emphasizes research, prototyping, and fieldwork, with explicit social-impact and global-context framing, and prepares students for professional roles at the intersection of technology, culture, and design.",
+        "positioning_tags": [
+          "interdisciplinary",
+          "critical_speculative_design",
+          "emerging_technologies",
+          "fine_arts_adjacent"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 6,
+        "duration_category": "four_plus_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 61330,
+        "cost_base_currency": 61330
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "highly_sequenced",
+        "curriculum_summary": "ArtCenter’s Media Design Practices MFA is an interdisciplinary, STEM-designated graduate program organized around a sequenced studio curriculum leading to thesis work. The evidence indicates two- and three-year pathways, with the three-year option adding preparatory undergraduate-level terms before the standard MGx track. The program emphasizes critical thinking, creative technology, prototyping, research, fieldwork, and thesis studio work; no distinct concentration tracks are clearly described in the fetched material.",
+        "offers_specialization": false,
+        "electives": {
+          "summary": "The program overview does not describe a formal elective structure or named elective categories for Media Design Practices. The evidence only indicates a sequenced studio curriculum with a thesis year and additional preparatory terms in the three-year option, but it does not clearly state how electives are selected or whether they support specialization."
+        },
+        "core_courses": [
+          {
+            "course_id": "Critical Worldviews 1",
+            "course_title": "Critical Worldviews 1",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": null,
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.3333333333333333,
+            "course_summary": "First-term development-year course in the three-year MDP track focused on critical framing and worldview analysis; 3 units.",
+            "source_url": "https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/course-of-study/overview.html",
+            "learning_outcomes": [
+              "Analyze critical worldviews shaping media design practice.",
+              "Frame design problems through critical and cultural perspectives.",
+              "Develop a reflective stance toward technology and society.",
+              "Connect design decisions to broader social and ethical contexts."
+            ]
+          },
+          {
+            "course_id": "Critical Practices 1",
+            "course_title": "Critical Practices 1",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": "rhetoric_storytelling_presentation",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.3333333333333333,
+            "course_summary": "Fall-term thesis-writing and dissemination course in the Media Design Practices MFA. Students develop the written component of the thesis, situate their work in discourse, and prepare materials for sharing design practice through venues such as social media, journals, and biennales.",
+            "source_url": "https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/course-of-study/course-descriptions.html",
+            "learning_outcomes": [
+              "Develop the written component of a thesis",
+              "Use writing as a generative design tool",
+              "Situate work within critical discourse",
+              "Translate practice for public dissemination",
+              "Prepare thesis-related promotional materials"
+            ]
+          },
+          {
+            "course_id": "Creative Technology 3",
+            "course_title": "Creative Technology 3",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.3333333333333333,
+            "course_summary": "A required creative technology studio term in the MDP sequence, focused on emerging technologies, prototyping, and experimental making.",
+            "source_url": "https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/course-of-study/overview.html",
+            "learning_outcomes": [
+              "Investigate emerging technologies in design practice.",
+              "Develop prototypes through experimental making.",
+              "Apply creative technology to design challenges.",
+              "Use research and fieldwork to inform design decisions.",
+              "Create new modes of storytelling and installation."
+            ]
+          },
+          {
+            "course_id": "Thesis Studio",
+            "course_title": "Thesis Studio",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 0,
+            "normalized_unit_weight": 2,
+            "course_summary": "Thesis-year studio in the three-year Media Design Practices track, where students develop thesis work after the preparatory terms.",
+            "source_url": "https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html",
+            "learning_outcomes": [
+              "Develop thesis work through studio practice",
+              "Apply research and fieldwork to design problems",
+              "Use emerging technologies in experimental making",
+              "Create new modes of storytelling and installation",
+              "Envision future design responses to social issues"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "cmu_master_computational_design",
+      "base_url": "https://www.architecture.cmu.edu/computational-design",
+      "identity": {
+        "institution_name": "Carnegie Mellon University",
+        "program_name": "Computational Design",
+        "credential_name": "Master of Science in Computational Design",
+        "degree_type": "MS",
+        "host_academic_units": [
+          "School of Architecture",
+          "CodeLab"
+        ],
+        "host_academic_model": "design_hosted",
+        "location_label": "Pittsburgh, Pennsylvania, United States"
+      },
+      "positioning": {
+        "positioning_summary": "Carnegie Mellon’s Computational Design program is positioned as a highly interdisciplinary, research-focused graduate program at the nexus of design and computation. It emphasizes critical technical practice, novel research contributions, and work that spans architecture, engineering, art, humanities, and computing, while also foregrounding emerging technologies, digital methods, physical fabrication, and socially and environmentally aware design inquiry.",
+        "positioning_tags": [
+          "interdisciplinary",
+          "research",
+          "stem_adjacent",
+          "emerging_technologies",
+          "physical_making",
+          "critical_speculative_design",
+          "social_impact",
+          "digital"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": null,
+        "cost_base_currency": null
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "partially_sequenced",
+        "curriculum_summary": "The Computational Design program is a two-year, research-focused MS/PhD pathway centered on interdisciplinary study at the intersection of design and computation. The evidence describes a lean sequence of research seminars, selective courses, special topics, independent studies, and a thesis, with students building individualized plans of study under faculty guidance. The program emphasizes technical, conceptual, historical, and critical inquiry, and the MS culminates in a substantial thesis.",
+        "offers_specialization": false,
+        "electives": {
+          "summary": "Electives are highly flexible but guided by faculty and the program’s research orientation. The MS curriculum uses research seminars, selective courses, special topics seminars, independent studies, and a broad pool of eligible extra-departmental courses to let students build a personalized path; the evidence does not describe fixed elective buckets or named elective lists for this program page."
+        },
+        "core_courses": []
+      }
+    },
+    {
+      "program_id": "cmu_master_design",
+      "base_url": "https://design.cmu.edu/about-our-programs/masters-degrees/master-design-design-interactions",
+      "identity": {
+        "institution_name": "Carnegie Mellon University",
+        "program_name": "Master of Design in Design for Interactions",
+        "credential_name": "Master of Design (MDes)",
+        "degree_type": "MDes",
+        "host_academic_units": [
+          "School of Design"
+        ],
+        "host_academic_model": "design_hosted",
+        "location_label": "Pittsburgh, Pennsylvania, United States"
+      },
+      "positioning": {
+        "positioning_summary": "The MDes in Design for Interactions is positioned as a rigorous, research-informed design program for students with prior design backgrounds and professional experience, centered on interaction design, systems thinking, design research, and thesis work. It emphasizes interdisciplinary collaboration, professional practice, and social impact through services, social innovation, sustainability, and future-oriented design.",
+        "positioning_tags": [
+          "interaction_design",
+          "interdisciplinary",
+          "professional",
+          "social_impact",
+          "digital"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 45000,
+        "cost_base_currency": 45000
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "partially_sequenced",
+        "curriculum_summary": "The Master of Design in Design for Interactions is a two-year, four-semester program built around required studios, seminars, labs, thesis preparation, and electives. The curriculum is described semester by semester, with first-year study focused on interaction, services, and social innovation, and second-year study centered on thesis research, development, and public defense. The page also indicates that students may take electives in the School of Design or across Carnegie Mellon, including outside design, to complement their skills and knowledge.",
+        "offers_specialization": true,
+        "electives": {
+          "summary": "Electives are flexible rather than locked to a single list: students take a design elective or a course outside design in the first year, and again in the second year, to complement their skills and knowledge. The page recommends electives in policy, business, service or social innovation, interaction or communication design, and professional writing, and also notes that students may take courses across Carnegie Mellon, including in other schools and departments."
+        },
+        "core_courses": [
+          {
+            "course_id": "Design for Interactions",
+            "course_title": "Design for Interactions",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 15,
+            "normalized_unit_weight": 1.5,
+            "course_summary": "First-year core study in the MDes program introduces interaction design practice, design research, systems thinking, and methods for designing services and social innovation concepts.",
+            "source_url": "https://design.cmu.edu/about-our-programs/masters-degrees/master-design-design-interactions",
+            "learning_outcomes": [
+              "Understand interaction design practice in context",
+              "Apply design research methods to complex systems",
+              "Prototype preferred futures for products and services",
+              "Work with communities, organizations, and stakeholders",
+              "Develop a personal design voice through studio work"
+            ]
+          },
+          {
+            "course_id": "51-385",
+            "course_title": "Designing Service Experiences",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "human_factors",
+            "units_or_credits": 9,
+            "normalized_unit_weight": 1,
+            "course_summary": "Project-based course on service design fundamentals, including analyzing and improving existing services and developing new service experiences. Students work across digital interactions and physical experiences, hypothesize, experiment, build, test, pivot, and pitch a service with value to a particular audience.",
+            "source_url": "https://www.design.cmu.edu/about-our-programs/masters-degrees/master-design-design-interactions",
+            "learning_outcomes": [
+              "Understand the fundamentals of service design",
+              "Analyze and improve existing services",
+              "Integrate digital interactions with physical experiences",
+              "Use hypothesis-driven experimentation and testing",
+              "Pitch a service for a specific audience"
+            ]
+          },
+          {
+            "course_id": "Year 2 core — thesis defense and completion",
+            "course_title": "Thesis Defense and Completion",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "rhetoric_storytelling_presentation",
+            "units_or_credits": null,
+            "normalized_unit_weight": 0.75,
+            "course_summary": "The final semester brings the thesis project to fruition through synthesis, documentation, public presentation, and defense.",
+            "source_url": "https://www.design.cmu.edu/about-our-programs/masters-degrees/master-design-design-interactions",
+            "learning_outcomes": []
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "columbia_ms_computational_design_practices",
+      "base_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices",
+      "identity": {
+        "institution_name": "Columbia GSAPP",
+        "program_name": "M.S. Computational Design Practices",
+        "credential_name": "MS in Computational Design Practices",
+        "degree_type": "MS",
+        "host_academic_units": [
+          "Graduate School of Architecture, Planning and Preservation",
+          "Columbia GSAPP"
+        ],
+        "host_academic_model": "design_hosted",
+        "location_label": "New York"
+      },
+      "positioning": {
+        "positioning_summary": "Columbia GSAPP’s M.S. in Computational Design Practices is positioned as an interdisciplinary, professionally oriented program that bridges architecture, data visualization, and urban planning, with a strong STEM-adjacent and research-inflected focus on computational design for the built environment. The program also emphasizes civic, activist, and social-impact applications, including equitable ways of imagining and creating space.",
+        "positioning_tags": [
+          "architecture_adjacent",
+          "stem_adjacent",
+          "critical_speculative_design",
+          "digital",
+          "social_impact"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 3,
+        "duration_category": "three_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 109800,
+        "cost_base_currency": 109800
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "highly_sequenced",
+        "curriculum_summary": "The M.S. in Computational Design Practices is organized around a prescribed sequence of colloquia, foundation coursework, and electives. The degree requirements page shows a term-by-term plan with an online pre-program summer, summer, fall, and spring components, and the program page describes three colloquia culminating in a final capstone project. Students must complete at least 45 credits, with required foundation courses and electives spanning GSAPP offerings.",
+        "offers_specialization": false,
+        "electives": {
+          "summary": "Electives are built into the program and span GSAPP offerings, allowing students to choose courses across the school and related areas. The degree requirements page shows elective credits in both the pre-program summer and summer term, and the program overview says electives create bridges and collaborations across shared concerns. The curriculum is flexible within this structured framework, but the program does not describe distinct specialization tracks."
+        },
+        "core_courses": [
+          {
+            "course_id": "ARCH 4144",
+            "course_title": "Methods as Practices, Practices as Methods",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 6,
+            "normalized_unit_weight": 1.8181818181818183,
+            "course_summary": "Required CDP colloquium in the summer pre-program sequence; 6-point course focused on methods, practices, and critical engagement with computational design.",
+            "source_url": "https://www.arch.columbia.edu/courses/12461-4080",
+            "learning_outcomes": [
+              "Clarify a research problem across the CDP sequence.",
+              "Develop a clear position and methodology for design work.",
+              "Use reading and writing to engage current and historical debates.",
+              "Apply creative, iterative design processes to a capstone project.",
+              "Use methods-oriented workshops to support implementation planning."
+            ]
+          },
+          {
+            "course_id": "ARCH 4145",
+            "course_title": "Explore, Explain, Propose",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 6,
+            "normalized_unit_weight": 1.8181818181818183,
+            "course_summary": "Second CDP colloquium course in the required sequence; a full-semester, 6-point course focused on developing a clear position and methodology for the student's work.",
+            "source_url": "https://www.arch.columbia.edu/courses/10672-5633",
+            "learning_outcomes": [
+              "Develop a clear position and methodology for their work",
+              "Advance an independent research problem over the sequence",
+              "Read and write about current debates and historical approaches",
+              "Use creative and iterative design processes",
+              "Complete a forward-looking capstone project"
+            ]
+          },
+          {
+            "course_id": "ARCH 4146",
+            "course_title": "Design in Action",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 6,
+            "normalized_unit_weight": 1.8181818181818183,
+            "course_summary": "Final CDP colloquium and capstone studio where students develop and complete a forward-looking capstone project.",
+            "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices",
+            "learning_outcomes": [
+              "Clarify an independent research problem over three semesters.",
+              "Develop a clear position and methodology for the work.",
+              "Create a plan for implementation.",
+              "Complete a forward-looking capstone project.",
+              "Engage critically with current debates and historical approaches to technology and the built environment."
+            ]
+          },
+          {
+            "course_id": "ARCH 4126",
+            "course_title": "Computational Drawing",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 0,
+            "normalized_unit_weight": 0,
+            "course_summary": "Zero-credit foundation item in the pre-program summer introducing computational drawing.",
+            "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices/degree-requirements",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "ARCH 4128",
+            "course_title": "Programming for Design Practices",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 0,
+            "normalized_unit_weight": 0,
+            "course_summary": "Zero-credit foundation item in the pre-program summer focused on programming for design work.",
+            "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices/degree-requirements",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "ARCH 6805",
+            "course_title": "Mapping and Data",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 0,
+            "normalized_unit_weight": 0,
+            "course_summary": "Zero-credit foundation item in the pre-program summer covering mapping and data.",
+            "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices/degree-requirements",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "ARCH 4162",
+            "course_title": "Computational Modeling",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 0.9090909090909092,
+            "course_summary": "Foundation course in the summer term focused on computational modeling.",
+            "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices/degree-requirements",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "ARCH 4163",
+            "course_title": "Computational Design Workflows",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 0.9090909090909092,
+            "course_summary": "Foundation course in the summer term focused on computational design workflows.",
+            "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices/degree-requirements",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "ARCH 4165",
+            "course_title": "Mapping Systems",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 0.9090909090909092,
+            "course_summary": "Foundation course in the summer term focused on mapping systems.",
+            "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices/degree-requirements",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "ARCH 4146",
+            "course_title": "Design in Action",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "technology",
+            "units_or_credits": 6,
+            "normalized_unit_weight": 1.8181818181818183,
+            "course_summary": "Final CDP colloquium and capstone course where students complete a capstone project.",
+            "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices/degree-requirements",
+            "learning_outcomes": []
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "dartmouth_ms_cs_digital_arts",
+      "base_url": "https://web.cs.dartmouth.edu/graduate/graduate-admissions/masters-computer-science/ms-cs-concentration-digital-arts",
+      "identity": {
+        "institution_name": "Dartmouth College",
+        "program_name": "M.S. in CS with Concentration in Digital Arts",
+        "credential_name": "Master of Science in Computer Science with Concentration in Digital Arts",
+        "degree_type": "MS",
+        "host_academic_units": [
+          "Department of Computer Science",
+          "Guarini School of Graduate and Advanced Studies"
+        ],
+        "host_academic_model": "computing_hosted",
+        "location_label": "New Hampshire"
+      },
+      "positioning": {
+        "positioning_summary": "The program is positioned as a computer science master’s concentration that bridges CS with digital arts and visual computing. It emphasizes a rigorous CS foundation, foundational digital arts coursework, and research/thesis work in areas such as computer graphics, HCI, digital fabrication, digital art and media, computer vision, VR, and AR. The framing is strongly interdisciplinary, STEM-adjacent, research-oriented, and connected to digital/fine-arts practice.",
+        "positioning_tags": [
+          "interdisciplinary",
+          "stem_adjacent",
+          "research",
+          "human_computer_interaction",
+          "digital"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 95676,
+        "cost_base_currency": 95676
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "partially_sequenced",
+        "curriculum_summary": "The MS in Computer Science with a concentration in Digital Arts is described as a two-year program that combines technical computer science study, digital arts coursework, and research/thesis work. Evidence indicates a thesis-based graduate path with a required thesis defense, but the fetched material does not provide a full term-by-term plan or a complete named course list for the concentration.",
+        "offers_specialization": true,
+        "electives": {
+          "summary": "The concentration is described as having three areas—technical courses, digital art courses, and research/thesis courses—so coursework is structured rather than fully open. The evidence does not provide a detailed elective menu or category rules for the concentration itself, but it does show that students combine computer science and digital arts study and complete thesis research as part of the program."
+        },
+        "core_courses": [
+          {
+            "course_id": "CS1",
+            "course_title": "CS 1: Introduction to Computer Science and Python",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": null,
+            "normalized_unit_weight": null,
+            "course_summary": "Introductory computer science and Python course required as prerequisite preparation for the Digital Arts MS concentration; teaches students to design, write, and analyze code to solve computational problems.",
+            "source_url": "https://cs.dartmouth.edu/~kvasanta/cs1/syllabus/index.html",
+            "learning_outcomes": [
+              "Design, write, and analyze code for computational problems.",
+              "Think like a computer scientist when approaching problems.",
+              "Use Python to solve introductory programming tasks.",
+              "Build foundational programming skills for later CS coursework."
+            ]
+          },
+          {
+            "course_id": "CS10",
+            "course_title": "CS 10: Problem Solving Via Object-Oriented Programming",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1,
+            "course_summary": "Prerequisite preparation course required for admission to the Digital Arts MS concentration. CS 10 covers object-oriented programming, data structures, abstraction, modularity, and algorithms.",
+            "source_url": "https://www.cs.dartmouth.edu/~thc/cs10/syllabus.html",
+            "learning_outcomes": [
+              "Apply object-oriented programming techniques",
+              "Use abstraction and modularity to solve problems",
+              "Implement and analyze data structures",
+              "Explain why data structures work and their efficiency",
+              "Develop algorithms for computational problems"
+            ]
+          },
+          {
+            "course_id": "COSC 232",
+            "course_title": "Advanced Algorithms",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1,
+            "course_summary": "Graduate-level advanced computer science course in algorithms; listed by Dartmouth as COSC 232, formerly numbered 231.",
+            "source_url": "https://web.cs.dartmouth.edu/graduate/graduate-admissions/masters-computer-science",
+            "learning_outcomes": [
+              "Apply advanced algorithmic techniques to computer science problems",
+              "Analyze algorithm correctness and efficiency",
+              "Select appropriate algorithms for complex computational tasks",
+              "Understand the role of advanced algorithms in graduate CS study"
+            ]
+          },
+          {
+            "course_id": "COSC 268",
+            "course_title": "Advanced Operating Systems",
+            "primary_type": "open_or_other",
+            "secondary_type": null,
+            "units_or_credits": null,
+            "normalized_unit_weight": null,
+            "course_summary": "Named as a planning example of an advanced computer science course that still exists but was renumbered from 258.",
+            "source_url": "https://web.cs.dartmouth.edu/graduate/graduate-admissions/masters-computer-science",
+            "learning_outcomes": []
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "tu_delft_msc_integrated_product_design",
+      "base_url": "https://www.tudelft.nl/en/education/programmes/masters/ipd/msc-integrated-product-design",
+      "identity": {
+        "institution_name": "Delft University of Technology",
+        "program_name": "MSc Integrated Product Design",
+        "credential_name": "Master of Science",
+        "degree_type": "MS",
+        "host_academic_units": [
+          "Industrial Design Engineering"
+        ],
+        "host_academic_model": "engineering_design_shared_hosted",
+        "location_label": "Netherlands"
+      },
+      "positioning": {
+        "positioning_summary": "TU Delft’s MSc Integrated Product Design is positioned as an advanced, research-informed design program that blends design, technology, and engineering to create user-centered, innovative, sustainable, and ethical products and product-service combinations. The program also explicitly highlights emerging technologies such as AI, smart textiles, bio-design, digital fabrication, and computational design, while emphasizing balance among user, business, and societal interests.",
+        "positioning_tags": [
+          "interdisciplinary",
+          "research",
+          "social_impact",
+          "emerging_technologies"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "EUR",
+        "exchange_rate_to_usd": 1.17,
+        "comparison_cost_usd": 52158,
+        "cost_base_currency": 44580
+      },
+      "curriculum": {
+        "unit_system": "ects",
+        "sequencedness": "highly_sequenced",
+        "curriculum_summary": "The MSc Integrated Product Design is a two-year, 120 ECTS programme with a structured first-year core, a theme-based second-year component, a 30 ECTS free elective semester, and a 30 ECTS graduation project. The curriculum is organized around faculty core courses, programme core courses, design studios, three theme courses chosen from an offer, and flexible electives that can include faculty courses, other TU Delft or Dutch university courses, internships, or study abroad.",
+        "offers_specialization": true,
+        "electives": {
+          "summary": "The programme includes a 30 ECTS free elective space in the third semester. Students can fill it with IDE faculty electives, courses from other TU Delft faculties or Dutch universities, an internship, or study abroad. The elective space is described as a way to broaden, deepen, or further specialize the student’s profile, and the programme materials also point to theme-based elective options and approved elective offerings."
+        },
+        "core_courses": [
+          {
+            "course_id": "IDEM4101",
+            "course_title": "Delft Lectures on Design",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Faculty core course introducing design’s response to disciplinary and societal challenges, including historic models, technological change, and societal drivers.",
+            "source_url": "https://www.tudelft.nl/en/student/ide/education/masterprogrammes-faculty-ide/msc-strategic-product-design/spd-programme-as-of-september-2024",
+            "learning_outcomes": [
+              "Understand design’s response to disciplinary and societal challenges.",
+              "Recognize historic models and contemporary design developments.",
+              "Relate technological change to evolving design practice.",
+              "Analyze societal drivers shaping product and service design."
+            ]
+          },
+          {
+            "course_id": "IDEM4102",
+            "course_title": "Design Processes and Practices",
+            "primary_type": "design_methods_systems",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Faculty core course covering theoretical foundations and practical insights for critical thinking, reflection, and technology-design interconnections.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": [
+              "Create innovative and responsible products and product-services.",
+              "Use design and engineering methods, tools, and technologies effectively.",
+              "Develop technical prototyping and experimentation skills.",
+              "Integrate technology and design for impactful solutions.",
+              "Apply sustainability principles and novel materials in design work."
+            ]
+          },
+          {
+            "course_id": "IDEM2101",
+            "course_title": "Advanced Product Engineering",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 10,
+            "normalized_unit_weight": 1.4166666666666667,
+            "course_summary": "Core course in advanced product engineering, emphasizing the integration of design, technology, and engineering to develop innovative and sustainable products.",
+            "source_url": "https://www.tudelft.nl/en/education/programmes/masters/ipd/msc-integrated-product-design",
+            "learning_outcomes": [
+              "Integrate design, technology, and engineering in product development.",
+              "Create innovative and responsible products and product-services.",
+              "Use design and engineering methods, tools, and technologies effectively.",
+              "Develop technical prototyping skills and experimentation.",
+              "Apply sustainability principles to product design solutions."
+            ]
+          },
+          {
+            "course_id": "IDEM2101",
+            "course_title": "Advanced Product Engineering",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Programme core course on computational techniques for modelling, simulation, and data analysis for efficient, sustainable physical and digital products.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2102",
+            "course_title": "Cognitive and Psychological Foundations for Product Design",
+            "primary_type": "human_factors",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Programme core course on cognitive ergonomics and psychology for user-centred product design and understanding human-product interactions.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2103",
+            "course_title": "Empirical Design Research",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "human_factors",
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Programme core course building foundational design research skills for planning and executing research in design and scientific contexts.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2200",
+            "course_title": "Product Futures Studio",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 10,
+            "normalized_unit_weight": 1.4166666666666667,
+            "course_summary": "Project studio in which students engage in research-driven design projects for product futures and demonstrate knowledge from theme courses.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2211",
+            "course_title": "AI Products and Services",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course on designing products and services with artificial intelligence.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2212",
+            "course_title": "Intelligent Industrial Systems",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course on intelligent industrial systems within the digital design and AI theme.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2213",
+            "course_title": "Data-Centric Design for Connected Products",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course on data-centric design for connected products.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2221",
+            "course_title": "Strategic Integration of Sustainability in Design",
+            "primary_type": "design_methods_systems",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course on integrating sustainability strategically into design practice.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2222",
+            "course_title": "Life Cycle Assessment Methods",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course on life cycle assessment methods for sustainability-oriented design decisions.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2223-25",
+            "course_title": "Design Approaches for Sustainability",
+            "primary_type": "design_methods_systems",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course on design approaches for sustainability.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2231",
+            "course_title": "Material Driven Design",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "technology",
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course on material-driven design within the materialising futures theme.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2232",
+            "course_title": "Computational Design",
+            "primary_type": "technology",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course on computational design methods and applications.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2233",
+            "course_title": "Fundamentals of Biodesign",
+            "primary_type": "technology",
+            "secondary_type": null,
+            "units_or_credits": 5,
+            "normalized_unit_weight": 0.7083333333333334,
+            "course_summary": "Theme course introducing fundamentals of biodesign.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDEM2000",
+            "course_title": "IPD Graduation Project",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 30,
+            "normalized_unit_weight": 4.25,
+            "course_summary": "Final graduation project and MSc thesis component of the programme.",
+            "source_url": "https://www.tudelft.nl/student/ide/education/masterprogrammes-faculty-ide/msc-integrated-product-design/ipd-programme-as-of-september-2024",
+            "learning_outcomes": []
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "harvard_master_design_studies",
+      "base_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-studies/",
+      "identity": {
+        "institution_name": "Harvard Graduate School of Design",
+        "program_name": "Design Studies",
+        "credential_name": "Master in Design Studies",
+        "degree_type": "Master's",
+        "host_academic_units": [
+          "Graduate School of Design",
+          "Department of Architecture",
+          "Urban Planning and Design"
+        ],
+        "host_academic_model": "design_hosted",
+        "location_label": "Cambridge, Massachusetts"
+      },
+      "positioning": {
+        "positioning_summary": "Harvard GSD’s Master in Design Studies is positioned as a research-based, interdisciplinary design program focused on urgent contemporary issues and social impact. The program emphasizes design research and scholarship, flexible domain-based study, and work that connects design to public service, academia, NGOs, and advanced practice; the Publics domain further highlights socio-spatial design, planning, advocacy, and the common good.",
+        "positioning_tags": [
+          "research",
+          "interdisciplinary",
+          "social_impact",
+          "professional"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 61510,
+        "cost_base_currency": 61510
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "partially_sequenced",
+        "curriculum_summary": "The Master in Design Studies is a four-semester, 72-unit program organized by domain (Ecologies, Mediums, Narratives, or Publics). Students complete a required first-semester proseminar in their chosen domain, a 12-unit set of approved distributional electives in the first year, a required 8-unit collaborative open project in the third semester, and a largely elective fourth semester. The curriculum is flexible within each domain but still has a clear semester-by-semester structure.",
+        "offers_specialization": true,
+        "electives": {
+          "summary": "In the first year, students must take a minimum of 12 units of approved distributional electives from the list for their chosen domain, and those electives may be completed in the second year with Domain Head approval. The program is interdisciplinary and encourages cross-registration across the GSD, other Harvard schools, and MIT, while the fourth semester in the domain plans is largely or entirely general electives."
+        },
+        "core_courses": [
+          {
+            "course_id": "ADV-9674",
+            "course_title": "Proseminar in Ecologies: Regenerative, Interrelated, Evolving",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": null,
+            "units_or_credits": 4,
+            "normalized_unit_weight": 0.8571428571428571,
+            "course_summary": "Required first-semester proseminar for the Ecologies domain. The course introduces students to research being pursued by GSD faculty, across Harvard schools, the Loeb Fellows, and practitioners from many disciplines.",
+            "source_url": "https://beta.my.harvard.edu/school/gsd?hq=%28Required%20Course%3A%22R-MDS-ECO%22%29%20%28School%3A%22GSD%22%29%20%28Term%3A2258%20%7C%20Term%3A2262%29",
+            "learning_outcomes": [
+              "Understand the Ecologies domain’s core concerns and research agenda.",
+              "Engage research pursued by GSD faculty and affiliated scholars.",
+              "Situate design questions across ecological, technical, and social systems.",
+              "Develop a foundation for an individualized domain trajectory."
+            ]
+          },
+          {
+            "course_id": "ADV-9672",
+            "course_title": "Proseminar in Mediums: On Making Culture, Technology, and Art",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": "technology",
+            "units_or_credits": 4,
+            "normalized_unit_weight": 0.8571428571428571,
+            "course_summary": "First-semester required proseminar for the Mediums domain. Explores the landscape of design technologies and technologically driven design, with critical attention to making culture, technology, and art.",
+            "source_url": "https://beta.my.harvard.edu/school/gsd?hq=%28Required%20Course%3A%22R-MDS-MED%22%29%20%28School%3A%22GSD%22%29%20%28Term%3A2258%20%7C%20Term%3A2262%29",
+            "learning_outcomes": [
+              "Critically examine design technologies and technologically driven design.",
+              "Analyze how mediums shape ideas, experiences, and environments.",
+              "Understand the role of culture, technology, and art in design.",
+              "Develop a critical perspective on emerging tools and methods."
+            ]
+          },
+          {
+            "course_id": "ADV-9673",
+            "course_title": "Proseminar in Narratives: Word and Image as Narrative Structure",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": null,
+            "units_or_credits": 4,
+            "normalized_unit_weight": 0.8571428571428571,
+            "course_summary": "First-semester required proseminar in the Narratives domain; examines word-image relations through aesthetic philosophy, literary criticism, media studies, and art and architectural history.",
+            "source_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-studies/degree-requirements/",
+            "learning_outcomes": [
+              "Analyze word-image relations across design and media contexts.",
+              "Compare critical perspectives from philosophy, criticism, and history.",
+              "Evaluate narrative structure through visual and textual forms.",
+              "Connect design-related themes to broader cultural debates."
+            ]
+          },
+          {
+            "course_id": "ADV-9671",
+            "course_title": "Proseminar in Publics: Of the Public. In the Public. By the Public.",
+            "primary_type": "history_theory_positioning",
+            "secondary_type": null,
+            "units_or_credits": 4,
+            "normalized_unit_weight": 0.8571428571428571,
+            "course_summary": "First-semester required proseminar for the Publics domain.",
+            "source_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-studies/requirements-for-students-who-entered-prior-to-fall-2026/",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "DES-3105",
+            "course_title": "Futures By Design",
+            "primary_type": "design_methods_systems",
+            "secondary_type": null,
+            "units_or_credits": 4,
+            "normalized_unit_weight": 0.8571428571428571,
+            "course_summary": "Required second-semester course appearing in each domain plan.",
+            "source_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-studies/degree-requirements/",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "ADV-97XX",
+            "course_title": "Open Project",
+            "primary_type": "design_studio",
+            "secondary_type": null,
+            "units_or_credits": 8,
+            "normalized_unit_weight": 1.7142857142857142,
+            "course_summary": "Required third-semester directed, collaborative project shared across domains.",
+            "source_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-studies/degree-requirements/",
+            "learning_outcomes": []
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "iit_master_design",
+      "base_url": "https://www.iit.edu/academics/programs/design-mdes",
+      "identity": {
+        "institution_name": "Illinois Institute of Technology",
+        "program_name": "Design M.Des.",
+        "credential_name": "Master of Design",
+        "degree_type": "MDes",
+        "host_academic_units": [
+          "Institute of Design"
+        ],
+        "host_academic_model": "design_hosted",
+        "location_label": "Chicago, Illinois, United States"
+      },
+      "positioning": {
+        "positioning_summary": "IIT Institute of Design’s M.Des. is positioned as a STEM-designated, professionally oriented graduate design program for strategic designers who work across complex business, civic, and social challenges. The program emphasizes human-centered and systems design, collaborative real-world projects, and impact in private, public, and nonprofit sectors, while also welcoming applicants without formal design training.",
+        "positioning_tags": [
+          "professional",
+          "social_impact",
+          "interdisciplinary",
+          "stem_adjacent"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 101792,
+        "cost_base_currency": 101792
+      },
+      "curriculum": {
+        "unit_system": "semester_credit_hours",
+        "sequencedness": "partially_sequenced",
+        "curriculum_summary": "The M.Des. is a two-year, 54-credit program with a structured core and substantial elective flexibility. Required study includes a small set of core courses, one 4-credit choice from a specified course set, and a large elective block drawn mainly from 500- and 600-level IDN/IDX courses. Students without prior design preparation may need Foundation courses, and some international students may take English + Design courses concurrently in the first two semesters. The curriculum is organized around user research, communication, systems thinking, strategy, and workshops, with adviser-guided course selection and optional outside-of-ID electives allowed in limited amounts.",
+        "offers_specialization": true,
+        "electives": {
+          "summary": "Electives make up the majority of the degree and are selected with adviser guidance from any non-required 500-level or 600-level IDN or IDX course. Up to 12 credits may come from selected undergraduate IDN 481–497 courses if they are not also used as prerequisites, and up to 6 credits may be taken outside of ID with approval. The program also presents concentration-style modules in areas such as research, communication, interaction design, data and design, product/services design, collaboration, enterprise management, innovation, and civic systems, so electives clearly support specialization even though the degree does not appear to require a single formal track."
+        },
+        "core_courses": [
+          {
+            "course_id": "IDN 508",
+            "course_title": "Principles and Methods of User Research",
+            "primary_type": "human_factors",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.2,
+            "course_summary": "Survey of design research methods, including primary and secondary, quantitative and qualitative, and online and in-person research, to prepare students for research-intensive projects.",
+            "source_url": "https://catalog.iit.edu/graduate/colleges/design/master-design/",
+            "learning_outcomes": [
+              "Use primary and secondary research methods",
+              "Apply quantitative and qualitative approaches",
+              "Conduct online and in-person user research",
+              "Prepare for research-intensive design projects"
+            ]
+          },
+          {
+            "course_id": "IDN 556",
+            "course_title": "Strategic Communication",
+            "primary_type": "rhetoric_storytelling_presentation",
+            "secondary_type": "design_methods_systems",
+            "units_or_credits": 1.5,
+            "normalized_unit_weight": 0.6,
+            "course_summary": "Teaches communication as a design method to accelerate synthesis and make valuable information tangible throughout the development process. Students also learn relevant theories of language, visual perception, visual representation, and communication.",
+            "source_url": "https://catalog.iit.edu/graduate/colleges/design/master-design/",
+            "learning_outcomes": [
+              "Use communication as a design method during synthesis",
+              "Translate valuable information into tangible forms",
+              "Apply theories of language and visual perception",
+              "Represent ideas through visual and verbal communication"
+            ]
+          },
+          {
+            "course_id": "IDX 508",
+            "course_title": "Modes of Human Experience",
+            "primary_type": "human_factors",
+            "secondary_type": null,
+            "units_or_credits": 1.5,
+            "normalized_unit_weight": 0.6,
+            "course_summary": "Required M.Des. core course in the Institute of Design curriculum. Focuses on modes of human experience within the broader core sequence alongside research, communication, systems, and analysis courses.",
+            "source_url": "https://catalog.iit.edu/graduate/colleges/design/master-design/",
+            "learning_outcomes": [
+              "Understand modes of human experience in design contexts",
+              "Analyze human-centered situations and experiences",
+              "Connect experience analysis to design decision-making",
+              "Work within the M.Des. core sequence on human-focused inquiry"
+            ]
+          },
+          {
+            "course_id": "IDX 508",
+            "course_title": "Modes of Human Experience",
+            "primary_type": "human_factors",
+            "secondary_type": null,
+            "units_or_credits": 1.5,
+            "normalized_unit_weight": 0.6,
+            "course_summary": "Core course focused on human experience and the ways people perceive, interpret, and engage with designed situations.",
+            "source_url": "https://catalog.iit.edu/graduate/colleges/design/master-design/",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDX 542",
+            "course_title": "Analysis + Synthesis",
+            "primary_type": "design_methods_systems",
+            "secondary_type": null,
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.2,
+            "course_summary": "A core problem-solving course that teaches a flexible and systematic approach to analysis and synthesis in design work.",
+            "source_url": "https://www.iit.edu/academics/programs/design-mdes",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDX 550",
+            "course_title": "Building and Understanding Context",
+            "primary_type": "design_methods_systems",
+            "secondary_type": "human_factors",
+            "units_or_credits": 3,
+            "normalized_unit_weight": 1.2,
+            "course_summary": "Core course centered on understanding context, framing problems, and building a shared view of the design situation.",
+            "source_url": "https://catalog.iit.edu/graduate/colleges/design/master-design/",
+            "learning_outcomes": []
+          },
+          {
+            "course_id": "IDN 501 / IDN 503 / IDN 505",
+            "course_title": "One 4-credit course from Communication Systems, Embodied Design, or Digital Media",
+            "primary_type": "open_or_other",
+            "secondary_type": null,
+            "units_or_credits": 4,
+            "normalized_unit_weight": 1.6,
+            "course_summary": "Students choose one additional 4-credit course from a specified set to complete the required core block.",
+            "source_url": "https://catalog.iit.edu/graduate/colleges/design/master-design/",
+            "learning_outcomes": []
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "harvard_master_design_engineering",
+      "base_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-engineering/",
+      "identity": {
+        "institution_name": "gsd.harvard.edu",
+        "program_name": "Design Engineering",
+        "credential_name": null,
+        "degree_type": null,
+        "host_academic_units": [],
+        "host_academic_model": null,
+        "location_label": null
+      },
+      "positioning": {
+        "positioning_summary": "Harvard’s Master in Design Engineering is positioned as a collaborative, interdisciplinary program that bridges design and engineering to tackle complex real-world and societal challenges. The program emphasizes systems-level problem solving, innovation, and leadership, with explicit ties to sustainability, urbanization, resource scarcity, and other large-scale public-interest issues.",
+        "positioning_tags": [
+          "interdisciplinary",
+          "stem_adjacent",
+          "social_impact",
+          "professional"
+        ]
+      },
+      "duration": {
+        "length_in_berkeley_semesters": 4,
+        "duration_category": "four_semesters"
+      },
+      "degree_cost": {
+        "base_currency": "USD",
+        "exchange_rate_to_usd": 1,
+        "comparison_cost_usd": 61510,
+        "cost_base_currency": 61510
+      },
+      "curriculum": {
+        "unit_system": "",
+        "sequencedness": "",
         "curriculum_summary": "",
         "offers_specialization": false,
-        "core_courses": [],
         "electives": {
-          "summary": "",
-          "estimated_elective_course_count": null
-        }
-      },
-      "verification": {
-        "status": "llm_extracted",
-        "verified_by": "",
-        "verified_date": ""
+          "summary": ""
+        },
+        "core_courses": []
       }
     }
-  ]
+  ],
+  "corpus_metadata": {
+    "version": 1,
+    "description": "MDes Peer Program Comparator Corpus"
+  }
 }

@@ -33,6 +33,7 @@ def build_ingest_skeleton(program_id: str, base_url: str) -> dict[str, Any]:
         "program_id": program_id,
         "base_url": (base_url or "").strip(),
         "atlas_ingest": {"stage": "skeleton", "updated_at": program_timestamp_iso_utc()},
+        "sources": [],
         "llm_rationales": [],
         "identity": {
             "institution_name": None,
@@ -55,7 +56,7 @@ def build_ingest_skeleton(program_id: str, base_url: str) -> dict[str, Any]:
             "base_currency": None,
             "exchange_rate_to_usd": None,
             "comparison_cost_usd": None,
-            "total_degree_cost_base_currency": None,
+            "cost_base_currency": None,
         },
         "curriculum": {
             "unit_system": None,

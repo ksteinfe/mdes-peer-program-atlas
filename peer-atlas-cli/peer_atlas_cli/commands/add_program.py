@@ -34,13 +34,10 @@ from peer_atlas_cli.program_skeleton import (
 )
 from peer_atlas_cli.program_sanitize import (
     ensure_course_source_urls,
-    finalize_top_level_sources_into_rationales,
-    migrate_course_source_id_to_url,
     normalize_core_course_learning_outcomes,
     normalize_curriculum_electives_in_program,
-    normalize_derivation_notes,
+    normalize_llm_rationales,
     normalize_program_layout,
-    strip_legacy_source_id_fields,
 )
 from peer_atlas_cli.publish_coerce import coerce_none_strings_for_publish
 from peer_atlas_cli.repo_root import find_repo_root
@@ -55,7 +52,23 @@ from peer_atlas_cli.retrieval.evidence_bundle import (
 )
 from peer_atlas_cli.retrieval.query_builders import queries_for_core_course
 from peer_atlas_cli.retrieval.tavily_search import tavily_api_key
+from peer_atlas_cli.sources_from_url_cache import rebuild_all_program_sources
 from peer_atlas_cli.schema_validation import validate_corpus
+
+
+def _validate_corpus_with_enum_repairs(root, corpus: dict[str, Any]) -> list[str]:
+    """Validate corpus after url-cache ``sources`` refresh + in-place enum repair."""
+    rebuild_all_program_sources(corpus, root)
+    notes: list[str] = []
+    errs = validate_corpus(
+        root,
+        corpus,
+        category_repair_notes=notes,
+        repair_invalid_enums=True,
+    )
+    for line in notes:
+        cli_bracket_line("val", "enum-repair", line, indent_tabs=1)
+    return errs
 
 
 def _append_or_replace_program(corpus: dict[str, Any], program: dict[str, Any]) -> None:
@@ -78,22 +91,13 @@ def _remove_program_by_id(corpus: dict[str, Any], program_id: str) -> None:
 
 def _sanitize_before_validate(program: dict[str, Any]) -> None:
     normalize_program_layout(program)
-    strip_legacy_source_id_fields(program)
-    migrate_course_source_id_to_url(program)
-    n_src = finalize_top_level_sources_into_rationales(program)
-    if n_src:
-        cli_bracket_line(
-            "add",
-            "sanitize",
-            f"migrated {n_src} legacy source entr(y/ies) into llm_rationales.",
-        )
     base = str(program.get("base_url") or "")
-    n = normalize_derivation_notes(program, default_source_url=base)
+    n = normalize_llm_rationales(program, default_source_url=base)
     if n:
         cli_bracket_line(
             "add",
             "sanitize",
-            f"normalized {n} llm_rationales entr(y/ies) (strings or legacy keys).",
+            f"normalized {n} llm_rationales entr(y/ies).",
         )
     ensure_course_source_urls(program, base)
     normalize_core_course_learning_outcomes(program)
@@ -113,7 +117,7 @@ def _sanitize_before_validate(program: dict[str, Any]) -> None:
 )
 @click.option(
     "--max-courses",
-    default=12,
+    default=3,
     type=click.IntRange(0, None),
     show_default=True,
     help="Max core_courses rows to run per-course evidence patches (0 = all rows).",
@@ -184,7 +188,7 @@ def add_program_cmd(
 
     if not dry_run:
         _append_or_replace_program(corpus, program)
-        errs = validate_corpus(root, corpus)
+        errs = _validate_corpus_with_enum_repairs(root, corpus)
         if errs:
             echo_validation_errors(errs, intro="Draft skeleton failed validation.")
             _remove_program_by_id(corpus, pid)
@@ -198,7 +202,7 @@ def add_program_cmd(
         _sanitize_before_validate(program)
         recompute_normalized_unit_weights(program)
         _append_or_replace_program(corpus, program)
-        errs = validate_corpus(root, corpus)
+        errs = _validate_corpus_with_enum_repairs(root, corpus)
         if errs:
             raise RuntimeError("corpus validation failed after ingest step")
         write_corpus(root, corpus)
@@ -422,7 +426,7 @@ def add_program_cmd(
             try:
                 persist()
             except RuntimeError:
-                errs_post = validate_corpus(root, corpus)
+                errs_post = _validate_corpus_with_enum_repairs(root, corpus)
                 echo_llm_raw_and_parsed(
                     raw,
                     program,
@@ -489,7 +493,7 @@ def add_program_cmd(
         try:
             persist()
         except RuntimeError:
-            errs_post = validate_corpus(root, corpus)
+            errs_post = _validate_corpus_with_enum_repairs(root, corpus)
             echo_llm_raw_and_parsed(
                 raw,
                 program,
@@ -516,7 +520,7 @@ def add_program_cmd(
     if not dry_run:
         recompute_normalized_unit_weights(program)
         _append_or_replace_program(corpus, program)
-        errs = validate_corpus(root, corpus)
+        errs = _validate_corpus_with_enum_repairs(root, corpus)
         if errs:
             echo_llm_raw_and_parsed(
                 "",
@@ -531,7 +535,9 @@ def add_program_cmd(
         meta = corpus.get("corpus_metadata")
         if not isinstance(meta, dict):
             meta = {}
-        errs_dr = validate_corpus(root, {"programs": [program], "corpus_metadata": meta})
+        errs_dr = _validate_corpus_with_enum_repairs(
+            root, {"programs": [program], "corpus_metadata": meta}
+        )
         if errs_dr:
             echo_validation_errors(
                 errs_dr,

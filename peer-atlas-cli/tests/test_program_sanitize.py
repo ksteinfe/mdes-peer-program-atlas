@@ -5,11 +5,10 @@ from __future__ import annotations
 from peer_atlas_cli.program_sanitize import (
     coalesce_curriculum_subtree_from_llm,
     coerce_llm_rationale_object,
-    finalize_top_level_sources_into_rationales,
-    hoist_curriculum_sources_and_derivation_notes_to_program,
+    hoist_nested_curriculum_llm_rationales,
     normalize_core_course_learning_outcomes,
     normalize_curriculum_electives,
-    normalize_derivation_notes,
+    normalize_llm_rationales,
 )
 from peer_atlas_cli.publish_coerce import coerce_none_strings_for_publish
 
@@ -21,7 +20,7 @@ def test_normalize_llm_rationales_coerces_strings() -> None:
             {"feature": "x", "source_url": "https://a.edu/", "note": "ok"},
         ]
     }
-    n = normalize_derivation_notes(p, default_source_url="https://example.edu/")
+    n = normalize_llm_rationales(p, default_source_url="https://example.edu/")
     assert n == 1
     notes = p["llm_rationales"]
     assert notes[0]["note"] == "bare string note"
@@ -37,11 +36,13 @@ def test_normalize_llm_rationales_coerces_strings() -> None:
     }
 
 
-def test_coerce_llm_rationale_object_maps_rationale_to_note() -> None:
+def test_coerce_llm_rationale_object_five_keys() -> None:
     raw = {
         "feature": "curriculum.core_courses",
         "source_url": "https://www.ischool.berkeley.edu/programs/mims/degreerequirements",
-        "rationale": "No named courses in snippet.",
+        "note": "No named courses in snippet.",
+        "llm_title": "",
+        "retrieved_date": "",
     }
     out = coerce_llm_rationale_object(raw, default_source_url="https://seed.edu/")
     assert out["feature"] == "curriculum.core_courses"
@@ -61,21 +62,23 @@ def test_coerce_llm_rationale_object_maps_rationale_to_note() -> None:
     }
 
 
-def test_normalize_llm_rationales_strips_rationale_key() -> None:
+def test_normalize_llm_rationales_drops_unknown_keys_from_output_shape() -> None:
     p: dict = {
         "llm_rationales": [
             {
                 "feature": "a",
                 "source_url": "https://x.edu/",
-                "rationale": "wrong key",
+                "note": "n",
+                "llm_title": "T",
+                "retrieved_date": "2026-01-01",
+                "rationale": "ignored",
             }
         ]
     }
-    n = normalize_derivation_notes(p, default_source_url="https://example.edu/")
+    n = normalize_llm_rationales(p, default_source_url="https://example.edu/")
     assert n == 1
     row = p["llm_rationales"][0]
-    assert row["note"] == "wrong key"
-    assert row["llm_title"] == "Home"
+    assert row["note"] == "n"
     assert set(row.keys()) == {
         "feature",
         "source_url",
@@ -83,28 +86,6 @@ def test_normalize_llm_rationales_strips_rationale_key() -> None:
         "llm_title",
         "retrieved_date",
     }
-
-
-def test_finalize_top_level_sources_into_rationales() -> None:
-    p: dict = {
-        "llm_rationales": [],
-        "sources": [
-            {
-                "url": "https://example.edu/foo",
-                "llm_title": "",
-                "llm_summary": None,
-                "retrieved_date": None,
-                "source_id": "legacy",
-            }
-        ],
-    }
-    n = finalize_top_level_sources_into_rationales(p)
-    assert n == 1
-    assert "sources" not in p
-    r = p["llm_rationales"][0]
-    assert r["source_url"] == "https://example.edu/foo"
-    assert r["llm_title"]
-    assert "source_id" not in r
 
 
 def test_normalize_core_course_learning_outcomes() -> None:
@@ -189,7 +170,7 @@ def test_coerce_none_strings_preserves_null_elective_count() -> None:
     assert program["curriculum"]["electives"]["estimated_elective_course_count"] is None
 
 
-def test_hoist_curriculum_sources_and_derivation_notes_to_program() -> None:
+def test_hoist_nested_curriculum_llm_rationales() -> None:
     p: dict = {
         "base_url": "https://example.edu/",
         "llm_rationales": [
@@ -202,31 +183,18 @@ def test_hoist_curriculum_sources_and_derivation_notes_to_program() -> None:
             }
         ],
         "curriculum": {
-            "sources": [
-                {
-                    "url": "https://example.edu/b",
-                    "llm_title": "B",
-                    "llm_summary": "summary b",
-                    "retrieved_date": "2026-01-01",
-                }
-            ],
-            "derivation_notes": [
+            "llm_rationales": [
                 {
                     "feature": "curriculum.electives",
                     "source_url": "https://example.edu/other",
                     "note": "Elective count uncertain.",
+                    "llm_title": "Other",
+                    "retrieved_date": "",
                 }
             ],
         },
     }
-    hoist_curriculum_sources_and_derivation_notes_to_program(p)
-    assert "sources" not in p["curriculum"]
-    assert "derivation_notes" not in p["curriculum"]
-    assert "sources" not in p
-    assert len(p["llm_rationales"]) == 3
+    hoist_nested_curriculum_llm_rationales(p)
+    assert "llm_rationales" not in p["curriculum"]
+    assert len(p["llm_rationales"]) == 2
     assert p["llm_rationales"][1]["feature"] == "curriculum.electives"
-    cite = p["llm_rationales"][2]
-    assert cite["feature"] == "curriculum.citation"
-    assert cite["source_url"] == "https://example.edu/b"
-    assert cite["note"] == "summary b"
-    assert cite["llm_title"] == "B"

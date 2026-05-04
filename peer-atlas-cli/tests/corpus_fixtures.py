@@ -12,6 +12,7 @@ def minimal_valid_program(*, program_id: str = "fixture_program") -> dict[str, A
         "base_url": "https://fixture.example.edu/program",
         "date_added": "2020-01-01T00:00:00Z",
         "date_updated": "2020-01-01T00:00:00Z",
+        "sources": [],
         "llm_rationales": [
             {
                 "feature": "program.citation",
@@ -42,7 +43,7 @@ def minimal_valid_program(*, program_id: str = "fixture_program") -> dict[str, A
             "base_currency": "",
             "exchange_rate_to_usd": None,
             "comparison_cost_usd": None,
-            "total_degree_cost_base_currency": None,
+            "cost_base_currency": None,
         },
         "curriculum": {
             "unit_system": "semester_credit_hours",

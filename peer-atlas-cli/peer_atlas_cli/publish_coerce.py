@@ -13,7 +13,7 @@ _STRICT_NULLABLE_KEYS: frozenset[str] = frozenset(
         "length_in_berkeley_semesters",
         "exchange_rate_to_usd",
         "comparison_cost_usd",
-        "total_degree_cost_base_currency",
+        "cost_base_currency",
         "estimated_elective_course_count",
         "source_url",
         "secondary_type",

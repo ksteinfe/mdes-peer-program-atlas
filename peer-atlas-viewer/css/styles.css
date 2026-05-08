@@ -290,6 +290,15 @@ button.tag-pill:focus-visible {
   line-height: 1.2;
 }
 
+/* Filter dialog: taller than other sheets so tag lists need no inner scroll */
+#dlg-filter.sheet {
+  max-height: min(96vh, 920px);
+}
+
+#dlg-filter .sheet-inner {
+  max-height: min(96vh, 920px);
+}
+
 .sheet {
   width: min(96vw, 720px);
   max-height: 90vh;
@@ -501,6 +510,27 @@ button.tag-pill:focus-visible {
   cursor: pointer;
 }
 
+.filter-tags-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.15rem 0;
+}
+
+.filter-tag-subgroup-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.filter-checkboxes.filter-checkboxes--nested {
+  max-height: none;
+  padding-top: 0;
+}
+
 .filter-range {
   display: flex;
   flex-wrap: wrap;
@@ -534,6 +564,20 @@ button.tag-pill:focus-visible {
 .active-filters ul {
   margin: 0.25rem 0 0;
   padding-left: 1.2rem;
+}
+
+.filter-show-counts {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.86rem;
+}
+
+.filter-show-counts label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
 }
 
 .detail-section {

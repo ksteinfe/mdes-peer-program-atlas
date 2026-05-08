@@ -19,7 +19,7 @@
         "positioning_tags": [
           "professional",
           "interdisciplinary",
-          "stem_adjacent",
+          "hci_adjacent",
           "ui_ux"
         ]
       },
@@ -459,7 +459,7 @@
         "positioning_tags": [
           "interdisciplinary",
           "research",
-          "stem_adjacent",
+          "hci_adjacent",
           "emerging_technologies",
           "physical_making",
           "critical_speculative_design",
@@ -598,7 +598,7 @@
         "positioning_summary": "Columbia GSAPP’s M.S. in Computational Design Practices is positioned as an interdisciplinary, professionally oriented program that bridges architecture, data visualization, and urban planning, with a strong STEM-adjacent and research-inflected focus on computational design for the built environment. The program also emphasizes civic, activist, and social-impact applications, including equitable ways of imagining and creating space.",
         "positioning_tags": [
           "architecture_adjacent",
-          "stem_adjacent",
+          "hci_adjacent",
           "critical_speculative_design",
           "digital",
           "social_impact"
@@ -773,9 +773,8 @@
         "positioning_summary": "The program is positioned as a computer science master’s concentration that bridges CS with digital arts and visual computing. It emphasizes a rigorous CS foundation, foundational digital arts coursework, and research/thesis work in areas such as computer graphics, HCI, digital fabrication, digital art and media, computer vision, VR, and AR. The framing is strongly interdisciplinary, STEM-adjacent, research-oriented, and connected to digital/fine-arts practice.",
         "positioning_tags": [
           "interdisciplinary",
-          "stem_adjacent",
+          "hci_adjacent",
           "research",
-          "human_computer_interaction",
           "digital"
         ]
       },
@@ -1258,7 +1257,7 @@
           "professional",
           "social_impact",
           "interdisciplinary",
-          "stem_adjacent"
+          "hci_adjacent"
         ]
       },
       "duration": {
@@ -1391,7 +1390,7 @@
         "positioning_summary": "Harvard’s Master in Design Engineering is positioned as a collaborative, interdisciplinary program that bridges design and engineering to tackle complex real-world and societal challenges. The program emphasizes systems-level problem solving, innovation, and leadership, with explicit ties to sustainability, urbanization, resource scarcity, and other large-scale public-interest issues.",
         "positioning_tags": [
           "interdisciplinary",
-          "stem_adjacent",
+          "hci_adjacent",
           "social_impact",
           "professional"
         ]

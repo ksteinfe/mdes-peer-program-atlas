@@ -397,8 +397,7 @@
           "professional",
           "hci_adjacent",
           "ui_ux",
-          "human_centered",
-          "public_policy_adjacent"
+          "INVALID"
         ]
       },
       "duration": {
@@ -535,7 +534,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T19:37:25Z",
-      "date_updated": "2026-05-08T17:32:41Z",
+      "date_updated": "2026-05-08T17:13:17Z",
       "sources": [
         "http://ischool.berkeley.edu/programs/mims",
         "http://ischool.berkeley.edu/programs/mims/paths",
@@ -2611,8 +2610,7 @@
           "interaction_design",
           "professional",
           "social_impact",
-          "digital",
-          "systems_thinking"
+          "digital"
         ]
       },
       "duration": {
@@ -2691,7 +2689,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T21:08:27Z",
-      "date_updated": "2026-05-08T17:27:57Z",
+      "date_updated": "2026-05-08T16:06:45Z",
       "sources": [
         "http://coursecatalog.web.cmu.edu/aboutcmu",
         "http://coursecatalog.web.cmu.edu/aboutcmu/costofattendance",
@@ -4165,10 +4163,7 @@
           "interdisciplinary",
           "research",
           "social_impact",
-          "emerging_technologies",
-          "sustainability",
-          "service_design",
-          "industrial_product_design"
+          "emerging_technologies"
         ]
       },
       "duration": {
@@ -4420,7 +4415,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:03:13Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-03T23:05:50Z"
     },
     {
       "program_id": "harvard_master_design_studies",
@@ -4775,9 +4770,7 @@
         "positioning_tags": [
           "research",
           "social_impact",
-          "public_policy_adjacent",
-          "emerging_technologies",
-          "critical_speculative_design"
+          "professional"
         ]
       },
       "duration": {
@@ -4895,7 +4888,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:20:13Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T16:06:45Z"
     },
     {
       "program_id": "iit_master_design",
@@ -5173,9 +5166,7 @@
         "positioning_tags": [
           "professional",
           "social_impact",
-          "human_centered",
-          "systems_thinking",
-          "strategic_design"
+          "INVALID"
         ]
       },
       "duration": {
@@ -5305,7 +5296,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:29:19Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T16:06:45Z"
     },
     {
       "program_id": "harvard_master_design_engineering",
@@ -6094,8 +6085,7 @@
         "positioning_tags": [
           "interdisciplinary",
           "social_impact",
-          "entrepreneurship_adjacent",
-          "sustainability"
+          "INVALID"
         ]
       },
       "duration": {
@@ -6322,7 +6312,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:50:02Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T00:01:22Z"
     },
     {
       "program_id": "stanford_ms_design",
@@ -6671,8 +6661,8 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "mecheng_adjacent",
-          "human_centered"
+          "INVALID",
+          "mecheng_adjacent"
         ]
       },
       "duration": {
@@ -6934,7 +6924,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T00:05:28Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T00:24:52Z"
     },
     {
       "program_id": "umich_mdes_integrative_design",
@@ -8089,8 +8079,7 @@
           "interdisciplinary",
           "professional",
           "mecheng_adjacent",
-          "hci_adjacent",
-          "human_centered"
+          "hci_adjacent"
         ]
       },
       "duration": {
@@ -8269,7 +8258,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T01:14:21Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-04T01:21:32Z"
     },
     {
       "program_id": "calarts_integrated_media",
@@ -9582,8 +9571,7 @@
           "research",
           "humanities_adjacent",
           "hci_adjacent",
-          "emerging_technologies",
-          "media_adjacent"
+          "emerging_technologies"
         ]
       },
       "duration": {
@@ -9978,7 +9966,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T02:44:20Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T02:57:17Z"
     },
     {
       "program_id": "northwestern_product_design_development_management",
@@ -10374,7 +10362,7 @@
         "positioning_summary": "The mpd² program is positioned as a professional, industry-facing master’s for experienced practitioners who want to lead product design and development. Its messaging emphasizes cross-disciplinary training in business, design, technology, and product development, with a strong focus on emerging technology and AI systems, and on preparing graduates for senior leadership and go-to-market/product commercialization work.",
         "positioning_tags": [
           "professional",
-          "entrepreneurship_adjacent",
+          "INVALID",
           "emerging_technologies",
           "mecheng_adjacent"
         ]
@@ -11500,9 +11488,7 @@
           "digital",
           "professional",
           "hci_adjacent",
-          "interaction_design",
-          "human_centered",
-          "service_design"
+          "interaction_design"
         ]
       },
       "duration": {
@@ -11567,7 +11553,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:10:49Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T03:17:42Z"
     },
     {
       "program_id": "risd_ma_design_engineering",
@@ -12120,7 +12106,7 @@
         "positioning_tags": [
           "interdisciplinary",
           "research",
-          "entrepreneurship_adjacent"
+          "INVALID"
         ]
       },
       "duration": {
@@ -12301,7 +12287,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:23:44Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T03:36:24Z"
     },
     {
       "program_id": "sjsu_ms_human_factors_ergonomics",
@@ -12565,10 +12551,9 @@
       "positioning": {
         "positioning_summary": "The program is positioned as an interdisciplinary, professionally oriented master's degree that prepares students for practice through theory, practical applications, and research. It also explicitly includes a major project or thesis, indicating a research component alongside applied training.",
         "positioning_tags": [
-          "mecheng_adjacent",
+          "interdisciplinary",
           "professional",
-          "human_centered",
-          "physical_making"
+          "research"
         ]
       },
       "duration": {
@@ -13011,8 +12996,7 @@
           "interaction_design",
           "ui_ux",
           "social_impact",
-          "interdisciplinary",
-          "sustainability"
+          "interdisciplinary"
         ]
       },
       "duration": {
@@ -13193,7 +13177,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:46:32Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T03:58:28Z"
     },
     {
       "program_id": "parsons_ms_strategic_design_management",
@@ -13586,7 +13570,7 @@
           "interdisciplinary",
           "professional",
           "social_impact",
-          "strategic_design"
+          "INVALID"
         ]
       },
       "duration": {
@@ -13778,7 +13762,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:58:36Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-04T04:06:37Z"
     },
     {
       "program_id": "ucsb_media_arts_technology",
@@ -14101,8 +14085,7 @@
           "interdisciplinary",
           "digital",
           "hci_adjacent",
-          "fine_arts_adjacent",
-          "media_adjacent"
+          "fine_arts_adjacent"
         ]
       },
       "duration": {
@@ -14223,7 +14206,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:06:45Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T04:24:22Z"
     },
     {
       "program_id": "colorado_ms_creative_technology_design",
@@ -15003,8 +14986,7 @@
           "social_impact",
           "research",
           "interdisciplinary",
-          "digital",
-          "sustainability"
+          "digital"
         ]
       },
       "duration": {
@@ -15110,7 +15092,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:39:06Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T04:50:04Z"
     },
     {
       "program_id": "uiuc_mdes",
@@ -15467,9 +15449,9 @@
         "positioning_summary": "The program is positioned as a professional, research-informed industrial design degree that emphasizes interdisciplinary work, human-centered and ethically produced design, and strong connections to social impact and emerging practice areas such as design thinking, interfaces, interactions, and user experiences.",
         "positioning_tags": [
           "professional",
-          "social_impact",
-          "human_centered",
-          "industrial_product_design"
+          "interdisciplinary",
+          "research",
+          "social_impact"
         ]
       },
       "duration": {
@@ -15601,7 +15583,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:50:08Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-04T04:55:36Z"
     },
     {
       "program_id": "umich_ms_information",
@@ -16342,8 +16324,7 @@
           "interdisciplinary",
           "professional",
           "social_impact",
-          "architecture_adjacent",
-          "human_centered"
+          "architecture_adjacent"
         ]
       },
       "duration": {
@@ -16486,7 +16467,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T07:26:07Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-04T07:35:29Z"
     },
     {
       "program_id": "uw_ms_hcde",
@@ -16829,8 +16810,7 @@
           "hci_adjacent",
           "interaction_design",
           "professional",
-          "digital",
-          "human_centered"
+          "digital"
         ]
       },
       "duration": {
@@ -16960,7 +16940,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T07:35:35Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-04T07:43:03Z"
     },
     {
       "program_id": "uw_ms_technology_innovation",
@@ -17289,7 +17269,7 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "entrepreneurship_adjacent",
+          "INVALID",
           "physical_making",
           "mecheng_adjacent"
         ]
@@ -18444,8 +18424,7 @@
         "positioning_tags": [
           "interaction_design",
           "social_impact",
-          "professional",
-          "systems_thinking"
+          "professional"
         ]
       },
       "duration": {
@@ -18638,7 +18617,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T02:30:21Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-05T02:43:24Z"
     },
     {
       "program_id": "cca_mba_design_strategy",
@@ -18866,8 +18845,8 @@
           "professional",
           "interdisciplinary",
           "social_impact",
-          "entrepreneurship_adjacent",
-          "sustainability"
+          "INVALID",
+          "entrepreneurship_adjacent"
         ]
       },
       "duration": {
@@ -18897,7 +18876,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T02:43:30Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:13:17Z"
     },
     {
       "program_id": "mit_art_culture_technology",
@@ -19862,7 +19841,7 @@
         "positioning_tags": [
           "professional",
           "interdisciplinary",
-          "entrepreneurship_adjacent",
+          "INVALID",
           "mecheng_adjacent"
         ]
       },
@@ -20972,10 +20951,10 @@
         "positioning_tags": [
           "professional",
           "digital",
+          "INVALID",
           "hci_adjacent",
           "ui_ux",
-          "entrepreneurship_adjacent",
-          "human_centered"
+          "entrepreneurship_adjacent"
         ]
       },
       "duration": {
@@ -21406,7 +21385,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:26:19Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:13:17Z"
     },
     {
       "program_id": "cmu_entertainment_technology_center",
@@ -22928,9 +22907,7 @@
           "physical_making",
           "mecheng_adjacent",
           "professional",
-          "industrial_product_design",
-          "service_design",
-          "human_centered"
+          "interaction_design"
         ]
       },
       "duration": {
@@ -23048,7 +23025,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:52:28Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-05T04:57:57Z"
     },
     {
       "program_id": "georgia_tech_ms_digital_media",
@@ -23463,9 +23440,8 @@
           "interdisciplinary",
           "digital",
           "research",
-          "humanities_adjacent",
-          "media_adjacent",
-          "public_policy_adjacent"
+          "professional",
+          "media_adjacent"
         ]
       },
       "duration": {
@@ -23584,7 +23560,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:58:03Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:13:17Z"
     },
     {
       "program_id": "cmu_miips",
@@ -23975,9 +23951,9 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
+          "INVALID",
           "digital",
-          "ui_ux",
-          "strategic_design"
+          "ui_ux"
         ]
       },
       "duration": {
@@ -24025,7 +24001,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T16:01:48Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-05T16:04:52Z"
     },
     {
       "program_id": "georgia_tech_ms_hci",
@@ -24421,7 +24397,6 @@
           "interdisciplinary",
           "hci_adjacent",
           "professional",
-          "industrial_product_design",
           "ui_ux"
         ]
       },
@@ -24808,8 +24783,7 @@
         "positioning_tags": [
           "interaction_design",
           "research",
-          "social_impact",
-          "human_centered"
+          "social_impact"
         ]
       },
       "duration": {
@@ -25038,7 +25012,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:13:08Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-05T21:19:35Z"
     },
     {
       "program_id": "ecar_mdes_interdisciplinary",
@@ -25354,10 +25328,9 @@
         "positioning_summary": "A research- and practice-based, full-time interdisciplinary MDes centered on studio practice, design research, and an independent thesis project, with strong emphasis on human-centered design, community/sustainability, and access to studios, labs, and research facilities.",
         "positioning_tags": [
           "interdisciplinary",
+          "research",
           "professional",
-          "social_impact",
-          "human_centered",
-          "sustainability"
+          "social_impact"
         ]
       },
       "duration": {
@@ -25586,7 +25559,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:19:41Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-05T21:23:40Z"
     },
     {
       "program_id": "hongik_smart_design_eng",
@@ -26957,12 +26930,10 @@
       "positioning": {
         "positioning_summary": "The programme is positioned as a research-led, interdisciplinary design/architecture master that emphasizes collaboration across disciplines, real-world projects with companies and organizations, and strategic design thinking for innovation and entrepreneurship. It also foregrounds sustainability, social and societal change, and professional practice.",
         "positioning_tags": [
-          "architecture_adjacent",
-          "entrepreneurship_adjacent",
+          "interdisciplinary",
+          "research",
           "professional",
-          "social_impact",
-          "strategic_design",
-          "systems_thinking"
+          "social_impact"
         ]
       },
       "duration": {
@@ -27107,7 +27078,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T01:04:05Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-06T01:09:08Z"
     },
     {
       "program_id": "zhdk_ma_interaction_design",
@@ -27513,8 +27484,7 @@
           "interaction_design",
           "research",
           "digital",
-          "social_impact",
-          "human_centered"
+          "social_impact"
         ]
       },
       "duration": {
@@ -27778,7 +27748,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T15:45:06Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-06T15:51:36Z"
     },
     {
       "program_id": "zhdk_ma_industrial_design",
@@ -29227,8 +29197,7 @@
         "positioning_tags": [
           "research",
           "emerging_technologies",
-          "mecheng_adjacent",
-          "industrial_product_design"
+          "mecheng_adjacent"
         ]
       },
       "duration": {
@@ -29644,10 +29613,10 @@
         "positioning_summary": "An interdisciplinary, design-led MDes that blends design, business, and technology to prepare students to lead transformational change, with a strong emphasis on design-centred entrepreneurship, practice-based research, and innovation for social and economic impact.",
         "positioning_tags": [
           "interdisciplinary",
+          "INVALID",
           "research",
           "social_impact",
-          "entrepreneurship_adjacent",
-          "strategic_design"
+          "entrepreneurship_adjacent"
         ]
       },
       "duration": {
@@ -29779,7 +29748,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T20:26:43Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:13:17Z"
     },
     {
       "program_id": "hkpu_mdes_intelligent_systems_design",
@@ -30629,8 +30598,7 @@
           "interdisciplinary",
           "professional",
           "social_impact",
-          "critical_speculative_design",
-          "service_design"
+          "critical_speculative_design"
         ]
       },
       "duration": {
@@ -30786,13 +30754,13 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T20:41:48Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-06T20:46:24Z"
     },
     {
       "program_id": "tongji_mdes_design_thinking_sustainable_future",
       "base_url": "https://tjdi.tongji.edu.cn",
       "date_added": "2026-05-06T00:00:00Z",
-      "date_updated": "2026-05-08T17:27:57Z",
+      "date_updated": "2026-05-06T00:00:00Z",
       "sources": [],
       "llm_rationales": [
         {
@@ -30847,11 +30815,9 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
+          "research",
           "social_impact",
-          "strategic_design",
-          "human_centered",
-          "sustainability",
-          "public_policy_adjacent"
+          "emerging_technologies"
         ]
       },
       "duration": {
@@ -32309,10 +32275,9 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "entrepreneurship_adjacent",
+          "research",
           "social_impact",
-          "systems_thinking",
-          "public_policy_adjacent"
+          "INVALID"
         ]
       },
       "duration": {
@@ -32480,7 +32445,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:16:17Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:13:17Z"
     },
     {
       "program_id": "qut_mdes_strategic_design",
@@ -32684,8 +32649,7 @@
         "positioning_tags": [
           "research",
           "interdisciplinary",
-          "social_impact",
-          "strategic_design"
+          "social_impact"
         ]
       },
       "duration": {
@@ -32715,7 +32679,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:24:03Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-07T00:30:11Z"
     },
     {
       "program_id": "nus_mdes_integrated_design",
@@ -33057,9 +33021,7 @@
           "professional",
           "interdisciplinary",
           "social_impact",
-          "interaction_design",
-          "service_design",
-          "industrial_product_design"
+          "interaction_design"
         ]
       },
       "duration": {
@@ -33178,7 +33140,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:30:24Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-07T00:37:55Z"
     },
     {
       "program_id": "rca_ma_design_products",
@@ -33542,11 +33504,9 @@
         "positioning_summary": "Design Products MA is positioned as a socially engaged, research-led design studio focused on creating products with purpose. The programme emphasizes cross-disciplinary problem solving, user-centred and evidence-based methods, and work that addresses real-world challenges such as climate, healthcare, and systems change, while also supporting professional pathways into consultancies, studios, start-ups, and leadership roles.",
         "positioning_tags": [
           "social_impact",
-          "public_policy_adjacent",
+          "research",
           "interdisciplinary",
-          "professional",
-          "entrepreneurship_adjacent",
-          "industrial_product_design"
+          "professional"
         ]
       },
       "duration": {
@@ -34038,10 +33998,9 @@
         "positioning_summary": "The RCA Service Design MA is positioned as a pioneering, research-informed, project-based design programme focused on service design as a tool for social and organisational change. It emphasizes real-world challenges, collaboration with commercial/public/social organisations, and preparation for leadership roles across diverse sectors, with a strong human-centred and systems-oriented orientation.",
         "positioning_tags": [
           "social_impact",
+          "research",
           "professional",
-          "interdisciplinary",
-          "service_design",
-          "human_centered"
+          "interdisciplinary"
         ]
       },
       "duration": {
@@ -34174,7 +34133,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:55:35Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-07T01:01:45Z"
     },
     {
       "program_id": "rca_ma_information_experience_design",
@@ -34516,12 +34475,12 @@
       "positioning": {
         "positioning_summary": "Information Experience Design MA is positioned as a boundary-breaking, interdisciplinary, research-led programme that combines traditional and emerging media to design experiences of information. It emphasizes speculative and experimental practice, systems thinking, and socially engaged work, while also pointing to professional pathways in startups, cultural and tech sectors, and independent creative practice.",
         "positioning_tags": [
-          "fine_arts_adjacent",
+          "interdisciplinary",
           "research",
           "critical_speculative_design",
           "digital",
           "social_impact",
-          "emerging_technologies",
+          "professional",
           "media_adjacent"
         ]
       },
@@ -34655,7 +34614,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T01:01:59Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:13:17Z"
     },
     {
       "program_id": "rca_ma_mres_design_futures",
@@ -35004,12 +34963,12 @@
       "positioning": {
         "positioning_summary": "Design Futures is positioned as a research-led, interdisciplinary MDes that uses design futures methods to address complex social, environmental, and strategic uncertainty. The programme emphasizes transdisciplinary practice, research methodology, complex systems, futures thinking, and entrepreneurial/professional skills, with a strong sustainability and ethics orientation.",
         "positioning_tags": [
+          "research",
           "interdisciplinary",
           "critical_speculative_design",
           "social_impact",
-          "systems_thinking",
           "professional",
-          "sustainability"
+          "INVALID"
         ]
       },
       "duration": {
@@ -35117,7 +35076,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T01:08:58Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-07T01:13:24Z"
     }
   ]
 }

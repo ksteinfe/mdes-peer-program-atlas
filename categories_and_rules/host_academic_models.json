@@ -6,6 +6,11 @@
       "description": "Reserved sentinel for values that are not valid host_academic_model ids."
     },
     {
+      "id": "design_engineering_business_shared_hosted",
+      "label": "co-hosted by design + engineering + business units",
+      "description": "Program is administratively housed across design, engineering, and business units."
+    },
+    {
       "id": "engineering_design_shared_hosted",
       "label": "co-hosted by engineering + design units",
       "description": "Program is administratively housed in both engineering and design units."

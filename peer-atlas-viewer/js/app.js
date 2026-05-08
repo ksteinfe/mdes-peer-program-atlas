@@ -38,6 +38,9 @@ const filters = {
   semMax: null,
 };
 
+/** When true, filter checkboxes show "(n/total)" counts for each option. */
+let filterPanelShowCounts = false;
+
 const SORT_KEYS = ["institution", "program", "degree", "berkeleySem", "hostModel", "tags"];
 
 /** Max characters for course title in sample list (ellipsis if longer). */
@@ -1369,18 +1372,44 @@ function onTagCheckbox() {
 function buildFilterPanel() {
   const body = $("#filter-body");
   if (!body || !corpus) return;
-  const degs = [...new Set(corpus.programs.map((p) => rowView(p).degree))].sort((a, b) =>
-    a.localeCompare(b)
-  );
-  const hosts = [...new Set(corpus.programs.map((p) => rowView(p).hostModel).filter(Boolean))].sort();
+  const rows = corpus.programs.map(rowView);
+  const totalPrograms = rows.length;
+  const degs = [...new Set(rows.map((r) => r.degree))].sort((a, b) => a.localeCompare(b));
+  const hosts = [...new Set(rows.map((r) => r.hostModel).filter(Boolean))].sort();
   const allTags = new Set();
-  for (const p of corpus.programs) {
-    const t = rowView(p).tags;
-    t.forEach((x) => allTags.add(x));
+  for (const r of rows) {
+    r.tags.forEach((x) => allTags.add(x));
   }
   const tags = [...allTags].sort();
+  const tagDisplayLabel = (v) => labelForId("positioning_tags", v) || v;
+  const tagCount = (v) => rows.filter((r) => r.tags.includes(v)).length;
+  /**
+   * @param {string} v tag id
+   */
+  const renderTagCheckbox = (v) => {
+    const id = `f-tags-${encodeURIComponent(v)}`.replace(/%/g, "_");
+    const on = filters.tags.has(v);
+    const base = tagDisplayLabel(v);
+    const label = filterPanelShowCounts ? `${base} (${tagCount(v)}/${totalPrograms})` : base;
+    return `<label><input type="checkbox" data-filter-set="tags" value="${esc(v)}" id="${id}" ${
+      on ? "checked" : ""
+    }/> ${esc(label)}</label>`;
+  };
+  const tagsAdjacentLabel = tags.filter((v) => tagDisplayLabel(v).toLowerCase().includes("adjacent"));
+  const tagsOther = tags.filter((v) => !tagDisplayLabel(v).toLowerCase().includes("adjacent"));
+  const byTagLabel = (a, b) => tagDisplayLabel(a).localeCompare(tagDisplayLabel(b), undefined, { sensitivity: "base" });
+  tagsAdjacentLabel.sort(byTagLabel);
+  tagsOther.sort(byTagLabel);
 
-  const cbGroup = (title, setKey, values, labelFn, hint) => {
+  /**
+   * @param {string} title
+   * @param {keyof typeof filters} setKey
+   * @param {string[]} values
+   * @param {(v: string) => string} labelFn
+   * @param {(v: string) => number} countFn programs in corpus matching this option alone
+   * @param {string} [hint]
+   */
+  const cbGroup = (title, setKey, values, labelFn, countFn, hint) => {
     const set = filters[setKey];
     let inner = `<div class="filter-group"><h3>${esc(title)}</h3>`;
     if (hint) inner += `<p class="filter-hint">${esc(hint)}</p>`;
@@ -1388,24 +1417,46 @@ function buildFilterPanel() {
     for (const v of values) {
       const id = `f-${setKey}-${encodeURIComponent(v)}`.replace(/%/g, "_");
       const on = set.has(v);
+      const base = labelFn(v);
+      const label = filterPanelShowCounts ? `${base} (${countFn(v)}/${totalPrograms})` : base;
       inner += `<label><input type="checkbox" data-filter-set="${esc(setKey)}" value="${esc(v)}" id="${id}" ${
         on ? "checked" : ""
-      }/> ${esc(labelFn(v))}</label>`;
+      }/> ${esc(label)}</label>`;
     }
     inner += `</div></div>`;
     return inner;
   };
 
   let html = "";
-  html += cbGroup("Degree type", "degrees", degs, (v) => v);
-  html += cbGroup("Host academic model", "hostModels", hosts, (v) => labelForId("host_academic_models", v) || v);
+  html += cbGroup("Degree type", "degrees", degs, (v) => v, (v) => rows.filter((r) => r.degree === v).length);
   html += cbGroup(
-    "Positioning tags",
-    "tags",
-    tags,
-    (v) => labelForId("positioning_tags", v) || v,
-    "A program is shown only if it has every tag you check (AND). Leave all unchecked to ignore this filter."
+    "Host academic model",
+    "hostModels",
+    hosts,
+    (v) => labelForId("host_academic_models", v) || v,
+    (v) => rows.filter((r) => r.hostModel === v).length
   );
+  const tagHint =
+    "A program is shown only if it has every tag you check (AND). Leave all unchecked to ignore this filter.";
+  let tagBlock = `<div class="filter-group"><h3>${esc("Positioning tags")}</h3>`;
+  tagBlock += `<p class="filter-hint">${esc(tagHint)}</p>`;
+  tagBlock += `<div class="filter-tags-groups">`;
+  if (tagsOther.length) {
+    tagBlock += `<div class="filter-tag-subgroup">`;
+    tagBlock += `<div class="filter-tag-subgroup-title">${esc("Themes & focus")}</div>`;
+    tagBlock += `<div class="filter-checkboxes filter-checkboxes--nested">`;
+    tagBlock += tagsOther.map(renderTagCheckbox).join("");
+    tagBlock += `</div></div>`;
+  }
+  if (tagsAdjacentLabel.length) {
+    tagBlock += `<div class="filter-tag-subgroup">`;
+    tagBlock += `<div class="filter-tag-subgroup-title">${esc("Adjacent disciplines")}</div>`;
+    tagBlock += `<div class="filter-checkboxes filter-checkboxes--nested">`;
+    tagBlock += tagsAdjacentLabel.map(renderTagCheckbox).join("");
+    tagBlock += `</div></div>`;
+  }
+  tagBlock += `</div></div>`;
+  html += tagBlock;
   html += `<div class="filter-group"><h3>Berkeley semesters</h3><div class="filter-range">`;
   html += `<label>Min <input type="number" id="f-sem-min" step="1" min="0" value="${
     filters.semMin ?? ""
@@ -1426,6 +1477,9 @@ function buildFilterPanel() {
   if (!active.length) html += `<p>None (all programs shown).</p>`;
   else html += `<ul>${active.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>`;
   html += `</div>`;
+  html += `<div class="filter-show-counts"><label><input type="checkbox" id="f-filter-show-counts" ${
+    filterPanelShowCounts ? "checked" : ""
+  }/> Show counts</label></div>`;
 
   body.innerHTML = html;
   body.querySelectorAll('input[type="checkbox"][data-filter-set]').forEach((el) => {
@@ -1437,6 +1491,13 @@ function buildFilterPanel() {
       if (el.checked) s.add(val);
       else s.delete(val);
     });
+  });
+  $("#f-filter-show-counts")?.addEventListener("change", (e) => {
+    const t = e.target;
+    if (!(t instanceof HTMLInputElement)) return;
+    readSemInputsFromFilterPanel();
+    filterPanelShowCounts = t.checked;
+    buildFilterPanel();
   });
 }
 

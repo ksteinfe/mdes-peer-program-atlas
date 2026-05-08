@@ -12,9 +12,19 @@
         "description": "Positioning emphasizes cross-disciplinary work."
       },
       {
-        "id": "stem_adjacent",
-        "label": "STEM-adjacent",
-        "description": "Emphasizes work adjacent to engineering, computing, or sciences."
+        "id": "mecheng_adjacent",
+        "label": "Mech Eng Adjacent",
+        "description": "Emphasizes work adjacent to mechanical engineering."
+      },
+      {
+        "id": "hci_adjacent",
+        "label": "HCI Adjacent",
+        "description": "Emphasizes work adjacent to human computer interaction."
+      },
+      {
+        "id": "ui_ux",
+        "label": "UI/UX",
+        "description": "Emphasizes user interface and user experience design."
       },
       {
         "id": "fine_arts_adjacent",
@@ -22,9 +32,29 @@
         "description": "Emphasizes work adjacent to the fine arts."
       },
       {
+        "id": "humanities_adjacent",
+        "label": "Humanities Adjacent",
+        "description": "Emphasizes work adjacent to the humanities."
+      },
+      {
         "id": "architecture_adjacent",
         "label": "Architecture Adjacent",
         "description": "Emphasizes work adjacent to architecture."
+      },
+      {
+        "id": "public_policy_adjacent",
+        "label": "Public Policy Adjacent",
+        "description": "Emphasizes work adjacent to public policy."
+      },
+      {
+        "id": "media_adjacent",
+        "label": "Media Adjacent",
+        "description": "Emphasizes work adjacent to new media technologies."
+      },
+      {
+        "id": "entrepreneurship_adjacent",
+        "label": "Entrepreneurship Adjacent",
+        "description": "Emphasizes work adjacent to entrepreneurship."
       },
       {
         "id": "professional",
@@ -48,13 +78,8 @@
       },
       {
         "id": "digital",
-        "label": "Digital",
+        "label": "Digital Making",
         "description": "Emphasizes digital products, services, platforms, or apps."
-      },
-      {
-        "id": "ui_ux",
-        "label": "UI/UX",
-        "description": "Emphasizes user interface and user experience design."
       },
       {
         "id": "emerging_technologies",
@@ -62,24 +87,44 @@
         "description": "explicitly emphasizes emerging technologies."
       },
       {
-        "id": "human_computer_interaction",
-        "label": "Human Computer Interaction",
-        "description": "explicitly emphasizes human computer interaction."
-      },
-      {
-        "id": "entrepreneurship",
-        "label": "Entrepreneurship",
-        "description": "explicitly emphasizes entrepreneurship."
-      },
-      {
         "id": "critical_speculative_design",
-        "label": "Critial / Speculative Design",
+        "label": "Critical / Speculative Design",
         "description": "explicitly emphasizes critical or speculative design."
       },
       {
         "id": "interaction_design",
         "label": "Interaction Design",
         "description": "explicitly emphasizes interaction design."
+      },
+      {
+        "id": "industrial_product_design",
+        "label": "Industrial / Product Design",
+        "description": "Emphasizes industrial or product design."
+      },
+      {
+        "id": "service_design",
+        "label": "Service design",
+        "description": "Emphasizes service systems, journeys, touchpoints, and delivery across organizational or public contexts."
+      },
+      {
+        "id": "strategic_design",
+        "label": "Strategic design",
+        "description": "Emphasizes design for strategy, foresight, organizational change, or long-horizon planning."
+      },
+      {
+        "id": "sustainability",
+        "label": "Sustainability",
+        "description": "Emphasizes environmental, social, and economic sustainability in design goals, materials, or outcomes."
+      },
+      {
+        "id": "systems_thinking",
+        "label": "Systems thinking",
+        "description": "Emphasizes holistic, systemic, or complexity-aware framing of problems and interventions."
+      },
+      {
+        "id": "human_centered",
+        "label": "Human-centered design",
+        "description": "Emphasizes people-first, participatory, or inclusive design process and outcomes (distinct from HCI as a neighboring discipline)."
       }
     ]
   },
@@ -145,6 +190,11 @@
         "id": "INVALID",
         "label": "Invalid / unknown",
         "description": "Reserved sentinel for values that are not valid host_academic_model ids."
+      },
+      {
+        "id": "design_engineering_business_shared_hosted",
+        "label": "co-hosted by design + engineering + business units",
+        "description": "Program is administratively housed across design, engineering, and business units."
       },
       {
         "id": "engineering_design_shared_hosted",

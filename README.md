@@ -7,11 +7,12 @@ Local-first umbrella repo for an MDes peer program comparator: canonical JSON co
 | Path | Purpose |
 |------|---------|
 | `corpus/programs.json` | Canonical corpus (`corpus_metadata` + `programs`) |
-| `categories_and_rules/*.json` | Category vocabularies (enums) plus optional `node_prompt_rules.json` (per-node keys, `extra_instructions` string arrays joined into `peer-atlas-cli/prompts/nodes/*.md`) |
+| `categories_and_rules/*.json` | Category vocabularies (enums) plus optional `node_prompt_rules.json` (per-node keys, `extra_instructions` string arrays joined into `peer-atlas-cli/prompts/nodes/*.md`). After changing ids here, run `node peer-atlas-viewer/tools/write-dev-catalog.mjs` and update any external-agent briefs that inline those ids (e.g. `external-agents/patch-identity-positioning/patch-identity-positioning.md` §6). |
 | `schemas/*.json` | JSON Schema for programs and patches |
 | `peer-atlas-cli/` | Installable CLI and `peer-atlas-cli/prompts/` (LLM prompt templates) |
 | `peer-atlas-viewer/` | Static viewer (split HTML/CSS/JS in dev) |
 | `peer-atlas-viewer/icons/course-types/` | SVG (or later PNG) icons named `{id}.svg` matching `course_types.json` `id` values; used in the viewer and embedded as data URLs in the single-file bundle |
+| `external-agents/` | Paired Markdown briefs + export scripts for agents without repo access (see `external-agents/README.md`) |
 | `tools/` | Small automation scripts (e.g. batch `add-program` from a TSV) |
 
 ## CLI
@@ -55,12 +56,14 @@ Serve the viewer folder with a static server (avoids `file://` issues with modul
 python -m http.server 8080 --directory peer-atlas-viewer
 ```
 
-Open `http://localhost:8080/`. Use **Load corpus** to pick `corpus/programs.json`, or **Load sample** (serves `dev/sample-corpus.json`). Category labels for dev builds come from `dev/viewer-categories.json`; regenerate after changing rules JSON:
+Open `http://localhost:8080/`. Use **Load corpus** to pick `corpus/programs.json`, or **Load sample** (serves `dev/sample-corpus.json`). Category labels for dev builds come from `dev/viewer-categories.json` (mirrors `categories_and_rules/*.json`); regenerate after changing category ids or labels:
 
 ```bash
 node peer-atlas-viewer/tools/write-dev-catalog.mjs
 node peer-atlas-viewer/tools/slim-corpus-for-viewer.mjs corpus/programs.json peer-atlas-viewer/dev/sample-corpus.json
 ```
+
+If you add **positioning** or **host** vocabulary entries, also update **`external-agents/patch-identity-positioning/patch-identity-positioning.md`** §6 so external-agent instructions stay in sync.
 
 The **Load corpus** / **Load sample** controls live inside `<!-- peer-atlas:bundle-remove:start -->` … `<!-- peer-atlas:bundle-remove:end -->` in `peer-atlas-viewer/index.html`; the dist bundle strips that region (see **Viewer (single-file publish / dist)** below).
 

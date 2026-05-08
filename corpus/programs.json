@@ -395,9 +395,11 @@
         "positioning_summary": "UC Berkeley’s MIMS is positioned as a two-year, full-time professional master’s for aspiring technology leaders and information professionals, with a strongly interdisciplinary curriculum spanning computer science, data systems/AI, human-centered design/UX, policy, ethics, law, and management. The program also signals a practical, career-oriented focus through hands-on project work, internships, and outcomes in UX, product, data, and tech leadership, while explicitly framing its work around ethical technology and social impact.",
         "positioning_tags": [
           "professional",
-          "interdisciplinary",
-          "stem_adjacent",
-          "ui_ux"
+          "hci_adjacent",
+          "ui_ux",
+          "human_centered",
+          "public_policy_adjacent",
+          "humanities_adjacent"
         ]
       },
       "duration": {
@@ -534,7 +536,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T19:37:25Z",
-      "date_updated": "2026-05-03T19:41:33Z",
+      "date_updated": "2026-05-08T18:01:25Z",
       "sources": [
         "http://ischool.berkeley.edu/programs/mims",
         "http://ischool.berkeley.edu/programs/mims/paths",
@@ -1530,7 +1532,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html",
-          "note": "Supports tags interdisciplinary, stem_adjacent, emerging_technologies, research, social_impact, and professional via explicit wording about interdisciplinary curriculum, STEM designation, emerging technologies, research/fieldwork, global social issues, and preparation for roles at the intersection of technology, culture and global social change.",
+          "note": "Supports tags interdisciplinary, emerging_technologies, research, social_impact, and professional via explicit wording about interdisciplinary curriculum, STEM designation, emerging technologies, research/fieldwork, global social issues, and preparation for roles at the intersection of technology, culture and global social change.",
           "llm_title": "Media Design Practices MFA Program - ArtCenter College of Design",
           "retrieved_date": "2026-05-03"
         },
@@ -1809,10 +1811,10 @@
       "positioning": {
         "positioning_summary": "ArtCenter’s Media Design Practices MFA is positioned as an interdisciplinary, STEM-designated design program centered on emerging technologies, critical frameworks, and experimental studio practice. It emphasizes research, prototyping, and fieldwork, with explicit social-impact and global-context framing, and prepares students for professional roles at the intersection of technology, culture, and design.",
         "positioning_tags": [
-          "interdisciplinary",
           "critical_speculative_design",
           "emerging_technologies",
-          "fine_arts_adjacent"
+          "fine_arts_adjacent",
+          "media_adjacent"
         ]
       },
       "duration": {
@@ -1914,7 +1916,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T20:32:09Z",
-      "date_updated": "2026-05-03T20:44:05Z",
+      "date_updated": "2026-05-08T17:13:17Z",
       "sources": [
         "http://www.artcenter.edu/academics/graduate-degrees/media-design-practices/course-of-study/overview.html",
         "https://artcenter.edu/academics/graduate-degrees/media-design-practices/course-of-study/overview.html",
@@ -1973,7 +1975,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.architecture.cmu.edu/computational-design",
-          "note": "Supported tags: interdisciplinary (explicitly 'fundamentally interdisciplinary'); research (research agenda, thesis, novel contribution to knowledge); stem_adjacent (draws from computer science, robotics, machine learning, HCI); emerging_technologies (machine learning/AI, virtual and augmented reality, robotics); physical_making (robotically-supported construction, fabrication, prototyping); critical_speculative_design (critical inquiry, challenge disciplinary boundaries); social_impact (reimagines material, sociotechnical, and environmental relations).",
+          "note": "Supported tags: interdisciplinary (explicitly 'fundamentally interdisciplinary'); research (research agenda, thesis, novel contribution to knowledge); hci_adjacent (draws from computer science, robotics, machine learning, HCI); emerging_technologies (machine learning/AI, virtual and augmented reality, robotics); physical_making (robotically-supported construction, fabrication, prototyping); critical_speculative_design (critical inquiry, challenge disciplinary boundaries); social_impact (reimagines material, sociotechnical, and environmental relations).",
           "llm_title": "Computational Design program page",
           "retrieved_date": "2026-05-03"
         },
@@ -2126,11 +2128,10 @@
       "positioning": {
         "positioning_summary": "Carnegie Mellon’s Computational Design program is positioned as a highly interdisciplinary, research-focused graduate program at the nexus of design and computation. It emphasizes critical technical practice, novel research contributions, and work that spans architecture, engineering, art, humanities, and computing, while also foregrounding emerging technologies, digital methods, physical fabrication, and socially and environmentally aware design inquiry.",
         "positioning_tags": [
-          "interdisciplinary",
           "research",
-          "stem_adjacent",
+          "hci_adjacent",
           "emerging_technologies",
-          "physical_making",
+          "architecture_adjacent",
           "critical_speculative_design",
           "social_impact",
           "digital"
@@ -2163,7 +2164,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T20:49:20Z",
-      "date_updated": "2026-05-03T21:06:59Z",
+      "date_updated": "2026-05-08T16:06:45Z",
       "sources": [
         "http://coursecatalog.web.cmu.edu/aboutcmu",
         "http://coursecatalog.web.cmu.edu/aboutcmu/costofattendance",
@@ -2609,10 +2610,11 @@
         "positioning_summary": "The MDes in Design for Interactions is positioned as a rigorous, research-informed design program for students with prior design backgrounds and professional experience, centered on interaction design, systems thinking, design research, and thesis work. It emphasizes interdisciplinary collaboration, professional practice, and social impact through services, social innovation, sustainability, and future-oriented design.",
         "positioning_tags": [
           "interaction_design",
-          "interdisciplinary",
           "professional",
           "social_impact",
-          "digital"
+          "digital",
+          "systems_thinking",
+          "service_design"
         ]
       },
       "duration": {
@@ -2691,7 +2693,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T21:08:27Z",
-      "date_updated": "2026-05-03T23:10:12Z",
+      "date_updated": "2026-05-08T18:01:25Z",
       "sources": [
         "http://coursecatalog.web.cmu.edu/aboutcmu",
         "http://coursecatalog.web.cmu.edu/aboutcmu/costofattendance",
@@ -2927,7 +2929,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices",
-          "note": "The overview and curriculum describe computational methods, GIS, BIM, sensors, simulation, optimization, and a STEM designation, supporting stem_adjacent positioning.",
+          "note": "The overview and curriculum describe computational methods, GIS, BIM, sensors, simulation, optimization, and a STEM designation.",
           "llm_title": "M.S. Computational Design Practices - Columbia GSAPP",
           "retrieved_date": "2026-05-03"
         },
@@ -3235,10 +3237,11 @@
         "positioning_summary": "Columbia GSAPP’s M.S. in Computational Design Practices is positioned as an interdisciplinary, professionally oriented program that bridges architecture, data visualization, and urban planning, with a strong STEM-adjacent and research-inflected focus on computational design for the built environment. The program also emphasizes civic, activist, and social-impact applications, including equitable ways of imagining and creating space.",
         "positioning_tags": [
           "architecture_adjacent",
-          "stem_adjacent",
+          "hci_adjacent",
           "critical_speculative_design",
           "digital",
-          "social_impact"
+          "social_impact",
+          "human_centered"
         ]
       },
       "duration": {
@@ -3407,7 +3410,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T21:37:45Z",
-      "date_updated": "2026-05-03T21:53:20Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "dartmouth_ms_cs_digital_arts",
@@ -3711,10 +3714,9 @@
       "positioning": {
         "positioning_summary": "The program is positioned as a computer science master’s concentration that bridges CS with digital arts and visual computing. It emphasizes a rigorous CS foundation, foundational digital arts coursework, and research/thesis work in areas such as computer graphics, HCI, digital fabrication, digital art and media, computer vision, VR, and AR. The framing is strongly interdisciplinary, STEM-adjacent, research-oriented, and connected to digital/fine-arts practice.",
         "positioning_tags": [
-          "interdisciplinary",
-          "stem_adjacent",
+          "ui_ux",
           "research",
-          "human_computer_interaction",
+          "hci_adjacent",
           "digital"
         ]
       },
@@ -3810,7 +3812,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T21:59:48Z",
-      "date_updated": "2026-05-03T22:12:10Z"
+      "date_updated": "2026-05-08T16:06:45Z"
     },
     {
       "program_id": "tu_delft_msc_integrated_product_design",
@@ -4166,7 +4168,10 @@
           "interdisciplinary",
           "research",
           "social_impact",
-          "emerging_technologies"
+          "emerging_technologies",
+          "sustainability",
+          "service_design",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -4418,7 +4423,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:03:13Z",
-      "date_updated": "2026-05-03T23:05:50Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "harvard_master_design_studies",
@@ -4772,9 +4777,10 @@
         "positioning_summary": "Harvard GSD’s Master in Design Studies is positioned as a research-based, interdisciplinary design program focused on urgent contemporary issues and social impact. The program emphasizes design research and scholarship, flexible domain-based study, and work that connects design to public service, academia, NGOs, and advanced practice; the Publics domain further highlights socio-spatial design, planning, advocacy, and the common good.",
         "positioning_tags": [
           "research",
-          "interdisciplinary",
           "social_impact",
-          "professional"
+          "public_policy_adjacent",
+          "emerging_technologies",
+          "critical_speculative_design"
         ]
       },
       "duration": {
@@ -4892,7 +4898,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:20:13Z",
-      "date_updated": "2026-05-03T23:26:35Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "iit_master_design",
@@ -5170,8 +5176,9 @@
         "positioning_tags": [
           "professional",
           "social_impact",
-          "interdisciplinary",
-          "stem_adjacent"
+          "human_centered",
+          "systems_thinking",
+          "strategic_design"
         ]
       },
       "duration": {
@@ -5301,7 +5308,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:29:19Z",
-      "date_updated": "2026-05-03T23:36:15Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "harvard_master_design_engineering",
@@ -5388,7 +5395,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-engineering/",
-          "note": "Supports 'interdisciplinary' and 'stem_adjacent' because the page explicitly describes the program as an integrated collaboration between design and engineering.",
+          "note": "Supports 'interdisciplinary'  because the page explicitly describes the program as an integrated collaboration between design and engineering.",
           "llm_title": "Master in Design Engineering",
           "retrieved_date": "2026-05-03"
         },
@@ -5675,9 +5682,10 @@
         "positioning_summary": "Harvard’s Master in Design Engineering is positioned as a collaborative, interdisciplinary program that bridges design and engineering to tackle complex real-world and societal challenges. The program emphasizes systems-level problem solving, innovation, and leadership, with explicit ties to sustainability, urbanization, resource scarcity, and other large-scale public-interest issues.",
         "positioning_tags": [
           "interdisciplinary",
-          "stem_adjacent",
-          "social_impact",
-          "professional"
+          "mecheng_adjacent",
+          "architecture_adjacent",
+          "research",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -5796,7 +5804,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:37:34Z",
-      "date_updated": "2026-05-03T23:42:23Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "imperial_innovation_design_engineering",
@@ -5851,7 +5859,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.imperial.ac.uk/study/courses/postgraduate-taught/2026/innovation-design-engineering/",
-          "note": "Supports 'interdisciplinary' and 'stem_adjacent' via integration of design, engineering, science, and enterprise; supports 'social_impact' via focus on society and the planet; supports 'entrepreneurship' via graduates starting their own businesses and the program's enterprise emphasis.",
+          "note": "Supports 'interdisciplinary' via integration of design, engineering, science, and enterprise; supports 'social_impact' via focus on society and the planet; supports 'entrepreneurship' via graduates starting their own businesses and the program's enterprise emphasis.",
           "llm_title": "Innovation Design Engineering MA/MSc course page",
           "retrieved_date": "2026-05-03"
         },
@@ -6089,9 +6097,10 @@
         "positioning_summary": "Innovation Design Engineering is positioned as a highly interdisciplinary, design-engineering double master’s that blends creative practice with engineering, science, and enterprise. The program emphasizes real-world impact, sustainability and social/planetary challenges, and professional outcomes such as innovation leadership and startup creation.",
         "positioning_tags": [
           "interdisciplinary",
-          "stem_adjacent",
           "social_impact",
-          "entrepreneurship"
+          "entrepreneurship_adjacent",
+          "sustainability",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -6318,7 +6327,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:50:02Z",
-      "date_updated": "2026-05-04T00:01:22Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "stanford_ms_design",
@@ -6667,8 +6676,8 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "social_impact",
-          "stem_adjacent"
+          "mecheng_adjacent",
+          "human_centered"
         ]
       },
       "duration": {
@@ -6930,7 +6939,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T00:05:28Z",
-      "date_updated": "2026-05-04T00:24:52Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "umich_mdes_integrative_design",
@@ -7158,7 +7167,6 @@
       "positioning": {
         "positioning_summary": "The MDes in Integrative Design is positioned as a project-based, studio-oriented graduate program centered on design research, strategy, making, and interdisciplinary collaboration, with an added emphasis on socially engaged practice and a final thesis or capstone.",
         "positioning_tags": [
-          "interdisciplinary",
           "research",
           "physical_making",
           "social_impact"
@@ -7191,7 +7199,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T00:28:29Z",
-      "date_updated": "2026-05-04T00:36:10Z"
+      "date_updated": "2026-05-08T16:06:45Z"
     },
     {
       "program_id": "nyu_itp",
@@ -7601,10 +7609,10 @@
       "positioning": {
         "positioning_summary": "NYU Tisch ITP is positioned as a cross-disciplinary, arts-and-technology graduate program centered on imaginative use of communications technologies. The program explicitly frames itself as an \"art school for engineers\" / \"engineering school for artists,\" emphasizes collaboration, critical thinking, and learning new technologies, and includes hands-on, project-driven work with physical fabrication and emerging media.",
         "positioning_tags": [
-          "interdisciplinary",
           "fine_arts_adjacent",
-          "stem_adjacent",
-          "emerging_technologies"
+          "digital",
+          "emerging_technologies",
+          "humanities_adjacent"
         ]
       },
       "duration": {
@@ -7724,7 +7732,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T00:40:09Z",
-      "date_updated": "2026-05-04T00:50:25Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "northwestern_ms_engineering_design_innovation",
@@ -8086,8 +8094,10 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "stem_adjacent",
-          "human_computer_interaction"
+          "mecheng_adjacent",
+          "hci_adjacent",
+          "human_centered",
+          "service_design"
         ]
       },
       "duration": {
@@ -8266,7 +8276,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T01:14:21Z",
-      "date_updated": "2026-05-04T01:21:32Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "calarts_integrated_media",
@@ -8931,8 +8941,8 @@
         "positioning_summary": "The M.S. in Emerging Technologies is positioned as a flexible, AI-centered, cross-disciplinary degree for students to build a personalized curriculum across multiple technology areas. The program explicitly emphasizes AI fluency, interdisciplinary electives spanning Tandon departments, and career-oriented preparation for an evolving tech-driven job market.",
         "positioning_tags": [
           "emerging_technologies",
-          "interdisciplinary",
-          "stem_adjacent",
+          "mecheng_adjacent",
+          "hci_adjacent",
           "professional"
         ]
       },
@@ -9136,7 +9146,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T02:33:30Z",
-      "date_updated": "2026-05-04T02:44:19Z"
+      "date_updated": "2026-05-08T16:06:45Z"
     },
     {
       "program_id": "nyu_integrated_design_media",
@@ -9577,8 +9587,10 @@
         "positioning_tags": [
           "interdisciplinary",
           "research",
-          "stem_adjacent",
-          "emerging_technologies"
+          "humanities_adjacent",
+          "hci_adjacent",
+          "emerging_technologies",
+          "media_adjacent"
         ]
       },
       "duration": {
@@ -9973,7 +9985,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T02:44:20Z",
-      "date_updated": "2026-05-04T02:57:17Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "northwestern_product_design_development_management",
@@ -10082,7 +10094,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://design.northwestern.edu/product-design-development-management/",
-          "note": "Same page states graduates gain knowledge in 'AI tools' and 'financial acumen' to drive innovative products to market, and the program is housed at the Segal Design Institute within McCormick, supporting emerging_technologies and stem_adjacent.",
+          "note": "Same page states graduates gain knowledge in 'AI tools' and 'financial acumen' to drive innovative products to market, and the program is housed at the Segal Design Institute within McCormick, supporting emerging_technologies.",
           "llm_title": "Master of Product Design and Development Management",
           "retrieved_date": "2026-05-04"
         },
@@ -10369,9 +10381,10 @@
         "positioning_summary": "The mpd² program is positioned as a professional, industry-facing master’s for experienced practitioners who want to lead product design and development. Its messaging emphasizes cross-disciplinary training in business, design, technology, and product development, with a strong focus on emerging technology and AI systems, and on preparing graduates for senior leadership and go-to-market/product commercialization work.",
         "positioning_tags": [
           "professional",
-          "interdisciplinary",
+          "entrepreneurship_adjacent",
           "emerging_technologies",
-          "stem_adjacent"
+          "mecheng_adjacent",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -10658,7 +10671,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T02:57:19Z",
-      "date_updated": "2026-05-04T03:04:44Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "parsons_mfa_design_technology",
@@ -10749,7 +10762,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.newschool.edu/parsons/mfa-design-technology/",
-          "note": "Supports stem_adjacent, critical_speculative_design, and professional: the page explicitly lists machine learning, generative AI, digital fabrication, and physical computation; says students explore tools, methods, and theory needed to ethically reinvent the arts and creative industries; and highlights career paths in mobile/app design, interaction design, new media art, game design, motion graphics, digital filmmaking, and Web/UI/UX design.",
+          "note": "Supports hci_adjacent, critical_speculative_design, and professional: the page explicitly lists machine learning, generative AI, digital fabrication, and physical computation; says students explore tools, methods, and theory needed to ethically reinvent the arts and creative industries; and highlights career paths in mobile/app design, interaction design, new media art, game design, motion graphics, digital filmmaking, and Web/UI/UX design.",
           "llm_title": "Design and Technology (MFA) overview",
           "retrieved_date": "2026-05-04"
         },
@@ -11021,8 +11034,8 @@
       "positioning": {
         "positioning_summary": "Parsons’ MFA in Design and Technology is positioned as a studio-based, critical program at the intersection of creative computation, emerging technologies, and design practice. It emphasizes interdisciplinary collaboration, research, and professional pathways in digital and interaction-focused fields, with explicit attention to social and ethical questions in technology.",
         "positioning_tags": [
-          "interdisciplinary",
-          "stem_adjacent",
+          "hci_adjacent",
+          "fine_arts_adjacent",
           "critical_speculative_design",
           "professional"
         ]
@@ -11282,7 +11295,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.pratt.edu/information/information-experience-design/",
-          "note": "Supports ui_ux, digital, professional, human_computer_interaction, and interaction_design: the page says students learn to design 'understandable, useful, and engaging digital products' and 'digital interfaces,' and lists UX roles such as UX designer, information architect, interaction designer, UX researcher, usability analyst, and content strategist.",
+          "note": "Supports ui_ux, digital, professional, hci_adjacent, and interaction_design: the page says students learn to design 'understandable, useful, and engaging digital products' and 'digital interfaces,' and lists UX roles such as UX designer, information architect, interaction designer, UX researcher, usability analyst, and content strategist.",
           "llm_title": "Information Experience Design, MS - School of Information",
           "retrieved_date": "2026-05-04"
         },
@@ -11494,8 +11507,10 @@
           "ui_ux",
           "digital",
           "professional",
-          "human_computer_interaction",
-          "interaction_design"
+          "hci_adjacent",
+          "interaction_design",
+          "human_centered",
+          "service_design"
         ]
       },
       "duration": {
@@ -11560,7 +11575,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:10:49Z",
-      "date_updated": "2026-05-04T03:17:42Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "risd_ma_design_engineering",
@@ -11743,7 +11758,7 @@
         "positioning_summary": "RISD’s Master of Arts in Design Engineering is positioned as an intensive, joint RISD-Brown program centered on the intersection of design and engineering. The program emphasizes cross-disciplinary collaboration, hands-on prototyping and testing, and project work aimed at real-world challenges such as public health, education, and climate change.",
         "positioning_tags": [
           "interdisciplinary",
-          "stem_adjacent",
+          "mecheng_adjacent",
           "social_impact",
           "physical_making"
         ]
@@ -11867,7 +11882,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.rca.ac.uk/study/programme-finder/innovation-design-engineering-ma-msc/",
-          "note": "Supports 'interdisciplinary' via 'transdisciplinary teamwork' and 'practices that transcend disciplinary boundaries'; supports 'stem_adjacent' via integration of 'design and engineering with science and enterprise'; supports 'research' via 'researcher' pathway and research-heavy programme structure; supports 'entrepreneurship' via explicit mention of 'entrepreneur' and venture-oriented outcomes.",
+          "note": "Supports 'interdisciplinary' via 'transdisciplinary teamwork' and 'practices that transcend disciplinary boundaries'; supports some engineering adjacency via integration of 'design and engineering with science and enterprise'; supports 'research' via 'researcher' pathway and research-heavy programme structure; supports 'entrepreneurship' via explicit mention of 'entrepreneur' and venture-oriented outcomes.",
           "llm_title": "Innovation Design Engineering MA/MSc overview",
           "retrieved_date": "2026-05-04"
         },
@@ -12112,9 +12127,8 @@
         "positioning_summary": "A transdisciplinary, design-and-engineering master’s positioned around innovation, research, and real-world impact. The programme explicitly integrates design and engineering with science and enterprise, emphasizes collaboration across disciplines and industry, and highlights pathways into leadership, entrepreneurship, and research.",
         "positioning_tags": [
           "interdisciplinary",
-          "stem_adjacent",
           "research",
-          "entrepreneurship"
+          "entrepreneurship_adjacent"
         ]
       },
       "duration": {
@@ -12295,7 +12309,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:23:44Z",
-      "date_updated": "2026-05-04T03:36:24Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "sjsu_ms_human_factors_ergonomics",
@@ -12559,9 +12573,10 @@
       "positioning": {
         "positioning_summary": "The program is positioned as an interdisciplinary, professionally oriented master's degree that prepares students for practice through theory, practical applications, and research. It also explicitly includes a major project or thesis, indicating a research component alongside applied training.",
         "positioning_tags": [
-          "interdisciplinary",
+          "mecheng_adjacent",
           "professional",
-          "research"
+          "human_centered",
+          "physical_making"
         ]
       },
       "duration": {
@@ -13004,7 +13019,8 @@
           "interaction_design",
           "ui_ux",
           "social_impact",
-          "interdisciplinary"
+          "interdisciplinary",
+          "sustainability"
         ]
       },
       "duration": {
@@ -13185,7 +13201,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:46:32Z",
-      "date_updated": "2026-05-04T03:58:28Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "parsons_ms_strategic_design_management",
@@ -13578,8 +13594,7 @@
           "interdisciplinary",
           "professional",
           "social_impact",
-          "entrepreneurship",
-          "stem_adjacent"
+          "strategic_design"
         ]
       },
       "duration": {
@@ -13771,7 +13786,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:58:36Z",
-      "date_updated": "2026-05-04T04:06:37Z"
+      "date_updated": "2026-05-08T17:27:57Z"
     },
     {
       "program_id": "ucsb_media_arts_technology",
@@ -13840,7 +13855,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.mat.ucsb.edu/programInfo/",
-          "note": "Supports 'stem_adjacent' and 'fine_arts_adjacent' because the curriculum includes electronic music and sound design, visual and spatial arts, and multimedia engineering, with disciplines spanning technical and artistic work.",
+          "note": "Supports 'fine_arts_adjacent' because the curriculum includes electronic music and sound design, visual and spatial arts, and multimedia engineering, with disciplines spanning technical and artistic work.",
           "llm_title": "Program Information",
           "retrieved_date": "2026-05-04"
         },
@@ -14092,9 +14107,10 @@
         "positioning_summary": "UC Santa Barbara Media Arts and Technology is positioned as a transdisciplinary graduate program at the intersection of media arts, computer science, engineering, electronic music, and digital art, with a strong emphasis on interdisciplinary research, creative production, and emerging media technologies.",
         "positioning_tags": [
           "interdisciplinary",
-          "research",
-          "stem_adjacent",
-          "fine_arts_adjacent"
+          "digital",
+          "hci_adjacent",
+          "fine_arts_adjacent",
+          "media_adjacent"
         ]
       },
       "duration": {
@@ -14215,7 +14231,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:06:45Z",
-      "date_updated": "2026-05-04T04:24:22Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "colorado_ms_creative_technology_design",
@@ -14538,8 +14554,7 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "research",
-          "stem_adjacent"
+          "physical_making"
         ]
       },
       "duration": {
@@ -14996,7 +15011,8 @@
           "social_impact",
           "research",
           "interdisciplinary",
-          "digital"
+          "digital",
+          "sustainability"
         ]
       },
       "duration": {
@@ -15102,7 +15118,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:39:06Z",
-      "date_updated": "2026-05-04T04:50:04Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "uiuc_mdes",
@@ -15459,9 +15475,9 @@
         "positioning_summary": "The program is positioned as a professional, research-informed industrial design degree that emphasizes interdisciplinary work, human-centered and ethically produced design, and strong connections to social impact and emerging practice areas such as design thinking, interfaces, interactions, and user experiences.",
         "positioning_tags": [
           "professional",
-          "interdisciplinary",
-          "research",
-          "social_impact"
+          "social_impact",
+          "human_centered",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -15593,7 +15609,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:50:08Z",
-      "date_updated": "2026-05-04T04:55:36Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "umich_ms_information",
@@ -15885,9 +15901,9 @@
         "positioning_summary": "The Master of Science in Information is positioned as a professional, interdisciplinary program focused on information management, user experience, data science, and related fields, with a strong emphasis on applying technical, analytical, and human-centered approaches to real-world problems.",
         "positioning_tags": [
           "professional",
-          "interdisciplinary",
+          "digital",
           "ui_ux",
-          "stem_adjacent"
+          "hci_adjacent"
         ]
       },
       "duration": {
@@ -16334,7 +16350,9 @@
           "interdisciplinary",
           "professional",
           "social_impact",
-          "architecture_adjacent"
+          "architecture_adjacent",
+          "human_centered",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -16477,7 +16495,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T07:26:07Z",
-      "date_updated": "2026-05-04T07:35:29Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "uw_ms_hcde",
@@ -16817,13 +16835,11 @@
         "positioning_summary": "The program is positioned as an interdisciplinary, professionally oriented MS centered on user experience, interaction/interface/product design, and human-computer interaction, with explicit emphasis on real-world problem solving and preparing graduates for leadership roles in UX and related roles.",
         "positioning_tags": [
           "ui_ux",
-          "human_computer_interaction",
+          "hci_adjacent",
           "interaction_design",
-          "interdisciplinary",
           "professional",
-          "research",
           "digital",
-          "stem_adjacent"
+          "human_centered"
         ]
       },
       "duration": {
@@ -16953,7 +16969,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T07:35:35Z",
-      "date_updated": "2026-05-04T07:43:03Z"
+      "date_updated": "2026-05-08T17:27:57Z"
     },
     {
       "program_id": "uw_ms_technology_innovation",
@@ -17282,8 +17298,9 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "stem_adjacent",
-          "physical_making"
+          "entrepreneurship_adjacent",
+          "physical_making",
+          "mecheng_adjacent"
         ]
       },
       "duration": {
@@ -17935,9 +17952,10 @@
         "positioning_summary": "MHCI+D is positioned as an intensive, year-long, interdisciplinary program at the intersection of human-computer interaction, design, technology, and research, with strong emphasis on studio-based collaboration, prototyping, and career preparation.",
         "positioning_tags": [
           "interdisciplinary",
-          "human_computer_interaction",
+          "hci_adjacent",
           "ui_ux",
-          "professional"
+          "professional",
+          "human_centered"
         ]
       },
       "duration": {
@@ -18104,7 +18122,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T08:39:54Z",
-      "date_updated": "2026-05-04T08:48:31Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "cca_mdes_interaction_design",
@@ -18184,7 +18202,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.cca.edu/design/interaction-design/",
-          "note": "Explicit support for interaction_design from the program title and repeated references to IxD/interaction design; social_impact from Social Lab and community partnerships; stem_adjacent from STEM-designated and technology/science language; professional from 'in-demand design fields' and leadership/career framing.",
+          "note": "Explicit support for interaction_design from the program title and repeated references to IxD/interaction design; social_impact from Social Lab and community partnerships; engineering from STEM-designated and technology/science language; professional from 'in-demand design fields' and leadership/career framing.",
           "llm_title": "MDes in Interaction Design",
           "retrieved_date": "2026-05-05"
         },
@@ -18436,8 +18454,8 @@
         "positioning_tags": [
           "interaction_design",
           "social_impact",
-          "stem_adjacent",
-          "professional"
+          "professional",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -18630,7 +18648,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T02:30:21Z",
-      "date_updated": "2026-05-05T02:43:24Z"
+      "date_updated": "2026-05-08T17:27:57Z"
     },
     {
       "program_id": "cca_mba_design_strategy",
@@ -18858,7 +18876,8 @@
           "professional",
           "interdisciplinary",
           "social_impact",
-          "entrepreneurship"
+          "entrepreneurship_adjacent",
+          "sustainability"
         ]
       },
       "duration": {
@@ -18888,7 +18907,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T02:43:30Z",
-      "date_updated": "2026-05-05T02:49:09Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "mit_art_culture_technology",
@@ -19853,7 +19872,9 @@
         "positioning_tags": [
           "professional",
           "interdisciplinary",
-          "stem_adjacent"
+          "entrepreneurship_adjacent",
+          "mecheng_adjacent",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -19950,7 +19971,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T03:19:04Z",
-      "date_updated": "2026-05-05T03:28:08Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "mit_media_arts_sciences",
@@ -20373,8 +20394,10 @@
         "positioning_tags": [
           "interdisciplinary",
           "research",
-          "stem_adjacent",
-          "emerging_technologies"
+          "critical_speculative_design",
+          "emerging_technologies",
+          "architecture_adjacent",
+          "hci_adjacent"
         ]
       },
       "duration": {
@@ -20958,11 +20981,12 @@
       "positioning": {
         "positioning_summary": "CMU’s MSSM is positioned as an interdisciplinary, professional master’s for digital product and software leaders, blending engineering, business, and user-centered design. It emphasizes career acceleration, Silicon Valley industry immersion, and entrepreneurship/product management pathways rather than research or purely technical software engineering.",
         "positioning_tags": [
-          "interdisciplinary",
           "professional",
           "digital",
-          "entrepreneurship",
-          "stem_adjacent"
+          "hci_adjacent",
+          "ui_ux",
+          "entrepreneurship_adjacent",
+          "human_centered"
         ]
       },
       "duration": {
@@ -21393,7 +21417,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:26:19Z",
-      "date_updated": "2026-05-05T04:37:54Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "cmu_entertainment_technology_center",
@@ -22414,13 +22438,12 @@
       "positioning": {
         "positioning_summary": "The MHCI is positioned as a professional, interdisciplinary HCI program centered on human-computer interaction and UX/user-centered research. It explicitly emphasizes preparing students for industry careers, combines design, computer science, social science, and learning science perspectives, and highlights a substantial external-client capstone; it is also designated a STEM program.",
         "positioning_tags": [
-          "human_computer_interaction",
-          "professional",
-          "interdisciplinary",
-          "stem_adjacent",
+          "interaction_design",
+          "hci_adjacent",
           "ui_ux",
           "research",
-          "digital"
+          "digital",
+          "human_centered"
         ]
       },
       "duration": {
@@ -22565,7 +22588,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:46:10Z",
-      "date_updated": "2026-05-05T04:52:22Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "georgia_tech_master_industrial_design",
@@ -22670,7 +22693,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://id.gatech.edu/academics/mid",
-          "note": "Supported tags: interdisciplinary (explicitly says 'interdisciplinary nature' and 'interdisciplinary collaboration'); stem_adjacent (explicit STEM designation and technology focus); research (explicit 'design research' and 'research-focused'); professional (mentions industry versatility, UX/UI design, strategy, consulting, and alumni roles); ui_ux and interaction_design (explicitly names UX/UI design and interaction design); human_computer_interaction (clear implication from 'humanizing connections between people and technology' and human-centered technology design).",
+          "note": "Supported tags: interdisciplinary (explicitly says 'interdisciplinary nature' and 'interdisciplinary collaboration'); ux_adjacent (explicit STEM designation and technology focus); research (explicit 'design research' and 'research-focused'); professional (mentions industry versatility, UX/UI design, strategy, consulting, and alumni roles); ui_ux and interaction_design (explicitly names UX/UI design and interaction design); hci_adjacent (clear implication from 'humanizing connections between people and technology' and human-centered technology design).",
           "llm_title": "Master of Industrial Design (MID)",
           "retrieved_date": "2026-05-05"
         },
@@ -22914,13 +22937,12 @@
       "positioning": {
         "positioning_summary": "The MID is positioned as a human-centered, interdisciplinary design program with strong emphasis on research, technology, and professional practice. Its page explicitly frames the degree as a Human-Centered Technology Design STEM program, highlights collaboration across disciplines, and centers interaction design, healthcare design, service design, product design, and user-experience research.",
         "positioning_tags": [
-          "interdisciplinary",
-          "stem_adjacent",
-          "research",
+          "physical_making",
+          "mecheng_adjacent",
           "professional",
-          "ui_ux",
-          "interaction_design",
-          "human_computer_interaction"
+          "industrial_product_design",
+          "service_design",
+          "human_centered"
         ]
       },
       "duration": {
@@ -23038,7 +23060,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:52:28Z",
-      "date_updated": "2026-05-05T04:57:57Z"
+      "date_updated": "2026-05-08T17:27:57Z"
     },
     {
       "program_id": "georgia_tech_ms_digital_media",
@@ -23453,7 +23475,9 @@
           "interdisciplinary",
           "digital",
           "research",
-          "professional"
+          "humanities_adjacent",
+          "media_adjacent",
+          "public_policy_adjacent"
         ]
       },
       "duration": {
@@ -23572,7 +23596,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:58:03Z",
-      "date_updated": "2026-05-05T05:07:53Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "cmu_miips",
@@ -23767,7 +23791,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.cmu.edu/iii/graduate-programs/miips/index.html",
-          "note": "Supported tags: interdisciplinary (explicitly across engineering, business, and design); professional (industry-facing, 'cross-functional leaders,' career momentum, internship, salary/career outcomes); stem_adjacent (technology and engineering emphasis); digital (roles include UI/UX Designer, Product Designer, Technical Product Manager, AI Product Manager, and the program focuses on products & services).",
+          "note": "Supported tags: interdisciplinary (explicitly across engineering, business, and design); professional (industry-facing, 'cross-functional leaders,' career momentum, internship, salary/career outcomes); engineeering adjacent (technology and engineering emphasis); digital (roles include UI/UX Designer, Product Designer, Technical Product Manager, AI Product Manager, and the program focuses on products & services).",
           "llm_title": "Master of Integrated Innovation for Products & Services",
           "retrieved_date": "2026-05-05"
         },
@@ -23955,7 +23979,7 @@
         "host_academic_units": [
           "Integrated Innovation Institute"
         ],
-        "host_academic_model": "engineering_business_shared_hosted",
+        "host_academic_model": "design_engineering_business_shared_hosted",
         "location_label": "Pittsburgh, PA, USA"
       },
       "positioning": {
@@ -23963,8 +23987,9 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "stem_adjacent",
-          "digital"
+          "digital",
+          "ui_ux",
+          "strategic_design"
         ]
       },
       "duration": {
@@ -24012,7 +24037,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T16:01:48Z",
-      "date_updated": "2026-05-05T16:04:52Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "georgia_tech_ms_hci",
@@ -24406,9 +24431,11 @@
         "positioning_summary": "Georgia Tech’s MS-HCI is positioned as an interdisciplinary, professionally oriented HCI/UX program that blends practical skills with theoretical knowledge, emphasizes design/research/implementation/evaluation of human-computer interfaces, and includes a required summer internship and capstone project.",
         "positioning_tags": [
           "interdisciplinary",
-          "human_computer_interaction",
+          "hci_adjacent",
           "professional",
-          "ui_ux"
+          "industrial_product_design",
+          "ui_ux",
+          "human_centered"
         ]
       },
       "duration": {
@@ -24505,7 +24532,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:10:08Z",
-      "date_updated": "2026-05-05T21:13:02Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "ecar_mdes_interaction",
@@ -24794,7 +24821,8 @@
         "positioning_tags": [
           "interaction_design",
           "research",
-          "social_impact"
+          "social_impact",
+          "human_centered"
         ]
       },
       "duration": {
@@ -25023,7 +25051,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:13:08Z",
-      "date_updated": "2026-05-05T21:19:35Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "ecar_mdes_interdisciplinary",
@@ -25339,9 +25367,10 @@
         "positioning_summary": "A research- and practice-based, full-time interdisciplinary MDes centered on studio practice, design research, and an independent thesis project, with strong emphasis on human-centered design, community/sustainability, and access to studios, labs, and research facilities.",
         "positioning_tags": [
           "interdisciplinary",
-          "research",
           "professional",
-          "social_impact"
+          "social_impact",
+          "human_centered",
+          "sustainability"
         ]
       },
       "duration": {
@@ -25570,7 +25599,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:19:41Z",
-      "date_updated": "2026-05-05T21:23:40Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "hongik_smart_design_eng",
@@ -25620,7 +25649,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://idas.hongik.ac.kr/idas/020101.do",
-          "note": "Supports interdisciplinary, professional, stem_adjacent, and physical_making tags via explicit references to design-engineering convergence, integrated product development, smart industry, IOT Based Product Concept Development, Physical Prototyping Process, and Human Factors for Designers.",
+          "note": "Supports interdisciplinary, professional and physical_making tags via explicit references to design-engineering convergence, integrated product development, smart industry, IOT Based Product Concept Development, Physical Prototyping Process, and Human Factors for Designers.",
           "llm_title": "Smart Design Engineering objective and curriculum",
           "retrieved_date": "2026-05-05"
         },
@@ -25872,7 +25901,7 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "stem_adjacent",
+          "mecheng_adjacent",
           "physical_making"
         ]
       },
@@ -26577,7 +26606,8 @@
           "ui_ux",
           "professional",
           "digital",
-          "human_computer_interaction"
+          "hci_adjacent",
+          "human_centered"
         ]
       },
       "duration": {
@@ -26607,7 +26637,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T00:56:09Z",
-      "date_updated": "2026-05-06T01:03:59Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "royal_danish_ma_design",
@@ -26941,10 +26971,12 @@
       "positioning": {
         "positioning_summary": "The programme is positioned as a research-led, interdisciplinary design/architecture master that emphasizes collaboration across disciplines, real-world projects with companies and organizations, and strategic design thinking for innovation and entrepreneurship. It also foregrounds sustainability, social and societal change, and professional practice.",
         "positioning_tags": [
-          "interdisciplinary",
-          "research",
+          "architecture_adjacent",
+          "entrepreneurship_adjacent",
           "professional",
-          "social_impact"
+          "social_impact",
+          "strategic_design",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -27089,7 +27121,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T01:04:05Z",
-      "date_updated": "2026-05-06T01:09:08Z"
+      "date_updated": "2026-05-08T17:27:57Z"
     },
     {
       "program_id": "zhdk_ma_interaction_design",
@@ -27193,7 +27225,7 @@
         {
           "feature": "positioning.positioning_tags",
           "source_url": "https://www.zhdk.ch/en/degree-programmes/design/ma-design-interaction-design",
-          "note": "Supports interaction_design, research, digital, and stem_adjacent: the page explicitly names 'Interaction Design', 'practical and scientific research methods', 'technologies', and 'interfaces and processes between people, services and products'.",
+          "note": "Supports interaction_design, research, digital: the page explicitly names 'Interaction Design', 'practical and scientific research methods', 'technologies', and 'interfaces and processes between people, services and products'.",
           "llm_title": "MA Design, Interaction Design",
           "retrieved_date": "2026-05-06"
         },
@@ -27495,7 +27527,8 @@
           "interaction_design",
           "research",
           "digital",
-          "stem_adjacent"
+          "social_impact",
+          "human_centered"
         ]
       },
       "duration": {
@@ -27759,7 +27792,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T15:45:06Z",
-      "date_updated": "2026-05-06T15:51:36Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "zhdk_ma_industrial_design",
@@ -28137,7 +28170,8 @@
           "critical_speculative_design",
           "social_impact",
           "physical_making",
-          "research"
+          "research",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -28510,7 +28544,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T15:51:43Z",
-      "date_updated": "2026-05-06T15:58:19Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "zhdk_ma_knowledge_visualization",
@@ -28907,7 +28941,8 @@
         "positioning_summary": "The MA Design in Knowledge Visualization is positioned as a design program focused on creating images for scientific knowledge processes, with explicit emphasis on visualizing complex information and scientific contexts. Its framing also highlights visualization and communication concepts, 3D technologies, and imaging processes, and the subject-area description stresses relevance for teaching, research, and the public. Overall, the strongest signals are research-oriented, STEM-adjacent, interdisciplinary, and socially relevant.",
         "positioning_tags": [
           "research",
-          "stem_adjacent",
+          "humanities_adjacent",
+          "hci_adjacent",
           "interdisciplinary",
           "social_impact"
         ]
@@ -29196,16 +29231,19 @@
         "credential_name": "Master's degree in Industrial Design",
         "degree_type": "MS",
         "host_academic_units": [
+          "College of Engineering",
           "Department of Industrial Design"
         ],
-        "host_academic_model": "design_hosted",
+        "host_academic_model": "engineering_design_shared_hosted",
         "location_label": "Daejeon, South Korea"
       },
       "positioning": {
-        "positioning_summary": "The available evidence is too thin to confidently assign a strong positioning profile for the KAIST Industrial Design Master page. The program page itself only rendered as a generic React shell, and the other retrieved materials are admissions notices or broader KAIST pages rather than program-specific positioning statements. Based on the institution context, the safest supported characterization is a research- and STEM-adjacent design program, but direct evidence for more specific themes like digital, UI/UX, professional, or interdisciplinary emphasis is not present in the fetched program materials.",
+        "positioning_summary": "KAIST's MS Industrial Design is a research-oriented, STEM-adjacent industrial design program housed in the Department of Industrial Design within the College of Engineering. Available program descriptions emphasize academic exploration of design theory, methods, and application, strengthened through industry-collaborative projects and individual study. KAIST sources also characterize the master's program as focused on human-centered design, technology convergence, and business innovation, with design used as a strategic tool rather than only as aesthetics.",
         "positioning_tags": [
-          "stem_adjacent",
-          "research"
+          "research",
+          "emerging_technologies",
+          "mecheng_adjacent",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -29621,9 +29659,10 @@
         "positioning_summary": "An interdisciplinary, design-led MDes that blends design, business, and technology to prepare students to lead transformational change, with a strong emphasis on design-centred entrepreneurship, practice-based research, and innovation for social and economic impact.",
         "positioning_tags": [
           "interdisciplinary",
-          "entrepreneurship",
           "research",
-          "social_impact"
+          "social_impact",
+          "entrepreneurship_adjacent",
+          "strategic_design"
         ]
       },
       "duration": {
@@ -29755,7 +29794,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T20:26:43Z",
-      "date_updated": "2026-05-06T20:36:03Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "hkpu_mdes_intelligent_systems_design",
@@ -30108,7 +30147,8 @@
           "interdisciplinary",
           "emerging_technologies",
           "professional",
-          "ui_ux"
+          "ui_ux",
+          "human_centered"
         ]
       },
       "duration": {
@@ -30238,7 +30278,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T20:36:15Z",
-      "date_updated": "2026-05-06T20:41:36Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "hkpu_mdes_smart_service_design",
@@ -30605,7 +30645,10 @@
           "interdisciplinary",
           "professional",
           "social_impact",
-          "critical_speculative_design"
+          "critical_speculative_design",
+          "service_design",
+          "systems_thinking",
+          "human_centered"
         ]
       },
       "duration": {
@@ -30761,13 +30804,13 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T20:41:48Z",
-      "date_updated": "2026-05-06T20:46:24Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "tongji_mdes_design_thinking_sustainable_future",
       "base_url": "https://tjdi.tongji.edu.cn",
       "date_added": "2026-05-06T00:00:00Z",
-      "date_updated": "2026-05-06T00:00:00Z",
+      "date_updated": "2026-05-08T18:01:25Z",
       "sources": [],
       "llm_rationales": [
         {
@@ -30822,9 +30865,12 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "research",
           "social_impact",
-          "emerging_technologies"
+          "strategic_design",
+          "human_centered",
+          "sustainability",
+          "public_policy_adjacent",
+          "service_design"
         ]
       },
       "duration": {
@@ -31351,7 +31397,8 @@
           "social_impact",
           "research",
           "architecture_adjacent",
-          "interdisciplinary"
+          "interdisciplinary",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -31483,7 +31530,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T23:57:49Z",
-      "date_updated": "2026-05-07T00:01:37Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "monash_mdes",
@@ -32282,8 +32329,10 @@
         "positioning_tags": [
           "interdisciplinary",
           "professional",
-          "research",
-          "social_impact"
+          "entrepreneurship_adjacent",
+          "social_impact",
+          "systems_thinking",
+          "public_policy_adjacent"
         ]
       },
       "duration": {
@@ -32451,7 +32500,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:16:17Z",
-      "date_updated": "2026-05-07T00:23:50Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "qut_mdes_strategic_design",
@@ -32655,7 +32704,8 @@
         "positioning_tags": [
           "research",
           "interdisciplinary",
-          "social_impact"
+          "social_impact",
+          "strategic_design"
         ]
       },
       "duration": {
@@ -32685,7 +32735,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:24:03Z",
-      "date_updated": "2026-05-07T00:30:11Z"
+      "date_updated": "2026-05-08T17:27:57Z"
     },
     {
       "program_id": "nus_mdes_integrated_design",
@@ -33027,7 +33077,9 @@
           "professional",
           "interdisciplinary",
           "social_impact",
-          "interaction_design"
+          "interaction_design",
+          "service_design",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -33146,7 +33198,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:30:24Z",
-      "date_updated": "2026-05-07T00:37:55Z"
+      "date_updated": "2026-05-08T17:32:41Z"
     },
     {
       "program_id": "rca_ma_design_products",
@@ -33510,9 +33562,11 @@
         "positioning_summary": "Design Products MA is positioned as a socially engaged, research-led design studio focused on creating products with purpose. The programme emphasizes cross-disciplinary problem solving, user-centred and evidence-based methods, and work that addresses real-world challenges such as climate, healthcare, and systems change, while also supporting professional pathways into consultancies, studios, start-ups, and leadership roles.",
         "positioning_tags": [
           "social_impact",
-          "research",
+          "public_policy_adjacent",
           "interdisciplinary",
-          "professional"
+          "professional",
+          "entrepreneurship_adjacent",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -34004,9 +34058,10 @@
         "positioning_summary": "The RCA Service Design MA is positioned as a pioneering, research-informed, project-based design programme focused on service design as a tool for social and organisational change. It emphasizes real-world challenges, collaboration with commercial/public/social organisations, and preparation for leadership roles across diverse sectors, with a strong human-centred and systems-oriented orientation.",
         "positioning_tags": [
           "social_impact",
-          "research",
           "professional",
-          "interdisciplinary"
+          "interdisciplinary",
+          "service_design",
+          "human_centered"
         ]
       },
       "duration": {
@@ -34139,7 +34194,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:55:35Z",
-      "date_updated": "2026-05-07T01:01:45Z"
+      "date_updated": "2026-05-08T17:27:57Z"
     },
     {
       "program_id": "rca_ma_information_experience_design",
@@ -34481,12 +34536,14 @@
       "positioning": {
         "positioning_summary": "Information Experience Design MA is positioned as a boundary-breaking, interdisciplinary, research-led programme that combines traditional and emerging media to design experiences of information. It emphasizes speculative and experimental practice, systems thinking, and socially engaged work, while also pointing to professional pathways in startups, cultural and tech sectors, and independent creative practice.",
         "positioning_tags": [
-          "interdisciplinary",
+          "fine_arts_adjacent",
           "research",
           "critical_speculative_design",
           "digital",
           "social_impact",
-          "professional"
+          "emerging_technologies",
+          "media_adjacent",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -34619,7 +34676,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T01:01:59Z",
-      "date_updated": "2026-05-07T01:08:45Z"
+      "date_updated": "2026-05-08T18:01:25Z"
     },
     {
       "program_id": "rca_ma_mres_design_futures",
@@ -34968,12 +35025,12 @@
       "positioning": {
         "positioning_summary": "Design Futures is positioned as a research-led, interdisciplinary MDes that uses design futures methods to address complex social, environmental, and strategic uncertainty. The programme emphasizes transdisciplinary practice, research methodology, complex systems, futures thinking, and entrepreneurial/professional skills, with a strong sustainability and ethics orientation.",
         "positioning_tags": [
-          "research",
           "interdisciplinary",
           "critical_speculative_design",
           "social_impact",
+          "systems_thinking",
           "professional",
-          "entrepreneurship"
+          "sustainability"
         ]
       },
       "duration": {
@@ -35081,7 +35138,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T01:08:58Z",
-      "date_updated": "2026-05-07T01:13:24Z"
+      "date_updated": "2026-05-08T17:27:57Z"
     }
   ]
 }

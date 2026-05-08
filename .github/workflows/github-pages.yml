@@ -1,4 +1,4 @@
-# Build peer-atlas-viewer (single inlined HTML + embedded sample corpus) and publish to GitHub Pages.
+# Build peer-atlas-viewer (single inlined HTML + embedded corpus) and publish to GitHub Pages.
 #
 # Repo settings → Pages → Build and deployment → Source: GitHub Actions.
 # Site URL (project pages): https://<owner>.github.io/<repo>/
@@ -10,6 +10,7 @@ on:
     paths:
       - "peer-atlas-viewer/**"
       - "categories_and_rules/**"
+      - "corpus/programs.json"
       - ".github/workflows/github-pages.yml"
   workflow_dispatch:
 
@@ -35,8 +36,8 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Bundle viewer (sample corpus + inlined categories + icons)
-        run: node peer-atlas-viewer/tools/bundle.mjs peer-atlas-viewer/dev/sample-corpus.json
+      - name: Bundle viewer (full corpus + inlined categories + icons)
+        run: node peer-atlas-viewer/tools/bundle.mjs corpus/programs.json
 
       - name: Stage site root
         run: |

@@ -8,51 +8,61 @@
     {
       "id": "design_engineering_business_shared_hosted",
       "label": "co-hosted by design + engineering + business units",
+      "short_label": "DSGN + ENG + BUS",
       "description": "Program is administratively housed across design, engineering, and business units."
     },
     {
       "id": "engineering_design_shared_hosted",
       "label": "co-hosted by engineering + design units",
+      "short_label": "DSGN + ENG",
       "description": "Program is administratively housed in both engineering and design units."
     },
     {
       "id": "engineering_arts_shared_hosted",
       "label": "co-hosted by engineering + fine arts units",
+      "short_label": "ENG + ART",
       "description": "Program is administratively housed in both engineering and arts units."
     },    
     {
       "id": "engineering_business_shared_hosted",
       "label": "co-hosted by engineering + business units",
+      "short_label": "ENG + BUS",
       "description": "Program is administratively housed in both engineering and business units."
     },  
     {
       "id": "design_business_shared_hosted",
       "label": "co-hosted by design + business units",
+      "short_label": "DSGN + BUS",
       "description": "Program is administratively housed in both design and business units."
     },         
     {
       "id": "engineering_hosted",
       "label": "hosted in an engineering unit",
+      "short_label": "ENG",
       "description": "Administered by an engineering school or college."
     },    
     {
       "id": "design_hosted",
       "label": "hosted in a design unit",
+      "short_label": "DSGN",
       "description": "Administered by a design school or college."
     },
     {
       "id": "arts_hosted",
       "label": "hosted in an arts / humanities units",
+      "short_label": "ART",
       "description": "Administered by a unit in arts, humanities, or fine arts."
     },
     {
       "id": "business_hosted",
       "label": "hosted in an business / management unit",
+      "short_label": "BUS",
       "description": "Administered by a unit in business or management."
     },
     {
       "id": "computing_hosted",
       "label": "hosted in an CS / information technology unit",
+      "short_label": "INFO",
       "description": "Administered by a unit in computer science or information technology."
     },    
     {

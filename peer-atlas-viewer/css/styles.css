@@ -11,8 +11,17 @@
   --focus: #1a1a1a;
   --pill-border: #8a857c;
   --shadow: rgba(0, 0, 0, 0.06);
+  /* Main page: chrome is natural height; table fills rest; summary strip is fixed height */
+  --app-min-width: 18rem;
+  --app-min-height: 28rem;
+  --column-summaries-height: clamp(7.5rem, 20vh, 13rem);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
+}
+
+html {
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 *,
@@ -23,16 +32,22 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  min-width: var(--app-min-width);
+  height: max(var(--app-min-height), 100vh);
+  height: max(var(--app-min-height), 100dvh);
+  display: flex;
+  flex-direction: column;
   background: var(--page-bg);
   color: var(--text);
   line-height: 1.45;
 }
 
 .app-header {
+  flex-shrink: 0;
   padding: 1rem 1.25rem 0.75rem;
   border-bottom: 1px solid var(--border);
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -51,6 +66,7 @@ body {
 }
 
 .toolbar {
+  flex-shrink: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -58,6 +74,7 @@ body {
   padding: 0.65rem 1.25rem;
   border-bottom: 1px solid var(--border);
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -149,12 +166,21 @@ textarea:focus-visible {
 }
 
 .main-surface {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0.75rem 1.25rem 2rem;
+  padding: 0.75rem 1.25rem 0.75rem;
 }
 
 .table-card {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 2px;
@@ -162,8 +188,67 @@ textarea:focus-visible {
 }
 
 .table-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.table-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: auto;
-  max-height: min(72vh, 720px);
+}
+
+.column-summaries {
+  flex-shrink: 0;
+  height: var(--column-summaries-height);
+  min-height: 6.5rem;
+  overflow: auto;
+  border-top: 1px solid var(--border-strong);
+  background: #ebe8e0;
+  overscroll-behavior: contain;
+}
+
+.column-summaries-empty {
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.column-summaries-table {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.column-summaries-table td.column-summary-td {
+  vertical-align: top;
+  border-bottom: none;
+}
+
+.column-summary-list {
+  margin: 0;
+  padding-left: 1.05rem;
+  line-height: 1.35;
+}
+
+.column-summary-block {
+  margin: 0;
+}
+
+.column-summary-list li {
+  margin-bottom: 0.08rem;
+}
+
+/* Summary area scrolls as one block; no nested scroll on tag list */
+.column-summaries .column-summary-block--tags .column-summary-list {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
 }
 
 .program-table {
@@ -180,16 +265,16 @@ textarea:focus-visible {
   width: 18%;
 }
 .program-table col.col-degree {
-  width: 12%;
+  width: 8%;
 }
 .program-table col.col-sem {
-  width: 4.75rem;
+  width: 6.5rem;
 }
 .program-table col.col-host {
   width: 16%;
 }
 .program-table col.col-tags {
-  width: 34%;
+  width: 38%;
 }
 
 .program-table th,
@@ -225,16 +310,24 @@ textarea:focus-visible {
   text-decoration-style: solid;
 }
 
-.program-table tbody tr {
+#program-table.program-table tbody tr {
   cursor: pointer;
 }
 
-.program-table tbody tr:nth-child(even) {
+#program-table.program-table tbody tr:nth-child(even) {
   background: var(--surface-zebra);
 }
 
-.program-table tbody tr:hover {
+#program-table.program-table tbody tr:hover {
   background: var(--hover-row);
+}
+
+.column-summaries-table tbody tr {
+  cursor: default;
+}
+
+.column-summaries-table tbody tr:hover {
+  background: transparent;
 }
 
 .tag-cell {
@@ -285,7 +378,7 @@ button.tag-pill:focus-visible {
   width: 1%;
 }
 
-.program-table thead th:nth-child(4) {
+#program-table.program-table thead th:nth-child(4) {
   font-size: 0.8rem;
   line-height: 1.2;
 }

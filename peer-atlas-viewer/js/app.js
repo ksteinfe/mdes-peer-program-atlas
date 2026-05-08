@@ -366,6 +366,17 @@ function labelForId(catKey, id) {
   return row && typeof row.label === "string" ? row.label : id;
 }
 
+/** Main program table + footer summaries only; use {@link labelForId} for filters, detail, etc. */
+function hostModelShortLabel(id) {
+  if (!id) return "";
+  const block = categories.host_academic_models;
+  const items = block && typeof block === "object" && Array.isArray(block.items) ? block.items : [];
+  const row = items.find((x) => x && typeof x === "object" && x.id === id);
+  if (!row) return id;
+  if (typeof row.short_label === "string" && row.short_label.trim()) return row.short_label.trim();
+  return typeof row.label === "string" ? row.label : id;
+}
+
 /**
  * @param {object} p
  */
@@ -385,7 +396,7 @@ function rowView(p) {
     degree: String(ident.degree_type ?? ""),
     berkeleySem: berk === null || berk === undefined || berk === "" ? null : Number(berk),
     hostModel: hostId,
-    hostModelLabel: labelForId("host_academic_models", hostId) || hostId,
+    hostModelLabel: hostModelShortLabel(hostId) || hostId,
     tags,
     tagsSortKey: tags.slice().sort().join(", "),
   };
@@ -454,11 +465,178 @@ function getFilteredPrograms() {
   return corpus.programs.filter(passesFilters);
 }
 
+/**
+ * Buckets entries with count &lt; 5% of row count into one "Other" row; sorts by count descending.
+ * @param {{ label: string, count: number }[]} entries
+ */
+function summarizeWithOtherBucket(entries, rowCount) {
+  const threshold = rowCount * 0.05;
+  const main = [];
+  let otherTotal = 0;
+  /** @type {{ label: string, count: number }[]} */
+  const small = [];
+  for (const e of entries) {
+    if (e.count < threshold) {
+      otherTotal += e.count;
+      small.push(e);
+    } else main.push({ label: e.label, count: e.count });
+  }
+  const out = [...main];
+  if (otherTotal > 0) {
+    small.sort((a, b) => b.count - a.count);
+    const detail = small.map((s) => `${s.label} (${s.count})`).join("; ");
+    out.push({ label: "Other", count: otherTotal, detail });
+  }
+  out.sort((a, b) => b.count - a.count);
+  return out;
+}
+
+const SUMMARY_TABLE_COL_CLASSES = ["col-inst", "col-program", "col-degree", "col-sem", "col-host", "col-tags"];
+
+/**
+ * @param {{ label: string, count: number, detail?: string }[]} rows
+ * @param {{ tags?: boolean }} [opts]
+ */
+function buildSummaryList(rows, opts = {}) {
+  const wrap = document.createElement("div");
+  wrap.className = opts.tags ? "column-summary-block column-summary-block--tags" : "column-summary-block";
+  const ul = document.createElement("ul");
+  ul.className = "column-summary-list";
+  if (!rows.length) {
+    const li = document.createElement("li");
+    li.textContent = "—";
+    ul.appendChild(li);
+  } else {
+    for (const r of rows) {
+      const li = document.createElement("li");
+      li.textContent = `${r.label} (${r.count})`;
+      if (r.detail) li.title = r.detail;
+      ul.appendChild(li);
+    }
+  }
+  wrap.appendChild(ul);
+  return wrap;
+}
+
+function buildSummaryTableRow(cells) {
+  const table = document.createElement("table");
+  table.className = "program-table column-summaries-table";
+  const cg = document.createElement("colgroup");
+  for (const cls of SUMMARY_TABLE_COL_CLASSES) {
+    const col = document.createElement("col");
+    col.className = cls;
+    cg.appendChild(col);
+  }
+  table.appendChild(cg);
+  const tbody = document.createElement("tbody");
+  const tr = document.createElement("tr");
+  tr.className = "column-summary-row";
+  for (const cell of cells) {
+    const td = document.createElement("td");
+    td.className = "column-summary-td";
+    if (cell) td.appendChild(cell);
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
+  table.appendChild(tbody);
+  return table;
+}
+
+/**
+ * @param {ReturnType<typeof rowView>[]} list
+ */
+function renderColumnSummaries(list) {
+  const root = $("#column-summaries");
+  if (!root) return;
+  root.replaceChildren();
+  root.className = "column-summaries";
+
+  if (!list.length) {
+    const p = document.createElement("p");
+    p.className = "column-summaries-empty";
+    p.textContent = "No programs match the current filters.";
+    root.appendChild(p);
+    return;
+  }
+
+  const n = list.length;
+
+  const degMap = new Map();
+  for (const v of list) {
+    const d = v.degree || "";
+    degMap.set(d, (degMap.get(d) ?? 0) + 1);
+  }
+  const degEntries = [...degMap.entries()].map(([key, count]) => ({
+    label: key || "—",
+    count,
+  }));
+  degEntries.sort((a, b) => b.count - a.count);
+
+  const semMap = new Map();
+  for (const v of list) {
+    const raw = v.berkeleySem;
+    const key = raw == null || !Number.isFinite(raw) ? "—" : String(raw);
+    semMap.set(key, (semMap.get(key) ?? 0) + 1);
+  }
+  const semEntries = [...semMap.entries()].map(([key, count]) => ({
+    label: key === "—" ? "—" : `${key} sem`,
+    count,
+  }));
+  semEntries.sort((a, b) => b.count - a.count);
+
+  const hostMap = new Map();
+  for (const v of list) {
+    const id = v.hostModel && String(v.hostModel).trim() ? v.hostModel : "__none__";
+    hostMap.set(id, (hostMap.get(id) ?? 0) + 1);
+  }
+  const hostEntries = [...hostMap.entries()].map(([id, count]) => ({
+    label: id === "__none__" ? "—" : hostModelShortLabel(id) || id,
+    count,
+  }));
+  hostEntries.sort((a, b) => b.count - a.count);
+
+  const tagItems = (categories.positioning_tags?.items ?? []).filter((x) => x && x.id && x.id !== "INVALID");
+  const tagCounts = new Map();
+  for (const it of tagItems) tagCounts.set(it.id, 0);
+  for (const v of list) {
+    for (const t of v.tags) {
+      tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+    }
+  }
+  const tagRows = [...tagCounts.entries()]
+    .map(([id, count]) => ({
+      id,
+      count,
+      label: labelForId("positioning_tags", id) || id,
+    }))
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, undefined, { sensitivity: "base" }));
+
+  const degList = buildSummaryList(summarizeWithOtherBucket(degEntries, n));
+  const semList = buildSummaryList(summarizeWithOtherBucket(semEntries, n));
+  const hostList = buildSummaryList(summarizeWithOtherBucket(hostEntries, n));
+  const tagList = buildSummaryList(
+    tagRows.map((r) => ({ label: r.label, count: r.count })),
+    { tags: true },
+  );
+
+  root.appendChild(
+    buildSummaryTableRow([
+      null,
+      null,
+      degList,
+      semList,
+      hostList,
+      tagList,
+    ]),
+  );
+}
+
 function renderTable() {
   const tbody = $("#program-table tbody");
   if (!tbody || !corpus) {
     if (tbody) tbody.replaceChildren();
     setCountLine(0, 0);
+    $("#column-summaries")?.replaceChildren();
     return;
   }
   const list = getFilteredPrograms().map(rowView).sort(compareRows);
@@ -515,6 +693,7 @@ function renderTable() {
     });
     tbody.appendChild(tr);
   }
+  renderColumnSummaries(list);
 }
 
 function toggleSort(key) {
@@ -1468,7 +1647,10 @@ function buildFilterPanel() {
 
   const active = [];
   if (filters.degrees.size) active.push(`Degree: ${[...filters.degrees].join(", ")}`);
-  if (filters.hostModels.size) active.push(`Host model: ${[...filters.hostModels].join(", ")}`);
+  if (filters.hostModels.size)
+    active.push(
+      `Host model: ${[...filters.hostModels].map((hid) => labelForId("host_academic_models", hid) || hid).join(", ")}`,
+    );
   if (filters.tags.size)
     active.push(`Positioning tags (all of): ${[...filters.tags].map((id) => labelForId("positioning_tags", id) || id).join(", ")}`);
   if (filters.semMin != null) active.push(`Min semesters ≥ ${filters.semMin}`);

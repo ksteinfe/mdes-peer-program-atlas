@@ -10,7 +10,7 @@
   <header class="app-header">
     <h1>MDes Peer Program Atlas</h1>
     <p class="lede">
-      Peer-program comparison dataset. Sort and filter programs; click a tag in the table to add it to the active filters (narrowing the list; tag conditions combine with “all must match”). Open a row for details. Edits stay in the browser until you export a patch file.
+      The MDes Peer Program Atlas is a browser for exploring and comparing peer programs in the corpus—how they describe identity, positioning, duration, cost, and curriculum, drawn from public materials. The data is assembled for research and discussion, so it is necessarily imperfect; if you spot gaps or errors, edits are welcome. Open any row for details, click <strong>Edit</strong>, change what you need, then use <strong>Export patch for this program</strong> to download a JSON file you can send to the admins for review.
     </p>
   </header>
 
@@ -35,27 +35,30 @@
   <main class="main-surface">
     <div class="table-card">
       <div class="table-wrap">
-        <table id="program-table" class="program-table">
-          <colgroup>
-            <col class="col-inst" />
-            <col class="col-program" />
-            <col class="col-degree" />
-            <col class="col-sem" />
-            <col class="col-host" />
-            <col class="col-tags" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th scope="col"><button type="button" class="th-sort" data-sort="institution">Institution</button></th>
-              <th scope="col"><button type="button" class="th-sort" data-sort="program">Program</button></th>
-              <th scope="col"><button type="button" class="th-sort" data-sort="degree">Degree type</button></th>
-              <th scope="col"><button type="button" class="th-sort" data-sort="berkeleySem"># of semesters</button></th>
-              <th scope="col"><button type="button" class="th-sort" data-sort="hostModel">Host academic model</button></th>
-              <th scope="col"><button type="button" class="th-sort" data-sort="tags">Positioning tags</button></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <div class="table-scroll">
+          <table id="program-table" class="program-table">
+            <colgroup>
+              <col class="col-inst" />
+              <col class="col-program" />
+              <col class="col-degree" />
+              <col class="col-sem" />
+              <col class="col-host" />
+              <col class="col-tags" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col"><button type="button" class="th-sort" data-sort="institution">Institution</button></th>
+                <th scope="col"><button type="button" class="th-sort" data-sort="program">Program</button></th>
+                <th scope="col"><button type="button" class="th-sort" data-sort="degree">Degree type</button></th>
+                <th scope="col"><button type="button" class="th-sort" data-sort="berkeleySem"># of semesters</button></th>
+                <th scope="col"><button type="button" class="th-sort" data-sort="hostModel">Host academic model</button></th>
+                <th scope="col"><button type="button" class="th-sort" data-sort="tags">Positioning tags</button></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="column-summaries" class="column-summaries" aria-label="Summaries for filtered programs"></div>
       </div>
     </div>
   </main>

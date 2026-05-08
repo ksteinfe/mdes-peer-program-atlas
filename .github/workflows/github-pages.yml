@@ -1,0 +1,52 @@
+# Build peer-atlas-viewer (single inlined HTML + embedded sample corpus) and publish to GitHub Pages.
+#
+# Repo settings → Pages → Build and deployment → Source: GitHub Actions.
+# Site URL (project pages): https://<owner>.github.io/<repo>/
+name: Publish GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "peer-atlas-viewer/**"
+      - "categories_and_rules/**"
+      - ".github/workflows/github-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Bundle viewer (sample corpus + inlined categories + icons)
+        run: node peer-atlas-viewer/tools/bundle.mjs peer-atlas-viewer/dev/sample-corpus.json
+
+      - name: Stage site root
+        run: |
+          mkdir -p _site
+          cp peer-atlas-viewer/dist/atlas-viewer.html _site/index.html
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

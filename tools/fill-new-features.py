@@ -357,8 +357,7 @@ def _cmd_for_step(peer_atlas: str, pid: str, step: str) -> list[str]:
     if step == "historical":
         return [peer_atlas, "research-node", pid, "historical"]
     if step == "freopp_roi":
-        repo_root = str(Path(__file__).resolve().parent.parent)
-        return [sys.executable, str(Path(__file__).resolve().parent / "lookup-freopp-roi.py"), pid]
+        return [peer_atlas, "classify-freopp", pid]
     raise ValueError(f"Unknown step: {step!r}")
 
 

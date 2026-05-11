@@ -63,7 +63,9 @@ export function slimProgram(p) {
   const id = prog.program_id;
   if (typeof id !== "string" || !id) return null;
 
-  const ident = prog.identity && typeof prog.identity === "object" ? { ...prog.identity } : {};
+  const ident =
+    prog.identity && typeof prog.identity === "object" ? { ...prog.identity } : {};
+  const rawHist = prog.historical;
   const pos = prog.positioning && typeof prog.positioning === "object" ? prog.positioning : {};
   const dur = prog.duration && typeof prog.duration === "object" ? prog.duration : {};
   const deg = prog.degree_cost && typeof prog.degree_cost === "object" ? prog.degree_cost : {};
@@ -130,6 +132,20 @@ export function slimProgram(p) {
       electives,
       core_courses: slimCoreCourses(cur.core_courses),
     },
+    historical: Array.isArray(rawHist)
+      ? rawHist
+          .filter((e) => e && typeof e === "object")
+          .map((e) => ({
+            academic_year:
+              typeof e.academic_year === "string"
+                ? e.academic_year
+                : String(e.academic_year ?? ""),
+            degrees_granted:
+              e.degrees_granted === undefined || e.degrees_granted === null
+                ? null
+                : Number(e.degrees_granted),
+          }))
+      : [],
   };
 }
 
@@ -162,6 +178,7 @@ export function loadViewerCategories(repoRoot) {
     "duration_categories.json",
     "sequencedness.json",
     "unit_systems.json",
+    "cip_codes.json",
   ];
   /** @type {Record<string, unknown>} */
   const out = {};

@@ -54,6 +54,7 @@ NODE_PROMPTS: dict[str, str] = {
     "degree_cost": "nodes/degree_cost.md",
     "curriculum": "nodes/curriculum.md",
     "identity": "nodes/identity.md",
+    "historical": "nodes/historical.md",
     "verification": "nodes/verification.md",
 }
 
@@ -63,6 +64,7 @@ INGEST_MAIN_NODES: tuple[str, ...] = (
     "degree_cost",
     "curriculum_overview",
     "identity",
+    "historical",
 )
 
 
@@ -327,8 +329,8 @@ def run_node_step(
                 f"got {sorted(keys)!r}"
             )
         subtree = parsed.get(node)
-        if not isinstance(subtree, dict):
-            raise ValueError(f"LLM value for {node!r} must be an object")
+        if not isinstance(subtree, (dict, list)):
+            raise ValueError(f"LLM value for {node!r} must be an object or array")
         if node == "curriculum":
             coalesce_curriculum_subtree_from_llm(subtree)
         program[node] = copy.deepcopy(subtree)

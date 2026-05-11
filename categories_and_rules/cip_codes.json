@@ -1,0 +1,234 @@
+{
+  "items": [
+    {
+      "id": "INVALID",
+      "label": "INVALID",
+      "description": "Sentinel: the provided CIP code was not recognized. Repair to a valid id."
+    },
+    {
+      "id": "unknown",
+      "label": "unknown",
+      "description": "CIP code could not be determined from available evidence."
+    },
+    {
+      "id": "04.0201",
+      "label": "Architecture",
+      "description": "Programs that prepare individuals to design buildings, structures, and built environments. Graduate programs in architecture typically lead to M.Arch degrees."
+    },
+    {
+      "id": "04.0301",
+      "label": "City/Urban, Community, and Regional Planning",
+      "description": "Programs focused on the planning and design of urban environments, communities, and regional spaces."
+    },
+    {
+      "id": "04.0401",
+      "label": "Environmental Design/Architecture",
+      "description": "Programs that integrate ecological and environmental concerns into design and spatial planning."
+    },
+    {
+      "id": "04.0403",
+      "label": "Sustainable Design/Architecture",
+      "description": "Programs focused on sustainable approaches to the design of buildings, products, and systems."
+    },
+    {
+      "id": "04.0501",
+      "label": "Interior Architecture",
+      "description": "Programs that focus on the design and planning of interior spaces as architectural environments."
+    },
+    {
+      "id": "09.0702",
+      "label": "Digital Communication and Media/Multimedia",
+      "description": "Programs covering the production and distribution of digital content across platforms and media channels."
+    },
+    {
+      "id": "09.0909",
+      "label": "Communication Management and Strategic Communications",
+      "description": "Programs focused on planning and managing organizational communication strategies."
+    },
+    {
+      "id": "11.0101",
+      "label": "Computer and Information Sciences, General",
+      "description": "General programs covering the theory and practice of computing, information systems, and digital technologies."
+    },
+    {
+      "id": "11.0104",
+      "label": "Informatics",
+      "description": "Programs integrating computing, information science, and domain expertise; often human- or organization-centered."
+    },
+    {
+      "id": "11.0105",
+      "label": "Human-Centered Technology Design",
+      "description": "Programs explicitly focused on designing technology for human needs, overlapping with HCI and UX."
+    },
+    {
+      "id": "11.0401",
+      "label": "Information Science/Studies",
+      "description": "Programs covering the organization, retrieval, and management of information; includes library and information science traditions."
+    },
+    {
+      "id": "11.0701",
+      "label": "Computer Science",
+      "description": "Programs focused on the theory, design, and implementation of software and computational systems."
+    },
+    {
+      "id": "11.0801",
+      "label": "Web Page, Digital/Multimedia and Information Resources Design",
+      "description": "Programs focused on the design and production of digital and multimedia content for web and interactive environments."
+    },
+    {
+      "id": "11.0804",
+      "label": "Modeling, Virtual Environments and Simulation",
+      "description": "Programs covering 3D modeling, simulation, VR/AR, and virtual environment design."
+    },
+    {
+      "id": "14.0101",
+      "label": "Engineering, General",
+      "description": "General engineering programs not confined to a single discipline; used for interdisciplinary or integrated engineering degrees."
+    },
+    {
+      "id": "14.1901",
+      "label": "Mechanical Engineering",
+      "description": "Programs covering the design, analysis, and manufacturing of mechanical systems and devices."
+    },
+    {
+      "id": "14.2701",
+      "label": "Systems Engineering",
+      "description": "Programs focused on the design and management of complex integrated systems across disciplines."
+    },
+    {
+      "id": "14.3501",
+      "label": "Industrial Engineering",
+      "description": "Programs focused on optimizing processes, systems, and organizations through engineering analysis and design."
+    },
+    {
+      "id": "14.4201",
+      "label": "Mechatronics, Robotics, and Automation Engineering",
+      "description": "Programs integrating mechanical, electrical, and computing engineering for robotics and automated systems design."
+    },
+    {
+      "id": "14.9999",
+      "label": "Engineering, Other",
+      "description": "Engineering programs not classifiable under a standard 14.xx code; use when an engineering program doesn't fit a named specialty."
+    },
+    {
+      "id": "15.1307",
+      "label": "3-D Modeling and Design Technology/Technician",
+      "description": "Programs focused on 3D design, digital fabrication, and spatial representation using CAD/CAM tools."
+    },
+    {
+      "id": "15.1502",
+      "label": "Engineering Design",
+      "description": "Programs explicitly focused on the design process within engineering contexts; covers product and systems design."
+    },
+    {
+      "id": "50.0101",
+      "label": "Visual and Performing Arts, General",
+      "description": "General programs spanning the visual and performing arts; used when a program doesn't fit a narrower arts category."
+    },
+    {
+      "id": "50.0102",
+      "label": "Digital Arts",
+      "description": "Programs focused on art and design created with or for digital technologies and environments."
+    },
+    {
+      "id": "50.0401",
+      "label": "Design and Visual Communications, General",
+      "description": "Primary CIP code for graduate design programs focused on communication, interaction, visual systems, or multidisciplinary design practice. Includes MDes programs not better classified under a specific design specialty."
+    },
+    {
+      "id": "50.0402",
+      "label": "Commercial and Advertising Art",
+      "description": "Programs focused on art and design for commercial, marketing, and advertising purposes."
+    },
+    {
+      "id": "50.0404",
+      "label": "Industrial and Product Design",
+      "description": "Programs focused on the design of physical products, manufacturing processes, and human-object interaction."
+    },
+    {
+      "id": "50.0407",
+      "label": "Fashion/Apparel Design",
+      "description": "Programs focused on the design of clothing, accessories, and wearable products."
+    },
+    {
+      "id": "50.0408",
+      "label": "Interior Design",
+      "description": "Programs focused on the design of interior spaces for function, aesthetics, and human experience."
+    },
+    {
+      "id": "50.0409",
+      "label": "Graphic Design",
+      "description": "Programs focused on visual communication through typography, layout, and image composition for print and digital media."
+    },
+    {
+      "id": "50.0410",
+      "label": "Illustration",
+      "description": "Programs focused on image-making for editorial, narrative, or commercial contexts."
+    },
+    {
+      "id": "50.0411",
+      "label": "Game and Interactive Media Design",
+      "description": "Programs focused on the design of games, interactive experiences, and immersive media."
+    },
+    {
+      "id": "50.0499",
+      "label": "Design and Applied Arts, Other",
+      "description": "Design programs not classifiable under a specific 50.04xx code; use for interdisciplinary or emerging design specializations."
+    },
+    {
+      "id": "50.0601",
+      "label": "Film/Cinema/Media Studies",
+      "description": "Programs covering the study, production, and criticism of film and media."
+    },
+    {
+      "id": "50.0702",
+      "label": "Fine/Studio Arts, General",
+      "description": "Programs focused on studio art practice across media; used for fine arts graduate programs without a specific medium specialization."
+    },
+    {
+      "id": "50.0706",
+      "label": "Intermedia/Multimedia",
+      "description": "Programs exploring art and design across multiple media or at the intersection of disciplines."
+    },
+    {
+      "id": "50.1001",
+      "label": "Arts, Entertainment, and Media Management, General",
+      "description": "Programs covering business and management of arts, media, and entertainment organizations."
+    },
+    {
+      "id": "50.9999",
+      "label": "Visual and Performing Arts, Other",
+      "description": "Visual and performing arts programs not classifiable under any specific 50.xx code."
+    },
+    {
+      "id": "52.0201",
+      "label": "Business Administration and Management, General",
+      "description": "General graduate business programs (e.g., MBA); used when a program has a primary business administration framing."
+    },
+    {
+      "id": "52.0211",
+      "label": "Project Management",
+      "description": "Programs focused on the planning, execution, and management of projects in organizational contexts."
+    },
+    {
+      "id": "52.0216",
+      "label": "Science/Technology Management",
+      "description": "Programs at the intersection of scientific or technical expertise and organizational management."
+    },
+    {
+      "id": "52.0701",
+      "label": "Entrepreneurship/Entrepreneurial Studies",
+      "description": "Programs focused on new venture creation, innovation, and entrepreneurial thinking."
+    },
+    {
+      "id": "52.1201",
+      "label": "Management Information Systems, General",
+      "description": "Programs integrating business management with information systems and technology strategy."
+    },
+    {
+      "id": "52.1301",
+      "label": "Management Science",
+      "description": "Programs applying quantitative and analytical methods to organizational decision-making and strategy."
+    }
+  ]
+}

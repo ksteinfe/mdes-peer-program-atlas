@@ -22,6 +22,7 @@ ATLAS_INGEST_STAGES: frozenset[str] = frozenset(
         "curriculum_course_research",
         "curriculum_course_llm",
         "identity",
+        "historical",
         "complete",
     }
 )
@@ -43,6 +44,8 @@ def build_ingest_skeleton(program_id: str, base_url: str) -> dict[str, Any]:
             "host_academic_units": [],
             "host_academic_model": None,
             "location_label": None,
+            "first_degree_granted_year": None,
+            "cip_code": None,
         },
         "positioning": {
             "positioning_summary": None,
@@ -69,6 +72,7 @@ def build_ingest_skeleton(program_id: str, base_url: str) -> dict[str, Any]:
                 "estimated_elective_course_count": None,
             },
         },
+        "historical": [],
         "verification": {
             "status": "llm_extracted",
             "verified_by": "",

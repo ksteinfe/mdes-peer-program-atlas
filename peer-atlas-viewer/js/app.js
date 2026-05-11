@@ -58,6 +58,8 @@ const EDITABLE_PATHS = [
   "identity.host_academic_units",
   "identity.host_academic_model",
   "identity.location_label",
+  "identity.first_degree_granted_year",
+  "identity.cip_code",
   "positioning.positioning_summary",
   "positioning.positioning_tags",
   "duration.length_in_berkeley_semesters",
@@ -74,6 +76,7 @@ const EDITABLE_PATHS = [
   "curriculum.curriculum_summary",
   "curriculum.offers_specialization",
   "curriculum.electives.summary",
+  "historical",
 ];
 
 function setStatus(msg) {
@@ -854,6 +857,91 @@ function buildSampleCoursesSectionHtml(curriculumObj) {
 /**
  * @param {object} p
  */
+function buildHistoricalSectionHtml(p) {
+  const hist = Array.isArray(p.historical) ? p.historical : [];
+  const sorted = [...hist].sort((a, b) =>
+    String(b.academic_year ?? "").localeCompare(String(a.academic_year ?? ""))
+  );
+  let html = `<section class="detail-section"><h3>Historical degrees granted</h3>`;
+  if (editMode) {
+    if (hist.length === 0) {
+      html += `<p class="detail-empty">No data yet. Add a row below.</p>`;
+    } else {
+      html += `<table class="def-table"><thead><tr><th>Academic Year</th><th>Degrees Granted</th><th></th></tr></thead><tbody>`;
+      for (let i = 0; i < hist.length; i++) {
+        const e = hist[i] && typeof hist[i] === "object" ? hist[i] : {};
+        const ay = String(e.academic_year ?? "");
+        const dg = e.degrees_granted === null || e.degrees_granted === undefined ? "" : String(e.degrees_granted);
+        html += `<tr>`;
+        html += `<td><input type="text" data-hist-idx="${i}" data-hist-field="academic_year" value="${esc(ay)}" placeholder="e.g. 2022-23" /></td>`;
+        html += `<td><input type="number" data-hist-idx="${i}" data-hist-field="degrees_granted" value="${esc(dg)}" step="1" min="0" /></td>`;
+        html += `<td><button type="button" class="hist-row-remove" data-hist-idx="${i}">Remove</button></td>`;
+        html += `</tr>`;
+      }
+      html += `</tbody></table>`;
+    }
+    html += `<button type="button" id="hist-add-row" style="margin-top:0.5rem">+ Add year</button>`;
+  } else {
+    if (sorted.length === 0) {
+      html += `<p class="detail-empty">No historical degree data collected.</p>`;
+    } else {
+      html += `<table class="def-table"><tr><th>Academic Year</th><th>Degrees Granted</th></tr>`;
+      for (const e of sorted) {
+        const ay = String(e.academic_year ?? "");
+        const dg = e.degrees_granted === null || e.degrees_granted === undefined ? "—" : String(e.degrees_granted);
+        html += `<tr><td>${esc(ay)}</td><td>${esc(dg)}</td></tr>`;
+      }
+      html += `</table>`;
+    }
+  }
+  html += `</section>`;
+  return html;
+}
+
+function onHistInput(e) {
+  const t = e.target;
+  if (!(t instanceof HTMLInputElement)) return;
+  const idx = parseInt(/** @type {HTMLElement} */ (t).dataset.histIdx ?? "", 10);
+  const field = /** @type {HTMLElement} */ (t).dataset.histField;
+  if (isNaN(idx) || !field || !detailProgramId) return;
+  const p = findProgram(detailProgramId);
+  if (!p) return;
+  if (!Array.isArray(p.historical)) p.historical = [];
+  const entry = p.historical[idx];
+  if (!entry || typeof entry !== "object") return;
+  if (field === "degrees_granted") {
+    const s = t.value.trim();
+    entry.degrees_granted = s === "" ? null : Number(s);
+  } else {
+    entry[field] = t.value;
+  }
+  syncEditChrome();
+}
+
+function onHistRemove(e) {
+  const t = /** @type {HTMLElement} */ (e.currentTarget);
+  const idx = parseInt(t.dataset.histIdx ?? "", 10);
+  if (isNaN(idx) || !detailProgramId) return;
+  const p = findProgram(detailProgramId);
+  if (!p || !Array.isArray(p.historical)) return;
+  p.historical.splice(idx, 1);
+  renderDetailBody();
+  syncEditChrome();
+}
+
+function onHistAddRow() {
+  if (!detailProgramId) return;
+  const p = findProgram(detailProgramId);
+  if (!p) return;
+  if (!Array.isArray(p.historical)) p.historical = [];
+  p.historical.push({ academic_year: "", degrees_granted: null });
+  renderDetailBody();
+  syncEditChrome();
+}
+
+/**
+ * @param {object} p
+ */
 function setProgramDialogTitle(p) {
   const titleEl = $("#dlg-detail-title");
   if (!titleEl || !p) return;
@@ -1219,6 +1307,16 @@ function renderDetailBody() {
     })
     .join("");
 
+  const cipIdVal = String(ident.cip_code ?? "");
+  const cipItems = (categories.cip_codes?.items ?? []).filter((x) => x && x.id);
+  const cipIds = new Set(cipItems.map((x) => x.id));
+  let cipOptions = cipItems
+    .map((x) => `<option value="${esc(x.id)}">${esc(x.id)}${x.label && x.label !== x.id ? " — " + esc(x.label) : ""}</option>`)
+    .join("");
+  if (cipIdVal && !cipIds.has(cipIdVal)) {
+    cipOptions = `<option value="${esc(cipIdVal)}">${esc(cipIdVal)}</option>` + cipOptions;
+  }
+
   const unitsStr = (ident.host_academic_units ?? []).join(", ");
 
   /** @param {string} path @param {string} label @param {string} inner @returns {string} */
@@ -1273,6 +1371,16 @@ function renderDetailBody() {
       "Location",
       `<input type="text" data-path="identity.location_label" value="${esc(ident.location_label ?? "")}" />`
     );
+    html += fieldRow(
+      "identity.first_degree_granted_year",
+      "First degree year",
+      `<input type="text" data-path="identity.first_degree_granted_year" value="${esc(String(ident.first_degree_granted_year ?? ""))}" placeholder="e.g. 1998 or unknown" />`
+    );
+    html += fieldRow(
+      "identity.cip_code",
+      "CIP code",
+      `<select data-path="identity.cip_code">${cipOptions}</select>`
+    );
   } else {
     html += `<tr><th>Institution</th><td>${esc(ident.institution_name ?? "")}</td></tr>`;
     html += `<tr><th>Program</th><td>${esc(ident.program_name ?? "")}</td></tr>`;
@@ -1281,6 +1389,9 @@ function renderDetailBody() {
     html += `<tr><th>Host academic units</th><td>${esc(unitsStr)}</td></tr>`;
     html += `<tr><th>Host academic model</th><td>${esc(labelForId("host_academic_models", String(ident.host_academic_model ?? "")))}</td></tr>`;
     html += `<tr><th>Location</th><td>${esc(ident.location_label ?? "")}</td></tr>`;
+    html += `<tr><th>First degree year</th><td>${esc(String(ident.first_degree_granted_year ?? ""))}</td></tr>`;
+    const cipLabel = labelForId("cip_codes", cipIdVal);
+    html += `<tr><th>CIP code</th><td>${esc(cipIdVal)}${cipLabel && cipLabel !== cipIdVal ? " — " + esc(cipLabel) : ""}</td></tr>`;
   }
   html += `</table></section>`;
 
@@ -1433,6 +1544,8 @@ function renderDetailBody() {
   }
   html += `</table></section>`;
 
+  html += buildHistoricalSectionHtml(p);
+
   html += buildSampleCoursesSectionHtml(cur);
 
   root.innerHTML = html;
@@ -1442,6 +1555,8 @@ function renderDetailBody() {
   if (editMode) {
     const selHost = root.querySelector('[data-path="identity.host_academic_model"]');
     if (selHost instanceof HTMLSelectElement) selHost.value = String(ident.host_academic_model ?? "");
+    const selCip = root.querySelector('[data-path="identity.cip_code"]');
+    if (selCip instanceof HTMLSelectElement) selCip.value = String(ident.cip_code ?? "");
     const selDur = root.querySelector('[data-path="duration.duration_category"]');
     if (selDur instanceof HTMLSelectElement) selDur.value = String(dur.duration_category ?? "");
     const selUnit = root.querySelector('[data-path="curriculum.unit_system"]');
@@ -1467,6 +1582,14 @@ function renderDetailBody() {
         if (path) resetField(path);
       });
     });
+    root.querySelectorAll("input[data-hist-idx]").forEach((el) => {
+      el.addEventListener("input", onHistInput);
+    });
+    root.querySelectorAll(".hist-row-remove").forEach((btn) => {
+      btn.addEventListener("click", onHistRemove);
+    });
+    const histAddBtn = root.querySelector("#hist-add-row");
+    if (histAddBtn) histAddBtn.addEventListener("click", onHistAddRow);
   }
 }
 

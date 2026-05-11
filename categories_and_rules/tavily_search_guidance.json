@@ -31,6 +31,13 @@
         "site:{seed_url} program"
       ],
       "skip_query_if_placeholder_empty": ["seed_url"]
+    },
+    "historical": {
+      "queries": [
+        "{label} degrees granted graduates completions statistics",
+        "{institution} IPEDS completions {program_name} degrees conferred",
+        "{institution} annual report fact book degrees conferred"
+      ]
     }
   },
   "curriculum_core_course": {

@@ -14,6 +14,7 @@ CATEGORY_FILES = {
     "verification_statuses": "verification_statuses.json",
     "positioning_tags": "positioning_tags.json",
     "host_academic_models": "host_academic_models.json",
+    "cip_codes": "cip_codes.json",
 }
 
 RULES_DIR = "categories_and_rules"

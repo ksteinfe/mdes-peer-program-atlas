@@ -16,6 +16,7 @@
     "duration",
     "degree_cost",
     "curriculum",
+    "historical",
     "verification"
   ],
   "additionalProperties": false,
@@ -52,6 +53,7 @@
             "curriculum_course_research",
             "curriculum_course_llm",
             "identity",
+            "historical",
             "complete"
           ]
         },
@@ -86,6 +88,7 @@
     "duration": { "$ref": "#/$defs/duration" },
     "degree_cost": { "$ref": "#/$defs/degreeCost" },
     "curriculum": { "$ref": "#/$defs/curriculum" },
+    "historical": { "$ref": "#/$defs/historical" },
     "verification": { "$ref": "#/$defs/verification" }
   },
   "$defs": {
@@ -116,7 +119,9 @@
         "degree_type",
         "host_academic_units",
         "host_academic_model",
-        "location_label"
+        "location_label",
+        "first_degree_granted_year",
+        "cip_code"
       ],
       "additionalProperties": false,
       "properties": {
@@ -129,7 +134,15 @@
           "items": { "type": "string" }
         },
         "host_academic_model": { "type": ["string", "null"] },
-        "location_label": { "type": ["string", "null"] }
+        "location_label": { "type": ["string", "null"] },
+        "first_degree_granted_year": {
+          "type": ["string", "null"],
+          "description": "First calendar year the program granted a degree. Use 'unknown' when unpublished. Null during ingest."
+        },
+        "cip_code": {
+          "type": ["string", "null"],
+          "description": "Best-matching 6-digit CIP 2020 code. Use 'unknown' when not determinable. Null during ingest."
+        }
       }
     },
     "positioning": {
@@ -248,6 +261,27 @@
         },
         "electives": { "$ref": "#/$defs/curriculumElectives" }
       }
+    },
+    "historicalEntry": {
+      "type": "object",
+      "required": ["academic_year", "degrees_granted"],
+      "additionalProperties": false,
+      "properties": {
+        "academic_year": {
+          "type": ["string", "null"],
+          "description": "Academic year label (e.g. '2022-23')."
+        },
+        "degrees_granted": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Number of degrees granted by the program in this academic year."
+        }
+      }
+    },
+    "historical": {
+      "type": "array",
+      "description": "Year-by-year degrees-granted data. Each entry covers one academic year. An empty array is valid when no data has been collected.",
+      "items": { "$ref": "#/$defs/historicalEntry" }
     },
     "verification": {
       "type": "object",

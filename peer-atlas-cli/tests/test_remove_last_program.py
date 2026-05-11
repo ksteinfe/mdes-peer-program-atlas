@@ -31,6 +31,7 @@ def _write_corpus(root: Path, programs: list) -> None:
         "sequencedness.json",
         "verification_statuses.json",
         "course_types.json",
+        "cip_codes.json",
     ):
         src = Path(__file__).resolve().parents[2] / "categories_and_rules" / fn
         if src.is_file():
@@ -64,6 +65,8 @@ def _minimal_prog(pid: str, *, da: str | None = None, du: str | None = None) -> 
             "host_academic_units": ["D"],
             "host_academic_model": "design_hosted",
             "location_label": "US",
+            "first_degree_granted_year": "unknown",
+            "cip_code": "unknown",
         },
         "positioning": {"positioning_summary": "", "positioning_tags": ["professional"]},
         "duration": {
@@ -84,6 +87,7 @@ def _minimal_prog(pid: str, *, da: str | None = None, du: str | None = None) -> 
             "core_courses": [],
             "electives": {"summary": "", "estimated_elective_course_count": None},
         },
+        "historical": [],
         "verification": {
             "status": "llm_extracted",
             "verified_by": "",

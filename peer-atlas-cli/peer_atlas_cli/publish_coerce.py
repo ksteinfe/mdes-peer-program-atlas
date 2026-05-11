@@ -22,7 +22,7 @@ _STRICT_NULLABLE_KEYS: frozenset[str] = frozenset(
 )
 
 # Keys where null must become "unknown" (not "") because the schema requires minLength: 1
-_NONE_TO_UNKNOWN_KEYS: frozenset[str] = frozenset({"first_degree_granted_year", "cip_code"})
+_NONE_TO_UNKNOWN_KEYS: frozenset[str] = frozenset({"first_degree_granted_year"})
 
 
 def coerce_none_strings_for_publish(program: dict[str, Any]) -> None:

@@ -98,8 +98,7 @@
         "host_academic_units",
         "host_academic_model",
         "location_label",
-        "first_degree_granted_year",
-        "cip_code"
+        "first_degree_granted_year"
       ],
       "additionalProperties": false,
       "properties": {
@@ -122,9 +121,12 @@
           "description": "First calendar year the program granted a degree (e.g. '1998'). Use 'unknown' when unpublished."
         },
         "cip_code": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Best-matching 6-digit CIP 2020 code (e.g. '50.0401'). Use 'unknown' when no code can be determined. See categories_and_rules/cip_codes.json."
+          "type": ["string", "null"],
+          "description": "Best-matching 6-digit CIP 2020 code (e.g. '50.0401'). US institutions only; null for non-US programs or when unmatched. Use 'unknown' when location is US but code cannot be determined. See categories_and_rules/cip_codes.json."
+        },
+        "ipeds_unitid": {
+          "type": ["string", "null"],
+          "description": "IPEDS UnitID of the host institution (6-digit string, e.g. '110635'). Null for international institutions or when unmatched."
         }
       }
     },

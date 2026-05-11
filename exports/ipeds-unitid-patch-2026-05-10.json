@@ -1,0 +1,274 @@
+{
+  "patch_metadata": {
+    "created_at": "2026-05-10",
+    "created_by": "tools/lookup-ipeds-unitids.py",
+    "source_corpus_name": "MDes Peer Program Comparator Corpus",
+    "notes": "IPEDS UnitID 34 programs auto-matched from HD2024; 10 programs manually matched"
+  },
+  "changes": [
+    {
+      "program_id": "berkeley_mims",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "110635"
+    },
+    {
+      "program_id": "berkeley_mdes",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "110635"
+    },
+    {
+      "program_id": "artcenter_media_design_practices",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "109651"
+    },
+    {
+      "program_id": "cmu_master_computational_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "211440"
+    },
+    {
+      "program_id": "cmu_master_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "211440"
+    },
+    {
+      "program_id": "dartmouth_ms_cs_digital_arts",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "182670"
+    },
+    {
+      "program_id": "iit_master_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "145725"
+    },
+    {
+      "program_id": "harvard_master_design_engineering",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "166027"
+    },
+    {
+      "program_id": "harvard_master_design_studies",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "166027"
+    },
+    {
+      "program_id": "stanford_ms_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "243744"
+    },
+    {
+      "program_id": "umich_mdes_integrative_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "170976"
+    },
+    {
+      "program_id": "nyu_itp",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "193900"
+    },
+    {
+      "program_id": "nyu_ms_emerging_technologies",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "193900"
+    },
+    {
+      "program_id": "nyu_integrated_design_media",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "193900"
+    },
+    {
+      "program_id": "northwestern_ms_engineering_design_innovation",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "147767"
+    },
+    {
+      "program_id": "calarts_integrated_media",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "111081"
+    },
+    {
+      "program_id": "northwestern_product_design_development_management",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "147767"
+    },
+    {
+      "program_id": "risd_ma_design_engineering",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "217493"
+    },
+    {
+      "program_id": "sjsu_ms_human_factors_ergonomics",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "122755"
+    },
+    {
+      "program_id": "sva_mfa_interaction_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "197151"
+    },
+    {
+      "program_id": "ucsb_media_arts_technology",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "110705"
+    },
+    {
+      "program_id": "colorado_ms_creative_technology_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "126614"
+    },
+    {
+      "program_id": "columbia_ms_computational_design_practices",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "190150"
+    },
+    {
+      "program_id": "uiuc_mfa_design_responsible_innovation",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "145637"
+    },
+    {
+      "program_id": "uiuc_mdes",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "145637"
+    },
+    {
+      "program_id": "umich_ms_information",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "170976"
+    },
+    {
+      "program_id": "upenn_integrated_product_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "215062"
+    },
+    {
+      "program_id": "uw_ms_hcde",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "236948"
+    },
+    {
+      "program_id": "uw_ms_technology_innovation",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "236948"
+    },
+    {
+      "program_id": "uw_mhcid",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "236948"
+    },
+    {
+      "program_id": "cca_mdes_interaction_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "110370"
+    },
+    {
+      "program_id": "cca_mba_design_strategy",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "110370"
+    },
+    {
+      "program_id": "cmu_mssm",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "211440"
+    },
+    {
+      "program_id": "cmu_entertainment_technology_center",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "211440"
+    },
+    {
+      "program_id": "cmu_mhci",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "211440"
+    },
+    {
+      "program_id": "georgia_tech_master_industrial_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "139755"
+    },
+    {
+      "program_id": "georgia_tech_ms_digital_media",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "139755"
+    },
+    {
+      "program_id": "cmu_miips",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "211440"
+    },
+    {
+      "program_id": "georgia_tech_ms_hci",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "139755"
+    },
+    {
+      "program_id": "pratt_ms_information_experience_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "194578"
+    },
+    {
+      "program_id": "mit_art_culture_technology",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "166683"
+    },
+    {
+      "program_id": "mit_system_design_management",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "166683"
+    },
+    {
+      "program_id": "mit_media_arts_sciences",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "166683"
+    },
+    {
+      "program_id": "scad_mfa_ux_design",
+      "path": "identity.ipeds_unitid",
+      "old_value": null,
+      "new_value": "140951"
+    }
+  ]
+}

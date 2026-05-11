@@ -378,6 +378,244 @@
           "note": "The program is UC Berkeley-based; Berkeley, California, United States is the appropriate location label for the host institution.",
           "llm_title": "Master of Information Management and Systems",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://www.ischool.berkeley.edu/news/2023/25th-anniversary-mims-program-celebrates-past-present-and-future-i-school",
+          "note": "A 2023 news article celebrates the 25th anniversary of the MIMS program, which places the program's inception/first degrees around 1998.",
+          "llm_title": "25th Anniversary: MIMS Program Celebrates Past, Present, and Future of the I School",
+          "retrieved_date": "2025-03-03"
+        },
+        {
+          "feature": "identity.institution_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page identifies the offering as UC Berkeley’s School of Information MIMS program, supporting the institution name as UC Berkeley School of Information.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.program_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The page headline is 'Master of Information Management and Systems' and the body refers to 'Earn your Master of Information Management and Systems (MIMS),' supporting the program name.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.credential_name",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "UC Berkeley’s graduate programs list includes 'Information Management & Systems MIMS' as a Masters / Professional program, supporting the credential name and degree level.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.degree_type",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "The graduate programs listing classifies Information Management & Systems MIMS under 'Masters / Professional,' supporting the degree type.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_units.0",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page repeatedly states that MIMS is offered at UC Berkeley’s School of Information, supporting the host academic unit.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_model",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Because the program is housed in the School of Information, the host academic model is best classified as computing_hosted.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.location_label",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program is UC Berkeley-based; Berkeley, California, United States is the appropriate location label for the host institution.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://www.ischool.berkeley.edu/news/2023/25th-anniversary-mims-program-celebrates-past-present-and-future-i-school",
+          "note": "A 2023 news article celebrates the 25th anniversary of the MIMS program, which places the program's inception/first degrees around 1998.",
+          "llm_title": "25th Anniversary: MIMS Program Celebrates Past, Present, and Future of the I School",
+          "retrieved_date": "2025-03-03"
+        },
+        {
+          "feature": "identity.institution_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page identifies the offering as UC Berkeley’s School of Information MIMS program, supporting the institution name as UC Berkeley School of Information.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.program_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The page headline is 'Master of Information Management and Systems' and the body refers to 'Earn your Master of Information Management and Systems (MIMS),' supporting the program name.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.credential_name",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "UC Berkeley’s graduate programs list includes 'Information Management & Systems MIMS' as a Masters / Professional program, supporting the credential name and degree level.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.degree_type",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "The graduate programs listing classifies Information Management & Systems MIMS under 'Masters / Professional,' supporting the degree type.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_units.0",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page repeatedly states that MIMS is offered at UC Berkeley’s School of Information, supporting the host academic unit.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_model",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Because the program is housed in the School of Information, the host academic model is best classified as computing_hosted.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.location_label",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program is UC Berkeley-based; Berkeley, California, United States is the appropriate location label for the host institution.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://www.ischool.berkeley.edu/news/2023/25th-anniversary-mims-program-celebrates-past-present-and-future-i-school",
+          "note": "A 2023 news article celebrates the 25th anniversary of the MIMS program, which places the program's inception/first degrees around 1998.",
+          "llm_title": "25th Anniversary: MIMS Program Celebrates Past, Present, and Future of the I School",
+          "retrieved_date": "2025-03-03"
+        },
+        {
+          "feature": "identity.institution_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page identifies the offering as UC Berkeley’s School of Information MIMS program, supporting the institution name as UC Berkeley School of Information.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.program_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The page headline is 'Master of Information Management and Systems' and the body refers to 'Earn your Master of Information Management and Systems (MIMS),' supporting the program name.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.credential_name",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "UC Berkeley’s graduate programs list includes 'Information Management & Systems MIMS' as a Masters / Professional program, supporting the credential name and degree level.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.degree_type",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "The graduate programs listing classifies Information Management & Systems MIMS under 'Masters / Professional,' supporting the degree type.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_units.0",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page repeatedly states that MIMS is offered at UC Berkeley’s School of Information, supporting the host academic unit.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_model",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Because the program is housed in the School of Information, the host academic model is best classified as computing_hosted.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.location_label",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program is UC Berkeley-based; Berkeley, California, United States is the appropriate location label for the host institution.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://www.ischool.berkeley.edu/news/2023/25th-anniversary-mims-program-celebrates-past-present-and-future-i-school",
+          "note": "A 2023 news article celebrates the 25th anniversary of the MIMS program, which places the program's inception/first degrees around 1998.",
+          "llm_title": "25th Anniversary: MIMS Program Celebrates Past, Present, and Future of the I School",
+          "retrieved_date": "2025-03-03"
+        },
+        {
+          "feature": "identity.institution_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page identifies the offering as UC Berkeley’s School of Information MIMS program, supporting the institution name as UC Berkeley School of Information.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.program_name",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The page headline is 'Master of Information Management and Systems' and the body refers to 'Earn your Master of Information Management and Systems (MIMS),' supporting the program name.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.credential_name",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "UC Berkeley’s graduate programs list includes 'Information Management & Systems MIMS' as a Masters / Professional program, supporting the credential name and degree level.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.degree_type",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "The graduate programs listing classifies Information Management & Systems MIMS under 'Masters / Professional,' supporting the degree type.",
+          "llm_title": "Our Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_units.0",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program page repeatedly states that MIMS is offered at UC Berkeley’s School of Information, supporting the host academic unit.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_model",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "Because the program is housed in the School of Information, the host academic model is best classified as computing_hosted.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.location_label",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program is UC Berkeley-based; Berkeley, California, United States is the appropriate location label for the host institution.",
+          "llm_title": "Master of Information Management and Systems",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://www.ischool.berkeley.edu/news/2023/25th-anniversary-mims-program-celebrates-past-present-and-future-i-school",
+          "note": "A 2023 news article celebrates the 25th anniversary of the MIMS program, which places the program's inception/first degrees around 1998.",
+          "llm_title": "25th Anniversary: MIMS Program Celebrates Past, Present, and Future of the I School",
+          "retrieved_date": "2025-03-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.ischool.berkeley.edu/programs/mims",
+          "note": "The program is a Master of Information Management and Systems, which aligns with the CIP code for Information Science/Studies. The curriculum's focus on information management, systems, and interdisciplinary elements such as computer science, data systems, and human-centered design supports this classification. Alternatives like Informatics or Human-Centered Technology Design were considered but did not fully capture the program's breadth.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -389,7 +627,10 @@
           "UC Berkeley School of Information"
         ],
         "host_academic_model": "computing_hosted",
-        "location_label": "Berkeley, California, United States"
+        "location_label": "Berkeley, California, United States",
+        "first_degree_granted_year": "1998",
+        "cip_code": "11.0401",
+        "ipeds_unitid": "110635"
       },
       "positioning": {
         "positioning_summary": "UC Berkeley’s MIMS is positioned as a two-year, full-time professional master’s for aspiring technology leaders and information professionals, with a strongly interdisciplinary curriculum spanning computer science, data systems/AI, human-centered design/UX, policy, ethics, law, and management. The program also signals a practical, career-oriented focus through hands-on project work, internships, and outcomes in UX, product, data, and tech leadership, while explicitly framing its work around ethical technology and social impact.",
@@ -398,7 +639,8 @@
           "hci_adjacent",
           "ui_ux",
           "human_centered",
-          "public_policy_adjacent"
+          "public_policy_adjacent",
+          "humanities_adjacent"
         ]
       },
       "duration": {
@@ -535,7 +777,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T19:37:25Z",
-      "date_updated": "2026-05-08T17:32:41Z",
+      "date_updated": "2026-05-11T15:32:02Z",
       "sources": [
         "http://ischool.berkeley.edu/programs/mims",
         "http://ischool.berkeley.edu/programs/mims/paths",
@@ -684,7 +926,8 @@
         "https://www.ischool.berkeley.edu/projects/2026/whimsi-where-travel-journeys-stick",
         "https://www.ischool.berkeley.edu/research-areas/information-economics",
         "https://www.ischool.berkeley.edu/research/publications/1991/user-illusion-and-information-retrieval"
-      ]
+      ],
+      "historical": []
     },
     {
       "program_id": "berkeley_mdes",
@@ -1172,6 +1415,90 @@
           "note": "The curriculum map provides term-specific placement for the required core sequence across Fall, Spring, Summer, and Year Two, but electives remain flexible. Because a substantial minority of required work is not fixed beyond the sample plan and electives are open, the program is best labeled partially_sequenced.",
           "llm_title": "MDes curriculum map",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "historical",
+          "source_url": "https://design.berkeley.edu/",
+          "note": "The evidence reviewed did not provide explicit counts of completed degrees for any academic year.",
+          "llm_title": "Home - Berkeley MDes",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.institution_name",
+          "source_url": "https://grad.berkeley.edu/program/master-of-design/",
+          "note": "The Graduate Division program page identifies the program as Berkeley's Design MDes and places it at UC Berkeley.",
+          "llm_title": "Design MDes - UC Berkeley Graduate Division",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.program_name",
+          "source_url": "https://grad.berkeley.edu/program/master-of-design/",
+          "note": "The program page names the offering 'Design MDes' and describes it as the Berkeley Master of Design.",
+          "llm_title": "Design MDes - UC Berkeley Graduate Division",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.credential_name",
+          "source_url": "https://grad.berkeley.edu/program/master-of-design/",
+          "note": "The page explicitly refers to the credential as the Master of Design (MDes).",
+          "llm_title": "Design MDes - UC Berkeley Graduate Division",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.degree_type",
+          "source_url": "https://grad.berkeley.edu/admissions/our-programs/",
+          "note": "UC Berkeley Graduate Division lists Design MDes as a Masters / Professional program.",
+          "llm_title": "UC Berkeley Graduate Programs",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_units",
+          "source_url": "https://grad.berkeley.edu/program/master-of-design/",
+          "note": "The program page states the MDes is jointly offered by the College of Engineering and the College of Environmental Design; the studio/facilities page also identifies Jacobs Hall/Jacobs Institute as the home base for the program.",
+          "llm_title": "Design MDes - UC Berkeley Graduate Division",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.host_academic_model",
+          "source_url": "https://grad.berkeley.edu/program/master-of-design/",
+          "note": "Because the program is jointly offered by the College of Engineering and the College of Environmental Design, the shared-hosted engineering + design model applies.",
+          "llm_title": "Design MDes - UC Berkeley Graduate Division",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.location_label",
+          "source_url": "https://design.berkeley.edu/about-mdes/studio-facilities",
+          "note": "The studio and facilities page places Jacobs Hall and the MDes Studio in Berkeley, Calif., supporting the location label Berkeley, California, USA.",
+          "llm_title": "MDes Studio & Facilities - Berkeley MDes",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "historical",
+          "source_url": "https://design.berkeley.edu/",
+          "note": "The evidence reviewed did not provide explicit counts of completed degrees for any academic year.",
+          "llm_title": "Home - Berkeley MDes",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://design.berkeley.edu/",
+          "note": "The evidence reviewed did not provide explicit counts of completed degrees for any academic year.",
+          "llm_title": "Home - Berkeley MDes",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://design.berkeley.edu/",
+          "note": "The evidence reviewed did not provide explicit counts of completed degrees for any academic year.",
+          "llm_title": "Home - Berkeley MDes",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://design.berkeley.edu/",
+          "note": "The institution has no IPEDS UnitID on record, so CIP codes do not apply.",
+          "llm_title": "CIP code not applicable",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -1185,7 +1512,9 @@
           "Jacobs Institute for Design Innovation"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Berkeley, California, USA"
+        "location_label": "Berkeley, California, USA",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The Berkeley MDes is positioned as a three-semester, interdisciplinary professional graduate program in design for emerging technologies that connects technical rigor, design theory, and social practice, with strong emphasis on career preparation, real-world application, and socially responsible design.",
@@ -1366,7 +1695,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T19:56:01Z",
-      "date_updated": "2026-05-03T20:08:42Z",
+      "date_updated": "2026-05-11T15:32:04Z",
       "sources": [
         "http://ischool.berkeley.edu/programs/mims",
         "http://ischool.berkeley.edu/programs/mims/paths",
@@ -1515,7 +1844,8 @@
         "https://www.ischool.berkeley.edu/projects/2026/whimsi-where-travel-journeys-stick",
         "https://www.ischool.berkeley.edu/research-areas/information-economics",
         "https://www.ischool.berkeley.edu/research/publications/1991/user-illusion-and-information-retrieval"
-      ]
+      ],
+      "historical": []
     },
     {
       "program_id": "artcenter_media_design_practices",
@@ -1793,6 +2123,13 @@
           "note": "ArtCenter's graduate programs page describes the college as being 'in the heart of art here in Los Angeles,' and ArtCenter College of Design is located in Pasadena, California; this supports the location label as Pasadena, California, USA.",
           "llm_title": "Graduate Degrees - ArtCenter College of Design",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html",
+          "note": "The program is an interdisciplinary design-focused MFA with an emphasis on media, technology, and social impact, aligning with 'Design and Visual Communications, General'. Alternatives considered included 'Digital Arts' and 'Intermedia/Multimedia', but the program's broad design and communication focus fits best under 50.0401.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -1805,7 +2142,10 @@
           "Media Design Practices"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Pasadena, California, USA"
+        "location_label": "Pasadena, California, USA",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "109651"
       },
       "positioning": {
         "positioning_summary": "ArtCenter’s Media Design Practices MFA is positioned as an interdisciplinary, STEM-designated design program centered on emerging technologies, critical frameworks, and experimental studio practice. It emphasizes research, prototyping, and fieldwork, with explicit social-impact and global-context framing, and prepares students for professional roles at the intersection of technology, culture, and design.",
@@ -1915,7 +2255,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T20:32:09Z",
-      "date_updated": "2026-05-08T17:13:17Z",
+      "date_updated": "2026-05-11T15:32:06Z",
       "sources": [
         "http://www.artcenter.edu/academics/graduate-degrees/media-design-practices/course-of-study/overview.html",
         "https://artcenter.edu/academics/graduate-degrees/media-design-practices/course-of-study/overview.html",
@@ -1958,7 +2298,8 @@
         "https://www.artcenter.edu/search.html?path=academics&q=Promozione+Google%28TG%3Ae10838%29.fur",
         "https://www.artcenter.edu/search.html?path=academics&q=Ranking+do+Google%28TG%3Ae10838%29.aqd",
         "https://www.artcenter.edu/search.html?path=academics&q=award+winning+chili+recipehigh+salary+part-time+job+Contact+WhatsApp%3A++1+6135545839.hwy"
-      ]
+      ],
+      "historical": []
     },
     {
       "program_id": "cmu_master_computational_design",
@@ -2110,6 +2451,13 @@
           "note": "CMU's School of Architecture and the program materials place the program in Pittsburgh; the broader CMU context supports Pittsburgh, Pennsylvania, United States as the location label.",
           "llm_title": "Computational Design program page",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.architecture.cmu.edu/computational-design",
+          "note": "The program is highly interdisciplinary, focusing on the intersection of design and computation, with an emphasis on human-centered technology design. It integrates emerging technologies, digital methods, and socially aware design inquiry, aligning closely with the CIP code for Human-Centered Technology Design. Alternatives considered included Computer Science and Design and Visual Communications, but the program's emphasis on human-centered design and technology integration made 11.0105 the best fit.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -2122,7 +2470,10 @@
           "CodeLab"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Pittsburgh, Pennsylvania, United States"
+        "location_label": "Pittsburgh, Pennsylvania, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0105",
+        "ipeds_unitid": "211440"
       },
       "positioning": {
         "positioning_summary": "Carnegie Mellon’s Computational Design program is positioned as a highly interdisciplinary, research-focused graduate program at the nexus of design and computation. It emphasizes critical technical practice, novel research contributions, and work that spans architecture, engineering, art, humanities, and computing, while also foregrounding emerging technologies, digital methods, physical fabrication, and socially and environmentally aware design inquiry.",
@@ -2163,7 +2514,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T20:49:20Z",
-      "date_updated": "2026-05-08T16:06:45Z",
+      "date_updated": "2026-05-11T15:32:09Z",
       "sources": [
         "http://coursecatalog.web.cmu.edu/aboutcmu",
         "http://coursecatalog.web.cmu.edu/aboutcmu/costofattendance",
@@ -2342,7 +2693,8 @@
         "https://www.heinz.cmu.edu/programs/phd-programs",
         "https://www.lti.cs.cmu.edu/academics/masters-programs/mcds.html",
         "https://www.sv.cmu.edu/programs/mssm.html"
-      ]
+      ],
+      "historical": []
     },
     {
       "program_id": "cmu_master_design",
@@ -2592,6 +2944,13 @@
           "note": "Carnegie Mellon University program pages and contact information place the university in Pittsburgh, PA; the School of Design is part of CMU in Pittsburgh.",
           "llm_title": "CMU program pages",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://design.cmu.edu/about-our-programs/masters-degrees/master-design-design-interactions",
+          "note": "The program 'Master of Design in Design for Interactions' is a graduate design program focused on interaction design, systems thinking, and design research. It aligns with the CIP code 50.0401, which covers graduate design programs focused on communication, interaction, visual systems, or multidisciplinary design practice. The emphasis on interaction design and systems thinking fits well within this classification. No other CIP code closely matches the program's description.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -2603,7 +2962,10 @@
           "School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Pittsburgh, Pennsylvania, United States"
+        "location_label": "Pittsburgh, Pennsylvania, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "211440"
       },
       "positioning": {
         "positioning_summary": "The MDes in Design for Interactions is positioned as a rigorous, research-informed design program for students with prior design backgrounds and professional experience, centered on interaction design, systems thinking, design research, and thesis work. It emphasizes interdisciplinary collaboration, professional practice, and social impact through services, social innovation, sustainability, and future-oriented design.",
@@ -2612,7 +2974,8 @@
           "professional",
           "social_impact",
           "digital",
-          "systems_thinking"
+          "systems_thinking",
+          "service_design"
         ]
       },
       "duration": {
@@ -2691,7 +3054,7 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T21:08:27Z",
-      "date_updated": "2026-05-08T17:27:57Z",
+      "date_updated": "2026-05-11T15:32:12Z",
       "sources": [
         "http://coursecatalog.web.cmu.edu/aboutcmu",
         "http://coursecatalog.web.cmu.edu/aboutcmu/costofattendance",
@@ -2870,7 +3233,8 @@
         "https://www.heinz.cmu.edu/programs/phd-programs",
         "https://www.lti.cs.cmu.edu/academics/masters-programs/mcds.html",
         "https://www.sv.cmu.edu/programs/mssm.html"
-      ]
+      ],
+      "historical": []
     },
     {
       "program_id": "columbia_ms_computational_design_practices",
@@ -3217,6 +3581,20 @@
           "note": "The visit page says Columbia GSAPP is located on Columbia University’s Morningside Heights campus in New York City, supporting the location label.",
           "llm_title": "Visit GSAPP",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices",
+          "note": "The program overview states that the M.S.CDP program was launched in 2021.",
+          "llm_title": "M.S. Computational Design Practices - Columbia GSAPP",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.arch.columbia.edu/programs/15-m-s-computational-design-practices",
+          "note": "The program focuses on computational design practices within architecture, data visualization, and urban planning, emphasizing environmental and social impact. This aligns with Environmental Design/Architecture, which integrates ecological and environmental concerns into design and spatial planning. Close alternatives considered were Sustainable Design/Architecture and Design and Visual Communications, General.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -3229,7 +3607,10 @@
           "Columbia GSAPP"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "New York"
+        "location_label": "New York",
+        "first_degree_granted_year": "2021",
+        "cip_code": "04.0401",
+        "ipeds_unitid": "190150"
       },
       "positioning": {
         "positioning_summary": "Columbia GSAPP’s M.S. in Computational Design Practices is positioned as an interdisciplinary, professionally oriented program that bridges architecture, data visualization, and urban planning, with a strong STEM-adjacent and research-inflected focus on computational design for the built environment. The program also emphasizes civic, activist, and social-impact applications, including equitable ways of imagining and creating space.",
@@ -3238,7 +3619,8 @@
           "hci_adjacent",
           "critical_speculative_design",
           "digital",
-          "social_impact"
+          "social_impact",
+          "human_centered"
         ]
       },
       "duration": {
@@ -3407,7 +3789,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T21:37:45Z",
-      "date_updated": "2026-05-03T21:53:20Z"
+      "date_updated": "2026-05-11T15:35:59Z",
+      "historical": []
     },
     {
       "program_id": "dartmouth_ms_cs_digital_arts",
@@ -3694,6 +4077,20 @@
           "note": "Dartmouth Engineering pages situate Dartmouth in Hanover and describe campus-based programs there; combined with Dartmouth's known location, this supports the location label Hanover, New Hampshire, United States.",
           "llm_title": "Undergraduate Engineering at Dartmouth",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.location_label",
+          "source_url": "https://engineering.dartmouth.edu/undergraduate",
+          "note": "Dartmouth Engineering pages situate Dartmouth in Hanover and describe campus-based programs there; combined with Dartmouth's known location, this supports the location label Hanover, New Hampshire, United States.",
+          "llm_title": "Undergraduate Engineering at Dartmouth",
+          "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://web.cs.dartmouth.edu/graduate/graduate-admissions/masters-computer-science/ms-cs-concentration-digital-arts",
+          "note": "The program is a concentration within the MS in Computer Science, focusing on computer science and digital arts. The best matching CIP code is 11.0701 for Computer Science, as it covers the theory, design, and implementation of software and computational systems.",
+          "llm_title": "M.S. in CS with Concentration in Digital Arts",
+          "retrieved_date": "2026-05-03"
         }
       ],
       "identity": {
@@ -3706,7 +4103,10 @@
           "Guarini School of Graduate and Advanced Studies"
         ],
         "host_academic_model": "computing_hosted",
-        "location_label": "New Hampshire"
+        "location_label": "Hanover, New Hampshire, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0701",
+        "ipeds_unitid": "182670"
       },
       "positioning": {
         "positioning_summary": "The program is positioned as a computer science master’s concentration that bridges CS with digital arts and visual computing. It emphasizes a rigorous CS foundation, foundational digital arts coursework, and research/thesis work in areas such as computer graphics, HCI, digital fabrication, digital art and media, computer vision, VR, and AR. The framing is strongly interdisciplinary, STEM-adjacent, research-oriented, and connected to digital/fine-arts practice.",
@@ -3809,7 +4209,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T21:59:48Z",
-      "date_updated": "2026-05-08T16:06:45Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "tu_delft_msc_integrated_product_design",
@@ -4146,6 +4547,13 @@
           "note": "TU Delft is located in Delft, Netherlands; the program page is for the Delft campus-based master's program.",
           "llm_title": "MSc Integrated Product Design",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.tudelft.nl/en/education/programmes/masters/ipd/msc-integrated-product-design",
+          "note": "The program focuses on the design of innovative products and systems, aligning with CIP code 50.0404 for Industrial and Product Design. Other codes like 14.0101 for General Engineering were considered but rejected due to the program's emphasis on product design.",
+          "llm_title": "MSc Integrated Product Design",
+          "retrieved_date": "2026-05-03"
         }
       ],
       "identity": {
@@ -4156,14 +4564,15 @@
         "host_academic_units": [
           "Industrial Design Engineering"
         ],
-        "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Netherlands"
+        "host_academic_model": "design_hosted",
+        "location_label": "Delft, Netherlands",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "TU Delft’s MSc Integrated Product Design is positioned as an advanced, research-informed design program that blends design, technology, and engineering to create user-centered, innovative, sustainable, and ethical products and product-service combinations. The program also explicitly highlights emerging technologies such as AI, smart textiles, bio-design, digital fabrication, and computational design, while emphasizing balance among user, business, and societal interests.",
         "positioning_tags": [
           "interdisciplinary",
-          "research",
           "social_impact",
           "emerging_technologies",
           "sustainability",
@@ -4420,7 +4829,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:03:13Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T05:25:14Z",
+      "historical": []
     },
     {
       "program_id": "harvard_master_design_studies",
@@ -4755,6 +5165,13 @@
           "note": "The GSD Canvas Help page lists the school address as 7 Sumner Road, Cambridge, MA 02138, supporting Cambridge, Massachusetts, United States as the location label.",
           "llm_title": "Canvas Help",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-studies/",
+          "note": "The program is a Master in Design Studies with a focus on interdisciplinary design, social impact, and design research. It is hosted by the Graduate School of Design and emphasizes flexible domain-based study. The closest match is 'Design and Visual Communications, General' (50.0401), which covers multidisciplinary design practice. Alternatives like 'Environmental Design/Architecture' (04.0401) and 'Sustainable Design/Architecture' (04.0403) were considered but did not fully align with the program's broader design focus.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -4768,7 +5185,10 @@
           "Urban Planning and Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Cambridge, Massachusetts"
+        "location_label": "Cambridge, Massachusetts",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "166027"
       },
       "positioning": {
         "positioning_summary": "Harvard GSD’s Master in Design Studies is positioned as a research-based, interdisciplinary design program focused on urgent contemporary issues and social impact. The program emphasizes design research and scholarship, flexible domain-based study, and work that connects design to public service, academia, NGOs, and advanced practice; the Publics domain further highlights socio-spatial design, planning, advocacy, and the common good.",
@@ -4895,7 +5315,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:20:13Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T15:36:02Z",
+      "historical": []
     },
     {
       "program_id": "iit_master_design",
@@ -5155,6 +5576,13 @@
           "note": "The program details list the location as 'On Campus,' and Illinois Tech's main campus context is Chicago, Illinois; the news page also refers to Illinois Tech's Bronzeville campus in Chicago.",
           "llm_title": "Design (M.Des.) | Illinois Institute of Technology",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.iit.edu/academics/programs/design-mdes",
+          "note": "The program is a Master of Design with a focus on human-centered design, systems design, and strategic design, which aligns with the CIP code 50.0401 for Design and Visual Communications, General. Other codes like 50.0404 for Industrial and Product Design were considered but rejected as the program's emphasis is broader and includes strategic and systems design.",
+          "llm_title": "Design (M.Des.) | Illinois Institute of Technology",
+          "retrieved_date": "2026-05-03"
         }
       ],
       "identity": {
@@ -5166,7 +5594,10 @@
           "Institute of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Chicago, Illinois, United States"
+        "location_label": "Chicago, Illinois, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "145725"
       },
       "positioning": {
         "positioning_summary": "IIT Institute of Design’s M.Des. is positioned as a STEM-designated, professionally oriented graduate design program for strategic designers who work across complex business, civic, and social challenges. The program emphasizes human-centered and systems design, collaborative real-world projects, and impact in private, public, and nonprofit sectors, while also welcoming applicants without formal design training.",
@@ -5305,7 +5736,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:29:19Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "harvard_master_design_engineering",
@@ -5661,6 +6093,13 @@
           "note": "The visit page references Gund Hall and Harvard GSD in Cambridge, MA, supporting the program location label as Cambridge, Massachusetts, United States.",
           "llm_title": "Visit Campus",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.gsd.harvard.edu/offices-and-facilities/advanced-studies-programs/programs/design-engineering/",
+          "note": "The program integrates design and engineering disciplines, focusing on systems-level problem solving and innovation. This aligns with CIP code 14.2701 for Systems Engineering, which covers the design and management of complex integrated systems.",
+          "llm_title": "Master in Design Engineering",
+          "retrieved_date": "2026-05-03"
         }
       ],
       "identity": {
@@ -5673,7 +6112,10 @@
           "Harvard John A. Paulson School of Engineering and Applied Sciences"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Cambridge, Massachusetts, United States"
+        "location_label": "Cambridge, Massachusetts, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "14.2701",
+        "ipeds_unitid": "166027"
       },
       "positioning": {
         "positioning_summary": "Harvard’s Master in Design Engineering is positioned as a collaborative, interdisciplinary program that bridges design and engineering to tackle complex real-world and societal challenges. The program emphasizes systems-level problem solving, innovation, and leadership, with explicit ties to sustainability, urbanization, resource scarcity, and other large-scale public-interest issues.",
@@ -5681,7 +6123,8 @@
           "interdisciplinary",
           "mecheng_adjacent",
           "architecture_adjacent",
-          "research"
+          "research",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -5800,7 +6243,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:37:34Z",
-      "date_updated": "2026-05-03T23:42:23Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "imperial_innovation_design_engineering",
@@ -6075,6 +6519,13 @@
           "note": "Course key facts list the locations as Royal College of Art (Battersea) and South Kensington, both in London, supporting a London, United Kingdom label.",
           "llm_title": "Innovation Design Engineering course page",
           "retrieved_date": "2026-05-03"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.imperial.ac.uk/study/courses/postgraduate-taught/innovation-design-engineering/",
+          "note": "The program focuses on design and engineering integration, with an emphasis on product design and innovation. CIP code 50.0404 (Industrial and Product Design) best matches the program's characteristics.",
+          "llm_title": "Innovation Design Engineering course page",
+          "retrieved_date": "2026-05-03"
         }
       ],
       "identity": {
@@ -6087,7 +6538,9 @@
           "RCA School of Design"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "London, United Kingdom"
+        "location_label": "London, United Kingdom",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "Innovation Design Engineering is positioned as a highly interdisciplinary, design-engineering double master’s that blends creative practice with engineering, science, and enterprise. The program emphasizes real-world impact, sustainability and social/planetary challenges, and professional outcomes such as innovation leadership and startup creation.",
@@ -6095,7 +6548,8 @@
           "interdisciplinary",
           "social_impact",
           "entrepreneurship_adjacent",
-          "sustainability"
+          "sustainability",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -6322,7 +6776,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-03T23:50:02Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T05:34:24Z",
+      "historical": []
     },
     {
       "program_id": "stanford_ms_design",
@@ -6652,6 +7107,13 @@
           "note": "The commencement page gives the d.school address as 550 Panama Mall, Stanford, CA 94305, supporting Stanford, California, United States as the location label.",
           "llm_title": "Stanford Design Commencement Weekend 2026",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://dschool.stanford.edu/study/graduate-degree",
+          "note": "The program is described as a project-based and immersive design master's focused on human-centered, digital, and physical design innovation. This aligns with CIP code 50.0401 for Design and Visual Communications, General, which covers multidisciplinary design practice.",
+          "llm_title": "Graduate Degree",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -6664,7 +7126,10 @@
           "School of Engineering"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Stanford, California, United States"
+        "location_label": "Stanford, California, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "243744"
       },
       "positioning": {
         "positioning_summary": "Stanford’s MS Design is positioned as a project-based, highly immersive, full-time graduate design program centered on real-world problem solving, cross-campus electives, and a year-long capstone. The curriculum emphasizes human-centered design, design methods, and applied making across domains, with clear signals of interdisciplinary, professional, social-impact, and STEM-adjacent orientation.",
@@ -6934,7 +7399,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T00:05:28Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "umich_mdes_integrative_design",
@@ -7146,6 +7612,13 @@
           "note": "The visiting/contact information for Stamps places the school in Ann Arbor, Michigan, United States.",
           "llm_title": "Visiting Stamps",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://stamps.umich.edu/graduate-programs/mdes",
+          "note": "The program focuses on design research, interdisciplinary collaboration, and innovative design solutions, aligning with the 'Design and Visual Communications, General' CIP code. Considered alternatives like 'Industrial and Product Design' were less fitting due to the program's broader interdisciplinary emphasis.",
+          "llm_title": "MDES program overview",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -7157,12 +7630,15 @@
           "Stamps School of Art & Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Ann Arbor, Michigan, United States"
+        "location_label": "Ann Arbor, Michigan, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "170976"
       },
       "positioning": {
         "positioning_summary": "The MDes in Integrative Design is positioned as a project-based, studio-oriented graduate program centered on design research, strategy, making, and interdisciplinary collaboration, with an added emphasis on socially engaged practice and a final thesis or capstone.",
         "positioning_tags": [
-          "research",
+          "professional",
           "physical_making",
           "social_impact"
         ]
@@ -7194,7 +7670,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T00:28:29Z",
-      "date_updated": "2026-05-08T16:06:45Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "nyu_itp",
@@ -7588,6 +8065,20 @@
           "note": "The graduate admissions page references 721 Broadway, the NYU campus building that hosts the majority of Tisch graduate programs, and the ITP info session page indicates the department welcomes visits in New York; this supports New York, NY, USA as the location label.",
           "llm_title": "Tisch graduate admissions info sessions",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://tisch.nyu.edu/itp/ITPFAQ",
+          "note": "The FAQ states that ITP was founded in 1979, indicating the first degree was likely granted that year.",
+          "llm_title": "ITP FAQ",
+          "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://tisch.nyu.edu/itp",
+          "note": "The program's focus on interactive media and telecommunications aligns with CIP code 50.0411 for Game and Interactive Media Design. Considered alternatives like 11.0801 for Web Page, Digital/Multimedia and Information Resources Design, but 50.0411 better captures the program's emphasis on interactive experiences.",
+          "llm_title": "ITP / IMA program overview",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -7599,14 +8090,18 @@
           "Tisch School of the Arts"
         ],
         "host_academic_model": "arts_hosted",
-        "location_label": "New York, NY, USA"
+        "location_label": "New York, NY, USA",
+        "first_degree_granted_year": "1979",
+        "cip_code": "50.0411",
+        "ipeds_unitid": "193900"
       },
       "positioning": {
         "positioning_summary": "NYU Tisch ITP is positioned as a cross-disciplinary, arts-and-technology graduate program centered on imaginative use of communications technologies. The program explicitly frames itself as an \"art school for engineers\" / \"engineering school for artists,\" emphasizes collaboration, critical thinking, and learning new technologies, and includes hands-on, project-driven work with physical fabrication and emerging media.",
         "positioning_tags": [
           "fine_arts_adjacent",
           "digital",
-          "emerging_technologies"
+          "emerging_technologies",
+          "humanities_adjacent"
         ]
       },
       "duration": {
@@ -7726,7 +8221,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T00:40:09Z",
-      "date_updated": "2026-05-08T16:06:45Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "northwestern_ms_engineering_design_innovation",
@@ -8069,6 +8565,13 @@
           "note": "The admissions page states the program is on Northwestern University's Evanston campus, supporting the location label Evanston, Illinois, United States.",
           "llm_title": "EDI Admissions",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.tgs.northwestern.edu/admission/academic-programs/explore-programs/engineering-design-innovation.html",
+          "note": "The program focuses on engineering design innovation, which aligns with CIP code 15.1502 for Engineering Design. Other codes such as 50.0401 for Design and Visual Communications were considered but did not match the engineering focus.",
+          "llm_title": "Engineering Design Innovation overview",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -8081,7 +8584,10 @@
           "McCormick School of Engineering and Applied Science"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Evanston, Illinois, United States"
+        "location_label": "Evanston, Illinois, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "15.1502",
+        "ipeds_unitid": "147767"
       },
       "positioning": {
         "positioning_summary": "Northwestern’s MS in Engineering Design Innovation is positioned as a full-time, cohort-based, human-centered design innovation program for students from diverse backgrounds, with a strong emphasis on interdisciplinary collaboration, professional practice, and preparing graduates to lead cross-functional teams and create new products and services.",
@@ -8090,7 +8596,8 @@
           "professional",
           "mecheng_adjacent",
           "hci_adjacent",
-          "human_centered"
+          "human_centered",
+          "service_design"
         ]
       },
       "duration": {
@@ -8269,7 +8776,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T01:14:21Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "calarts_integrated_media",
@@ -8469,6 +8977,20 @@
           "note": "The admissions page lists the mailing address for CalArts Office of Admissions in Valencia, CA 91355, supporting the location label as Valencia, California, United States.",
           "llm_title": "MFA Photography and Media: Admission Requirements",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://calarts.edu/history/timeline",
+          "note": "The timeline indicates that the Center for Integrated Media launched in 1996, offering the Integrated Media concentration.",
+          "llm_title": "CalArts Timeline",
+          "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://calarts.edu/apply/integrated-media",
+          "note": "The program's focus on interdisciplinary media and digital technologies aligns with CIP code 50.0706 (Intermedia/Multimedia).",
+          "llm_title": "MFA Integrated Media Concentration: Admission Requirements",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -8484,7 +9006,10 @@
           "School of Art"
         ],
         "host_academic_model": "arts_hosted",
-        "location_label": "Valencia, California, United States"
+        "location_label": "Valencia, California, United States",
+        "first_degree_granted_year": "1996",
+        "cip_code": "50.0706",
+        "ipeds_unitid": "111081"
       },
       "positioning": {
         "positioning_summary": "Integrated Media is positioned as a supplemental MFA concentration for advanced students whose creative use of digital media and other technologies extends beyond their primary discipline, with explicit emphasis on interdisciplinary expression across art forms and support from the Center for Integrated Media.",
@@ -8522,7 +9047,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T02:26:12Z",
-      "date_updated": "2026-05-04T02:33:28Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "nyu_ms_emerging_technologies",
@@ -8916,6 +9442,13 @@
           "note": "The page states that the program is located within Tandon School of Engineering in downtown Brooklyn at NYU's facilities at 370 Jay Street, supporting a Brooklyn, New York location label.",
           "llm_title": "Integrated Design and Media",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://engineering.nyu.edu/academics/programs/emerging-technologies-ms",
+          "note": "The program focuses on AI, machine learning, data science, and other technology areas, aligning with the general Computer and Information Sciences CIP code. Considered alternatives like 11.0701 (Computer Science) but chose 11.0101 for broader coverage.",
+          "llm_title": "Emerging Technologies, M.S.",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -8928,7 +9461,10 @@
           "Department of Technology, Culture, and Society"
         ],
         "host_academic_model": "engineering_hosted",
-        "location_label": "Brooklyn, New York, United States"
+        "location_label": "Brooklyn, New York, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0101",
+        "ipeds_unitid": "193900"
       },
       "positioning": {
         "positioning_summary": "The M.S. in Emerging Technologies is positioned as a flexible, AI-centered, cross-disciplinary degree for students to build a personalized curriculum across multiple technology areas. The program explicitly emphasizes AI fluency, interdisciplinary electives spanning Tandon departments, and career-oriented preparation for an evolving tech-driven job market.",
@@ -9139,7 +9675,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T02:33:30Z",
-      "date_updated": "2026-05-08T16:06:45Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "nyu_integrated_design_media",
@@ -9561,6 +10098,20 @@
           "note": "The homepage lists the address as 370 Jay St., Floor 3, Brooklyn, NY 11201, supporting Brooklyn, New York, United States.",
           "llm_title": "Integrated Design and Media homepage",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://idm.engineering.nyu.edu/index.php/overview/",
+          "note": "The overview page states that the Integrated Design & Media (IDM) Program was launched in 2004.",
+          "llm_title": "IDM Overview",
+          "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://idm.engineering.nyu.edu/index.php/overview/",
+          "note": "The program's focus on design, media, and interdisciplinary practice aligns with CIP code 50.0401 for Design and Visual Communications, General.",
+          "llm_title": "IDM Overview",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -9573,13 +10124,15 @@
           "Tandon School of Engineering"
         ],
         "host_academic_model": "engineering_hosted",
-        "location_label": "Brooklyn, New York, United States"
+        "location_label": "Brooklyn, New York, United States",
+        "first_degree_granted_year": "2004",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "193900"
       },
       "positioning": {
         "positioning_summary": "NYU Integrated Design and Media is positioned as an interdisciplinary, research-active program that blends creative practice with engineering and emerging media technologies. It emphasizes cross-disciplinary work, social and ethical responsibility, and hands-on project-based production, with clear ties to digital media, interaction, and professional practice.",
         "positioning_tags": [
           "interdisciplinary",
-          "research",
           "humanities_adjacent",
           "hci_adjacent",
           "emerging_technologies",
@@ -9978,7 +10531,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T02:44:20Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "northwestern_product_design_development_management",
@@ -10356,6 +10910,13 @@
           "note": "Northwestern's main campus location for the program is Evanston; the source materials are Northwestern Evanston-based program pages, supporting the location label Evanston, Illinois, United States.",
           "llm_title": "Program overview",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://design.northwestern.edu/product-design-development-management/overview/",
+          "note": "The program focuses on product design and development, aligning with the CIP code 50.0404 for Industrial and Product Design. Other codes like 15.1502 for Engineering Design were considered but rejected as the program emphasizes product design over engineering design.",
+          "llm_title": "Overview: Master of Product Design and Development Management",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -10368,7 +10929,10 @@
           "McCormick School of Engineering and Applied Science"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Evanston, Illinois, United States"
+        "location_label": "Evanston, Illinois, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0404",
+        "ipeds_unitid": "147767"
       },
       "positioning": {
         "positioning_summary": "The mpd² program is positioned as a professional, industry-facing master’s for experienced practitioners who want to lead product design and development. Its messaging emphasizes cross-disciplinary training in business, design, technology, and product development, with a strong focus on emerging technology and AI systems, and on preparing graduates for senior leadership and go-to-market/product commercialization work.",
@@ -10376,7 +10940,8 @@
           "professional",
           "entrepreneurship_adjacent",
           "emerging_technologies",
-          "mecheng_adjacent"
+          "mecheng_adjacent",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -10663,7 +11228,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T02:57:19Z",
-      "date_updated": "2026-05-04T03:04:44Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "parsons_mfa_design_technology",
@@ -11009,6 +11575,13 @@
           "note": "The Parsons homepage describes New York City as the school’s location and global center; the program is based at Parsons in New York City, New York, United States.",
           "llm_title": "Parsons School of Design homepage",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.newschool.edu/parsons/mfa-design-technology/",
+          "note": "The program focuses on design and technology, creative computation, and interaction design, aligning with CIP code 50.0401 for Design and Visual Communications, General. Other codes like 11.0801 for Web Page, Digital/Multimedia and Information Resources Design were considered but rejected due to the broader design focus.",
+          "llm_title": "Design and Technology (MFA) program page",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -11021,7 +11594,9 @@
           "Parsons School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "New York City, New York, United States"
+        "location_label": "New York City, New York, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401"
       },
       "positioning": {
         "positioning_summary": "Parsons’ MFA in Design and Technology is positioned as a studio-based, critical program at the intersection of creative computation, emerging technologies, and design practice. It emphasizes interdisciplinary collaboration, research, and professional pathways in digital and interaction-focused fields, with explicit attention to social and ethical questions in technology.",
@@ -11233,7 +11808,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:04:47Z",
-      "date_updated": "2026-05-04T03:10:48Z"
+      "date_updated": "2026-05-11T05:45:36Z",
+      "historical": []
     },
     {
       "program_id": "pratt_ms_information_experience_design",
@@ -11479,6 +12055,13 @@
           "note": "The program page states the School of Information is located at Pratt Manhattan Center in New York City, supporting a New York, NY location label.",
           "llm_title": "Information Experience Design, MS - School of Information",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.pratt.edu/information/information-experience-design/",
+          "note": "The program focuses on human-centered technology design, blending information science, human-computer interaction, and user experience, which aligns with CIP code 11.0105 for Human-Centered Technology Design. Considered 11.0801 for Web Page, Digital/Multimedia and Information Resources Design but found 11.0105 more fitting due to the program's emphasis on human-centered design.",
+          "llm_title": "Information Experience Design, MS - School of Information",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -11490,7 +12073,10 @@
           "School of Information"
         ],
         "host_academic_model": "computing_hosted",
-        "location_label": "New York, NY, United States"
+        "location_label": "New York, NY, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0105",
+        "ipeds_unitid": "194578"
       },
       "positioning": {
         "positioning_summary": "The MS in Information Experience Design is positioned as a professional, interdisciplinary UX program centered on digital interface and product design. Pratt describes it as a blend of information science, human-computer interaction, and user experience, preparing students for UX careers through research-based, human-centered design work and a portfolio-oriented curriculum.",
@@ -11567,7 +12153,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:10:49Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "risd_ma_design_engineering",
@@ -11732,6 +12319,20 @@
           "note": "The page says RISD and Brown are neighboring institutions on Providence’s East Side, supporting the location label Providence, Rhode Island, United States.",
           "llm_title": "Brown + RISD",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://www.risd.edu/academics/design-engineering",
+          "note": "The program was launched in 2021, as stated on the program page.",
+          "llm_title": "Master of Arts in Design Engineering (MADE) Program | RISD",
+          "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.risd.edu/academics/design-engineering",
+          "note": "The program focuses on the intersection of design and engineering, fitting the general engineering CIP code 14.0101. Considered but rejected codes include 50.0401 for design and visual communications, which did not fully capture the engineering aspect.",
+          "llm_title": "Master of Arts in Design Engineering (MADE) Program | RISD",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -11744,7 +12345,10 @@
           "Brown University School of Engineering"
         ],
         "host_academic_model": "engineering_arts_shared_hosted",
-        "location_label": "Providence, Rhode Island, United States"
+        "location_label": "Providence, Rhode Island, United States",
+        "first_degree_granted_year": "2021",
+        "cip_code": "14.0101",
+        "ipeds_unitid": "217493"
       },
       "positioning": {
         "positioning_summary": "RISD’s Master of Arts in Design Engineering is positioned as an intensive, joint RISD-Brown program centered on the intersection of design and engineering. The program emphasizes cross-disciplinary collaboration, hands-on prototyping and testing, and project work aimed at real-world challenges such as public health, education, and climate change.",
@@ -11782,7 +12386,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:17:43Z",
-      "date_updated": "2026-05-04T03:23:40Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "rca_innovation_design_engineering",
@@ -12101,6 +12706,13 @@
           "note": "The programme page lists the current location as Battersea, which is in London, United Kingdom.",
           "llm_title": "Innovation Design Engineering MA/MSc overview",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.rca.ac.uk/study/programme-finder/innovation-design-engineering-ma-msc/",
+          "note": "The program combines design, engineering, technology, and business, which aligns with the interdisciplinary nature of 'Engineering, General' (14.0101). Other codes like 'Design and Visual Communications, General' (50.0401) were considered but did not fully capture the engineering aspect.",
+          "llm_title": "Innovation Design Engineering MA/MSc overview",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -12113,7 +12725,9 @@
           "Imperial College London"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Battersea, London, United Kingdom"
+        "location_label": "Battersea, London, United Kingdom",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "A transdisciplinary, design-and-engineering master’s positioned around innovation, research, and real-world impact. The programme explicitly integrates design and engineering with science and enterprise, emphasizes collaboration across disciplines and industry, and highlights pathways into leadership, entrepreneurship, and research.",
@@ -12301,7 +12915,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:23:44Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T05:49:30Z",
+      "historical": []
     },
     {
       "program_id": "sjsu_ms_human_factors_ergonomics",
@@ -12548,6 +13163,13 @@
           "note": "The FAQ gives the mailing address as San Jose State University, 1 Washington Square, San Jose, CA 95192-0085, supporting the location label San Jose, California, United States.",
           "llm_title": "FAQ | Human Factors Ergonomics Program",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://catalog.sjsu.edu/preview_entity.php?catoid=15&ent_oid=1971",
+          "note": "The program is housed in the Department of Industrial and Systems Engineering, which aligns with the CIP code for Industrial Engineering (14.3501). The program's focus on ergonomics and human factors supports this classification.",
+          "llm_title": "Department of Industrial and Systems Engineering",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -12560,7 +13182,10 @@
           "College of Engineering"
         ],
         "host_academic_model": "engineering_hosted",
-        "location_label": "San Jose, California, United States"
+        "location_label": "San Jose, California, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "14.3501",
+        "ipeds_unitid": "122755"
       },
       "positioning": {
         "positioning_summary": "The program is positioned as an interdisciplinary, professionally oriented master's degree that prepares students for practice through theory, practical applications, and research. It also explicitly includes a major project or thesis, indicating a research component alongside applied training.",
@@ -12688,7 +13313,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:36:29Z",
-      "date_updated": "2026-05-04T03:46:30Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "sva_mfa_interaction_design",
@@ -12990,6 +13616,13 @@
           "note": "The program contact block lists the MFA Interaction Design department at 136 West 21st Street, New York, NY 10011, supporting a New York City location label.",
           "llm_title": "MFA Interaction Design",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://sva.edu/academics/graduate/mfa-interaction-design",
+          "note": "The program focuses on interaction design and digital product/service/experience work, aligning with the CIP code 50.0401 for Design and Visual Communications, General. Other codes like 11.0801 for Web Page, Digital/Multimedia and Information Resources Design were considered but did not fully encompass the program's broader design focus.",
+          "llm_title": "MFA Interaction Design",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -13003,7 +13636,10 @@
           "Design and Branding"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "New York, NY, United States"
+        "location_label": "New York, NY, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "197151"
       },
       "positioning": {
         "positioning_summary": "The MFA Interaction Design program is positioned as a studio-based, professional design program centered on interaction design and digital product/service/experience work, with strong emphasis on inclusive, sustainable, and socially responsive design. The application materials also frame it as welcoming interdisciplinary applicants and those interested in shaping the future of design and technology.",
@@ -13193,7 +13829,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:46:32Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "parsons_ms_strategic_design_management",
@@ -13567,6 +14204,13 @@
           "note": "Parsons School of Design is described as a New York City-based school, supporting the location label as New York City, New York, United States.",
           "llm_title": "Find Your Program",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.newschool.edu/parsons/ms-design-management/",
+          "note": "The program combines design thinking, management, and applied social sciences, which aligns with Business Administration and Management, General (52.0201). Other codes like Design and Visual Communications (50.0401) were considered but did not fit the management emphasis.",
+          "llm_title": "Strategic Design and Management (MS)",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -13578,7 +14222,9 @@
           "Parsons School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "New York City, New York, United States"
+        "location_label": "New York City, New York, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "52.0201"
       },
       "positioning": {
         "positioning_summary": "Parsons’ Strategic Design and Management MS is positioned as a design-led, interdisciplinary professional degree that blends design thinking with management, applied social sciences, and business tools. The program emphasizes real-world, studio-based work, leadership, entrepreneurship, and social/environmental challenge-solving, with a STEM-designated and globally oriented format.",
@@ -13778,7 +14424,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T03:58:36Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-11T05:54:21Z",
+      "historical": []
     },
     {
       "program_id": "ucsb_media_arts_technology",
@@ -14081,6 +14728,20 @@
           "note": "UC Santa Barbara is located in Santa Barbara, California, United States, which supports the location label.",
           "llm_title": "UC Santa Barbara Home",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.first_degree_granted_year",
+          "source_url": "https://www.mat.ucsb.edu/about/",
+          "note": "The history section states that Media Arts and Technology began offering Master's degrees in 1999.",
+          "llm_title": "About MAT",
+          "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.mat.ucsb.edu/about/",
+          "note": "The program's interdisciplinary focus on media arts and technology aligns with CIP code 50.0706 (Intermedia/Multimedia), which covers art and design across multiple media or at the intersection of disciplines.",
+          "llm_title": "About MAT",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -14093,7 +14754,10 @@
           "College of Letters and Science"
         ],
         "host_academic_model": "engineering_arts_shared_hosted",
-        "location_label": "Santa Barbara, California, United States"
+        "location_label": "Santa Barbara, California, United States",
+        "first_degree_granted_year": "1999",
+        "cip_code": "50.0706",
+        "ipeds_unitid": "110705"
       },
       "positioning": {
         "positioning_summary": "UC Santa Barbara Media Arts and Technology is positioned as a transdisciplinary graduate program at the intersection of media arts, computer science, engineering, electronic music, and digital art, with a strong emphasis on interdisciplinary research, creative production, and emerging media technologies.",
@@ -14223,7 +14887,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:06:45Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "colorado_ms_creative_technology_design",
@@ -14527,6 +15192,13 @@
           "note": "The program is at CU Boulder, which supports the Boulder, Colorado, United States location label.",
           "llm_title": "Master of Science in Creative Technology & Design",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.colorado.edu/atlas/academics/grad",
+          "note": "The program is described as a multidisciplinary MS blending engineering, design, and technology, fitting the CIP code 15.0000 for Engineering Technology, General. This code is also confirmed as the CIP code for STEM-OPT eligibility.",
+          "llm_title": "Master of Science in Creative Technology & Design",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -14539,7 +15211,10 @@
           "College of Engineering and Applied Science"
         ],
         "host_academic_model": "engineering_hosted",
-        "location_label": "Boulder, Colorado, United States"
+        "location_label": "Boulder, Colorado, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "15.0000",
+        "ipeds_unitid": "126614"
       },
       "positioning": {
         "positioning_summary": "The MS in Creative Technology & Design is positioned as a multidisciplinary, professionally oriented program that blends engineering, design, and technical know-how to prepare students for real-world design challenges. The evidence also emphasizes project-based portfolio building, flexibility across application areas like UX/UI, product development, interactive media, and game design, and opportunities to engage with research labs and innovation-focused work.",
@@ -14707,7 +15382,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:24:26Z",
-      "date_updated": "2026-05-04T04:39:01Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "uiuc_mfa_design_responsible_innovation",
@@ -14983,6 +15659,13 @@
           "note": "The page identifies the university location as Urbana-Champaign, and the school address shown on the page is in Champaign, Illinois, supporting the location label.",
           "llm_title": "Art & Design: Design for Responsible Innovation, MFA",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://catalog.illinois.edu/graduate/faa/art-design-mfa/design-responsible-innovation/",
+          "note": "The program focuses on design and visual communications, including graphic design, visual analytics, and visual communication, which aligns with CIP code 50.0401 for Design and Visual Communications, General.",
+          "llm_title": "Art & Design: Design for Responsible Innovation, MFA",
+          "retrieved_date": "2026-05-04"
         }
       ],
       "identity": {
@@ -14995,13 +15678,15 @@
           "College of Fine and Applied Arts"
         ],
         "host_academic_model": "arts_hosted",
-        "location_label": "Champaign, Illinois, United States"
+        "location_label": "Champaign, Illinois, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "145637"
       },
       "positioning": {
         "positioning_summary": "The MFA in Design for Responsible Innovation is positioned as a three-year, research-oriented design program that prepares students to create inclusive futures across academia, industry, and communities. Its emphasis on responsible innovation, equity, sustainability, ethics, social justice, and design research supports a social-impact and research-forward profile, with clear ties to interdisciplinary practice and digital/interaction-oriented design methods.",
         "positioning_tags": [
           "social_impact",
-          "research",
           "interdisciplinary",
           "digital",
           "sustainability"
@@ -15110,7 +15795,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:39:06Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "uiuc_mdes",
@@ -15449,6 +16135,13 @@
           "note": "The catalog contact block lists the School of Art & Design at 138 Art and Design Building, 408 East Peabody Drive, Champaign, IL 61820, supporting the Champaign, Illinois location label.",
           "llm_title": "Art & Design, MFA",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://art.illinois.edu/programs-and-applying/masters-programs/mfa-industrial-design/",
+          "note": "The program is a Master of Fine Arts in Industrial Design, emphasizing human-centered and ethically produced design, with a strong focus on industrial and product design. The curriculum includes a structured sequence of design courses and a thesis component, aligning well with CIP code 50.0404 for Industrial and Product Design. No other CIP codes closely match the program's focus.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -15461,7 +16154,10 @@
           "College of Fine & Applied Arts"
         ],
         "host_academic_model": "arts_hosted",
-        "location_label": "Champaign, Illinois, United States"
+        "location_label": "Champaign, Illinois, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0404",
+        "ipeds_unitid": "145637"
       },
       "positioning": {
         "positioning_summary": "The program is positioned as a professional, research-informed industrial design degree that emphasizes interdisciplinary work, human-centered and ethically produced design, and strong connections to social impact and emerging practice areas such as design thinking, interfaces, interactions, and user experiences.",
@@ -15601,7 +16297,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:50:08Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T15:36:09Z",
+      "historical": []
     },
     {
       "program_id": "umich_ms_information",
@@ -15876,6 +16573,13 @@
           "note": "UMSI is located at the University of Michigan in Ann Arbor, Michigan, supporting the location label.",
           "llm_title": "UMSI fast facts",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.si.umich.edu/programs/master-science-information",
+          "note": "The program is a Master of Science in Information, focusing on information management, user experience, and data science. It is hosted by the School of Information, which aligns with the Information Science/Studies CIP code. Alternatives considered included Informatics and Human-Centered Technology Design, but the broader focus on information management and studies makes 11.0401 the best fit.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -15887,7 +16591,10 @@
           "School of Information"
         ],
         "host_academic_model": "computing_hosted",
-        "location_label": "Ann Arbor, Michigan, United States"
+        "location_label": "Ann Arbor, Michigan, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0401",
+        "ipeds_unitid": "170976"
       },
       "positioning": {
         "positioning_summary": "The Master of Science in Information is positioned as a professional, interdisciplinary program focused on information management, user experience, data science, and related fields, with a strong emphasis on applying technical, analytical, and human-centered approaches to real-world problems.",
@@ -16002,7 +16709,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T04:55:41Z",
-      "date_updated": "2026-05-04T07:26:01Z"
+      "date_updated": "2026-05-11T15:36:18Z",
+      "historical": []
     },
     {
       "program_id": "upenn_integrated_product_design",
@@ -16321,6 +17029,13 @@
           "note": "The Tangen Hall page gives the official address as 115 S 40th Street, Philadelphia PA 19104, supporting the Philadelphia, Pennsylvania, United States location label.",
           "llm_title": "Tangen Hall",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://ipd.me.upenn.edu/",
+          "note": "The Integrated Product Design program at the University of Pennsylvania is a cross-disciplinary program that bridges architecture, design, business, and engineering with a strong focus on human-centered and social-impact design. The curriculum includes a structured, interdisciplinary product-design program with studio sequences and electives across design, engineering, and business. Given the emphasis on product design and the integration of multiple disciplines, the best-matching CIP code is 50.0404, which focuses on Industrial and Product Design. Close alternatives considered included 14.0101 for its interdisciplinary engineering aspects, but the primary focus on product design aligns more closely with 50.0404.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -16334,7 +17049,10 @@
           "School of Design"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Philadelphia, Pennsylvania, United States"
+        "location_label": "Philadelphia, Pennsylvania, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0404",
+        "ipeds_unitid": "215062"
       },
       "positioning": {
         "positioning_summary": "Integrated Product Design at Penn is positioned as a cross-disciplinary, professionally oriented design program that bridges architecture, design, business, and engineering. The evidence also points to a strong human-centered and social-impact orientation, with projects and teaching that emphasize design for health, accessibility, and real-world product and service challenges.",
@@ -16343,7 +17061,8 @@
           "professional",
           "social_impact",
           "architecture_adjacent",
-          "human_centered"
+          "human_centered",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -16486,7 +17205,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T07:26:07Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-11T15:36:20Z",
+      "historical": []
     },
     {
       "program_id": "uw_ms_hcde",
@@ -16807,6 +17527,13 @@
           "note": "The program page says the University of Washington is located on a campus in the city of Seattle, supporting the location label Seattle, Washington, United States.",
           "llm_title": "Master of Science | Human Centered Design & Engineering",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.hcde.washington.edu/ms",
+          "note": "The program is an interdisciplinary MS focused on user experience, interaction/interface/product design, and human-computer interaction, aligning closely with 'Human-Centered Technology Design'. Alternatives like 'Design and Visual Communications, General' were considered but the emphasis on technology and human-centered design is more pronounced.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -16820,7 +17547,10 @@
           "University of Washington"
         ],
         "host_academic_model": "engineering_hosted",
-        "location_label": "Seattle, Washington, United States"
+        "location_label": "Seattle, Washington, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0105",
+        "ipeds_unitid": "236948"
       },
       "positioning": {
         "positioning_summary": "The program is positioned as an interdisciplinary, professionally oriented MS centered on user experience, interaction/interface/product design, and human-computer interaction, with explicit emphasis on real-world problem solving and preparing graduates for leadership roles in UX and related roles.",
@@ -16960,7 +17690,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T07:35:35Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-11T15:36:22Z",
+      "historical": []
     },
     {
       "program_id": "uw_ms_technology_innovation",
@@ -17269,6 +18000,13 @@
           "note": "The program page states 'Launch your tech career in Redmond, Washington' and notes the space is at Microsoft’s global headquarters in Redmond.",
           "llm_title": "UW MS in Technology Innovation program page",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://gix.uw.edu/program/msti/",
+          "note": "The program is interdisciplinary, blending engineering, business, and design with a focus on technology innovation. It emphasizes practical, challenge-based learning and includes tracks in connected devices and robotics. The closest match is 'Human-Centered Technology Design' due to its focus on designing technology for human needs. Alternatives considered included 'Engineering, General' and 'Entrepreneurship/Entrepreneurial Studies', but the human-centered design aspect was more prominent.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -17282,7 +18020,10 @@
           "College of Engineering"
         ],
         "host_academic_model": "engineering_business_shared_hosted",
-        "location_label": "Redmond, Washington, United States"
+        "location_label": "Redmond, Washington, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0105",
+        "ipeds_unitid": "236948"
       },
       "positioning": {
         "positioning_summary": "The MS in Technology Innovation is positioned as a career-focused, interdisciplinary, hands-on program that blends engineering, business, and design. It emphasizes practical challenge-based learning, industry-sponsored capstones, and access to prototyping labs, while also highlighting proximity to Seattle/Redmond’s tech ecosystem and Microsoft’s campus.",
@@ -17602,7 +18343,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T07:43:09Z",
-      "date_updated": "2026-05-04T08:39:48Z"
+      "date_updated": "2026-05-11T15:36:47Z",
+      "historical": []
     },
     {
       "program_id": "uw_mhcid",
@@ -17923,6 +18665,13 @@
           "note": "UW catalog footer places the University of Washington in Seattle, WA, supporting the location label Seattle, Washington, United States.",
           "llm_title": "UW Graduate Catalog",
           "retrieved_date": "2026-05-04"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://mhcid.washington.edu/",
+          "note": "The program is a Master of Human-Computer Interaction and Design, emphasizing interdisciplinary work at the intersection of design, technology, and human-centered research. The curriculum includes studio-based collaboration and prototyping, aligning closely with the 'Human-Centered Technology Design' CIP code. Alternatives considered included 'Design and Visual Communications, General' and 'Informatics', but the focus on human-centered technology design was most fitting.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -17937,7 +18686,10 @@
           "School of Art, Art History & Design"
         ],
         "host_academic_model": "engineering_arts_shared_hosted",
-        "location_label": "Seattle, Washington, United States"
+        "location_label": "Seattle, Washington, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0105",
+        "ipeds_unitid": "236948"
       },
       "positioning": {
         "positioning_summary": "MHCI+D is positioned as an intensive, year-long, interdisciplinary program at the intersection of human-computer interaction, design, technology, and research, with strong emphasis on studio-based collaboration, prototyping, and career preparation.",
@@ -17945,7 +18697,8 @@
           "interdisciplinary",
           "hci_adjacent",
           "ui_ux",
-          "professional"
+          "professional",
+          "human_centered"
         ]
       },
       "duration": {
@@ -18112,7 +18865,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-04T08:39:54Z",
-      "date_updated": "2026-05-04T08:48:31Z"
+      "date_updated": "2026-05-11T15:36:49Z",
+      "historical": []
     },
     {
       "program_id": "cca_mdes_interaction_design",
@@ -18426,6 +19180,13 @@
           "note": "The FAQ states the MDes program takes place in a dedicated studio on the San Francisco campus of California College of the Arts.",
           "llm_title": "MDesID FAQ",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.cca.edu/design/interaction-design/",
+          "note": "The program is a Master of Design in Interaction Design, which aligns with the CIP code for 'Design and Visual Communications, General'. The program's focus on interaction design, systems thinking, and human-centered technology fits well within this category. Alternatives like 'Human-Centered Technology Design' were considered but the broader design focus of the program supports the chosen code.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -18437,7 +19198,10 @@
           "Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "San Francisco, California, United States"
+        "location_label": "San Francisco, California, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0401",
+        "ipeds_unitid": "110370"
       },
       "positioning": {
         "positioning_summary": "CCA’s MDes in Interaction Design is positioned as an intensive, STEM-designated interaction design program that combines systems thinking, human-centered technology, and experience design with a strong social-impact orientation. The program emphasizes real-world, community-engaged work through Social Lab, while also signaling professional preparation for in-demand design careers and a Bay Area technology context.",
@@ -18638,7 +19402,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T02:30:21Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-11T15:38:41Z",
+      "historical": []
     },
     {
       "program_id": "cca_mba_design_strategy",
@@ -18847,6 +19612,13 @@
           "note": "The program page says the DMBA is held on campus in San Francisco and highlights CCA’s San Francisco location.",
           "llm_title": "Design Strategy MBA overview",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.cca.edu/design/design-strategy-mba/",
+          "note": "The program is an MBA with a focus on design strategy, emphasizing business strategy, leadership, and real-world client work. This aligns with the general graduate business programs category. Close alternatives considered were 'Entrepreneurship/Entrepreneurial Studies' due to the innovation and entrepreneurship elements, but the primary framing is business administration.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -18858,7 +19630,10 @@
           "Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "San Francisco, California, United States"
+        "location_label": "San Francisco, California, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "52.0201",
+        "ipeds_unitid": "110370"
       },
       "positioning": {
         "positioning_summary": "CCA’s Design Strategy MBA is positioned as a professional, interdisciplinary, design-and-business program for creative changemakers. The program emphasizes design thinking, business strategy, leadership, real-world client work, and collaboration, with a strong social-impact orientation through sustainability, innovation, and meaningful change.",
@@ -18897,7 +19672,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T02:43:30Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T15:38:43Z",
+      "historical": []
     },
     {
       "program_id": "mit_art_culture_technology",
@@ -19336,6 +20112,13 @@
           "note": "MIT Architecture admissions lists the department address at 77 Massachusetts Avenue, Cambridge, MA, supporting the location label.",
           "llm_title": "Graduate Admissions",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://act.mit.edu/academics/graduate/",
+          "note": "The program is a Master of Science in Art, Culture, and Technology, focusing on critical art practice, theory, and discourse. It is housed within the Department of Architecture and bridges art with culture, technology, and design. The curriculum includes studio/thesis colloquium and electives in media, studio, seminar, and workshop areas. This aligns with the 'Fine/Studio Arts, General' CIP code. Considered 'Intermedia/Multimedia' but the emphasis on critical art practice and studio work fits better with 'Fine/Studio Arts, General'.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -19348,7 +20131,10 @@
           "School of Architecture and Planning"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Cambridge, Massachusetts, United States"
+        "location_label": "Cambridge, Massachusetts, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0702",
+        "ipeds_unitid": "166683"
       },
       "positioning": {
         "positioning_summary": "MIT’s Art, Culture, and Technology graduate program is positioned as a highly selective, two-year, research-based and transdisciplinary Master of Science centered on critical art practice, theory, and discourse. It is housed within MIT’s Department of Architecture / School of Architecture and Planning, and explicitly bridges art with culture, technology, science, design, and embedded research.",
@@ -19453,7 +20239,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T02:49:14Z",
-      "date_updated": "2026-05-05T03:18:58Z"
+      "date_updated": "2026-05-11T15:38:45Z",
+      "historical": []
     },
     {
       "program_id": "mit_system_design_management",
@@ -19843,6 +20630,13 @@
           "note": "The OGE page lists the program office address in Cambridge, MA, supporting the location label Cambridge, Massachusetts, United States.",
           "llm_title": "System Design and Management | MIT OGE",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://sdm.mit.edu/sdm-program/master-of-science-in-systems-design-management/",
+          "note": "The program is a Master of Science in Systems Design and Management, emphasizing systems thinking, systems engineering, and management skills. It is co-hosted by the MIT School of Engineering and MIT Sloan School of Management, indicating a strong focus on systems engineering and management. The curriculum includes a foundation sequence in systems design and management, aligning closely with the Systems Engineering CIP code (14.2701). No other CIP code fits as closely, though Engineering, General (14.0101) was considered.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -19855,7 +20649,10 @@
           "MIT Sloan School of Management"
         ],
         "host_academic_model": "engineering_business_shared_hosted",
-        "location_label": "Cambridge, Massachusetts, United States"
+        "location_label": "Cambridge, Massachusetts, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "14.2701",
+        "ipeds_unitid": "166683"
       },
       "positioning": {
         "positioning_summary": "MIT SDM is positioned as a professional, interdisciplinary engineering-and-management master’s for early- and mid-career professionals, centered on solving complex sociotechnical problems and preparing technically grounded leaders. The curriculum is highly customizable and explicitly spans MIT School of Engineering and MIT Sloan, with systems thinking, systems engineering, product design, leadership, and management skills emphasized.",
@@ -19863,7 +20660,8 @@
           "professional",
           "interdisciplinary",
           "entrepreneurship_adjacent",
-          "mecheng_adjacent"
+          "mecheng_adjacent",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -19960,7 +20758,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T03:19:04Z",
-      "date_updated": "2026-05-05T03:28:08Z"
+      "date_updated": "2026-05-11T15:38:48Z",
+      "historical": []
     },
     {
       "program_id": "mit_media_arts_sciences",
@@ -20364,6 +21163,13 @@
           "note": "MIT OGE lists the program address as 77 Massachusetts Avenue, Building E15-435D, Cambridge MA 02139, supporting the Cambridge, Massachusetts, United States location label.",
           "llm_title": "Media Arts and Sciences | MIT Office of Graduate Education",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.media.mit.edu/graduate-program/about-media-arts-sciences/",
+          "note": "The program in Media Arts and Sciences at MIT Media Lab is interdisciplinary, focusing on human-computer interaction, emerging technologies, and social impact, which aligns closely with 'Human-Centered Technology Design'. The emphasis on technology, design, and human interaction supports this classification. Alternatives like 'Digital Communication and Media/Multimedia' and 'Design and Visual Communications, General' were considered but did not fully capture the program's focus on human-centered technology.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -20376,7 +21182,10 @@
           "MIT Media Lab"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Cambridge, Massachusetts, United States"
+        "location_label": "Cambridge, Massachusetts, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0105",
+        "ipeds_unitid": "166683"
       },
       "positioning": {
         "positioning_summary": "MIT Media Arts and Sciences is positioned as an interdisciplinary, research-intensive program at the intersection of computing, design, communications, learning, robotics, and other technical fields, with strong emphasis on emerging technologies, human-computer interaction, and social impact. The program also highlights hands-on making and fabrication through courses in digital fabrication, microfabrication, tangible interfaces, and related labs.",
@@ -20522,7 +21331,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T03:28:13Z",
-      "date_updated": "2026-05-05T03:41:26Z"
+      "date_updated": "2026-05-11T15:38:50Z",
+      "historical": []
     },
     {
       "program_id": "cmu_mssm",
@@ -20951,6 +21761,13 @@
           "note": "The page says the 12-month, 16-month, and part-time formats are on CMU’s Silicon Valley campus, supporting the location label Silicon Valley, California, United States.",
           "llm_title": "Master of Science in Software Management",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.cmu.edu/iii/graduate-programs/mssm/index.html",
+          "note": "The program is a Master of Science in Software Management, emphasizing digital product and software leadership, blending engineering, business, and user-centered design. It is positioned for career acceleration and entrepreneurship, aligning with Science/Technology Management. Considered alternatives included Management Information Systems and Entrepreneurship, but the interdisciplinary focus on technology management was most fitting.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -20965,7 +21782,10 @@
           "School of Design"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Silicon Valley, California, United States"
+        "location_label": "Silicon Valley, California, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "52.0216",
+        "ipeds_unitid": "211440"
       },
       "positioning": {
         "positioning_summary": "CMU’s MSSM is positioned as an interdisciplinary, professional master’s for digital product and software leaders, blending engineering, business, and user-centered design. It emphasizes career acceleration, Silicon Valley industry immersion, and entrepreneurship/product management pathways rather than research or purely technical software engineering.",
@@ -21406,7 +22226,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:26:19Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T15:39:53Z",
+      "historical": []
     },
     {
       "program_id": "cmu_entertainment_technology_center",
@@ -21842,6 +22663,13 @@
           "note": "The ETC homepage lists the center at 700 Technology Dr., Pittsburgh, PA 15219, supporting the location label Pittsburgh, Pennsylvania, USA.",
           "llm_title": "ETC Homepage",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://etc.cmu.edu/admissions",
+          "note": "The program is an interdisciplinary, professionally oriented entertainment technology degree that blends creative and technical work, with a curriculum focused on team-based projects and digital media. The closest match is 'Game and Interactive Media Design' due to its emphasis on interactive experiences and immersive media. Alternatives considered included 'Digital Arts' and 'Digital Communication and Media/Multimedia', but the specific focus on interactive media aligns best with 50.0411.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -21854,7 +22682,10 @@
           "College of Fine Arts"
         ],
         "host_academic_model": "engineering_arts_shared_hosted",
-        "location_label": "Pittsburgh, Pennsylvania, USA"
+        "location_label": "Pittsburgh, Pennsylvania, USA",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0411",
+        "ipeds_unitid": "211440"
       },
       "positioning": {
         "positioning_summary": "The ETC admissions page positions the program as an interdisciplinary, professionally oriented entertainment technology degree that blends creative and technical work. It explicitly notes that applicants may submit either a portfolio or GRE scores, that the curriculum is almost entirely team-based, and that portfolios can include traditional or digital artwork, graphic design, writing, coding, photos, and videos. The page also emphasizes career goals, project work each semester, and merit scholarships.",
@@ -21960,7 +22791,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:38:05Z",
-      "date_updated": "2026-05-05T04:46:04Z"
+      "date_updated": "2026-05-11T15:39:55Z",
+      "historical": []
     },
     {
       "program_id": "cmu_mhci",
@@ -22410,6 +23242,13 @@
           "note": "The MHCI contact block lists Carnegie Mellon University at 300 S. Craig Street, Pittsburgh, PA 15213, supporting Pittsburgh, Pennsylvania, United States as the location label.",
           "llm_title": "Master of Human-Computer Interaction overview",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.hcii.cmu.edu/academics/mhci",
+          "note": "The program is a Master of Human-Computer Interaction, which focuses on human-computer interaction and UX/user-centered research. This aligns closely with the CIP code for Human-Centered Technology Design (11.0105), which covers programs explicitly focused on designing technology for human needs, overlapping with HCI and UX. No other CIP codes in the list fit as well.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -22422,7 +23261,10 @@
           "School of Computer Science"
         ],
         "host_academic_model": "computing_hosted",
-        "location_label": "Pittsburgh, Pennsylvania, United States"
+        "location_label": "Pittsburgh, Pennsylvania, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0105",
+        "ipeds_unitid": "211440"
       },
       "positioning": {
         "positioning_summary": "The MHCI is positioned as a professional, interdisciplinary HCI program centered on human-computer interaction and UX/user-centered research. It explicitly emphasizes preparing students for industry careers, combines design, computer science, social science, and learning science perspectives, and highlights a substantial external-client capstone; it is also designated a STEM program.",
@@ -22431,7 +23273,8 @@
           "hci_adjacent",
           "ui_ux",
           "research",
-          "digital"
+          "digital",
+          "human_centered"
         ]
       },
       "duration": {
@@ -22576,7 +23419,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:46:10Z",
-      "date_updated": "2026-05-05T04:52:22Z"
+      "date_updated": "2026-05-11T15:39:57Z",
+      "historical": []
     },
     {
       "program_id": "georgia_tech_master_industrial_design",
@@ -22920,7 +23764,10 @@
           "College of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Atlanta, Georgia, United States"
+        "location_label": "Atlanta, Georgia, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "unknown",
+        "ipeds_unitid": "139755"
       },
       "positioning": {
         "positioning_summary": "The MID is positioned as a human-centered, interdisciplinary design program with strong emphasis on research, technology, and professional practice. Its page explicitly frames the degree as a Human-Centered Technology Design STEM program, highlights collaboration across disciplines, and centers interaction design, healthcare design, service design, product design, and user-experience research.",
@@ -23048,7 +23895,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:52:28Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "georgia_tech_ms_digital_media",
@@ -23443,6 +24291,13 @@
           "note": "Georgia Tech's degree page identifies the institution as Georgia Institute of Technology, which is located in Atlanta, Georgia, United States.",
           "llm_title": "Digital Media (MS) | Georgia Tech",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://dm.lmc.gatech.edu/program/ms-program/",
+          "note": "The program is a Master of Science in Digital Media, emphasizing digital media design, critique, and interdisciplinary work across media, design, technology, and cultural analysis. The curriculum includes studio and seminar components, aligning well with the CIP code for Digital Communication and Media/Multimedia. The focus on digital media production and distribution across platforms fits this category. No other CIP codes closely match the program's description.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -23455,7 +24310,10 @@
           "Ivan Allen College of Liberal Arts"
         ],
         "host_academic_model": "arts_hosted",
-        "location_label": "Atlanta, Georgia, United States"
+        "location_label": "Atlanta, Georgia, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "09.0702",
+        "ipeds_unitid": "139755"
       },
       "positioning": {
         "positioning_summary": "The MS in Digital Media is positioned as an arts-and-humanities-based graduate program in digital media design and critique, with a strong studio/seminar and research component. Its framing emphasizes interdisciplinary work across media, design, technology, and cultural analysis, while also highlighting professional preparation for leadership roles in a changing digital culture.",
@@ -23584,7 +24442,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T04:58:03Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T15:42:00Z",
+      "historical": []
     },
     {
       "program_id": "cmu_miips",
@@ -23957,6 +24816,13 @@
           "note": "The page states both MIIPS formats are offered in Pittsburgh, PA.",
           "llm_title": "MIIPS program overview",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://www.cmu.edu/iii/graduate-programs/miips/index.html",
+          "note": "The program is an interdisciplinary master's in product innovation combining technology, business, and design. The focus on product development aligns with 'Industrial and Product Design'. Considered 'Engineering Design' and 'Entrepreneurship/Entrepreneurial Studies' but the primary emphasis is on product design.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -23968,7 +24834,10 @@
           "Integrated Innovation Institute"
         ],
         "host_academic_model": "design_engineering_business_shared_hosted",
-        "location_label": "Pittsburgh, PA, USA"
+        "location_label": "Pittsburgh, PA, USA",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "50.0404",
+        "ipeds_unitid": "211440"
       },
       "positioning": {
         "positioning_summary": "CMU’s MIIPS is positioned as an interdisciplinary, professionally oriented master’s in product innovation that brings together technology, business, and design to solve real-world problems and prepare cross-functional leaders for industry roles.",
@@ -24025,7 +24894,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T16:01:48Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-11T15:42:02Z",
+      "historical": []
     },
     {
       "program_id": "georgia_tech_ms_hci",
@@ -24399,6 +25269,13 @@
           "note": "The program page says Georgia Tech’s HCI setting is in Midtown Atlanta, supporting Atlanta, Georgia, USA as the location label.",
           "llm_title": "Program / About | MS Program in Human-Computer Interaction",
           "retrieved_date": "2026-05-05"
+        },
+        {
+          "feature": "identity.cip_code",
+          "source_url": "https://mshci.gatech.edu/",
+          "note": "The program is an interdisciplinary, professionally oriented HCI/UX program that emphasizes design, research, implementation, and evaluation of human-computer interfaces. It aligns closely with 'Human-Centered Technology Design' due to its focus on designing technology for human needs, overlapping with HCI and UX. Alternatives considered included 'Design and Visual Communications, General' and 'Information Science/Studies', but the specific focus on human-computer interaction and user experience design makes 'Human-Centered Technology Design' the best fit.",
+          "llm_title": "CIP code classification",
+          "retrieved_date": ""
         }
       ],
       "identity": {
@@ -24413,7 +25290,10 @@
           "School of Psychology"
         ],
         "host_academic_model": "computing_hosted",
-        "location_label": "Atlanta, Georgia, USA"
+        "location_label": "Atlanta, Georgia, USA",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "11.0105",
+        "ipeds_unitid": "139755"
       },
       "positioning": {
         "positioning_summary": "Georgia Tech’s MS-HCI is positioned as an interdisciplinary, professionally oriented HCI/UX program that blends practical skills with theoretical knowledge, emphasizes design/research/implementation/evaluation of human-computer interfaces, and includes a required summer internship and capstone project.",
@@ -24422,7 +25302,8 @@
           "hci_adjacent",
           "professional",
           "industrial_product_design",
-          "ui_ux"
+          "ui_ux",
+          "human_centered"
         ]
       },
       "duration": {
@@ -24519,7 +25400,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:10:08Z",
-      "date_updated": "2026-05-05T21:13:02Z"
+      "date_updated": "2026-05-11T15:42:05Z",
+      "historical": []
     },
     {
       "program_id": "ecar_mdes_interaction",
@@ -24801,13 +25683,15 @@
           "Jake Kerr Faculty of Graduate Studies"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Vancouver, British Columbia, Canada"
+        "location_label": "Vancouver, British Columbia, Canada",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The MDES | Interaction curriculum is positioned as a research-driven, studio-based design program centered on interaction design practice. Its coursework emphasizes design studios, design research methods, contemporary critical dialogue, thesis development, and independent project work, with explicit attention to human behavior, social constructs, environmental imperatives, and communication of research and design outcomes. The program also signals broader social-impact and interdisciplinary orientation through community engagement, collaborative projects, and the university’s stated mission around practice-based art + design and research that addresses complex challenges.",
         "positioning_tags": [
           "interaction_design",
-          "research",
+          "professional",
           "social_impact",
           "human_centered"
         ]
@@ -25038,7 +25922,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:13:08Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:32:41Z",
+      "historical": []
     },
     {
       "program_id": "ecar_mdes_interdisciplinary",
@@ -25348,7 +26233,9 @@
           "Jake Kerr Faculty of Graduate Studies"
         ],
         "host_academic_model": "arts_hosted",
-        "location_label": "Vancouver, British Columbia, Canada"
+        "location_label": "Vancouver, British Columbia, Canada",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "A research- and practice-based, full-time interdisciplinary MDes centered on studio practice, design research, and an independent thesis project, with strong emphasis on human-centered design, community/sustainability, and access to studios, labs, and research facilities.",
@@ -25586,7 +26473,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:19:41Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:32:41Z",
+      "historical": []
     },
     {
       "program_id": "hongik_smart_design_eng",
@@ -25881,7 +26769,9 @@
           "International Design School for Advanced Studies (IDAS)"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Seoul, South Korea"
+        "location_label": "Seoul, South Korea",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "Hongik University’s Smart Design Engineering master’s program is positioned as an interdisciplinary, professionally oriented design-engineering convergence degree. The program explicitly says it brings together designers and engineers from the planning stage, invites students from either background, and trains them to plan, implement, and manage integrated product development through a practical curriculum for the smart industry field. Its course mix also points to physical making, digital/IoT prototyping, and human factors.",
@@ -26043,7 +26933,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-05T21:23:46Z",
-      "date_updated": "2026-05-05T21:35:08Z"
+      "date_updated": "2026-05-05T21:35:08Z",
+      "historical": []
     },
     {
       "program_id": "rmit_mdes_innovation_tech",
@@ -26300,7 +27191,9 @@
           "College of Design and Social Context"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Melbourne, Victoria, Australia"
+        "location_label": "Melbourne, Victoria, Australia",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "RMIT positions the Master of Design Innovation and Technology as a practice-based, industry-connected design degree focused on the future of design practice and the use of technology in evolving environments. The program emphasizes interdisciplinary collaboration across design, architecture, engineering, service design, and sound/interactive domains, with strong links to industry partners, international studios, and professional practice.",
@@ -26374,7 +27267,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T00:43:54Z",
-      "date_updated": "2026-05-06T00:56:03Z"
+      "date_updated": "2026-05-06T00:56:03Z",
+      "historical": []
     },
     {
       "program_id": "scad_mfa_ux_design",
@@ -26585,7 +27479,10 @@
           "School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Savannah, Georgia, United States"
+        "location_label": "Savannah, Georgia, United States",
+        "first_degree_granted_year": "unknown",
+        "cip_code": "unknown",
+        "ipeds_unitid": "140951"
       },
       "positioning": {
         "positioning_summary": "SCAD’s MFA in User Experience Design is positioned as a professional, user-centered UX program with a strong digital and human-centered design emphasis. The available evidence directly supports UX-focused preparation and portfolio development, but does not provide enough direct support to claim a broader research, entrepreneurship, or social-impact positioning beyond that.",
@@ -26593,7 +27490,8 @@
           "ui_ux",
           "professional",
           "digital",
-          "hci_adjacent"
+          "hci_adjacent",
+          "human_centered"
         ]
       },
       "duration": {
@@ -26623,7 +27521,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T00:56:09Z",
-      "date_updated": "2026-05-06T01:03:59Z"
+      "date_updated": "2026-05-11T14:58:36Z",
+      "historical": []
     },
     {
       "program_id": "royal_danish_ma_design",
@@ -26952,7 +27851,9 @@
           "Architecture, Design and Business"
         ],
         "host_academic_model": "design_business_shared_hosted",
-        "location_label": "Copenhagen, Denmark"
+        "location_label": "Copenhagen, Denmark",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The programme is positioned as a research-led, interdisciplinary design/architecture master that emphasizes collaboration across disciplines, real-world projects with companies and organizations, and strategic design thinking for innovation and entrepreneurship. It also foregrounds sustainability, social and societal change, and professional practice.",
@@ -27107,7 +28008,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T01:04:05Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-08T17:27:57Z",
+      "historical": []
     },
     {
       "program_id": "zhdk_ma_interaction_design",
@@ -27505,13 +28407,15 @@
           "Department of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Zurich, Switzerland"
+        "location_label": "Zurich, Switzerland",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The program is positioned as an interaction design master’s that combines practical and scientific research methods with innovative project work using a range of technologies. Its framing emphasizes interaction design itself, research, digital and technological practice, and a socially aware orientation through human-centered design and projects engaging ecological or public-interest contexts.",
         "positioning_tags": [
           "interaction_design",
-          "research",
+          "professional",
           "digital",
           "social_impact",
           "human_centered"
@@ -27778,7 +28682,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T15:45:06Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:32:41Z",
+      "historical": []
     },
     {
       "program_id": "zhdk_ma_industrial_design",
@@ -28148,7 +29053,9 @@
           "Department of Design (DDE)"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Zurich, Switzerland"
+        "location_label": "Zurich, Switzerland",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The MA Design, Industrial Design at ZHdK is positioned as a practice-led, research-informed design program that uses prototyping to explore how design can make technology more relevant, while also addressing material realities, dominant value systems, and equitable, ecological futures. The subject framing explicitly centers social relevance, technology, and ecology, with a strong emphasis on critical/speculative and socially responsible design.",
@@ -28156,7 +29063,8 @@
           "critical_speculative_design",
           "social_impact",
           "physical_making",
-          "research"
+          "professional",
+          "industrial_product_design"
         ]
       },
       "duration": {
@@ -28529,7 +29437,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T15:51:43Z",
-      "date_updated": "2026-05-06T15:58:19Z"
+      "date_updated": "2026-05-08T18:01:25Z",
+      "historical": []
     },
     {
       "program_id": "zhdk_ma_knowledge_visualization",
@@ -28920,12 +29829,13 @@
           "Department of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Zurich, Switzerland"
+        "location_label": "Zurich, Switzerland",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The MA Design in Knowledge Visualization is positioned as a design program focused on creating images for scientific knowledge processes, with explicit emphasis on visualizing complex information and scientific contexts. Its framing also highlights visualization and communication concepts, 3D technologies, and imaging processes, and the subject-area description stresses relevance for teaching, research, and the public. Overall, the strongest signals are research-oriented, STEM-adjacent, interdisciplinary, and socially relevant.",
         "positioning_tags": [
-          "research",
           "humanities_adjacent",
           "hci_adjacent",
           "interdisciplinary",
@@ -29061,7 +29971,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T15:58:25Z",
-      "date_updated": "2026-05-06T16:05:37Z"
+      "date_updated": "2026-05-06T16:05:37Z",
+      "historical": []
     },
     {
       "program_id": "kaist_industrial_design",
@@ -29220,7 +30131,9 @@
           "Department of Industrial Design"
         ],
         "host_academic_model": "engineering_design_shared_hosted",
-        "location_label": "Daejeon, South Korea"
+        "location_label": "Daejeon, South Korea",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "KAIST's MS Industrial Design is a research-oriented, STEM-adjacent industrial design program housed in the Department of Industrial Design within the College of Engineering. Available program descriptions emphasize academic exploration of design theory, methods, and application, strengthened through industry-collaborative projects and individual study. KAIST sources also characterize the master's program as focused on human-centered design, technology convergence, and business innovation, with design used as a strategic tool rather than only as aesthetics.",
@@ -29258,7 +30171,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T16:05:49Z",
-      "date_updated": "2026-05-06T17:39:15Z"
+      "date_updated": "2026-05-06T17:39:15Z",
+      "historical": []
     },
     {
       "program_id": "hkpu_mdes_innovative_business_design",
@@ -29638,13 +30552,15 @@
           "School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Hong Kong, Hong Kong SAR, China"
+        "location_label": "Hong Kong, Hong Kong SAR, China",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "An interdisciplinary, design-led MDes that blends design, business, and technology to prepare students to lead transformational change, with a strong emphasis on design-centred entrepreneurship, practice-based research, and innovation for social and economic impact.",
         "positioning_tags": [
           "interdisciplinary",
-          "research",
+          "professional",
           "social_impact",
           "entrepreneurship_adjacent",
           "strategic_design"
@@ -29779,7 +30695,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T20:26:43Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:32:41Z",
+      "historical": []
     },
     {
       "program_id": "hkpu_mdes_intelligent_systems_design",
@@ -30124,7 +31041,9 @@
           "School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Hong Kong, Hong Kong SAR, China"
+        "location_label": "Hong Kong, Hong Kong SAR, China",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "An interdisciplinary, design-led master’s centered on intelligent technologies and systems, blending STEAM fields with AI, Industry 4.0, robotics, AIoT, UX and interaction design. It is positioned as professional and industry-facing, while also reflecting PolyU Design’s human-centered, transdisciplinary design identity.",
@@ -30132,7 +31051,8 @@
           "interdisciplinary",
           "emerging_technologies",
           "professional",
-          "ui_ux"
+          "ui_ux",
+          "human_centered"
         ]
       },
       "duration": {
@@ -30262,7 +31182,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T20:36:15Z",
-      "date_updated": "2026-05-06T20:41:36Z"
+      "date_updated": "2026-05-08T18:01:25Z",
+      "historical": []
     },
     {
       "program_id": "hkpu_mdes_smart_service_design",
@@ -30621,7 +31542,9 @@
           "School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Hong Kong, Hong Kong SAR, China"
+        "location_label": "Hong Kong, Hong Kong SAR, China",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "PolyU’s Smart Service Design MDes is positioned as an interdisciplinary, human-centered service design specialism that blends business, technology, and design to create innovative and sustainable service experiences, with a strong professional orientation toward real-world service innovation and societal impact.",
@@ -30630,7 +31553,9 @@
           "professional",
           "social_impact",
           "critical_speculative_design",
-          "service_design"
+          "service_design",
+          "systems_thinking",
+          "human_centered"
         ]
       },
       "duration": {
@@ -30786,13 +31711,14 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T20:41:48Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-08T18:01:25Z",
+      "historical": []
     },
     {
       "program_id": "tongji_mdes_design_thinking_sustainable_future",
       "base_url": "https://tjdi.tongji.edu.cn",
       "date_added": "2026-05-06T00:00:00Z",
-      "date_updated": "2026-05-08T17:27:57Z",
+      "date_updated": "2026-05-08T18:01:25Z",
       "sources": [],
       "llm_rationales": [
         {
@@ -30840,7 +31766,9 @@
           "Tongji University College of Design and Innovation"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Shanghai, China"
+        "location_label": "Shanghai, China",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "Tongji University’s English-speaking MDes in Design Thinking and Sustainable Future is a two-year international program focused on cultivating creative leadership for complex sociotechnical challenges. It frames design thinking as a method for addressing wicked problems across social, organizational, individual, and environmental contexts, while combining studio work, technology-enabled design, ethics, future scenarios, thesis research, co-op practice, and Chinese cultural study.",
@@ -30851,7 +31779,8 @@
           "strategic_design",
           "human_centered",
           "sustainability",
-          "public_policy_adjacent"
+          "public_policy_adjacent",
+          "service_design"
         ]
       },
       "duration": {
@@ -31060,7 +31989,8 @@
         "status": "llm_extracted",
         "verified_by": "",
         "verified_date": "2026-05-06"
-      }
+      },
+      "historical": []
     },
     {
       "program_id": "hkpu_mdes_transitional_environments_design",
@@ -31370,7 +32300,9 @@
           "PolyU School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Hong Kong, Hong Kong SAR, China"
+        "location_label": "Hong Kong, Hong Kong SAR, China",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "PolyU’s Transitional Environments Design is positioned as a design-specialist MDes focused on rural and urban change in Hong Kong and mainland China, especially the Greater Bay Area, with a critical environmental and ecological design lens. The program emphasizes systemic responses to complex local and global challenges, including sustainability and regeneration.",
@@ -31378,7 +32310,8 @@
           "social_impact",
           "research",
           "architecture_adjacent",
-          "interdisciplinary"
+          "interdisciplinary",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -31510,7 +32443,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-06T23:57:49Z",
-      "date_updated": "2026-05-07T00:01:37Z"
+      "date_updated": "2026-05-08T18:01:25Z",
+      "historical": []
     },
     {
       "program_id": "monash_mdes",
@@ -31723,7 +32657,9 @@
           "Monash Art, Design and Architecture (MADA)"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Melbourne, Victoria, Australia"
+        "location_label": "Melbourne, Victoria, Australia",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "Insufficient direct evidence was available from the program page itself due to access blocking, so positioning is left untagged rather than inferred from the program title or general Monash context.",
@@ -31756,7 +32692,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:01:43Z",
-      "date_updated": "2026-05-07T00:09:59Z"
+      "date_updated": "2026-05-07T00:09:59Z",
+      "historical": []
     },
     {
       "program_id": "monash_mdes_by_research",
@@ -31962,7 +32899,9 @@
           "Monash Art, Design and Architecture (MADA)"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Melbourne, Victoria, Australia"
+        "location_label": "Melbourne, Victoria, Australia",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "Monash Design by Research 3111 is positioned as a research-focused design program: the course overview says it is designed for students undertaking research in design. The available evidence does not clearly support additional positioning themes beyond research, so other tags were omitted.",
@@ -31997,7 +32936,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:10:05Z",
-      "date_updated": "2026-05-07T00:16:04Z"
+      "date_updated": "2026-05-07T00:16:04Z",
+      "historical": []
     },
     {
       "program_id": "ocad_mdes_strategic_foresight_innovation",
@@ -32302,7 +33242,9 @@
           "Strategic Innovation Lab (sLab)"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Toronto, Ontario, Canada"
+        "location_label": "Toronto, Ontario, Canada",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "OCAD University’s Strategic Foresight and Innovation (MDes) is positioned as a transdisciplinary, professionally oriented design program centered on foresight, systems thinking, and innovation for business, policy, and social change. The program emphasizes research methods, collaborative work with diverse peers and external professionals, and outcomes such as strategic roadmaps, business models, policy frameworks, and real-world major projects.",
@@ -32480,7 +33422,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:16:17Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:32:41Z",
+      "historical": []
     },
     {
       "program_id": "qut_mdes_strategic_design",
@@ -32677,12 +33620,13 @@
           "Faculty of Creative Industries, Education and Social Justice"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Brisbane, Queensland, Australia"
+        "location_label": "Brisbane, Queensland, Australia",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The program is positioned as strategic design with an emphasis on translating creative skills into strategic thinking and prudential decision making. Available evidence also points to a research-led, transdisciplinary design environment focused on tackling major societal challenges and moving knowledge and technology into practical applications.",
         "positioning_tags": [
-          "research",
           "interdisciplinary",
           "social_impact",
           "strategic_design"
@@ -32715,7 +33659,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:24:03Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-08T17:27:57Z",
+      "historical": []
     },
     {
       "program_id": "nus_mdes_integrated_design",
@@ -33049,7 +33994,9 @@
           "National University of Singapore"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Singapore, Singapore"
+        "location_label": "Singapore, Singapore",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The MDes in Integrated Design is positioned as a professional, industry-connected design program that prepares students for strategic and leadership roles through interdisciplinary, studio-based learning. Its emphasis on integrating service, experience, interaction, and transformative design, plus real-world collaboration with industry partners and business-facing problem solving, suggests a strong professional and social-impact orientation rather than a purely academic or technical one.",
@@ -33178,7 +34125,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:30:24Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T17:32:41Z",
+      "historical": []
     },
     {
       "program_id": "rca_ma_design_products",
@@ -33536,7 +34484,9 @@
           "School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Battersea, London, United Kingdom"
+        "location_label": "Battersea, London, United Kingdom",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "Design Products MA is positioned as a socially engaged, research-led design studio focused on creating products with purpose. The programme emphasizes cross-disciplinary problem solving, user-centred and evidence-based methods, and work that addresses real-world challenges such as climate, healthcare, and systems change, while also supporting professional pathways into consultancies, studios, start-ups, and leadership roles.",
@@ -33667,7 +34617,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:38:08Z",
-      "date_updated": "2026-05-07T00:55:22Z"
+      "date_updated": "2026-05-07T00:55:22Z",
+      "historical": []
     },
     {
       "program_id": "rca_ma_service_design",
@@ -34032,7 +34983,9 @@
           "School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Battersea, London, United Kingdom"
+        "location_label": "Battersea, London, United Kingdom",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "The RCA Service Design MA is positioned as a pioneering, research-informed, project-based design programme focused on service design as a tool for social and organisational change. It emphasizes real-world challenges, collaboration with commercial/public/social organisations, and preparation for leadership roles across diverse sectors, with a strong human-centred and systems-oriented orientation.",
@@ -34174,7 +35127,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T00:55:35Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-08T17:27:57Z",
+      "historical": []
     },
     {
       "program_id": "rca_ma_information_experience_design",
@@ -34511,18 +35465,20 @@
           "School of Communication"
         ],
         "host_academic_model": "arts_hosted",
-        "location_label": "White City, London, United Kingdom"
+        "location_label": "White City, London, United Kingdom",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "Information Experience Design MA is positioned as a boundary-breaking, interdisciplinary, research-led programme that combines traditional and emerging media to design experiences of information. It emphasizes speculative and experimental practice, systems thinking, and socially engaged work, while also pointing to professional pathways in startups, cultural and tech sectors, and independent creative practice.",
         "positioning_tags": [
           "fine_arts_adjacent",
-          "research",
           "critical_speculative_design",
           "digital",
           "social_impact",
           "emerging_technologies",
-          "media_adjacent"
+          "media_adjacent",
+          "systems_thinking"
         ]
       },
       "duration": {
@@ -34655,7 +35611,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T01:01:59Z",
-      "date_updated": "2026-05-08T17:32:41Z"
+      "date_updated": "2026-05-08T18:01:25Z",
+      "historical": []
     },
     {
       "program_id": "rca_ma_mres_design_futures",
@@ -34999,7 +35956,9 @@
           "School of Design"
         ],
         "host_academic_model": "design_hosted",
-        "location_label": "Kensington, London, United Kingdom"
+        "location_label": "Kensington, London, United Kingdom",
+        "first_degree_granted_year": "unknown",
+        "cip_code": null
       },
       "positioning": {
         "positioning_summary": "Design Futures is positioned as a research-led, interdisciplinary MDes that uses design futures methods to address complex social, environmental, and strategic uncertainty. The programme emphasizes transdisciplinary practice, research methodology, complex systems, futures thinking, and entrepreneurial/professional skills, with a strong sustainability and ethics orientation.",
@@ -35117,7 +36076,8 @@
         "verified_date": ""
       },
       "date_added": "2026-05-07T01:08:58Z",
-      "date_updated": "2026-05-08T17:27:57Z"
+      "date_updated": "2026-05-08T17:27:57Z",
+      "historical": []
     }
   ]
 }

@@ -100,10 +100,11 @@ class OpenAICompatibleClient:
                     if attempt + 1 >= self._max_retries:
                         raise RuntimeError(
                             f"LLM API returned {r.status_code} after {self._max_retries} attempts. "
+                            f"URL: {url} · "
                             f"Wait and retry, or check usage/billing limits. Last detail: {last_body}"
                         )
                     print(
-                        f"[pa] HTTP {r.status_code} · retry {wait:.1f}s ({attempt + 1}/{self._max_retries})",
+                        f"[pa] HTTP {r.status_code} · {url} · retry {wait:.1f}s ({attempt + 1}/{self._max_retries})",
                         file=sys.stderr,
                     )
                     time.sleep(wait)
@@ -177,10 +178,11 @@ class AnthropicClient:
                     if attempt + 1 >= self._max_retries:
                         raise RuntimeError(
                             f"LLM API returned {r.status_code} after {self._max_retries} attempts. "
+                            f"URL: {url} · "
                             f"Wait and retry, or check usage/billing limits. Last detail: {last_body}"
                         )
                     print(
-                        f"[pa] HTTP {r.status_code} · retry {wait:.1f}s ({attempt + 1}/{self._max_retries})",
+                        f"[pa] HTTP {r.status_code} · {url} · retry {wait:.1f}s ({attempt + 1}/{self._max_retries})",
                         file=sys.stderr,
                     )
                     time.sleep(wait)

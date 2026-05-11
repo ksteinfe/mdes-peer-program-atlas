@@ -3,8 +3,8 @@
     "extra_instructions": [
       "Append at least one **`llm_rationales`** row for this step (five string keys each: feature, source_url, note, llm_title, retrieved_date), citing the pages you used for **`identity`** fields.",
       "For **`first_degree_granted_year`**: output the four-digit calendar year the program first conferred a degree (e.g. `'1998'`). Look in program history, 'About' pages, accreditation records, or IPEDS data. Use `'unknown'` (not null) when the year cannot be found in EVIDENCE.",
-      "For **`cip_code`**: select the best-matching id from CATEGORY_JSON **cip_codes** (e.g. `'50.0401'`). Output the id string exactly as listed. Use `'unknown'` (not null) when no code in the list fits the program. Never invent a code not present in the list.",
-      "Include a dedicated **`llm_rationales`** row with **`feature: 'identity.cip_code'`** that names the program characteristics (degree type, positioning tags, curriculum focus) that drove the selection and notes any close alternatives that were considered and rejected."
+      "For **`cip_code`**: CIP codes apply only to US institutions (IPEDS-enrolled). Check `identity.ipeds_unitid` in PROGRAM_JSON. If it is set and non-null, select the best-matching id from CATEGORY_JSON **cip_codes** (e.g. `'50.0401'`) or use `'unknown'` if no code fits; never invent a code not in the list. If `ipeds_unitid` is null or absent, set `cip_code` to `null` and include a dedicated **`llm_rationales`** row with `feature: 'identity.cip_code'`, `source_url: ''`, `llm_title: 'CIP code not applicable'`, `retrieved_date: ''`, and a `note` stating that CIP codes are a US federal (IPEDS) classification and this institution has no IPEDS UnitID on record.",
+      "For institutions with an IPEDS UnitID, include a dedicated **`llm_rationales`** row with **`feature: 'identity.cip_code'`** naming the program characteristics (degree type, positioning, curriculum focus) that drove the selection and noting any close alternatives considered and rejected."
     ]
   },
   "positioning": {
@@ -88,7 +88,8 @@
       "Each **`historical`** array entry is an object with exactly two keys: **`academic_year`** (string, e.g. `'2022-23'`) and **`degrees_granted`** (integer or null).",
       "Only include academic years where EVIDENCE explicitly states a completion or degree count. Do **not** invent or interpolate counts.",
       "`degrees_granted` counts **completed degrees**, not enrollment. Use `null` when a year entry is mentioned but count is uncertain.",
-      "Primary sources: IPEDS Completions survey, institutional fact books, annual reports, program outcome statistics pages.",
+      "The year of the program's **first graduating class** is equivalent to a `degrees_granted` data point — if EVIDENCE states when the first cohort graduated or the program awarded its first degrees, record that academic year with whatever count is given (or `null` if the count is not stated).",
+      "Primary sources: IPEDS Completions survey, institutional fact books, annual reports, program outcome statistics pages, program history pages, accreditation self-studies.",
       "If EVIDENCE contains no usable completion counts, return `{\"historical\": []}` and add an **`llm_rationales`** entry with `feature: 'historical'` explaining what was searched.",
       "Every **`llm_rationales[]`** entry uses exactly five string keys: **`feature`**, **`source_url`**, **`note`**, **`llm_title`**, **`retrieved_date`**. Use feature paths like `historical.0.degrees_granted`."
     ]

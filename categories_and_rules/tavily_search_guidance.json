@@ -40,6 +40,9 @@
       ]
     }
   },
+  "node_extra_domains": {
+    "historical": ["nces.ed.gov"]
+  },
   "curriculum_core_course": {
     "generic_placeholder_queries": [
       "{label} required course list degree requirements catalog"

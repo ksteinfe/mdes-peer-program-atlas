@@ -120,8 +120,7 @@
         "host_academic_units",
         "host_academic_model",
         "location_label",
-        "first_degree_granted_year",
-        "cip_code"
+        "first_degree_granted_year"
       ],
       "additionalProperties": false,
       "properties": {
@@ -142,6 +141,10 @@
         "cip_code": {
           "type": ["string", "null"],
           "description": "Best-matching 6-digit CIP 2020 code. Use 'unknown' when not determinable. Null during ingest."
+        },
+        "ipeds_unitid": {
+          "type": ["string", "null"],
+          "description": "IPEDS UnitID of the host institution (6-digit string, e.g. '110635'). Null for international institutions or when unmatched."
         }
       }
     },

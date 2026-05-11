@@ -105,12 +105,18 @@ def search_urls_for_evidence(
     seed_url: str,
     max_results: int = 5,
     timeout: float = 30.0,
+    extra_domains: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     """
     Tavily search restricted to the seed URL's registrable domain (or hostname),
     with PDF/office-style URLs removed from results.
+
+    ``extra_domains`` appends additional domains to the Tavily ``include_domains``
+    list, e.g. for nodes that need to reach external sources like nces.ed.gov.
     """
-    domains = tavily_include_domains_for_seed_url(seed_url)
+    base = tavily_include_domains_for_seed_url(seed_url) or []
+    extra = [d.strip() for d in (extra_domains or []) if d and d.strip()]
+    domains = base + extra if (base or extra) else None
     raw = search_urls(
         query,
         max_results=max_results,

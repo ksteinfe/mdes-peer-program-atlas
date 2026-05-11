@@ -60,6 +60,7 @@ const EDITABLE_PATHS = [
   "identity.location_label",
   "identity.first_degree_granted_year",
   "identity.cip_code",
+  "identity.ipeds_unitid",
   "positioning.positioning_summary",
   "positioning.positioning_tags",
   "duration.length_in_berkeley_semesters",
@@ -1381,6 +1382,11 @@ function renderDetailBody() {
       "CIP code",
       `<select data-path="identity.cip_code">${cipOptions}</select>`
     );
+    html += fieldRow(
+      "identity.ipeds_unitid",
+      "IPEDS UnitID",
+      `<input type="text" data-path="identity.ipeds_unitid" value="${esc(String(ident.ipeds_unitid ?? ""))}" placeholder="e.g. 110635" />`
+    );
   } else {
     html += `<tr><th>Institution</th><td>${esc(ident.institution_name ?? "")}</td></tr>`;
     html += `<tr><th>Program</th><td>${esc(ident.program_name ?? "")}</td></tr>`;
@@ -1392,6 +1398,9 @@ function renderDetailBody() {
     html += `<tr><th>First degree year</th><td>${esc(String(ident.first_degree_granted_year ?? ""))}</td></tr>`;
     const cipLabel = labelForId("cip_codes", cipIdVal);
     html += `<tr><th>CIP code</th><td>${esc(cipIdVal)}${cipLabel && cipLabel !== cipIdVal ? " — " + esc(cipLabel) : ""}</td></tr>`;
+    if (ident.ipeds_unitid) {
+      html += `<tr><th>IPEDS UnitID</th><td>${esc(String(ident.ipeds_unitid))}</td></tr>`;
+    }
   }
   html += `</table></section>`;
 

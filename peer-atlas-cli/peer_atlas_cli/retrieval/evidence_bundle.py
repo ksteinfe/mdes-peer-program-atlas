@@ -26,6 +26,7 @@ from peer_atlas_cli.retrieval.host_scope import (
     registered_domain_for_url,
     url_matches_registered_domain,
 )
+from peer_atlas_cli.categories import load_tavily_search_guidance
 from peer_atlas_cli.retrieval.query_builders import queries_for_node
 from peer_atlas_cli.retrieval.tavily_search import search_urls
 from peer_atlas_cli.retrieval.url_normalize import normalize_url
@@ -34,6 +35,20 @@ from peer_atlas_cli.retrieval.url_normalize import normalize_url
 DEFAULT_MAX_RESULTS_PER_QUERY_NODE = 10
 # Narrower cap for per–core-course Tavily runs (several queries per row).
 CORE_COURSE_MAX_RESULTS_PER_QUERY = 5
+
+
+def _extra_domains_for_node(node: str, repo_root: pathlib.Path | None) -> list[str]:
+    """Return any additional Tavily include_domains configured for this node."""
+    if repo_root is None:
+        return []
+    guidance = load_tavily_search_guidance(repo_root)
+    ned = guidance.get("node_extra_domains")
+    if not isinstance(ned, dict):
+        return []
+    domains = ned.get(node)
+    if not isinstance(domains, list):
+        return []
+    return [str(d).strip() for d in domains if str(d).strip()]
 
 
 def _dedupe_urls(urls: list[str]) -> list[str]:
@@ -96,6 +111,7 @@ def _evidence_urls_and_hits_for_node(
         user_query=user_query,
         repo_root=repo_root,
     )
+    extra = _extra_domains_for_node(node, repo_root)
     hits: list[dict[str, Any]] = []
 
     for q in queries:
@@ -108,6 +124,7 @@ def _evidence_urls_and_hits_for_node(
                     q,
                     seed_url=seed_url,
                     max_results=max_results_per_query,
+                    extra_domains=extra or None,
                 )
             )
         except Exception:

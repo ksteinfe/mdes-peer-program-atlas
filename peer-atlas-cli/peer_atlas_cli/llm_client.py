@@ -129,8 +129,104 @@ class OpenAICompatibleClient:
                 return content
 
 
-PROVIDERS: dict[str, type[OpenAICompatibleClient]] = {
+class AnthropicClient:
+    def __init__(
+        self,
+        *,
+        api_key: str,
+        model: str,
+        base_url: str | None = None,
+        timeout: float = 120.0,
+        max_retries: int = 6,
+    ) -> None:
+        self._api_key = api_key
+        self._model = model
+        self._base = (base_url or "https://api.anthropic.com").rstrip("/")
+        self._timeout = timeout
+        self._max_retries = max_retries
+
+    def complete(
+        self, *, system: str, user: str, transcript_step: str | None = None
+    ) -> str:
+        req_chars = len(system) + len(user)
+        step_s = ""
+        if transcript_step:
+            ts = transcript_step if len(transcript_step) <= 42 else transcript_step[:39] + "…"
+            step_s = f" · {ts}"
+        print(f"[pa] LLM {req_chars}c{step_s}", file=sys.stderr)
+        url = f"{self._base}/v1/messages"
+        payload: dict[str, Any] = {
+            "model": self._model,
+            "max_tokens": 8096,
+            "temperature": 0.2,
+            "system": system,
+            "messages": [{"role": "user", "content": user}],
+        }
+        headers = {
+            "x-api-key": self._api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        }
+        last_body = ""
+        with httpx.Client(timeout=self._timeout) as client:
+            for attempt in range(self._max_retries):
+                r = client.post(url, headers=headers, json=payload)
+                if r.status_code in (429, 503):
+                    last_body = _api_error_message(r)
+                    wait = _retry_after_seconds(r, attempt)
+                    if attempt + 1 >= self._max_retries:
+                        raise RuntimeError(
+                            f"LLM API returned {r.status_code} after {self._max_retries} attempts. "
+                            f"Wait and retry, or check usage/billing limits. Last detail: {last_body}"
+                        )
+                    print(
+                        f"[pa] HTTP {r.status_code} · retry {wait:.1f}s ({attempt + 1}/{self._max_retries})",
+                        file=sys.stderr,
+                    )
+                    time.sleep(wait)
+                    continue
+                try:
+                    r.raise_for_status()
+                except httpx.HTTPStatusError as e:
+                    msg = _api_error_message(r)
+                    raise RuntimeError(
+                        f"LLM API error {r.status_code}: {msg or r.reason_phrase}"
+                    ) from e
+                data = r.json()
+                try:
+                    content = str(data["content"][0]["text"])
+                except (KeyError, IndexError, TypeError) as e:
+                    raise RuntimeError(f"Unexpected LLM response: {data!r}") from e
+                record_llm_exchange(
+                    system=system,
+                    user=user,
+                    response=content,
+                    step_slug=transcript_step,
+                )
+                return content
+
+
+class GeminiClient(OpenAICompatibleClient):
+    def __init__(
+        self,
+        *,
+        api_key: str,
+        model: str,
+        base_url: str | None = None,
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(
+            api_key=api_key,
+            model=model,
+            base_url=base_url or "https://generativelanguage.googleapis.com/v1beta/openai",
+            **kwargs,
+        )
+
+
+PROVIDERS: dict[str, type] = {
     "openai": OpenAICompatibleClient,
+    "anthropic": AnthropicClient,
+    "gemini": GeminiClient,
 }
 
 

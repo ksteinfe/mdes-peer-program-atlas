@@ -18,6 +18,8 @@ Thumbs.db
 # Dated corpus snapshots from `peer-atlas clear-programs`
 corpus/programs.archive.*.json
 
+corpus_backup/*
+
 # External-agent export snapshots (written by external-agents/*/export_snapshot.py)
 export-output/
 

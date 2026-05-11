@@ -858,6 +858,61 @@ function buildSampleCoursesSectionHtml(curriculumObj) {
 /**
  * @param {object} p
  */
+function _fmt_currency(v) {
+  if (v === null || v === undefined) return "—";
+  return "$" + Number(v).toLocaleString("en-US", { maximumFractionDigits: 0 });
+}
+
+function _fmt_num(v) {
+  if (v === null || v === undefined) return "—";
+  return Number(v).toLocaleString("en-US", { maximumFractionDigits: 1 });
+}
+
+function buildFreoppSectionHtml(p) {
+  const f = p.freopp_roi && typeof p.freopp_roi === "object" ? p.freopp_roi : null;
+  let html = `<section class="detail-section"><h3>FREOPP ROI Study 2022</h3>`;
+  if (!f) {
+    const ident = p.identity ?? {};
+    let reason = "No matching record found in the FREOPP Graduate ROI Dataset 2022.";
+    if (!ident.ipeds_unitid) {
+      reason = "No IPEDS UnitID recorded for this institution — run lookup-ipeds-unitids.py to enable FREOPP matching.";
+    } else if (!ident.cip_code || ident.cip_code === "unknown" || ident.cip_code === "INVALID") {
+      reason = "No valid CIP code recorded for this program — run classify-cip to enable FREOPP matching.";
+    }
+    html += `<table class="def-table"><tr><th>Status</th><td>${esc(reason)}</td></tr></table>`;
+    html += `</section>`;
+    return html;
+  }
+
+  if (f.match_confidence === "low") {
+    html += `<p style="color:#b45309;background:#fef3c7;padding:0.4rem 0.6rem;border-radius:4px;margin-bottom:0.5rem;font-size:0.85em">⚠ Low-confidence match — CIP code did not align; matched on degree field, length, and academic context.</p>`;
+  }
+
+  html += `<table class="def-table">`;
+
+  // Program info
+  html += `<tr><th>Degree Field</th><td>${esc(f.degree_field ?? "—")}</td></tr>`;
+  html += `<tr><th>Field Category</th><td>${esc(f.degree_field_category ?? "—")}</td></tr>`;
+  html += `<tr><th>Control</th><td>${esc(f.control ?? "—")}</td></tr>`;
+  html += `<tr><th>Cohort Count</th><td>${f.college_scorecard_cohort_count != null ? f.college_scorecard_cohort_count.toLocaleString() : "—"}</td></tr>`;
+
+  // Cost
+  html += `<tr><th colspan="2" class="def-table-subheader">Cost</th></tr>`;
+  html += `<tr><th>Annual Tuition</th><td>${_fmt_currency(f.annual_tuition)}</td></tr>`;
+  html += `<tr><th>Annual Ed. Spending</th><td>${_fmt_currency(f.annual_education_spending)}</td></tr>`;
+  html += `<tr><th>Completion Rate</th><td>${esc(f.estimated_completion_rate ?? "—")}</td></tr>`;
+
+  // ROI
+  html += `<tr><th colspan="2" class="def-table-subheader">Return on Investment</th></tr>`;
+  html += `<tr><th>% ↑ Lifetime Earnings</th><td>${esc(f.percentage_increase_lifetime_earnings ?? "—")}</td></tr>`;
+  html += `<tr><th>ROI Rank (Master's)</th><td>${f.rank_by_roi_masters != null ? "#" + f.rank_by_roi_masters.toLocaleString() : "—"}</td></tr>`;
+
+  html += `</table>`;
+  html += `<p class="detail-empty" style="font-size:0.8em;margin-top:0.5rem">Source: FREOPP Graduate ROI Dataset 2022 · Credential Level 5 (Master's)</p>`;
+  html += `</section>`;
+  return html;
+}
+
 function buildHistoricalSectionHtml(p) {
   const hist = Array.isArray(p.historical) ? p.historical : [];
   const sorted = [...hist].sort((a, b) =>
@@ -1556,6 +1611,8 @@ function renderDetailBody() {
   html += buildHistoricalSectionHtml(p);
 
   html += buildSampleCoursesSectionHtml(cur);
+
+  html += buildFreoppSectionHtml(p);
 
   root.innerHTML = html;
 

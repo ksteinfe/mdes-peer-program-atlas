@@ -46,8 +46,9 @@ _FEATURE_STEP_MAP = {
     "identity.cip_code":                  "cip_code",
     "identity.ipeds_unitid":              "identity",
     "historical":                         "historical",
+    "freopp_roi":                         "freopp_roi",
 }
-_ALL_STEPS: tuple[str, ...] = ("identity", "cip_code", "historical")
+_ALL_STEPS: tuple[str, ...] = ("identity", "cip_code", "historical", "freopp_roi")
 
 
 def features_to_steps(features: list[str]) -> tuple[str, ...]:
@@ -197,6 +198,25 @@ class ProgressDisplay:
             self._drawn = 0
             self._redraw()
 
+    def error_block(self, lines: list[str]) -> None:
+        """Print a traceback or multi-line error block, preceded by 4 blank lines.
+        Lines are printed at full width — no truncation. The live display is
+        redrawn below the block so progress continues normally."""
+        with self._lock:
+            self._move_up(self._drawn)
+            self._drawn = 0
+            if self._is_tty:
+                for _ in range(4):
+                    sys.stderr.write(f"\r{_EL}\n")
+                for line in lines:
+                    sys.stderr.write(f"\r{_EL}{line}\n")
+            else:
+                sys.stderr.write("\n" * 4)
+                for line in lines:
+                    sys.stderr.write(line + "\n")
+            sys.stderr.flush()
+            self._redraw()
+
     def finish(self) -> None:
         with self._lock:
             self._move_up(self._drawn)
@@ -336,6 +356,9 @@ def _cmd_for_step(peer_atlas: str, pid: str, step: str) -> list[str]:
         return [peer_atlas, "classify-cip", pid]
     if step == "historical":
         return [peer_atlas, "research-node", pid, "historical"]
+    if step == "freopp_roi":
+        repo_root = str(Path(__file__).resolve().parent.parent)
+        return [sys.executable, str(Path(__file__).resolve().parent / "lookup-freopp-roi.py"), pid]
     raise ValueError(f"Unknown step: {step!r}")
 
 
@@ -370,8 +393,7 @@ def process_program(
         status = f"{_GRN}OK{_RST}" if ok else f"{_RED}FAILED (exit {rc}){_RST}"
         display.log(f"{_ljust(label, 44)}  {status}  {_DIM}{dur:.1f}s{_RST}", ok=ok)
         if not ok:
-            for line in out.splitlines():
-                sys.stderr.write(f"  {_DIM}{line}{_RST}\n")
+            display.error_block(out.splitlines())
         results.append((label, rc))
 
     display.program_done(pid)
@@ -452,7 +474,8 @@ def main() -> None:
                         failures.append(label)
             except RateLimitError as e:
                 display.finish()
-                sys.stderr.write(f"\n{_RED}Rate limit (HTTP 429) — stopping.{_RST}\n\n")
+                sys.stderr.write("\n" * 4)
+                sys.stderr.write(f"{_RED}Rate limit (HTTP 429) — stopping.{_RST}\n\n")
                 sys.stderr.write(e.full_output + "\n")
                 os._exit(1)
             except Exception as e:

@@ -927,7 +927,57 @@
         "https://www.ischool.berkeley.edu/research-areas/information-economics",
         "https://www.ischool.berkeley.edu/research/publications/1991/user-illusion-and-information-retrieval"
       ],
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "110635",
+        "institution_name": "University of California-Berkeley",
+        "state_fips_code": 6,
+        "state": "CALIFORNIA",
+        "credential_level": 7,
+        "credential_level_description": "Professional",
+        "program_cip_code": 1104,
+        "degree_field": "Information Science/Studies.",
+        "degree_field_category": "STEM PhDs and equivalent",
+        "control": "Public",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 36,
+        "estimated_age_of_program_start": 24.0,
+        "estimated_age_of_program_completion": 29.0,
+        "program_length_years": 5.0,
+        "annual_tuition": 8289.229,
+        "all_years_tuition": 41446.15,
+        "annual_education_spending": 40520.48,
+        "all_years_education_spending": 202602.4,
+        "estimated_completion_rate": "84.5%",
+        "absolute_increase_lifetime_earnings": 1741385.0,
+        "percentage_increase_lifetime_earnings": "84%",
+        "lifetime_roi": 1703423.0,
+        "rank_by_roi_masters": null,
+        "rank_by_roi_advanced": 228,
+        "roi_dropout": -165125.0,
+        "roi_weighted_completion": 1413798.0,
+        "roi_based_on_spending": 1555813.0,
+        "roi_dropout_based_on_spending": -241546.6,
+        "roi_weighted_completion_based_on_spending": 1277222.0,
+        "estimated_earnings_at_graduation": 133054.69,
+        "estimated_earnings_at_30": 140201.64,
+        "estimated_earnings_at_35": 175916.48,
+        "estimated_earnings_at_40": 204289.84,
+        "estimated_earnings_at_45": 221377.95,
+        "estimated_earnings_at_50": 234895.43,
+        "estimated_earnings_at_55": 241967.15,
+        "estimated_earnings_at_60": 236917.47,
+        "estimated_counterfactual_earnings_at_25": 62096.378,
+        "estimated_counterfactual_earnings_at_30": 79510.099,
+        "estimated_counterfactual_earnings_at_35": 92532.661,
+        "estimated_counterfactual_earnings_at_40": 97916.9,
+        "estimated_counterfactual_earnings_at_45": 101081.24,
+        "estimated_counterfactual_earnings_at_50": 102527.35,
+        "estimated_counterfactual_earnings_at_55": 99729.777,
+        "estimated_counterfactual_earnings_at_60": 91211.099
+      }
     },
     {
       "program_id": "berkeley_mdes",
@@ -1845,7 +1895,8 @@
         "https://www.ischool.berkeley.edu/research-areas/information-economics",
         "https://www.ischool.berkeley.edu/research/publications/1991/user-illusion-and-information-retrieval"
       ],
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "artcenter_media_design_practices",
@@ -2299,7 +2350,8 @@
         "https://www.artcenter.edu/search.html?path=academics&q=Ranking+do+Google%28TG%3Ae10838%29.aqd",
         "https://www.artcenter.edu/search.html?path=academics&q=award+winning+chili+recipehigh+salary+part-time+job+Contact+WhatsApp%3A++1+6135545839.hwy"
       ],
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "cmu_master_computational_design",
@@ -2694,7 +2746,8 @@
         "https://www.lti.cs.cmu.edu/academics/masters-programs/mcds.html",
         "https://www.sv.cmu.edu/programs/mssm.html"
       ],
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "cmu_master_design",
@@ -3234,7 +3287,58 @@
         "https://www.lti.cs.cmu.edu/academics/masters-programs/mcds.html",
         "https://www.sv.cmu.edu/programs/mssm.html"
       ],
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "211440",
+        "institution_name": "Carnegie Mellon University",
+        "state_fips_code": 42,
+        "state": "PENNSYLVANIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 26,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 36508.4,
+        "all_years_tuition": 73016.8,
+        "annual_education_spending": 61089.32,
+        "all_years_education_spending": 122178.6,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 1326027.0,
+        "percentage_increase_lifetime_earnings": "117%",
+        "lifetime_roi": 1256169.0,
+        "rank_by_roi_masters": 605,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -73632.52,
+        "roi_weighted_completion": 998187.0,
+        "roi_based_on_spending": 1209134.0,
+        "roi_dropout_based_on_spending": -97497.48,
+        "roi_weighted_completion_based_on_spending": 955648.0,
+        "estimated_earnings_at_graduation": 92565.218,
+        "estimated_earnings_at_30": 88916.554,
+        "estimated_earnings_at_35": 110587.85,
+        "estimated_earnings_at_40": 124895.39,
+        "estimated_earnings_at_45": 131999.1,
+        "estimated_earnings_at_50": 136227.58,
+        "estimated_earnings_at_55": 134651.15,
+        "estimated_earnings_at_60": 126269.84,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 43251.214,
+        "estimated_counterfactual_earnings_at_35": 51061.058,
+        "estimated_counterfactual_earnings_at_40": 55236.085,
+        "estimated_counterfactual_earnings_at_45": 55782.502,
+        "estimated_counterfactual_earnings_at_50": 55637.451,
+        "estimated_counterfactual_earnings_at_55": 53312.156,
+        "estimated_counterfactual_earnings_at_60": 50247.975,
+        "match_confidence": "high"
+      }
     },
     {
       "program_id": "columbia_ms_computational_design_practices",
@@ -3790,7 +3894,8 @@
       },
       "date_added": "2026-05-03T21:37:45Z",
       "date_updated": "2026-05-11T15:35:59Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "dartmouth_ms_cs_digital_arts",
@@ -4210,7 +4315,8 @@
       },
       "date_added": "2026-05-03T21:59:48Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "tu_delft_msc_integrated_product_design",
@@ -4830,7 +4936,8 @@
       },
       "date_added": "2026-05-03T23:03:13Z",
       "date_updated": "2026-05-11T05:25:14Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "harvard_master_design_studies",
@@ -5316,7 +5423,58 @@
       },
       "date_added": "2026-05-03T23:20:13Z",
       "date_updated": "2026-05-11T15:36:02Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "166027",
+        "institution_name": "Harvard University",
+        "state_fips_code": 25,
+        "state": "MASSACHUSETTS",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 403,
+        "degree_field": "City/Urban, Community and Regional Planning.",
+        "degree_field_category": "All others",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": true,
+        "college_scorecard_cohort_count": 102,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 29.0,
+        "program_length_years": 1.0,
+        "annual_tuition": 37938.06,
+        "all_years_tuition": 37938.06,
+        "annual_education_spending": 125090.8,
+        "all_years_education_spending": 125090.8,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 158394.3,
+        "percentage_increase_lifetime_earnings": "9%",
+        "lifetime_roi": 121561.0,
+        "rank_by_roi_masters": 4682,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -47768.47,
+        "roi_weighted_completion": 88711.0,
+        "roi_based_on_spending": 36947.0,
+        "roi_dropout_based_on_spending": -90075.63,
+        "roi_weighted_completion_based_on_spending": 12305.0,
+        "estimated_earnings_at_graduation": 64081.121,
+        "estimated_earnings_at_30": 65498.646,
+        "estimated_earnings_at_35": 79018.743,
+        "estimated_earnings_at_40": 90458.185,
+        "estimated_earnings_at_45": 96539.405,
+        "estimated_earnings_at_50": 97923.915,
+        "estimated_earnings_at_55": 97462.09,
+        "estimated_earnings_at_60": 93149.615,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 65236.856,
+        "estimated_counterfactual_earnings_at_35": 74576.673,
+        "estimated_counterfactual_earnings_at_40": 80026.081,
+        "estimated_counterfactual_earnings_at_45": 81605.374,
+        "estimated_counterfactual_earnings_at_50": 82069.98,
+        "estimated_counterfactual_earnings_at_55": 82361.729,
+        "estimated_counterfactual_earnings_at_60": 76965.666,
+        "match_confidence": "low"
+      }
     },
     {
       "program_id": "iit_master_design",
@@ -5737,7 +5895,58 @@
       },
       "date_added": "2026-05-03T23:29:19Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "145725",
+        "institution_name": "Illinois Institute of Technology",
+        "state_fips_code": 17,
+        "state": "ILLINOIS",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Higher Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 53,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 23602.77,
+        "all_years_tuition": 47205.55,
+        "annual_education_spending": 26589.41,
+        "all_years_education_spending": 53178.81,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 1560554.0,
+        "percentage_increase_lifetime_earnings": "127%",
+        "lifetime_roi": 1515391.0,
+        "rank_by_roi_masters": 374,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -66118.01,
+        "roi_weighted_completion": 1208578.0,
+        "roi_based_on_spending": 1509676.0,
+        "roi_dropout_based_on_spending": -69017.65,
+        "roi_weighted_completion_based_on_spending": 1203410.0,
+        "estimated_earnings_at_graduation": 101881.92,
+        "estimated_earnings_at_30": 98845.404,
+        "estimated_earnings_at_35": 124407.33,
+        "estimated_earnings_at_40": 141816.69,
+        "estimated_earnings_at_45": 150399.9,
+        "estimated_earnings_at_50": 155658.36,
+        "estimated_earnings_at_55": 154477.87,
+        "estimated_earnings_at_60": 145290.38,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 48546.448,
+        "estimated_counterfactual_earnings_at_35": 56166.253,
+        "estimated_counterfactual_earnings_at_40": 59767.492,
+        "estimated_counterfactual_earnings_at_45": 59827.48,
+        "estimated_counterfactual_earnings_at_50": 59619.864,
+        "estimated_counterfactual_earnings_at_55": 57422.88,
+        "estimated_counterfactual_earnings_at_60": 54301.348,
+        "match_confidence": "high"
+      }
     },
     {
       "program_id": "harvard_master_design_engineering",
@@ -6244,7 +6453,8 @@
       },
       "date_added": "2026-05-03T23:37:34Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "imperial_innovation_design_engineering",
@@ -6777,7 +6987,8 @@
       },
       "date_added": "2026-05-03T23:50:02Z",
       "date_updated": "2026-05-11T05:34:24Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "stanford_ms_design",
@@ -7400,7 +7611,8 @@
       },
       "date_added": "2026-05-04T00:05:28Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "umich_mdes_integrative_design",
@@ -7671,7 +7883,8 @@
       },
       "date_added": "2026-05-04T00:28:29Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "nyu_itp",
@@ -8222,7 +8435,57 @@
       },
       "date_added": "2026-05-04T00:40:09Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "193900",
+        "institution_name": "New York University",
+        "state_fips_code": 36,
+        "state": "NEW YORK",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 27,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 36240.01,
+        "all_years_tuition": 72480.02,
+        "annual_education_spending": 49984.23,
+        "all_years_education_spending": 99968.45,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": -652092.3,
+        "percentage_increase_lifetime_earnings": "-46%",
+        "lifetime_roi": -721436.0,
+        "rank_by_roi_masters": 11291,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -84733.44,
+        "roi_weighted_completion": -597916.0,
+        "roi_based_on_spending": -747736.0,
+        "roi_dropout_based_on_spending": -98077.34,
+        "roi_weighted_completion_based_on_spending": -621702.0,
+        "estimated_earnings_at_graduation": 35130.859,
+        "estimated_earnings_at_30": 33836.269,
+        "estimated_earnings_at_35": 37754.578,
+        "estimated_earnings_at_40": 39166.44,
+        "estimated_earnings_at_45": 40113.27,
+        "estimated_earnings_at_50": 40341.15,
+        "estimated_earnings_at_55": 38435.457,
+        "estimated_earnings_at_60": 35085.678,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 55729.202,
+        "estimated_counterfactual_earnings_at_35": 64629.065,
+        "estimated_counterfactual_earnings_at_40": 68905.469,
+        "estimated_counterfactual_earnings_at_45": 69046.048,
+        "estimated_counterfactual_earnings_at_50": 68813.47,
+        "estimated_counterfactual_earnings_at_55": 66237.787,
+        "estimated_counterfactual_earnings_at_60": 62612.877
+      }
     },
     {
       "program_id": "northwestern_ms_engineering_design_innovation",
@@ -8777,7 +9040,8 @@
       },
       "date_added": "2026-05-04T01:14:21Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "calarts_integrated_media",
@@ -9048,7 +9312,57 @@
       },
       "date_added": "2026-05-04T02:26:12Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "111081",
+        "institution_name": "California Institute of the Arts",
+        "state_fips_code": 6,
+        "state": "CALIFORNIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5007,
+        "degree_field": "Fine and Studio Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Special Focus Four-Year: Arts, Music & Design Schools",
+        "research_university": false,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 53,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 38969.86,
+        "all_years_tuition": 77939.73,
+        "annual_education_spending": 45008.04,
+        "all_years_education_spending": 90016.08,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": -692572.9,
+        "percentage_increase_lifetime_earnings": "-54%",
+        "lifetime_roi": -767141.0,
+        "rank_by_roi_masters": 11350,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -82056.33,
+        "roi_weighted_completion": -634234.0,
+        "roi_based_on_spending": -778694.0,
+        "roi_dropout_based_on_spending": -87918.63,
+        "roi_weighted_completion_based_on_spending": -644684.0,
+        "estimated_earnings_at_graduation": 27263.77,
+        "estimated_earnings_at_30": 26524.06,
+        "estimated_earnings_at_35": 29047.405,
+        "estimated_earnings_at_40": 29927.2,
+        "estimated_earnings_at_45": 30422.21,
+        "estimated_earnings_at_50": 30129.465,
+        "estimated_earnings_at_55": 28326.068,
+        "estimated_earnings_at_60": 26383.344,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 49578.91,
+        "estimated_counterfactual_earnings_at_35": 57569.79,
+        "estimated_counterfactual_earnings_at_40": 61926.432,
+        "estimated_counterfactual_earnings_at_45": 62648.816,
+        "estimated_counterfactual_earnings_at_50": 62396.496,
+        "estimated_counterfactual_earnings_at_55": 60137.489,
+        "estimated_counterfactual_earnings_at_60": 57133.762
+      }
     },
     {
       "program_id": "nyu_ms_emerging_technologies",
@@ -9676,7 +9990,8 @@
       },
       "date_added": "2026-05-04T02:33:30Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "nyu_integrated_design_media",
@@ -10532,7 +10847,58 @@
       },
       "date_added": "2026-05-04T02:44:20Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "193900",
+        "institution_name": "New York University",
+        "state_fips_code": 36,
+        "state": "NEW YORK",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 27,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 36240.01,
+        "all_years_tuition": 72480.02,
+        "annual_education_spending": 49984.23,
+        "all_years_education_spending": 99968.45,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": -652092.3,
+        "percentage_increase_lifetime_earnings": "-46%",
+        "lifetime_roi": -721436.0,
+        "rank_by_roi_masters": 11291,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -84733.44,
+        "roi_weighted_completion": -597916.0,
+        "roi_based_on_spending": -747736.0,
+        "roi_dropout_based_on_spending": -98077.34,
+        "roi_weighted_completion_based_on_spending": -621702.0,
+        "estimated_earnings_at_graduation": 35130.859,
+        "estimated_earnings_at_30": 33836.269,
+        "estimated_earnings_at_35": 37754.578,
+        "estimated_earnings_at_40": 39166.44,
+        "estimated_earnings_at_45": 40113.27,
+        "estimated_earnings_at_50": 40341.15,
+        "estimated_earnings_at_55": 38435.457,
+        "estimated_earnings_at_60": 35085.678,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 55729.202,
+        "estimated_counterfactual_earnings_at_35": 64629.065,
+        "estimated_counterfactual_earnings_at_40": 68905.469,
+        "estimated_counterfactual_earnings_at_45": 69046.048,
+        "estimated_counterfactual_earnings_at_50": 68813.47,
+        "estimated_counterfactual_earnings_at_55": 66237.787,
+        "estimated_counterfactual_earnings_at_60": 62612.877,
+        "match_confidence": "high"
+      }
     },
     {
       "program_id": "northwestern_product_design_development_management",
@@ -11229,7 +11595,8 @@
       },
       "date_added": "2026-05-04T02:57:19Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "parsons_mfa_design_technology",
@@ -11809,7 +12176,8 @@
       },
       "date_added": "2026-05-04T03:04:47Z",
       "date_updated": "2026-05-11T05:45:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "pratt_ms_information_experience_design",
@@ -12154,7 +12522,8 @@
       },
       "date_added": "2026-05-04T03:10:49Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "risd_ma_design_engineering",
@@ -12387,7 +12756,8 @@
       },
       "date_added": "2026-05-04T03:17:43Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "rca_innovation_design_engineering",
@@ -12916,7 +13286,8 @@
       },
       "date_added": "2026-05-04T03:23:44Z",
       "date_updated": "2026-05-11T05:49:30Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "sjsu_ms_human_factors_ergonomics",
@@ -13314,7 +13685,58 @@
       },
       "date_added": "2026-05-04T03:36:29Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "122755",
+        "institution_name": "San Jose State University",
+        "state_fips_code": 6,
+        "state": "CALIFORNIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 1401,
+        "degree_field": "Engineering, General.",
+        "degree_field_category": "Computer science and engineering",
+        "control": "Public",
+        "carnegie_classification": "Master's Colleges & Universities: Larger Programs",
+        "research_university": false,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 14,
+        "estimated_age_of_program_start": 25.0,
+        "estimated_age_of_program_completion": 26.0,
+        "program_length_years": 1.0,
+        "annual_tuition": 7497.726,
+        "all_years_tuition": 7497.726,
+        "annual_education_spending": 16020.81,
+        "all_years_education_spending": 16020.81,
+        "estimated_completion_rate": "82.1%",
+        "absolute_increase_lifetime_earnings": 2396408.0,
+        "percentage_increase_lifetime_earnings": "105%",
+        "lifetime_roi": 2389129.0,
+        "rank_by_roi_masters": 126,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -39472.58,
+        "roi_weighted_completion": 1954409.0,
+        "roi_based_on_spending": 2380854.0,
+        "roi_dropout_based_on_spending": -43610.0,
+        "roi_weighted_completion_based_on_spending": 1946875.0,
+        "estimated_earnings_at_graduation": 123539.07,
+        "estimated_earnings_at_30": 150814.79,
+        "estimated_earnings_at_35": 192949.79,
+        "estimated_earnings_at_40": 230896.91,
+        "estimated_earnings_at_45": 255295.83,
+        "estimated_earnings_at_50": 266996.83,
+        "estimated_earnings_at_55": 259430.34,
+        "estimated_earnings_at_60": 243444.42,
+        "estimated_counterfactual_earnings_at_25": 73815.799,
+        "estimated_counterfactual_earnings_at_30": 90571.054,
+        "estimated_counterfactual_earnings_at_35": 101422.13,
+        "estimated_counterfactual_earnings_at_40": 106453.95,
+        "estimated_counterfactual_earnings_at_45": 108464.16,
+        "estimated_counterfactual_earnings_at_50": 110064.66,
+        "estimated_counterfactual_earnings_at_55": 106497.87,
+        "estimated_counterfactual_earnings_at_60": 97097.093,
+        "match_confidence": "low"
+      }
     },
     {
       "program_id": "sva_mfa_interaction_design",
@@ -13830,7 +14252,57 @@
       },
       "date_added": "2026-05-04T03:46:32Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "197151",
+        "institution_name": "School of Visual Arts",
+        "state_fips_code": 36,
+        "state": "NEW YORK",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, for-profit",
+        "carnegie_classification": "Special Focus Four-Year: Arts, Music & Design Schools",
+        "research_university": false,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 164,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 39226.57,
+        "all_years_tuition": 78453.13,
+        "annual_education_spending": 33487.27,
+        "all_years_education_spending": 66974.55,
+        "estimated_completion_rate": "67.5%",
+        "absolute_increase_lifetime_earnings": 170527.8,
+        "percentage_increase_lifetime_earnings": "12%",
+        "lifetime_roi": 95469.0,
+        "rank_by_roi_masters": 4988,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -87460.27,
+        "roi_weighted_completion": 36017.0,
+        "roi_based_on_spending": 106451.0,
+        "roi_dropout_based_on_spending": -81888.13,
+        "roi_weighted_completion_based_on_spending": 45241.0,
+        "estimated_earnings_at_graduation": 62768.168,
+        "estimated_earnings_at_30": 60971.359,
+        "estimated_earnings_at_35": 72684.717,
+        "estimated_earnings_at_40": 79409.878,
+        "estimated_earnings_at_45": 82902.655,
+        "estimated_earnings_at_50": 84698.479,
+        "estimated_earnings_at_55": 82525.404,
+        "estimated_earnings_at_60": 76579.322,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 55315.828,
+        "estimated_counterfactual_earnings_at_35": 63504.488,
+        "estimated_counterfactual_earnings_at_40": 67151.514,
+        "estimated_counterfactual_earnings_at_45": 66991.513,
+        "estimated_counterfactual_earnings_at_50": 66736.711,
+        "estimated_counterfactual_earnings_at_55": 64404.391,
+        "estimated_counterfactual_earnings_at_60": 60980.436
+      }
     },
     {
       "program_id": "parsons_ms_strategic_design_management",
@@ -14425,7 +14897,8 @@
       },
       "date_added": "2026-05-04T03:58:36Z",
       "date_updated": "2026-05-11T05:54:21Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "ucsb_media_arts_technology",
@@ -14888,7 +15361,8 @@
       },
       "date_added": "2026-05-04T04:06:45Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "colorado_ms_creative_technology_design",
@@ -15383,7 +15857,58 @@
       },
       "date_added": "2026-05-04T04:24:26Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "126614",
+        "institution_name": "University of Colorado Boulder",
+        "state_fips_code": 8,
+        "state": "COLORADO",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 1401,
+        "degree_field": "Engineering, General.",
+        "degree_field_category": "Computer science and engineering",
+        "control": "Public",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 93,
+        "estimated_age_of_program_start": 25.0,
+        "estimated_age_of_program_completion": 26.0,
+        "program_length_years": 1.0,
+        "annual_tuition": 10786.29,
+        "all_years_tuition": 10786.29,
+        "annual_education_spending": 27235.11,
+        "all_years_education_spending": 27235.11,
+        "estimated_completion_rate": "82.1%",
+        "absolute_increase_lifetime_earnings": 2514293.0,
+        "percentage_increase_lifetime_earnings": "158%",
+        "lifetime_roi": 2503821.0,
+        "rank_by_roi_masters": 117,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -29387.77,
+        "roi_weighted_completion": 2050377.0,
+        "roi_based_on_spending": 2487851.0,
+        "roi_dropout_based_on_spending": -37372.64,
+        "roi_weighted_completion_based_on_spending": 2035836.0,
+        "estimated_earnings_at_graduation": 114152.52,
+        "estimated_earnings_at_30": 135224.54,
+        "estimated_earnings_at_35": 171258.1,
+        "estimated_earnings_at_40": 202903.45,
+        "estimated_earnings_at_45": 222800.34,
+        "estimated_earnings_at_50": 231543.57,
+        "estimated_earnings_at_55": 224606.07,
+        "estimated_earnings_at_60": 209486.4,
+        "estimated_counterfactual_earnings_at_25": 49752.519,
+        "estimated_counterfactual_earnings_at_30": 61915.494,
+        "estimated_counterfactual_earnings_at_35": 70364.749,
+        "estimated_counterfactual_earnings_at_40": 74748.99,
+        "estimated_counterfactual_earnings_at_45": 76654.211,
+        "estimated_counterfactual_earnings_at_50": 77834.947,
+        "estimated_counterfactual_earnings_at_55": 75029.86,
+        "estimated_counterfactual_earnings_at_60": 68242.014,
+        "match_confidence": "low"
+      }
     },
     {
       "program_id": "uiuc_mfa_design_responsible_innovation",
@@ -15796,7 +16321,8 @@
       },
       "date_added": "2026-05-04T04:39:06Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "uiuc_mdes",
@@ -16298,7 +16824,8 @@
       },
       "date_added": "2026-05-04T04:50:08Z",
       "date_updated": "2026-05-11T15:36:09Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "umich_ms_information",
@@ -16710,7 +17237,8 @@
       },
       "date_added": "2026-05-04T04:55:41Z",
       "date_updated": "2026-05-11T15:36:18Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "upenn_integrated_product_design",
@@ -17206,7 +17734,8 @@
       },
       "date_added": "2026-05-04T07:26:07Z",
       "date_updated": "2026-05-11T15:36:20Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "uw_ms_hcde",
@@ -17691,7 +18220,8 @@
       },
       "date_added": "2026-05-04T07:35:35Z",
       "date_updated": "2026-05-11T15:36:22Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "uw_ms_technology_innovation",
@@ -18344,7 +18874,8 @@
       },
       "date_added": "2026-05-04T07:43:09Z",
       "date_updated": "2026-05-11T15:36:47Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "uw_mhcid",
@@ -18866,7 +19397,57 @@
       },
       "date_added": "2026-05-04T08:39:54Z",
       "date_updated": "2026-05-11T15:36:49Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "236948",
+        "institution_name": "University of Washington-Seattle Campus",
+        "state_fips_code": 53,
+        "state": "WASHINGTON",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 1101,
+        "degree_field": "Computer and Information Sciences, General.",
+        "degree_field_category": "Computer science and engineering",
+        "control": "Public",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 167,
+        "estimated_age_of_program_start": 25.0,
+        "estimated_age_of_program_completion": 26.0,
+        "program_length_years": 1.0,
+        "annual_tuition": 14081.89,
+        "all_years_tuition": 14081.89,
+        "annual_education_spending": 47576.23,
+        "all_years_education_spending": 47576.23,
+        "estimated_completion_rate": "82.1%",
+        "absolute_increase_lifetime_earnings": 2671269.0,
+        "percentage_increase_lifetime_earnings": "138%",
+        "lifetime_roi": 2657597.0,
+        "rank_by_roi_masters": 94,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -34320.69,
+        "roi_weighted_completion": 2175744.0,
+        "roi_based_on_spending": 2625078.0,
+        "roi_dropout_based_on_spending": -50580.07,
+        "roi_weighted_completion_based_on_spending": 2146135.0,
+        "estimated_earnings_at_graduation": 134776.61,
+        "estimated_earnings_at_30": 158750.71,
+        "estimated_earnings_at_35": 195492.68,
+        "estimated_earnings_at_40": 225765.27,
+        "estimated_earnings_at_45": 245079.3,
+        "estimated_earnings_at_50": 254390.83,
+        "estimated_earnings_at_55": 247773.48,
+        "estimated_earnings_at_60": 233226.01,
+        "estimated_counterfactual_earnings_at_25": 56618.721,
+        "estimated_counterfactual_earnings_at_30": 72910.785,
+        "estimated_counterfactual_earnings_at_35": 85582.405,
+        "estimated_counterfactual_earnings_at_40": 92900.393,
+        "estimated_counterfactual_earnings_at_45": 96539.026,
+        "estimated_counterfactual_earnings_at_50": 97220.97,
+        "estimated_counterfactual_earnings_at_55": 94594.607,
+        "estimated_counterfactual_earnings_at_60": 86362.258
+      }
     },
     {
       "program_id": "cca_mdes_interaction_design",
@@ -19403,7 +19984,57 @@
       },
       "date_added": "2026-05-05T02:30:21Z",
       "date_updated": "2026-05-11T15:38:41Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "110370",
+        "institution_name": "California College of the Arts",
+        "state_fips_code": 6,
+        "state": "CALIFORNIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Special Focus Four-Year: Arts, Music & Design Schools",
+        "research_university": false,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 33,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 40781.6,
+        "all_years_tuition": 81563.2,
+        "annual_education_spending": 33773.1,
+        "all_years_education_spending": 67546.2,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 1123881.0,
+        "percentage_increase_lifetime_earnings": "74%",
+        "lifetime_roi": 1045846.0,
+        "rank_by_roi_masters": 854,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -93420.62,
+        "roi_weighted_completion": 824829.0,
+        "roi_based_on_spending": 1059257.0,
+        "roi_dropout_based_on_spending": -86616.25,
+        "roi_weighted_completion_based_on_spending": 836958.0,
+        "estimated_earnings_at_graduation": 97459.182,
+        "estimated_earnings_at_30": 94511.118,
+        "estimated_earnings_at_35": 118354.49,
+        "estimated_earnings_at_40": 134385.94,
+        "estimated_earnings_at_45": 142311.67,
+        "estimated_earnings_at_50": 147110.63,
+        "estimated_earnings_at_55": 145746.17,
+        "estimated_earnings_at_60": 136906.83,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 60369.176,
+        "estimated_counterfactual_earnings_at_35": 69504.055,
+        "estimated_counterfactual_earnings_at_40": 73666.675,
+        "estimated_counterfactual_earnings_at_45": 73583.026,
+        "estimated_counterfactual_earnings_at_50": 73312.192,
+        "estimated_counterfactual_earnings_at_55": 70698.637,
+        "estimated_counterfactual_earnings_at_60": 66908.844
+      }
     },
     {
       "program_id": "cca_mba_design_strategy",
@@ -19673,7 +20304,58 @@
       },
       "date_added": "2026-05-05T02:43:30Z",
       "date_updated": "2026-05-11T15:38:43Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "110370",
+        "institution_name": "California College of the Arts",
+        "state_fips_code": 6,
+        "state": "CALIFORNIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Special Focus Four-Year: Arts, Music & Design Schools",
+        "research_university": false,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 33,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 40781.6,
+        "all_years_tuition": 81563.2,
+        "annual_education_spending": 33773.1,
+        "all_years_education_spending": 67546.2,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 1123881.0,
+        "percentage_increase_lifetime_earnings": "74%",
+        "lifetime_roi": 1045846.0,
+        "rank_by_roi_masters": 854,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -93420.62,
+        "roi_weighted_completion": 824829.0,
+        "roi_based_on_spending": 1059257.0,
+        "roi_dropout_based_on_spending": -86616.25,
+        "roi_weighted_completion_based_on_spending": 836958.0,
+        "estimated_earnings_at_graduation": 97459.182,
+        "estimated_earnings_at_30": 94511.118,
+        "estimated_earnings_at_35": 118354.49,
+        "estimated_earnings_at_40": 134385.94,
+        "estimated_earnings_at_45": 142311.67,
+        "estimated_earnings_at_50": 147110.63,
+        "estimated_earnings_at_55": 145746.17,
+        "estimated_earnings_at_60": 136906.83,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 60369.176,
+        "estimated_counterfactual_earnings_at_35": 69504.055,
+        "estimated_counterfactual_earnings_at_40": 73666.675,
+        "estimated_counterfactual_earnings_at_45": 73583.026,
+        "estimated_counterfactual_earnings_at_50": 73312.192,
+        "estimated_counterfactual_earnings_at_55": 70698.637,
+        "estimated_counterfactual_earnings_at_60": 66908.844,
+        "match_confidence": "low"
+      }
     },
     {
       "program_id": "mit_art_culture_technology",
@@ -20240,7 +20922,8 @@
       },
       "date_added": "2026-05-05T02:49:14Z",
       "date_updated": "2026-05-11T15:38:45Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "mit_system_design_management",
@@ -20759,7 +21442,58 @@
       },
       "date_added": "2026-05-05T03:19:04Z",
       "date_updated": "2026-05-11T15:38:48Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "166683",
+        "institution_name": "Massachusetts Institute of Technology",
+        "state_fips_code": 25,
+        "state": "MASSACHUSETTS",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 1427,
+        "degree_field": "Systems Engineering.",
+        "degree_field_category": "Computer science and engineering",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": true,
+        "college_scorecard_cohort_count": 164,
+        "estimated_age_of_program_start": 25.0,
+        "estimated_age_of_program_completion": 26.0,
+        "program_length_years": 1.0,
+        "annual_tuition": 44079.15,
+        "all_years_tuition": 44079.15,
+        "annual_education_spending": 172766.5,
+        "all_years_education_spending": 172766.5,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 2398382.0,
+        "percentage_increase_lifetime_earnings": "109%",
+        "lifetime_roi": 2355586.0,
+        "rank_by_roi_masters": 131,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -54081.98,
+        "roi_weighted_completion": 1888111.0,
+        "roi_based_on_spending": 2230647.0,
+        "roi_dropout_based_on_spending": -116551.6,
+        "roi_weighted_completion_based_on_spending": 1775291.0,
+        "estimated_earnings_at_graduation": 136774.38,
+        "estimated_earnings_at_30": 161133.24,
+        "estimated_earnings_at_35": 198136.3,
+        "estimated_earnings_at_40": 226437.61,
+        "estimated_earnings_at_45": 244996.58,
+        "estimated_earnings_at_50": 251460.49,
+        "estimated_earnings_at_55": 242165.9,
+        "estimated_earnings_at_60": 228272.2,
+        "estimated_counterfactual_earnings_at_25": 67329.745,
+        "estimated_counterfactual_earnings_at_30": 84807.028,
+        "estimated_counterfactual_earnings_at_35": 99223.996,
+        "estimated_counterfactual_earnings_at_40": 105952.94,
+        "estimated_counterfactual_earnings_at_45": 110961.84,
+        "estimated_counterfactual_earnings_at_50": 108617.52,
+        "estimated_counterfactual_earnings_at_55": 105109.48,
+        "estimated_counterfactual_earnings_at_60": 92453.268,
+        "match_confidence": "high"
+      }
     },
     {
       "program_id": "mit_media_arts_sciences",
@@ -21332,7 +22066,8 @@
       },
       "date_added": "2026-05-05T03:28:13Z",
       "date_updated": "2026-05-11T15:38:50Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "cmu_mssm",
@@ -22227,7 +22962,57 @@
       },
       "date_added": "2026-05-05T04:26:19Z",
       "date_updated": "2026-05-11T15:39:53Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "211440",
+        "institution_name": "Carnegie Mellon University",
+        "state_fips_code": 42,
+        "state": "PENNSYLVANIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5202,
+        "degree_field": "Business Administration, Management and Operations.",
+        "degree_field_category": "MBA and other business-related",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 505,
+        "estimated_age_of_program_start": 29.0,
+        "estimated_age_of_program_completion": 31.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 34669.53,
+        "all_years_tuition": 69339.05,
+        "annual_education_spending": 61089.32,
+        "all_years_education_spending": 122178.6,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 1940790.0,
+        "percentage_increase_lifetime_earnings": "111%",
+        "lifetime_roi": 1874450.0,
+        "rank_by_roi_masters": 208,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -94412.69,
+        "roi_weighted_completion": 1492491.0,
+        "roi_based_on_spending": 1823897.0,
+        "roi_dropout_based_on_spending": -120063.0,
+        "roi_weighted_completion_based_on_spending": 1446769.0,
+        "estimated_earnings_at_graduation": 136256.09,
+        "estimated_earnings_at_30": null,
+        "estimated_earnings_at_35": 159345.24,
+        "estimated_earnings_at_40": 187264.6,
+        "estimated_earnings_at_45": 204541.63,
+        "estimated_earnings_at_50": 211303.29,
+        "estimated_earnings_at_55": 205318.39,
+        "estimated_earnings_at_60": 194567.08,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 65465.071,
+        "estimated_counterfactual_earnings_at_35": 77736.858,
+        "estimated_counterfactual_earnings_at_40": 84724.088,
+        "estimated_counterfactual_earnings_at_45": 88473.132,
+        "estimated_counterfactual_earnings_at_50": 88718.834,
+        "estimated_counterfactual_earnings_at_55": 85835.829,
+        "estimated_counterfactual_earnings_at_60": 78782.344
+      }
     },
     {
       "program_id": "cmu_entertainment_technology_center",
@@ -22792,7 +23577,58 @@
       },
       "date_added": "2026-05-05T04:38:05Z",
       "date_updated": "2026-05-11T15:39:55Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "211440",
+        "institution_name": "Carnegie Mellon University",
+        "state_fips_code": 42,
+        "state": "PENNSYLVANIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5010,
+        "degree_field": "Arts, Entertainment,and Media Management.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 90,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 36508.4,
+        "all_years_tuition": 73016.8,
+        "annual_education_spending": 61089.32,
+        "all_years_education_spending": 122178.6,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": -160234.4,
+        "percentage_increase_lifetime_earnings": "-13%",
+        "lifetime_roi": -230092.0,
+        "rank_by_roi_masters": 9005,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -80178.6,
+        "roi_weighted_completion": -201009.0,
+        "roi_based_on_spending": -277127.0,
+        "roi_dropout_based_on_spending": -104043.6,
+        "roi_weighted_completion_based_on_spending": -243549.0,
+        "estimated_earnings_at_graduation": 47671.232,
+        "estimated_earnings_at_30": 46863.571,
+        "estimated_earnings_at_35": 53360.826,
+        "estimated_earnings_at_40": 57102.78,
+        "estimated_earnings_at_45": 58938.691,
+        "estimated_earnings_at_50": 59248.619,
+        "estimated_earnings_at_55": 56829.029,
+        "estimated_earnings_at_60": 50993.465,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 49823.931,
+        "estimated_counterfactual_earnings_at_35": 57249.868,
+        "estimated_counterfactual_earnings_at_40": 60591.327,
+        "estimated_counterfactual_earnings_at_45": 62071.293,
+        "estimated_counterfactual_earnings_at_50": 62296.902,
+        "estimated_counterfactual_earnings_at_55": 60656.873,
+        "estimated_counterfactual_earnings_at_60": 56127.716,
+        "match_confidence": "low"
+      }
     },
     {
       "program_id": "cmu_mhci",
@@ -23420,7 +24256,8 @@
       },
       "date_added": "2026-05-05T04:46:10Z",
       "date_updated": "2026-05-11T15:39:57Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "georgia_tech_master_industrial_design",
@@ -23896,7 +24733,8 @@
       },
       "date_added": "2026-05-05T04:52:28Z",
       "date_updated": "2026-05-11T14:58:36Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "georgia_tech_ms_digital_media",
@@ -24443,7 +25281,8 @@
       },
       "date_added": "2026-05-05T04:58:03Z",
       "date_updated": "2026-05-11T15:42:00Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "cmu_miips",
@@ -24895,7 +25734,57 @@
       },
       "date_added": "2026-05-05T16:01:48Z",
       "date_updated": "2026-05-11T15:42:02Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "211440",
+        "institution_name": "Carnegie Mellon University",
+        "state_fips_code": 42,
+        "state": "PENNSYLVANIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 26,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 36508.4,
+        "all_years_tuition": 73016.8,
+        "annual_education_spending": 61089.32,
+        "all_years_education_spending": 122178.6,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 1326027.0,
+        "percentage_increase_lifetime_earnings": "117%",
+        "lifetime_roi": 1256169.0,
+        "rank_by_roi_masters": 605,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -73632.52,
+        "roi_weighted_completion": 998187.0,
+        "roi_based_on_spending": 1209134.0,
+        "roi_dropout_based_on_spending": -97497.48,
+        "roi_weighted_completion_based_on_spending": 955648.0,
+        "estimated_earnings_at_graduation": 92565.218,
+        "estimated_earnings_at_30": 88916.554,
+        "estimated_earnings_at_35": 110587.85,
+        "estimated_earnings_at_40": 124895.39,
+        "estimated_earnings_at_45": 131999.1,
+        "estimated_earnings_at_50": 136227.58,
+        "estimated_earnings_at_55": 134651.15,
+        "estimated_earnings_at_60": 126269.84,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 43251.214,
+        "estimated_counterfactual_earnings_at_35": 51061.058,
+        "estimated_counterfactual_earnings_at_40": 55236.085,
+        "estimated_counterfactual_earnings_at_45": 55782.502,
+        "estimated_counterfactual_earnings_at_50": 55637.451,
+        "estimated_counterfactual_earnings_at_55": 53312.156,
+        "estimated_counterfactual_earnings_at_60": 50247.975
+      }
     },
     {
       "program_id": "georgia_tech_ms_hci",
@@ -25401,7 +26290,58 @@
       },
       "date_added": "2026-05-05T21:10:08Z",
       "date_updated": "2026-05-11T15:42:05Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "139755",
+        "institution_name": "Georgia Institute of Technology-Main Campus",
+        "state_fips_code": 13,
+        "state": "GEORGIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 1101,
+        "degree_field": "Computer and Information Sciences, General.",
+        "degree_field_category": "Computer science and engineering",
+        "control": "Public",
+        "carnegie_classification": "Doctoral Universities: Highest Research Activity",
+        "research_university": true,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 247,
+        "estimated_age_of_program_start": 25.0,
+        "estimated_age_of_program_completion": 26.0,
+        "program_length_years": 1.0,
+        "annual_tuition": 13541.81,
+        "all_years_tuition": 13541.81,
+        "annual_education_spending": 22280.79,
+        "all_years_education_spending": 22280.79,
+        "estimated_completion_rate": "82.1%",
+        "absolute_increase_lifetime_earnings": 2072791.0,
+        "percentage_increase_lifetime_earnings": "118%",
+        "lifetime_roi": 2059644.0,
+        "rank_by_roi_masters": 177,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -31378.68,
+        "roi_weighted_completion": 1685351.0,
+        "roi_based_on_spending": 2051159.0,
+        "roi_dropout_based_on_spending": -35620.91,
+        "roi_weighted_completion_based_on_spending": 1677626.0,
+        "estimated_earnings_at_graduation": 115112.68,
+        "estimated_earnings_at_30": 135005.84,
+        "estimated_earnings_at_35": 164476.16,
+        "estimated_earnings_at_40": 187869.01,
+        "estimated_earnings_at_45": 202010.57,
+        "estimated_earnings_at_50": 208102.39,
+        "estimated_earnings_at_55": 201995.36,
+        "estimated_earnings_at_60": 188497.84,
+        "estimated_counterfactual_earnings_at_25": 51098.274,
+        "estimated_counterfactual_earnings_at_30": 65841.111,
+        "estimated_counterfactual_earnings_at_35": 77332.202,
+        "estimated_counterfactual_earnings_at_40": 83987.315,
+        "estimated_counterfactual_earnings_at_45": 87300.643,
+        "estimated_counterfactual_earnings_at_50": 87919.694,
+        "estimated_counterfactual_earnings_at_55": 85531.026,
+        "estimated_counterfactual_earnings_at_60": 78079.513,
+        "match_confidence": "low"
+      }
     },
     {
       "program_id": "ecar_mdes_interaction",
@@ -25923,7 +26863,8 @@
       },
       "date_added": "2026-05-05T21:13:08Z",
       "date_updated": "2026-05-08T17:32:41Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "ecar_mdes_interdisciplinary",
@@ -26474,7 +27415,8 @@
       },
       "date_added": "2026-05-05T21:19:41Z",
       "date_updated": "2026-05-08T17:32:41Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "hongik_smart_design_eng",
@@ -26934,7 +27876,8 @@
       },
       "date_added": "2026-05-05T21:23:46Z",
       "date_updated": "2026-05-05T21:35:08Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "rmit_mdes_innovation_tech",
@@ -27268,7 +28211,8 @@
       },
       "date_added": "2026-05-06T00:43:54Z",
       "date_updated": "2026-05-06T00:56:03Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "scad_mfa_ux_design",
@@ -27529,7 +28473,58 @@
       },
       "date_added": "2026-05-06T00:56:09Z",
       "date_updated": "2026-05-11T15:42:09Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": {
+        "unit_id": "140951",
+        "institution_name": "Savannah College of Art and Design",
+        "state_fips_code": 13,
+        "state": "GEORGIA",
+        "credential_level": 5,
+        "credential_level_description": "Master's",
+        "program_cip_code": 5004,
+        "degree_field": "Design and Applied Arts.",
+        "degree_field_category": "Arts, humanities, and theology",
+        "control": "Private, nonprofit",
+        "carnegie_classification": "Special Focus Four-Year: Arts, Music & Design Schools",
+        "research_university": false,
+        "ivy_league_university": false,
+        "college_scorecard_cohort_count": 186,
+        "estimated_age_of_program_start": 28.0,
+        "estimated_age_of_program_completion": 30.0,
+        "program_length_years": 2.0,
+        "annual_tuition": 31466.85,
+        "all_years_tuition": 62933.7,
+        "annual_education_spending": 22188.08,
+        "all_years_education_spending": 44376.16,
+        "estimated_completion_rate": "80.6%",
+        "absolute_increase_lifetime_earnings": 76402.88,
+        "percentage_increase_lifetime_earnings": "8%",
+        "lifetime_roi": 16192.0,
+        "rank_by_roi_masters": 6014,
+        "rank_by_roi_advanced": null,
+        "roi_dropout": -65826.31,
+        "roi_weighted_completion": 280.0,
+        "roi_based_on_spending": 33947.0,
+        "roi_dropout_based_on_spending": -56817.8,
+        "roi_weighted_completion_based_on_spending": 16338.0,
+        "estimated_earnings_at_graduation": 46116.339,
+        "estimated_earnings_at_30": 45172.173,
+        "estimated_earnings_at_35": 52066.147,
+        "estimated_earnings_at_40": 55403.072,
+        "estimated_earnings_at_45": 57278.318,
+        "estimated_earnings_at_50": 58051.058,
+        "estimated_earnings_at_55": 55920.03,
+        "estimated_earnings_at_60": 51459.058,
+        "estimated_counterfactual_earnings_at_25": null,
+        "estimated_counterfactual_earnings_at_30": 39672.089,
+        "estimated_counterfactual_earnings_at_35": 45996.228,
+        "estimated_counterfactual_earnings_at_40": 49029.808,
+        "estimated_counterfactual_earnings_at_45": 49124.495,
+        "estimated_counterfactual_earnings_at_50": 48958.497,
+        "estimated_counterfactual_earnings_at_55": 47128.967,
+        "estimated_counterfactual_earnings_at_60": 44551.609,
+        "match_confidence": "high"
+      }
     },
     {
       "program_id": "royal_danish_ma_design",
@@ -28016,7 +29011,8 @@
       },
       "date_added": "2026-05-06T01:04:05Z",
       "date_updated": "2026-05-08T17:27:57Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "zhdk_ma_interaction_design",
@@ -28690,7 +29686,8 @@
       },
       "date_added": "2026-05-06T15:45:06Z",
       "date_updated": "2026-05-08T17:32:41Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "zhdk_ma_industrial_design",
@@ -29445,7 +30442,8 @@
       },
       "date_added": "2026-05-06T15:51:43Z",
       "date_updated": "2026-05-08T18:01:25Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "zhdk_ma_knowledge_visualization",
@@ -29979,7 +30977,8 @@
       },
       "date_added": "2026-05-06T15:58:25Z",
       "date_updated": "2026-05-06T16:05:37Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "kaist_industrial_design",
@@ -30179,7 +31178,8 @@
       },
       "date_added": "2026-05-06T16:05:49Z",
       "date_updated": "2026-05-06T17:39:15Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "hkpu_mdes_innovative_business_design",
@@ -30703,7 +31703,8 @@
       },
       "date_added": "2026-05-06T20:26:43Z",
       "date_updated": "2026-05-08T17:32:41Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "hkpu_mdes_intelligent_systems_design",
@@ -31190,7 +32191,8 @@
       },
       "date_added": "2026-05-06T20:36:15Z",
       "date_updated": "2026-05-08T18:01:25Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "hkpu_mdes_smart_service_design",
@@ -31719,7 +32721,8 @@
       },
       "date_added": "2026-05-06T20:41:48Z",
       "date_updated": "2026-05-08T18:01:25Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "tongji_mdes_design_thinking_sustainable_future",
@@ -31997,7 +33000,8 @@
         "verified_by": "",
         "verified_date": "2026-05-06"
       },
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "hkpu_mdes_transitional_environments_design",
@@ -32451,7 +33455,8 @@
       },
       "date_added": "2026-05-06T23:57:49Z",
       "date_updated": "2026-05-08T18:01:25Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "monash_mdes",
@@ -32700,7 +33705,8 @@
       },
       "date_added": "2026-05-07T00:01:43Z",
       "date_updated": "2026-05-07T00:09:59Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "monash_mdes_by_research",
@@ -32944,7 +33950,8 @@
       },
       "date_added": "2026-05-07T00:10:05Z",
       "date_updated": "2026-05-07T00:16:04Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "ocad_mdes_strategic_foresight_innovation",
@@ -33430,7 +34437,8 @@
       },
       "date_added": "2026-05-07T00:16:17Z",
       "date_updated": "2026-05-08T17:32:41Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "qut_mdes_strategic_design",
@@ -33667,7 +34675,8 @@
       },
       "date_added": "2026-05-07T00:24:03Z",
       "date_updated": "2026-05-08T17:27:57Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "nus_mdes_integrated_design",
@@ -34133,7 +35142,8 @@
       },
       "date_added": "2026-05-07T00:30:24Z",
       "date_updated": "2026-05-08T17:32:41Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "rca_ma_design_products",
@@ -34625,7 +35635,8 @@
       },
       "date_added": "2026-05-07T00:38:08Z",
       "date_updated": "2026-05-07T00:55:22Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "rca_ma_service_design",
@@ -35135,7 +36146,8 @@
       },
       "date_added": "2026-05-07T00:55:35Z",
       "date_updated": "2026-05-08T17:27:57Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "rca_ma_information_experience_design",
@@ -35619,7 +36631,8 @@
       },
       "date_added": "2026-05-07T01:01:59Z",
       "date_updated": "2026-05-08T18:01:25Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     },
     {
       "program_id": "rca_ma_mres_design_futures",
@@ -36084,7 +37097,8 @@
       },
       "date_added": "2026-05-07T01:08:58Z",
       "date_updated": "2026-05-08T17:27:57Z",
-      "historical": []
+      "historical": [],
+      "freopp_roi": null
     }
   ]
 }

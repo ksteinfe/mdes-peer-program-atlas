@@ -132,6 +132,9 @@ export function slimProgram(p) {
       electives,
       core_courses: slimCoreCourses(cur.core_courses),
     },
+    freopp_roi: prog.freopp_roi && typeof prog.freopp_roi === "object" && !Array.isArray(prog.freopp_roi)
+      ? prog.freopp_roi
+      : null,
     historical: Array.isArray(rawHist)
       ? rawHist
           .filter((e) => e && typeof e === "object")

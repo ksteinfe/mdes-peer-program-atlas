@@ -52,6 +52,13 @@
     "degree_cost": { "$ref": "#/$defs/degreeCost" },
     "curriculum": { "$ref": "#/$defs/curriculum" },
     "historical": { "$ref": "#/$defs/historical" },
+    "freopp_roi": {
+      "description": "FREOPP Graduate ROI Study 2022 data matched on ipeds_unitid + cip_code. Null when not matched or identifiers are missing.",
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/freoppRoi" }
+      ]
+    },
     "verification": { "$ref": "#/$defs/verification" }
   },
   "$defs": {
@@ -251,6 +258,65 @@
           "items": { "$ref": "#/$defs/coreCourse" }
         },
         "electives": { "$ref": "#/$defs/curriculumElectives" }
+      }
+    },
+    "freoppRoi": {
+      "type": "object",
+      "description": "One matched row from the FREOPP Graduate ROI Dataset 2022.",
+      "additionalProperties": false,
+      "properties": {
+        "unit_id":                                     { "type": ["string",  "null"] },
+        "institution_name":                            { "type": ["string",  "null"] },
+        "state_fips_code":                             { "type": ["integer", "null"] },
+        "state":                                       { "type": ["string",  "null"] },
+        "credential_level":                            { "type": ["integer", "null"] },
+        "credential_level_description":                { "type": ["string",  "null"] },
+        "program_cip_code":                            { "type": ["integer", "null"] },
+        "degree_field":                                { "type": ["string",  "null"] },
+        "degree_field_category":                       { "type": ["string",  "null"] },
+        "control":                                     { "type": ["string",  "null"] },
+        "carnegie_classification":                     { "type": ["string",  "null"] },
+        "research_university":                         { "type": ["boolean", "null"] },
+        "ivy_league_university":                       { "type": ["boolean", "null"] },
+        "college_scorecard_cohort_count":              { "type": ["integer", "null"] },
+        "estimated_age_of_program_start":              { "type": ["number",  "null"] },
+        "estimated_age_of_program_completion":         { "type": ["number",  "null"] },
+        "program_length_years":                        { "type": ["number",  "null"] },
+        "annual_tuition":                              { "type": ["number",  "null"] },
+        "all_years_tuition":                           { "type": ["number",  "null"] },
+        "annual_education_spending":                   { "type": ["number",  "null"] },
+        "all_years_education_spending":                { "type": ["number",  "null"] },
+        "estimated_completion_rate":                   { "type": ["string",  "null"], "description": "Completion rate as reported (e.g. '80.6%')." },
+        "absolute_increase_lifetime_earnings":         { "type": ["number",  "null"] },
+        "percentage_increase_lifetime_earnings":       { "type": ["string",  "null"], "description": "Percentage increase as reported (e.g. '112%')." },
+        "lifetime_roi":                                { "type": ["number",  "null"] },
+        "rank_by_roi_masters":                         { "type": ["integer", "null"] },
+        "rank_by_roi_advanced":                        { "type": ["integer", "null"] },
+        "roi_dropout":                                 { "type": ["number",  "null"] },
+        "roi_weighted_completion":                     { "type": ["number",  "null"] },
+        "roi_based_on_spending":                       { "type": ["number",  "null"] },
+        "roi_dropout_based_on_spending":               { "type": ["number",  "null"] },
+        "roi_weighted_completion_based_on_spending":   { "type": ["number",  "null"] },
+        "estimated_earnings_at_graduation":            { "type": ["number",  "null"] },
+        "estimated_earnings_at_30":                    { "type": ["number",  "null"] },
+        "estimated_earnings_at_35":                    { "type": ["number",  "null"] },
+        "estimated_earnings_at_40":                    { "type": ["number",  "null"] },
+        "estimated_earnings_at_45":                    { "type": ["number",  "null"] },
+        "estimated_earnings_at_50":                    { "type": ["number",  "null"] },
+        "estimated_earnings_at_55":                    { "type": ["number",  "null"] },
+        "estimated_earnings_at_60":                    { "type": ["number",  "null"] },
+        "estimated_counterfactual_earnings_at_25":     { "type": ["number",  "null"] },
+        "estimated_counterfactual_earnings_at_30":     { "type": ["number",  "null"] },
+        "estimated_counterfactual_earnings_at_35":     { "type": ["number",  "null"] },
+        "estimated_counterfactual_earnings_at_40":     { "type": ["number",  "null"] },
+        "estimated_counterfactual_earnings_at_45":     { "type": ["number",  "null"] },
+        "estimated_counterfactual_earnings_at_50":     { "type": ["number",  "null"] },
+        "estimated_counterfactual_earnings_at_55":     { "type": ["number",  "null"] },
+        "estimated_counterfactual_earnings_at_60":     { "type": ["number",  "null"] },
+        "match_confidence": {
+          "type": ["string", "null"],
+          "description": "'high' when CIP code aligned with the match; 'low' when matched on field/length/academic context without CIP alignment."
+        }
       }
     },
     "historicalEntry": {

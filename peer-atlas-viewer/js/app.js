@@ -41,7 +41,7 @@ const filters = {
 /** When true, filter checkboxes show "(n/total)" counts for each option. */
 let filterPanelShowCounts = false;
 
-const SORT_KEYS = ["institution", "program", "degree", "berkeleySem", "hostModel", "tags"];
+const SORT_KEYS = ["institution", "program", "degree", "berkeleySem", "hostModel", "tags", "freoppCohort"];
 
 /** Max characters for course title in sample list (ellipsis if longer). */
 const COURSE_TITLE_LIST_MAX = 52;
@@ -393,6 +393,9 @@ function rowView(p) {
     : [];
   const hostId = typeof ident.host_academic_model === "string" ? ident.host_academic_model : "";
   const berk = dur.length_in_berkeley_semesters;
+  const freopp = p.freopp_roi && typeof p.freopp_roi === "object" ? p.freopp_roi : null;
+  const freoppCohort = freopp && freopp.college_scorecard_cohort_count != null
+    ? Number(freopp.college_scorecard_cohort_count) : null;
   return {
     program: p,
     institution: String(ident.institution_name ?? ""),
@@ -403,6 +406,7 @@ function rowView(p) {
     hostModelLabel: hostModelShortLabel(hostId) || hostId,
     tags,
     tagsSortKey: tags.slice().sort().join(", "),
+    freoppCohort,
   };
 }
 
@@ -453,6 +457,13 @@ function compareRows(a, b) {
     else if (na == null) cmp = 1;
     else if (nb == null) cmp = -1;
     else cmp = na - nb;
+  } else if (k === "freoppCohort") {
+    const na = a.freoppCohort;
+    const nb = b.freoppCohort;
+    if (na == null && nb == null) cmp = 0;
+    else if (na == null) cmp = 1;
+    else if (nb == null) cmp = -1;
+    else cmp = na - nb;
   } else if (k === "tags") {
     cmp = a.tagsSortKey.localeCompare(b.tagsSortKey, undefined, { sensitivity: "base" });
   } else {
@@ -495,7 +506,7 @@ function summarizeWithOtherBucket(entries, rowCount) {
   return out;
 }
 
-const SUMMARY_TABLE_COL_CLASSES = ["col-inst", "col-program", "col-degree", "col-sem", "col-host", "col-tags"];
+const SUMMARY_TABLE_COL_CLASSES = ["col-inst", "col-program", "col-degree", "col-sem", "col-host", "col-tags", "col-freopp"];
 
 /**
  * @param {{ label: string, count: number, detail?: string }[]} rows
@@ -623,6 +634,15 @@ function renderColumnSummaries(list) {
     { tags: true },
   );
 
+  const freoppNote = document.createElement("div");
+  freoppNote.className = "column-summary-block";
+  const freoppNoteList = document.createElement("ul");
+  freoppNoteList.className = "column-summary-list";
+  const freoppNoteLi = document.createElement("li");
+  freoppNoteLi.textContent = "Per FREOPP Graduate Degree study, 2022";
+  freoppNoteList.appendChild(freoppNoteLi);
+  freoppNote.appendChild(freoppNoteList);
+
   root.appendChild(
     buildSummaryTableRow([
       null,
@@ -631,6 +651,7 @@ function renderColumnSummaries(list) {
       semList,
       hostList,
       tagList,
+      freoppNote,
     ]),
   );
 }
@@ -685,6 +706,10 @@ function renderTable() {
     }
     tdTags.appendChild(ul);
     tr.appendChild(tdTags);
+    const tdCohort = document.createElement("td");
+    tdCohort.className = "freopp-cohort-cell";
+    tdCohort.textContent = v.freoppCohort != null ? v.freoppCohort.toLocaleString() : "—";
+    tr.appendChild(tdCohort);
     tr.addEventListener("click", (e) => {
       if (e.target instanceof HTMLElement && e.target.closest("button.tag-pill")) return;
       openDetail(v.program.program_id);

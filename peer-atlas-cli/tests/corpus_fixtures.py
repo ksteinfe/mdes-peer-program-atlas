@@ -30,6 +30,8 @@ def minimal_valid_program(*, program_id: str = "fixture_program") -> dict[str, A
             "host_academic_units": ["Design"],
             "host_academic_model": "design_hosted",
             "location_label": "United States",
+            "first_degree_granted_year": "unknown",
+            "cip_code": "unknown",
         },
         "positioning": {
             "positioning_summary": "",
@@ -66,6 +68,7 @@ def minimal_valid_program(*, program_id: str = "fixture_program") -> dict[str, A
             ],
             "electives": {"summary": "", "estimated_elective_course_count": None},
         },
+        "historical": [],
         "verification": {
             "status": "llm_extracted",
             "verified_by": "",

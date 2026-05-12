@@ -11,6 +11,9 @@ from peer_atlas_cli.commands.add_program import add_program_cmd
 from peer_atlas_cli.commands.clear_programs import clear_programs_cmd
 from peer_atlas_cli.commands.merge_patch import merge_patch_cmd
 from peer_atlas_cli.commands.reconsider_node import reconsider_node_cmd
+from peer_atlas_cli.commands.classify_cip import classify_cip_cmd
+from peer_atlas_cli.commands.classify_freopp import classify_freopp_cmd
+from peer_atlas_cli.commands.research_node import research_node_cmd
 from peer_atlas_cli.commands.test_evidence_url import test_evidence_url_cmd
 from peer_atlas_cli.commands.remove_last_program import remove_last_program_cmd
 from peer_atlas_cli.commands.refresh_sources import refresh_sources_cmd
@@ -46,6 +49,9 @@ main.add_command(merge_patch_cmd, "merge-patch")
 main.add_command(remove_last_program_cmd, "remove-last-program")
 main.add_command(add_program_cmd, "add-program")
 main.add_command(reconsider_node_cmd, "reconsider-node")
+main.add_command(research_node_cmd, "research-node")
+main.add_command(classify_cip_cmd, "classify-cip")
+main.add_command(classify_freopp_cmd, "classify-freopp")
 main.add_command(test_evidence_url_cmd, "test-evidence-url")
 
 

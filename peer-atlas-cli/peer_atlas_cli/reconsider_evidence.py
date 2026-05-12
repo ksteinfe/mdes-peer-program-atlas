@@ -25,6 +25,7 @@ RECONSIDER_NODES: frozenset[str] = frozenset(
         "curriculum",
         "curriculum_overview",
         "identity",
+        "historical",
         "verification",
     }
 )

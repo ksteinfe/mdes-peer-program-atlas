@@ -41,7 +41,7 @@ const filters = {
 /** When true, filter checkboxes show "(n/total)" counts for each option. */
 let filterPanelShowCounts = false;
 
-const SORT_KEYS = ["institution", "program", "degree", "berkeleySem", "hostModel", "tags"];
+const SORT_KEYS = ["institution", "program", "degree", "berkeleySem", "hostModel", "tags", "freoppCohort"];
 
 /** Max characters for course title in sample list (ellipsis if longer). */
 const COURSE_TITLE_LIST_MAX = 52;
@@ -58,6 +58,9 @@ const EDITABLE_PATHS = [
   "identity.host_academic_units",
   "identity.host_academic_model",
   "identity.location_label",
+  "identity.first_degree_granted_year",
+  "identity.cip_code",
+  "identity.ipeds_unitid",
   "positioning.positioning_summary",
   "positioning.positioning_tags",
   "duration.length_in_berkeley_semesters",
@@ -74,6 +77,7 @@ const EDITABLE_PATHS = [
   "curriculum.curriculum_summary",
   "curriculum.offers_specialization",
   "curriculum.electives.summary",
+  "historical",
 ];
 
 function setStatus(msg) {
@@ -389,6 +393,9 @@ function rowView(p) {
     : [];
   const hostId = typeof ident.host_academic_model === "string" ? ident.host_academic_model : "";
   const berk = dur.length_in_berkeley_semesters;
+  const freopp = p.freopp_roi && typeof p.freopp_roi === "object" ? p.freopp_roi : null;
+  const freoppCohort = freopp && freopp.college_scorecard_cohort_count != null
+    ? Number(freopp.college_scorecard_cohort_count) : null;
   return {
     program: p,
     institution: String(ident.institution_name ?? ""),
@@ -399,6 +406,7 @@ function rowView(p) {
     hostModelLabel: hostModelShortLabel(hostId) || hostId,
     tags,
     tagsSortKey: tags.slice().sort().join(", "),
+    freoppCohort,
   };
 }
 
@@ -449,6 +457,13 @@ function compareRows(a, b) {
     else if (na == null) cmp = 1;
     else if (nb == null) cmp = -1;
     else cmp = na - nb;
+  } else if (k === "freoppCohort") {
+    const na = a.freoppCohort;
+    const nb = b.freoppCohort;
+    if (na == null && nb == null) cmp = 0;
+    else if (na == null) cmp = 1;
+    else if (nb == null) cmp = -1;
+    else cmp = na - nb;
   } else if (k === "tags") {
     cmp = a.tagsSortKey.localeCompare(b.tagsSortKey, undefined, { sensitivity: "base" });
   } else {
@@ -491,7 +506,7 @@ function summarizeWithOtherBucket(entries, rowCount) {
   return out;
 }
 
-const SUMMARY_TABLE_COL_CLASSES = ["col-inst", "col-program", "col-degree", "col-sem", "col-host", "col-tags"];
+const SUMMARY_TABLE_COL_CLASSES = ["col-inst", "col-program", "col-degree", "col-sem", "col-host", "col-tags", "col-freopp"];
 
 /**
  * @param {{ label: string, count: number, detail?: string }[]} rows
@@ -619,6 +634,15 @@ function renderColumnSummaries(list) {
     { tags: true },
   );
 
+  const freoppNote = document.createElement("div");
+  freoppNote.className = "column-summary-block";
+  const freoppNoteList = document.createElement("ul");
+  freoppNoteList.className = "column-summary-list";
+  const freoppNoteLi = document.createElement("li");
+  freoppNoteLi.textContent = "Per FREOPP Graduate Degree study, 2022";
+  freoppNoteList.appendChild(freoppNoteLi);
+  freoppNote.appendChild(freoppNoteList);
+
   root.appendChild(
     buildSummaryTableRow([
       null,
@@ -627,6 +651,7 @@ function renderColumnSummaries(list) {
       semList,
       hostList,
       tagList,
+      freoppNote,
     ]),
   );
 }
@@ -681,6 +706,10 @@ function renderTable() {
     }
     tdTags.appendChild(ul);
     tr.appendChild(tdTags);
+    const tdCohort = document.createElement("td");
+    tdCohort.className = "freopp-cohort-cell";
+    tdCohort.textContent = v.freoppCohort != null ? v.freoppCohort.toLocaleString() : "—";
+    tr.appendChild(tdCohort);
     tr.addEventListener("click", (e) => {
       if (e.target instanceof HTMLElement && e.target.closest("button.tag-pill")) return;
       openDetail(v.program.program_id);
@@ -849,6 +878,146 @@ function buildSampleCoursesSectionHtml(curriculumObj) {
     )} - ${esc(shown)}${ell}</td>${rightTd}</tr>`;
   }
   return `<section class="detail-section detail-section--courses"><h3>Sample courses</h3><table class="sample-courses" aria-label="Core courses"><tbody>${rows}</tbody></table></section>`;
+}
+
+/**
+ * @param {object} p
+ */
+function _fmt_currency(v) {
+  if (v === null || v === undefined) return "—";
+  return "$" + Number(v).toLocaleString("en-US", { maximumFractionDigits: 0 });
+}
+
+function _fmt_num(v) {
+  if (v === null || v === undefined) return "—";
+  return Number(v).toLocaleString("en-US", { maximumFractionDigits: 1 });
+}
+
+function buildFreoppSectionHtml(p) {
+  const f = p.freopp_roi && typeof p.freopp_roi === "object" ? p.freopp_roi : null;
+  let html = `<section class="detail-section"><h3>FREOPP ROI Study 2022</h3>`;
+  if (!f) {
+    const ident = p.identity ?? {};
+    let reason = "No matching record found in the FREOPP Graduate ROI Dataset 2022.";
+    if (!ident.ipeds_unitid) {
+      reason = "No IPEDS UnitID recorded for this institution — run lookup-ipeds-unitids.py to enable FREOPP matching.";
+    } else if (!ident.cip_code || ident.cip_code === "unknown" || ident.cip_code === "INVALID") {
+      reason = "No valid CIP code recorded for this program — run classify-cip to enable FREOPP matching.";
+    }
+    html += `<table class="def-table"><tr><th>Status</th><td>${esc(reason)}</td></tr></table>`;
+    html += `</section>`;
+    return html;
+  }
+
+  if (f.match_confidence === "low") {
+    html += `<p style="color:#b45309;background:#fef3c7;padding:0.4rem 0.6rem;border-radius:4px;margin-bottom:0.5rem;font-size:0.85em">⚠ Low-confidence match — CIP code did not align; matched on degree field, length, and academic context.</p>`;
+  }
+
+  html += `<table class="def-table">`;
+
+  // Program info
+  html += `<tr><th>Degree Field</th><td>${esc(f.degree_field ?? "—")}</td></tr>`;
+  html += `<tr><th>Field Category</th><td>${esc(f.degree_field_category ?? "—")}</td></tr>`;
+  html += `<tr><th>Control</th><td>${esc(f.control ?? "—")}</td></tr>`;
+  html += `<tr><th>Cohort Count</th><td>${f.college_scorecard_cohort_count != null ? f.college_scorecard_cohort_count.toLocaleString() : "—"}</td></tr>`;
+
+  // Cost
+  html += `<tr><th colspan="2" class="def-table-subheader">Cost</th></tr>`;
+  html += `<tr><th>Annual Tuition</th><td>${_fmt_currency(f.annual_tuition)}</td></tr>`;
+  html += `<tr><th>Annual Ed. Spending</th><td>${_fmt_currency(f.annual_education_spending)}</td></tr>`;
+  html += `<tr><th>Completion Rate</th><td>${esc(f.estimated_completion_rate ?? "—")}</td></tr>`;
+
+  // ROI
+  html += `<tr><th colspan="2" class="def-table-subheader">Return on Investment</th></tr>`;
+  html += `<tr><th>% ↑ Lifetime Earnings</th><td>${esc(f.percentage_increase_lifetime_earnings ?? "—")}</td></tr>`;
+  html += `<tr><th>ROI Rank (Master's)</th><td>${f.rank_by_roi_masters != null ? "#" + f.rank_by_roi_masters.toLocaleString() : "—"}</td></tr>`;
+
+  html += `</table>`;
+  html += `<p class="detail-empty" style="font-size:0.8em;margin-top:0.5rem">Source: FREOPP Graduate ROI Dataset 2022 · Credential Level 5 (Master's)</p>`;
+  html += `</section>`;
+  return html;
+}
+
+function buildHistoricalSectionHtml(p) {
+  const hist = Array.isArray(p.historical) ? p.historical : [];
+  const sorted = [...hist].sort((a, b) =>
+    String(b.academic_year ?? "").localeCompare(String(a.academic_year ?? ""))
+  );
+  let html = `<section class="detail-section"><h3>Historical degrees granted</h3>`;
+  if (editMode) {
+    if (hist.length === 0) {
+      html += `<p class="detail-empty">No data yet. Add a row below.</p>`;
+    } else {
+      html += `<table class="def-table"><thead><tr><th>Academic Year</th><th>Degrees Granted</th><th></th></tr></thead><tbody>`;
+      for (let i = 0; i < hist.length; i++) {
+        const e = hist[i] && typeof hist[i] === "object" ? hist[i] : {};
+        const ay = String(e.academic_year ?? "");
+        const dg = e.degrees_granted === null || e.degrees_granted === undefined ? "" : String(e.degrees_granted);
+        html += `<tr>`;
+        html += `<td><input type="text" data-hist-idx="${i}" data-hist-field="academic_year" value="${esc(ay)}" placeholder="e.g. 2022-23" /></td>`;
+        html += `<td><input type="number" data-hist-idx="${i}" data-hist-field="degrees_granted" value="${esc(dg)}" step="1" min="0" /></td>`;
+        html += `<td><button type="button" class="hist-row-remove" data-hist-idx="${i}">Remove</button></td>`;
+        html += `</tr>`;
+      }
+      html += `</tbody></table>`;
+    }
+    html += `<button type="button" id="hist-add-row" style="margin-top:0.5rem">+ Add year</button>`;
+  } else {
+    if (sorted.length === 0) {
+      html += `<p class="detail-empty">No historical degree data collected.</p>`;
+    } else {
+      html += `<table class="def-table"><tr><th>Academic Year</th><th>Degrees Granted</th></tr>`;
+      for (const e of sorted) {
+        const ay = String(e.academic_year ?? "");
+        const dg = e.degrees_granted === null || e.degrees_granted === undefined ? "—" : String(e.degrees_granted);
+        html += `<tr><td>${esc(ay)}</td><td>${esc(dg)}</td></tr>`;
+      }
+      html += `</table>`;
+    }
+  }
+  html += `</section>`;
+  return html;
+}
+
+function onHistInput(e) {
+  const t = e.target;
+  if (!(t instanceof HTMLInputElement)) return;
+  const idx = parseInt(/** @type {HTMLElement} */ (t).dataset.histIdx ?? "", 10);
+  const field = /** @type {HTMLElement} */ (t).dataset.histField;
+  if (isNaN(idx) || !field || !detailProgramId) return;
+  const p = findProgram(detailProgramId);
+  if (!p) return;
+  if (!Array.isArray(p.historical)) p.historical = [];
+  const entry = p.historical[idx];
+  if (!entry || typeof entry !== "object") return;
+  if (field === "degrees_granted") {
+    const s = t.value.trim();
+    entry.degrees_granted = s === "" ? null : Number(s);
+  } else {
+    entry[field] = t.value;
+  }
+  syncEditChrome();
+}
+
+function onHistRemove(e) {
+  const t = /** @type {HTMLElement} */ (e.currentTarget);
+  const idx = parseInt(t.dataset.histIdx ?? "", 10);
+  if (isNaN(idx) || !detailProgramId) return;
+  const p = findProgram(detailProgramId);
+  if (!p || !Array.isArray(p.historical)) return;
+  p.historical.splice(idx, 1);
+  renderDetailBody();
+  syncEditChrome();
+}
+
+function onHistAddRow() {
+  if (!detailProgramId) return;
+  const p = findProgram(detailProgramId);
+  if (!p) return;
+  if (!Array.isArray(p.historical)) p.historical = [];
+  p.historical.push({ academic_year: "", degrees_granted: null });
+  renderDetailBody();
+  syncEditChrome();
 }
 
 /**
@@ -1219,6 +1388,16 @@ function renderDetailBody() {
     })
     .join("");
 
+  const cipIdVal = String(ident.cip_code ?? "");
+  const cipItems = (categories.cip_codes?.items ?? []).filter((x) => x && x.id);
+  const cipIds = new Set(cipItems.map((x) => x.id));
+  let cipOptions = cipItems
+    .map((x) => `<option value="${esc(x.id)}">${esc(x.id)}${x.label && x.label !== x.id ? " — " + esc(x.label) : ""}</option>`)
+    .join("");
+  if (cipIdVal && !cipIds.has(cipIdVal)) {
+    cipOptions = `<option value="${esc(cipIdVal)}">${esc(cipIdVal)}</option>` + cipOptions;
+  }
+
   const unitsStr = (ident.host_academic_units ?? []).join(", ");
 
   /** @param {string} path @param {string} label @param {string} inner @returns {string} */
@@ -1273,6 +1452,21 @@ function renderDetailBody() {
       "Location",
       `<input type="text" data-path="identity.location_label" value="${esc(ident.location_label ?? "")}" />`
     );
+    html += fieldRow(
+      "identity.first_degree_granted_year",
+      "First degree year",
+      `<input type="text" data-path="identity.first_degree_granted_year" value="${esc(String(ident.first_degree_granted_year ?? ""))}" placeholder="e.g. 1998 or unknown" />`
+    );
+    html += fieldRow(
+      "identity.cip_code",
+      "CIP code",
+      `<select data-path="identity.cip_code">${cipOptions}</select>`
+    );
+    html += fieldRow(
+      "identity.ipeds_unitid",
+      "IPEDS UnitID",
+      `<input type="text" data-path="identity.ipeds_unitid" value="${esc(String(ident.ipeds_unitid ?? ""))}" placeholder="e.g. 110635" />`
+    );
   } else {
     html += `<tr><th>Institution</th><td>${esc(ident.institution_name ?? "")}</td></tr>`;
     html += `<tr><th>Program</th><td>${esc(ident.program_name ?? "")}</td></tr>`;
@@ -1281,6 +1475,12 @@ function renderDetailBody() {
     html += `<tr><th>Host academic units</th><td>${esc(unitsStr)}</td></tr>`;
     html += `<tr><th>Host academic model</th><td>${esc(labelForId("host_academic_models", String(ident.host_academic_model ?? "")))}</td></tr>`;
     html += `<tr><th>Location</th><td>${esc(ident.location_label ?? "")}</td></tr>`;
+    html += `<tr><th>First degree year</th><td>${esc(String(ident.first_degree_granted_year ?? ""))}</td></tr>`;
+    const cipLabel = labelForId("cip_codes", cipIdVal);
+    html += `<tr><th>CIP code</th><td>${esc(cipIdVal)}${cipLabel && cipLabel !== cipIdVal ? " — " + esc(cipLabel) : ""}</td></tr>`;
+    if (ident.ipeds_unitid) {
+      html += `<tr><th>IPEDS UnitID</th><td>${esc(String(ident.ipeds_unitid))}</td></tr>`;
+    }
   }
   html += `</table></section>`;
 
@@ -1433,7 +1633,11 @@ function renderDetailBody() {
   }
   html += `</table></section>`;
 
+  html += buildHistoricalSectionHtml(p);
+
   html += buildSampleCoursesSectionHtml(cur);
+
+  html += buildFreoppSectionHtml(p);
 
   root.innerHTML = html;
 
@@ -1442,6 +1646,8 @@ function renderDetailBody() {
   if (editMode) {
     const selHost = root.querySelector('[data-path="identity.host_academic_model"]');
     if (selHost instanceof HTMLSelectElement) selHost.value = String(ident.host_academic_model ?? "");
+    const selCip = root.querySelector('[data-path="identity.cip_code"]');
+    if (selCip instanceof HTMLSelectElement) selCip.value = String(ident.cip_code ?? "");
     const selDur = root.querySelector('[data-path="duration.duration_category"]');
     if (selDur instanceof HTMLSelectElement) selDur.value = String(dur.duration_category ?? "");
     const selUnit = root.querySelector('[data-path="curriculum.unit_system"]');
@@ -1467,6 +1673,14 @@ function renderDetailBody() {
         if (path) resetField(path);
       });
     });
+    root.querySelectorAll("input[data-hist-idx]").forEach((el) => {
+      el.addEventListener("input", onHistInput);
+    });
+    root.querySelectorAll(".hist-row-remove").forEach((btn) => {
+      btn.addEventListener("click", onHistRemove);
+    });
+    const histAddBtn = root.querySelector("#hist-add-row");
+    if (histAddBtn) histAddBtn.addEventListener("click", onHistAddRow);
   }
 }
 

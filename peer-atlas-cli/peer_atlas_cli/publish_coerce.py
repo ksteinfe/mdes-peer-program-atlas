@@ -17,8 +17,12 @@ _STRICT_NULLABLE_KEYS: frozenset[str] = frozenset(
         "estimated_elective_course_count",
         "source_url",
         "secondary_type",
+        "degrees_granted",
     }
 )
+
+# Keys where null must become "unknown" (not "") because the schema requires minLength: 1
+_NONE_TO_UNKNOWN_KEYS: frozenset[str] = frozenset({"first_degree_granted_year"})
 
 
 def coerce_none_strings_for_publish(program: dict[str, Any]) -> None:
@@ -27,7 +31,9 @@ def coerce_none_strings_for_publish(program: dict[str, Any]) -> None:
     def walk(obj: Any) -> None:
         if isinstance(obj, dict):
             for k, v in list(obj.items()):
-                if v is None and k not in _STRICT_NULLABLE_KEYS:
+                if v is None and k in _NONE_TO_UNKNOWN_KEYS:
+                    obj[k] = "unknown"
+                elif v is None and k not in _STRICT_NULLABLE_KEYS:
                     obj[k] = ""
                 elif isinstance(v, (dict, list)):
                     walk(v)

@@ -54,6 +54,7 @@ NODE_PROMPTS: dict[str, str] = {
     "degree_cost": "nodes/degree_cost.md",
     "curriculum": "nodes/curriculum.md",
     "identity": "nodes/identity.md",
+    "historical": "nodes/historical.md",
     "verification": "nodes/verification.md",
 }
 
@@ -63,6 +64,7 @@ INGEST_MAIN_NODES: tuple[str, ...] = (
     "degree_cost",
     "curriculum_overview",
     "identity",
+    "historical",
 )
 
 
@@ -327,8 +329,8 @@ def run_node_step(
                 f"got {sorted(keys)!r}"
             )
         subtree = parsed.get(node)
-        if not isinstance(subtree, dict):
-            raise ValueError(f"LLM value for {node!r} must be an object")
+        if not isinstance(subtree, (dict, list)):
+            raise ValueError(f"LLM value for {node!r} must be an object or array")
         if node == "curriculum":
             coalesce_curriculum_subtree_from_llm(subtree)
         program[node] = copy.deepcopy(subtree)
@@ -554,3 +556,120 @@ def run_curriculum_course_patch(
                 raw=last_raw,
                 errors=last_errors,
             )
+
+
+def run_cip_code_step(
+    *,
+    client: LLMClient,
+    program: dict[str, Any],
+    categories_json: str,
+    system: str = "You output only valid JSON. No prose.",
+    repo_root: pathlib.Path | None = None,
+    max_llm_attempts: int = 3,
+) -> str:
+    """
+    Single LLM call to classify identity.cip_code from existing program description.
+
+    No web evidence is fetched. The LLM receives only the slim program context
+    (identity + positioning summary + curriculum summary) and the cip_codes category
+    list. Exactly one llm_rationales entry with feature='identity.cip_code' is kept.
+
+    Returns the raw LLM response string, or "" if the call was skipped because
+    the program already has a valid cip_code or lacks an ipeds_unitid.
+    """
+    ident = program.get("identity") or {}
+    pos   = program.get("positioning") or {}
+    cur   = program.get("curriculum") or {}
+
+    # 1. No IPEDS UnitID → CIP not applicable; null without an LLM call.
+    if not ident.get("ipeds_unitid"):
+        ident["cip_code"] = None
+        return ""
+
+    # 2. Already has a valid classification → skip.
+    current_cip = ident.get("cip_code")
+    if current_cip is not None and current_cip not in ("unknown", "INVALID"):
+        return ""
+
+    context = {
+        "program_id": program.get("program_id"),
+        "base_url":   program.get("base_url"),
+        "identity": {
+            "institution_name":         ident.get("institution_name"),
+            "program_name":             ident.get("program_name"),
+            "credential_name":          ident.get("credential_name"),
+            "degree_type":              ident.get("degree_type"),
+            "host_academic_units":      ident.get("host_academic_units"),
+            "host_academic_model":      ident.get("host_academic_model"),
+            "location_label":           ident.get("location_label"),
+            "ipeds_unitid":             ident.get("ipeds_unitid"),
+        },
+        "positioning_summary": pos.get("positioning_summary"),
+        "curriculum_summary":  cur.get("curriculum_summary"),
+    }
+    context_json = json.dumps(context, indent=2, ensure_ascii=False)
+
+    tmpl = load_prompt("nodes/cip_code.md")
+    base_user = render_template(
+        tmpl,
+        PROGRAM_CONTEXT=context_json,
+        CATEGORIES=categories_json,
+    )
+    user = base_user
+    last_raw = ""
+    last_errors: list[str] = []
+
+    for attempt in range(max(1, max_llm_attempts)):
+        raw = client.complete(
+            system=system,
+            user=user,
+            transcript_step="cip-code-classify",
+        )
+        last_raw = raw
+        parsed = parse_json_response(raw)
+        if not isinstance(parsed, dict):
+            raise ValueError("CIP code LLM response must be a JSON object")
+
+        cip_value = parsed.get("cip_code")   # string, "unknown", or null
+        rationale = parsed.get("rationale")
+
+        # Update the field
+        if not isinstance(ident, dict):
+            program["identity"] = {}
+            ident = program["identity"]
+        ident["cip_code"] = cip_value
+
+        # Replace any existing identity.cip_code rationale, append new one
+        rationales: list[dict[str, Any]] = program.setdefault("llm_rationales", [])
+        program["llm_rationales"] = [
+            r for r in rationales
+            if not (isinstance(r, dict) and r.get("feature") == "identity.cip_code")
+        ]
+        if isinstance(rationale, dict):
+            coerced = coerce_llm_rationale_object(
+                rationale, default_source_url=str(program.get("base_url") or "")
+            )
+            if coerced is not None:
+                program["llm_rationales"].append(coerced)
+
+        if repo_root is None:
+            return raw
+
+        last_errors = _validate_program_with_enum_repairs(repo_root, program)
+        if not last_errors:
+            return raw
+
+        if attempt + 1 >= max_llm_attempts:
+            raise LLMSchemaValidationError(
+                f"CIP code schema validation failed after {max_llm_attempts} attempt(s)",
+                raw=last_raw,
+                errors=last_errors,
+            )
+        user = (
+            base_user
+            + "\n\nYour previous answer was rejected by the corpus JSON Schema. "
+            "Return a JSON object with keys 'cip_code' and 'rationale'. "
+            "Issues (fix all that apply):\n"
+            + "\n".join(last_errors[:40])
+        )
+    return last_raw
